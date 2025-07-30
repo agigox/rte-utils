@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import "./Histogramme.css";
 
 interface HistogrammeProps {
   /** Maximum value for the bar chart */
@@ -122,87 +123,28 @@ export const Histogramme: React.FC<HistogrammeProps> = ({
 
     previousValueRef.current = relativeValue;
   }, [relativeValue, maxValue, barHeight]);
-  const containerStyle: React.CSSProperties = {
-    backgroundColor,
-    position: "relative",
-    width: `${width}px`,
-    height: "auto",
-    padding: "34px 0",
-  };
-
-  const contentStyle: React.CSSProperties = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    gap: "16px",
-    width: "100%",
-  };
-
-  const histogramStyle: React.CSSProperties = {
-    height: `${barHeight}px`,
-    width: "32px",
-    position: "relative",
-  };
-
-  const imageStyle: React.CSSProperties = {
-    display: "block",
-    maxWidth: "none",
-    width: "100%",
-    height: "100%",
-  };
-
-  const textContainerStyle: React.CSSProperties = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    gap: "2px",
-    width: "100%",
-  };
-
-  const valueContainerStyle: React.CSSProperties = {
-    textAlign: "center",
-    width: "40px",
-  };
-
-  const valueStyle: React.CSSProperties = {
-    fontFamily: "'Open Sans', sans-serif",
-    fontWeight: 600,
-    fontSize: "16px",
-    lineHeight: "14px",
-    color: "#FFFFFF",
-    margin: 0,
-    display: "block",
-  };
-
-  const unitStyle: React.CSSProperties = {
-    fontFamily: "'Open Sans', sans-serif",
-    fontWeight: 600,
-    fontSize: "12px",
-    color: "#FFFFFF",
-    margin: 0,
-    display: "block",
-  };
-
-  const labelStyle: React.CSSProperties = {
-    fontFamily: "'Open Sans', sans-serif",
-    fontWeight: 400,
-    fontSize: "12px",
-    lineHeight: "18px",
-    color: "#DDDFE0",
-    textAlign: "left",
-    whiteSpace: "nowrap",
-    margin: 0,
-  };
 
   return (
-    <div style={containerStyle}>
-      <div style={contentStyle}>
-        <div style={histogramStyle}>
+    <div 
+      className="histogramme-container"
+      style={{ 
+        backgroundColor,
+        width: `${width}px`
+      }}
+    >
+      <div className="histogramme-content">
+        <div 
+          className="histogramme-bar"
+          style={{
+            height: `${barHeight}px`,
+            width: "32px"
+          }}
+        >
           <svg
             width="32"
             height={barHeight}
             viewBox={`0 0 32 ${barHeight}`}
-            style={{ display: "block" }}
+            className="histogramme-svg"
           >
             {/* Background bar (max value) */}
             <rect
@@ -224,13 +166,13 @@ export const Histogramme: React.FC<HistogrammeProps> = ({
             />
           </svg>
         </div>
-        <div style={textContainerStyle}>
-          <div style={valueContainerStyle}>
-            <p style={valueStyle}>{value}</p>
-            <p style={unitStyle}>{unit}</p>
+        <div className="histogramme-text-container">
+          <div className="histogramme-value-container">
+            <p className="histogramme-value">{value}</p>
+            <p className="histogramme-unit">{unit}</p>
           </div>
           <div>
-            <p style={labelStyle}>{label}</p>
+            <p className="histogramme-label">{label}</p>
           </div>
         </div>
       </div>

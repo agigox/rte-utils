@@ -1,0 +1,64 @@
+.histogramme-container {
+  position: relative;
+  height: auto;
+  padding: 34px 0;
+}
+
+.histogramme-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.histogramme-bar {
+  position: relative;
+}
+
+.histogramme-svg {
+  display: block;
+}
+
+.histogramme-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  width: 100%;
+}
+
+.histogramme-value-container {
+  text-align: center;
+  width: 40px;
+}
+
+.histogramme-value {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 14px;
+  color: #FFFFFF;
+  margin: 0;
+  display: block;
+}
+
+.histogramme-unit {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  color: #FFFFFF;
+  margin: 0;
+  display: block;
+}
+
+.histogramme-label {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  color: #DDDFE0;
+  text-align: left;
+  white-space: nowrap;
+  margin: 0;
+}
