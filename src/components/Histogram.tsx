@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
-import "./Histogramme.css";
+import "./Histogram.css";
 
-interface HistogrammeProps {
+interface HistogramProps {
   /** Maximum value configuration with value and color */
   max: {
     value: number;
@@ -12,25 +12,20 @@ interface HistogrammeProps {
     value: number;
     color: string;
   };
-  /** Value to display in text */
-  value: number;
-  /** Unit label (e.g., "MWh") */
-  unit: string;
-  /** Description label (e.g., "Soutirage") */
-  label: string;
-  /** Background color of the container */
-  backgroundColor?: string;
   /** Height of the histogram bar in pixels */
   barHeight?: number;
+  /** Width of the histogram bar in pixels */
+  barWidth?: number;
+  /** Child components (typically text content) */
+  children?: React.ReactNode;
 }
 
-export const Histogramme: React.FC<HistogrammeProps> = ({
+export const Histogram: React.FC<HistogramProps> = ({
   max,
   relative,
-  value,
-  unit,
-  label,
   barHeight = 103,
+  barWidth = 32,
+  children,
 }) => {
   // Animation state
   const [animatedHeight, setAnimatedHeight] = useState(0);
@@ -127,27 +122,27 @@ export const Histogramme: React.FC<HistogrammeProps> = ({
 
   return (
     <div 
-      className="histogramme-container"
+      className="histogram-container"
     >
-      <div className="histogramme-content">
+      <div className="histogram-content">
         <div 
-          className="histogramme-bar"
+          className="histogram-bar"
           style={{
             height: `${barHeight}px`,
-            width: "32px"
+            width: `${barWidth}px`
           }}
         >
           <svg
-            width="32"
+            width={barWidth}
             height={barHeight}
-            viewBox={`0 0 32 ${barHeight}`}
-            className="histogramme-svg"
+            viewBox={`0 0 ${barWidth} ${barHeight}`}
+            className="histogram-svg"
           >
             {/* Background bar (max value) */}
             <rect
               x="0"
               y={barHeight - maxBarHeight}
-              width="32"
+              width={barWidth}
               height={maxBarHeight}
               fill={max.color}
               rx="2"
@@ -156,22 +151,18 @@ export const Histogramme: React.FC<HistogrammeProps> = ({
             <rect
               x="0"
               y={barHeight - currentRelativeBarHeight}
-              width="32"
+              width={barWidth}
               height={currentRelativeBarHeight}
               fill={relative.color}
               rx="2"
             />
           </svg>
         </div>
-        <div className="histogramme-text-container">
-          <div className="histogramme-value-container">
-            <p className="histogramme-value">{value}</p>
-            <p className="histogramme-unit">{unit}</p>
+        {children && (
+          <div className="histogram-text-container">
+            {children}
           </div>
-          <div>
-            <p className="histogramme-label">{label}</p>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

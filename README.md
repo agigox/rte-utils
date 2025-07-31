@@ -23,19 +23,25 @@ import 'rte-utils/dist/index.css'; // Import the CSS styles
 
 ```tsx
 import React from 'react';
-import { Histogramme } from 'rte-utils';
+import { Histogram } from 'rte-utils';
 import 'rte-utils/dist/index.css';
 
 function App() {
   return (
     <div>
-      <Histogramme
+      <Histogram
         max={{ value: 100, color: "#D3D64E" }}
         relative={{ value: 56, color: "#C0C402" }}
-        value={56}
-        unit="MWh"
-        label="Soutirage"
-      />
+        barWidth={32}
+      >
+        <div className="histogram-value-container">
+          <p className="histogram-value">56</p>
+          <p className="histogram-unit">MWh</p>
+        </div>
+        <div>
+          <p className="histogram-label">Soutirage</p>
+        </div>
+      </Histogram>
     </div>
   );
 }
@@ -47,7 +53,7 @@ export default App;
 
 ```tsx
 import React, { useState } from 'react';
-import { Histogramme } from 'rte-utils';
+import { Histogram } from 'rte-utils';
 import 'rte-utils/dist/index.css';
 
 function EnergyDashboard() {
@@ -55,16 +61,20 @@ function EnergyDashboard() {
 
   return (
     <div style={{ display: 'flex', gap: '1rem' }}>
-      <Histogramme
+      <Histogram
         max={{ value: 100, color: "#D3D64E" }}
         relative={{ value: currentValue, color: "#C0C402" }}
-        value={currentValue}
-        unit="MWh"
-        label="Consommation"
-        backgroundColor="#0066cc"
         barHeight={120}
-        width={60}
-      />
+        barWidth={40}
+      >
+        <div className="histogram-value-container">
+          <p className="histogram-value">{currentValue}</p>
+          <p className="histogram-unit">MWh</p>
+        </div>
+        <div>
+          <p className="histogram-label">Consommation</p>
+        </div>
+      </Histogram>
       
       <button onClick={() => setCurrentValue(prev => prev + 10)}>
         Increase (+10)
@@ -76,7 +86,7 @@ function EnergyDashboard() {
 
 ## Components
 
-### Histogramme
+### Histogram
 
 A histogram component with smooth animations for energy data visualization.
 
@@ -86,12 +96,9 @@ A histogram component with smooth animations for energy data visualization.
 |------|------|----------|---------|-------------|
 | `max` | `{ value: number; color: string }` | ✅ | - | Maximum value configuration with value and color |
 | `relative` | `{ value: number; color: string }` | ✅ | - | Relative/current value configuration with value and color |
-| `value` | `number` | ✅ | - | Value to display in text |
-| `unit` | `string` | ✅ | - | Unit label (e.g., "MWh") |
-| `label` | `string` | ✅ | - | Description label (e.g., "Soutirage") |
-| `backgroundColor` | `string` | ❌ | `#005896` | Background color of the container |
 | `barHeight` | `number` | ❌ | `103` | Height of the histogram bar in pixels |
-| `width` | `number` | ❌ | `54` | Width of the component in pixels |
+| `barWidth` | `number` | ❌ | `32` | Width of the histogram bar in pixels |
+| `children` | `React.ReactNode` | ❌ | - | Child components (typically text content) |
 
 #### Features
 
@@ -113,15 +120,15 @@ import 'rte-utils/dist/index.css';
 
 You can override the default styles by targeting the CSS classes:
 
-- `.histogramme-container`
-- `.histogramme-content`
-- `.histogramme-bar`
-- `.histogramme-svg`
-- `.histogramme-text-container`
-- `.histogramme-value-container`
-- `.histogramme-value`
-- `.histogramme-unit`
-- `.histogramme-label`
+- `.histogram-container`
+- `.histogram-content`
+- `.histogram-bar`
+- `.histogram-svg`
+- `.histogram-text-container`
+- `.histogram-value-container`
+- `.histogram-value`
+- `.histogram-unit`
+- `.histogram-label`
 
 ## License
 

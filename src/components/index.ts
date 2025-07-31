@@ -1,2 +1,2 @@
 // Export all components here
-export { Histogramme } from './Histogramme';
+export { Histogram } from './Histogram';
