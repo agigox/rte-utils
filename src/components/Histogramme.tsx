@@ -2,10 +2,16 @@ import React, { useEffect, useState, useRef } from "react";
 import "./Histogramme.css";
 
 interface HistogrammeProps {
-  /** Maximum value for the bar chart */
-  maxValue: number;
-  /** Relative/current value to compare against max */
-  relativeValue: number;
+  /** Maximum value configuration with value and color */
+  max: {
+    value: number;
+    color: string;
+  };
+  /** Relative/current value configuration with value and color */
+  relative: {
+    value: number;
+    color: string;
+  };
   /** Value to display in text */
   value: number;
   /** Unit label (e.g., "MWh") */
@@ -16,19 +22,15 @@ interface HistogrammeProps {
   backgroundColor?: string;
   /** Height of the histogram bar in pixels */
   barHeight?: number;
-  /** Width of the component in pixels */
-  width?: number;
 }
 
 export const Histogramme: React.FC<HistogrammeProps> = ({
-  maxValue,
-  relativeValue,
+  max,
+  relative,
   value,
   unit,
   label,
-  backgroundColor = "#005896",
   barHeight = 103,
-  width = 54,
 }) => {
   // Animation state
   const [animatedHeight, setAnimatedHeight] = useState(0);
@@ -37,8 +39,7 @@ export const Histogramme: React.FC<HistogrammeProps> = ({
   const isInitialMount = useRef(true);
 
   // Calculate the height percentages for the two bars
-  const maxPercentage = 100;
-  const relativePercentage = Math.min((relativeValue / maxValue) * 100, 100);
+  const relativePercentage = Math.min((relative.value / max.value) * 100, 100);
 
   // Calculate actual heights in pixels
   const maxBarHeight = barHeight;
@@ -50,14 +51,14 @@ export const Histogramme: React.FC<HistogrammeProps> = ({
   // Animation effect
   useEffect(() => {
     const targetHeight =
-      (Math.min((relativeValue / maxValue) * 100, 100) / 100) * barHeight;
+      (Math.min((relative.value / max.value) * 100, 100) / 100) * barHeight;
 
     // On initial mount, start from 0
     if (isInitialMount.current) {
       isInitialMount.current = false;
       setIsAnimating(true);
       setAnimatedHeight(0);
-      previousValueRef.current = relativeValue;
+      previousValueRef.current = relative.value;
 
       const startTime = Date.now();
       const duration = 1000; // 2 seconds
@@ -86,10 +87,10 @@ export const Histogramme: React.FC<HistogrammeProps> = ({
     // For subsequent updates, animate from previous value to new value
     if (
       previousValueRef.current !== null &&
-      previousValueRef.current !== relativeValue
+      previousValueRef.current !== relative.value
     ) {
       const previousHeight =
-        (Math.min((previousValueRef.current / maxValue) * 100, 100) / 100) *
+        (Math.min((previousValueRef.current / max.value) * 100, 100) / 100) *
         barHeight;
       setIsAnimating(true);
       setAnimatedHeight(previousHeight);
@@ -121,16 +122,12 @@ export const Histogramme: React.FC<HistogrammeProps> = ({
       setAnimatedHeight(targetHeight);
     }
 
-    previousValueRef.current = relativeValue;
-  }, [relativeValue, maxValue, barHeight]);
+    previousValueRef.current = relative.value;
+  }, [relative.value, max.value, barHeight]);
 
   return (
     <div 
       className="histogramme-container"
-      style={{ 
-        backgroundColor,
-        width: `${width}px`
-      }}
     >
       <div className="histogramme-content">
         <div 
@@ -152,7 +149,7 @@ export const Histogramme: React.FC<HistogrammeProps> = ({
               y={barHeight - maxBarHeight}
               width="32"
               height={maxBarHeight}
-              fill="#D3D64E"
+              fill={max.color}
               rx="2"
             />
             {/* Foreground bar (relative value) with animation */}
@@ -161,7 +158,7 @@ export const Histogramme: React.FC<HistogrammeProps> = ({
               y={barHeight - currentRelativeBarHeight}
               width="32"
               height={currentRelativeBarHeight}
-              fill="#C0C402"
+              fill={relative.color}
               rx="2"
             />
           </svg>

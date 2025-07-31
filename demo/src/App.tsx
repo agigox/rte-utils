@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Histogramme } from "rte-utils";
-
+import 'rte-utils/dist/index.css'; // Import the CSS styles
 function App() {
   const [variableValue, setVariableValue] = useState(56);
   return (
@@ -28,19 +28,18 @@ function App() {
           <h3>Histogramme</h3>
           <div style={{ display: "flex", gap: "1rem", alignItems: "start" }}>
             <Histogramme
-              maxValue={100}
-              relativeValue={variableValue}
+              max={{ value: 100, color: "#D3D64E" }}
+              relative={{ value: variableValue, color: "#C0C402" }}
               value={variableValue}
               unit="MWh"
               label="Soutirage"
             />
             <Histogramme
-              maxValue={80}
-              relativeValue={42}
+              max={{ value: 80, color: "#C7ABFA" }}
+              relative={{ value: 42, color: "#A77CF7" }}
               value={42}
               unit="MW"
               label="Injection"
-              backgroundColor="#0066cc"
             />
           </div>
         </div>

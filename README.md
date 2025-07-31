@@ -30,8 +30,8 @@ function App() {
   return (
     <div>
       <Histogramme
-        maxValue={100}
-        relativeValue={56}
+        max={{ value: 100, color: "#D3D64E" }}
+        relative={{ value: 56, color: "#C0C402" }}
         value={56}
         unit="MWh"
         label="Soutirage"
@@ -56,8 +56,8 @@ function EnergyDashboard() {
   return (
     <div style={{ display: 'flex', gap: '1rem' }}>
       <Histogramme
-        maxValue={100}
-        relativeValue={currentValue}
+        max={{ value: 100, color: "#D3D64E" }}
+        relative={{ value: currentValue, color: "#C0C402" }}
         value={currentValue}
         unit="MWh"
         label="Consommation"
@@ -84,8 +84,8 @@ A histogram component with smooth animations for energy data visualization.
 
 | Prop | Type | Required | Default | Description |
 |------|------|----------|---------|-------------|
-| `maxValue` | `number` | ✅ | - | Maximum value for the bar chart |
-| `relativeValue` | `number` | ✅ | - | Relative/current value to compare against max |
+| `max` | `{ value: number; color: string }` | ✅ | - | Maximum value configuration with value and color |
+| `relative` | `{ value: number; color: string }` | ✅ | - | Relative/current value configuration with value and color |
 | `value` | `number` | ✅ | - | Value to display in text |
 | `unit` | `string` | ✅ | - | Unit label (e.g., "MWh") |
 | `label` | `string` | ✅ | - | Description label (e.g., "Soutirage") |
@@ -97,9 +97,9 @@ A histogram component with smooth animations for energy data visualization.
 
 - **Smooth animations**: 2-second Chart.js-style transitions
 - **Incremental updates**: Animations from previous to new values (not from 0)
-- **Two-color visualization**: 
-  - Background bar (`#D3D64E`) represents the maximum value
-  - Foreground bar (`#C0C402`) represents the relative value
+- **Dynamic two-color visualization**: 
+  - Background bar color defined by `max.color` represents the maximum value
+  - Foreground bar color defined by `relative.color` represents the relative value
 - **Customizable**: Colors, dimensions, and styling options
 - **TypeScript support**: Full type definitions included
 
