@@ -8,8 +8,13 @@
 .histogram-container {
   position: relative;
   height: auto;
-  border: 3px solid #2C2F33;
+  
    max-width: 54px;
+}
+
+.histogram-container--horizontal {
+  max-width: none;
+  width: auto;
 }
 
 .histogram-content {
@@ -18,6 +23,12 @@
   align-items: center;
   gap: 8px;
   width: 100%;
+}
+
+.histogram-content--horizontal {
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
 }
 
 .histogram-bar {
@@ -34,6 +45,11 @@
   align-items: center;
   gap: 0;
   width: 100%;
+}
+
+.histogram-text-container--horizontal {
+  align-items: flex-start;
+  margin-left: 8px;
 }
 
 .histogram-value-container {

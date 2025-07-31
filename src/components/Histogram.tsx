@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import "./Histogram.css";
 
 interface HistogramProps {
@@ -6,6 +6,7 @@ interface HistogramProps {
   max: {
     value: number;
     color: string;
+    opacity?: number;
   };
   /** Relative/current value configuration with value and color */
   relative: {
@@ -16,6 +17,15 @@ interface HistogramProps {
   barHeight?: number;
   /** Width of the histogram bar in pixels */
   barWidth?: number;
+  /** Orientation of the histogram - 'vertical' or 'horizontal' */
+  orientation?: 'vertical' | 'horizontal';
+  /** Corner radius configuration for individual corners */
+  cornerRadius?: {
+    topLeft?: number;
+    topRight?: number;
+    bottomLeft?: number;
+    bottomRight?: number;
+  };
   /** Child components (typically text content) */
   children?: React.ReactNode;
 }
@@ -25,141 +35,141 @@ export const Histogram: React.FC<HistogramProps> = ({
   relative,
   barHeight = 103,
   barWidth = 32,
+  orientation = 'vertical',
+  cornerRadius,
   children,
 }) => {
-  // Animation state
   const [animatedHeight, setAnimatedHeight] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const previousValueRef = useRef<number | null>(null);
-  const isInitialMount = useRef(true);
+  const [animatedWidth, setAnimatedWidth] = useState(0);
 
-  // Calculate the height percentages for the two bars
-  const relativePercentage = Math.min((relative.value / max.value) * 100, 100);
+  // Calculate target dimensions based on orientation
+  const targetHeight = (Math.min((relative.value / max.value) * 100, 100) / 100) * barHeight;
+  const targetWidth = (Math.min((relative.value / max.value) * 100, 100) / 100) * barWidth;
 
-  // Calculate actual heights in pixels
-  const maxBarHeight = barHeight;
-  const targetRelativeBarHeight = (relativePercentage / 100) * barHeight;
-  const currentRelativeBarHeight = isAnimating
-    ? animatedHeight
-    : targetRelativeBarHeight;
-
-  // Animation effect
+  // Simple Chart.js-like animation: always animate from 0 to target
   useEffect(() => {
-    const targetHeight =
-      (Math.min((relative.value / max.value) * 100, 100) / 100) * barHeight;
+    setAnimatedHeight(0);
+    setAnimatedWidth(0);
+    
+    const startTime = Date.now();
+    const duration = 1000;
 
-    // On initial mount, start from 0
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-      setIsAnimating(true);
-      setAnimatedHeight(0);
-      previousValueRef.current = relative.value;
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
 
-      const startTime = Date.now();
-      const duration = 1000; // 2 seconds
+      // Chart.js-like easing (easeOutQuart)
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      
+      setAnimatedHeight(targetHeight * easeOutQuart);
+      setAnimatedWidth(targetWidth * easeOutQuart);
 
-      const animate = () => {
-        const elapsed = Date.now() - startTime;
-        const progress = Math.min(elapsed / duration, 1);
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
 
-        // Chart.js-like easing function (easeOutQuart)
-        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+    requestAnimationFrame(animate);
+  }, [targetHeight, targetWidth]);
 
-        const currentHeight = targetHeight * easeOutQuart;
-        setAnimatedHeight(currentHeight);
+  const displayWidth = orientation === 'horizontal' ? barHeight : barWidth;
+  const displayHeight = orientation === 'horizontal' ? barWidth : barHeight;
+  const svgWidth = orientation === 'horizontal' ? barHeight : barWidth;
+  const svgHeight = orientation === 'horizontal' ? barWidth : barHeight;
 
-        if (progress < 1) {
-          requestAnimationFrame(animate);
-        } else {
-          setIsAnimating(false);
-        }
-      };
+  // Helper function to create rounded rectangle path
+  const createRoundedRectPath = (
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    radii: { topLeft: number; topRight: number; bottomLeft: number; bottomRight: number }
+  ) => {
+    const { topLeft, topRight, bottomLeft, bottomRight } = radii;
+    
+    return `
+      M ${x + topLeft} ${y}
+      L ${x + width - topRight} ${y}
+      Q ${x + width} ${y} ${x + width} ${y + topRight}
+      L ${x + width} ${y + height - bottomRight}
+      Q ${x + width} ${y + height} ${x + width - bottomRight} ${y + height}
+      L ${x + bottomLeft} ${y + height}
+      Q ${x} ${y + height} ${x} ${y + height - bottomLeft}
+      L ${x} ${y + topLeft}
+      Q ${x} ${y} ${x + topLeft} ${y}
+      Z
+    `.trim().replace(/\s+/g, ' ');
+  };
 
-      requestAnimationFrame(animate);
-      return;
-    }
-
-    // For subsequent updates, animate from previous value to new value
-    if (
-      previousValueRef.current !== null &&
-      previousValueRef.current !== relative.value
-    ) {
-      const previousHeight =
-        (Math.min((previousValueRef.current / max.value) * 100, 100) / 100) *
-        barHeight;
-      setIsAnimating(true);
-      setAnimatedHeight(previousHeight);
-
-      const startTime = Date.now();
-      const duration = 2000; // 2 seconds
-
-      const animate = () => {
-        const elapsed = Date.now() - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-
-        // Chart.js-like easing function (easeOutQuart)
-        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-
-        const currentHeight =
-          previousHeight + (targetHeight - previousHeight) * easeOutQuart;
-        setAnimatedHeight(currentHeight);
-
-        if (progress < 1) {
-          requestAnimationFrame(animate);
-        } else {
-          setIsAnimating(false);
-        }
-      };
-
-      requestAnimationFrame(animate);
-    } else if (previousValueRef.current === null) {
-      // Set initial value without animation if no previous value
-      setAnimatedHeight(targetHeight);
-    }
-
-    previousValueRef.current = relative.value;
-  }, [relative.value, max.value, barHeight]);
+  // Default corner radius values
+  const defaultCornerRadius = { topLeft: 2, topRight: 2, bottomLeft: 2, bottomRight: 2 };
+  const corners = cornerRadius ? {
+    topLeft: cornerRadius.topLeft ?? defaultCornerRadius.topLeft,
+    topRight: cornerRadius.topRight ?? defaultCornerRadius.topRight,
+    bottomLeft: cornerRadius.bottomLeft ?? defaultCornerRadius.bottomLeft,
+    bottomRight: cornerRadius.bottomRight ?? defaultCornerRadius.bottomRight,
+  } : defaultCornerRadius;
 
   return (
-    <div 
-      className="histogram-container"
-    >
-      <div className="histogram-content">
+    <div className={`histogram-container ${orientation === 'horizontal' ? 'histogram-container--horizontal' : ''}`}>
+      <div className={`histogram-content ${orientation === 'horizontal' ? 'histogram-content--horizontal' : ''}`}>
         <div 
           className="histogram-bar"
           style={{
-            height: `${barHeight}px`,
-            width: `${barWidth}px`
+            height: `${displayHeight}px`,
+            width: `${displayWidth}px`
           }}
         >
           <svg
-            width={barWidth}
-            height={barHeight}
-            viewBox={`0 0 ${barWidth} ${barHeight}`}
+            width={svgWidth}
+            height={svgHeight}
+            viewBox={`0 0 ${svgWidth} ${svgHeight}`}
             className="histogram-svg"
           >
             {/* Background bar (max value) */}
-            <rect
-              x="0"
-              y={barHeight - maxBarHeight}
-              width={barWidth}
-              height={maxBarHeight}
+            <path
+              d={createRoundedRectPath(0, 0, svgWidth, svgHeight, corners)}
               fill={max.color}
-              rx="2"
+              fillOpacity={max.opacity || 1}
             />
             {/* Foreground bar (relative value) with animation */}
-            <rect
-              x="0"
-              y={barHeight - currentRelativeBarHeight}
-              width={barWidth}
-              height={currentRelativeBarHeight}
-              fill={relative.color}
-              rx="2"
-            />
+            {orientation === 'vertical' ? (
+              <path
+                d={createRoundedRectPath(
+                  0,
+                  svgHeight - animatedHeight,
+                  svgWidth,
+                  animatedHeight,
+                  {
+                    topLeft: animatedHeight >= svgHeight ? corners.topLeft : 0,
+                    topRight: animatedHeight >= svgHeight ? corners.topRight : 0,
+                    bottomLeft: corners.bottomLeft,
+                    bottomRight: corners.bottomRight,
+                  }
+                )}
+                fill={relative.color}
+              />
+            ) : (
+              <path
+                d={createRoundedRectPath(
+                  0,
+                  0,
+                  animatedWidth,
+                  svgHeight,
+                  {
+                    topLeft: corners.topLeft,
+                    topRight: animatedWidth >= svgWidth ? corners.topRight : 0,
+                    bottomLeft: corners.bottomLeft,
+                    bottomRight: animatedWidth >= svgWidth ? corners.bottomRight : 0,
+                  }
+                )}
+                fill={relative.color}
+              />
+            )}
           </svg>
         </div>
         {children && (
-          <div className="histogram-text-container">
+          <div className={`histogram-text-container ${orientation === 'horizontal' ? 'histogram-text-container--horizontal' : ''}`}>
             {children}
           </div>
         )}
