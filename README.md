@@ -15,16 +15,16 @@ npm install rte-utils
 You need to import both the component and its CSS styles:
 
 ```tsx
-import { Histogramme } from 'rte-utils';
-import 'rte-utils/dist/index.css'; // Import the CSS styles
+import { Histogram, Chip } from "rte-utils";
+import "rte-utils/dist/index.css"; // Import the CSS styles
 ```
 
 ### Basic Example
 
 ```tsx
-import React from 'react';
-import { Histogram } from 'rte-utils';
-import 'rte-utils/dist/index.css';
+import React from "react";
+import { Histogram } from "rte-utils";
+import "rte-utils/dist/index.css";
 
 function App() {
   return (
@@ -52,15 +52,15 @@ export default App;
 ### Advanced Example with Animation
 
 ```tsx
-import React, { useState } from 'react';
-import { Histogram } from 'rte-utils';
-import 'rte-utils/dist/index.css';
+import React, { useState } from "react";
+import { Histogram } from "rte-utils";
+import "rte-utils/dist/index.css";
 
 function EnergyDashboard() {
   const [currentValue, setCurrentValue] = useState(45);
 
   return (
-    <div style={{ display: 'flex', gap: '1rem' }}>
+    <div style={{ display: "flex", gap: "1rem" }}>
       <Histogram
         max={{ value: 100, color: "#D3D64E" }}
         relative={{ value: currentValue, color: "#C0C402" }}
@@ -75,8 +75,8 @@ function EnergyDashboard() {
           <p className="histogram-label">Consommation</p>
         </div>
       </Histogram>
-      
-      <button onClick={() => setCurrentValue(prev => prev + 10)}>
+
+      <button onClick={() => setCurrentValue((prev) => prev + 10)}>
         Increase (+10)
       </button>
     </div>
@@ -87,18 +87,18 @@ function EnergyDashboard() {
 ### Horizontal Orientation Example
 
 ```tsx
-import React from 'react';
-import { Histogram } from 'rte-utils';
-import 'rte-utils/dist/index.css';
+import React from "react";
+import { Histogram } from "rte-utils";
+import "rte-utils/dist/index.css";
 
 function HorizontalChart() {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
       <Histogram
         max={{ value: 100, color: "#D3D64E" }}
         relative={{ value: 75, color: "#C0C402" }}
-        barWidth={200}  // This becomes height in horizontal mode
-        barHeight={24}  // This becomes width in horizontal mode
+        barWidth={200} // This becomes height in horizontal mode
+        barHeight={24} // This becomes width in horizontal mode
         orientation="horizontal"
       >
         <div className="histogram-value-container">
@@ -117,38 +117,53 @@ function HorizontalChart() {
 ### Custom Corner Radius Example
 
 ```tsx
-import React from 'react';
-import { Histogram } from 'rte-utils';
-import 'rte-utils/dist/index.css';
+import React from "react";
+import { Histogram } from "rte-utils";
+import "rte-utils/dist/index.css";
 
 function CustomCornerChart() {
   return (
-    <div style={{ display: 'flex', gap: '1rem' }}>
+    <div style={{ display: "flex", gap: "1rem" }}>
       {/* Rounded top corners only */}
       <Histogram
         max={{ value: 100, color: "#E0E0E0" }}
         relative={{ value: 60, color: "#4CAF50" }}
         barWidth={32}
         barHeight={120}
-        cornerRadius={{ topLeft: 16, topRight: 16, bottomLeft: 0, bottomRight: 0 }}
+        cornerRadius={{
+          topLeft: 16,
+          topRight: 16,
+          bottomLeft: 0,
+          bottomRight: 0,
+        }}
       />
-      
+
       {/* Fully rounded corners */}
       <Histogram
         max={{ value: 100, color: "#F0F0F0", opacity: 0.5 }}
         relative={{ value: 80, color: "#2196F3" }}
         barWidth={32}
         barHeight={120}
-        cornerRadius={{ topLeft: 16, topRight: 16, bottomLeft: 16, bottomRight: 16 }}
+        cornerRadius={{
+          topLeft: 16,
+          topRight: 16,
+          bottomLeft: 16,
+          bottomRight: 16,
+        }}
       />
-      
+
       {/* Asymmetric corners */}
       <Histogram
         max={{ value: 100, color: "#FFECB3" }}
         relative={{ value: 45, color: "#FF9800" }}
         barWidth={32}
         barHeight={120}
-        cornerRadius={{ topLeft: 20, topRight: 4, bottomLeft: 4, bottomRight: 20 }}
+        cornerRadius={{
+          topLeft: 20,
+          topRight: 4,
+          bottomLeft: 4,
+          bottomRight: 20,
+        }}
       />
     </div>
   );
@@ -158,9 +173,9 @@ function CustomCornerChart() {
 ### Opacity and Advanced Styling Example
 
 ```tsx
-import React from 'react';
-import { Histogram } from 'rte-utils';
-import 'rte-utils/dist/index.css';
+import React from "react";
+import { Histogram } from "rte-utils";
+import "rte-utils/dist/index.css";
 
 function AdvancedStylingChart() {
   return (
@@ -192,22 +207,22 @@ A histogram component with smooth animations for energy data visualization.
 
 #### Props
 
-| Prop | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `max` | `{ value: number; color: string; opacity?: number }` | ✅ | - | Maximum value configuration with value, color, and optional opacity |
-| `relative` | `{ value: number; color: string }` | ✅ | - | Relative/current value configuration with value and color |
-| `barHeight` | `number` | ❌ | `103` | Height of the histogram bar in pixels |
-| `barWidth` | `number` | ❌ | `32` | Width of the histogram bar in pixels |
-| `orientation` | `'vertical' \| 'horizontal'` | ❌ | `'vertical'` | Orientation of the histogram bars |
-| `cornerRadius` | `{ topLeft?: number; topRight?: number; bottomLeft?: number; bottomRight?: number }` | ❌ | `{ topLeft: 2, topRight: 2, bottomLeft: 2, bottomRight: 2 }` | Individual corner radius configuration |
-| `children` | `React.ReactNode` | ❌ | - | Child components (typically text content) |
+| Prop           | Type                                                                                 | Required | Default                                                      | Description                                                         |
+| -------------- | ------------------------------------------------------------------------------------ | -------- | ------------------------------------------------------------ | ------------------------------------------------------------------- |
+| `max`          | `{ value: number; color: string; opacity?: number }`                                 | ✅       | -                                                            | Maximum value configuration with value, color, and optional opacity |
+| `relative`     | `{ value: number; color: string }`                                                   | ✅       | -                                                            | Relative/current value configuration with value and color           |
+| `barHeight`    | `number`                                                                             | ❌       | `103`                                                        | Height of the histogram bar in pixels                               |
+| `barWidth`     | `number`                                                                             | ❌       | `32`                                                         | Width of the histogram bar in pixels                                |
+| `orientation`  | `'vertical' \| 'horizontal'`                                                         | ❌       | `'vertical'`                                                 | Orientation of the histogram bars                                   |
+| `cornerRadius` | `{ topLeft?: number; topRight?: number; bottomLeft?: number; bottomRight?: number }` | ❌       | `{ topLeft: 2, topRight: 2, bottomLeft: 2, bottomRight: 2 }` | Individual corner radius configuration                              |
+| `children`     | `React.ReactNode`                                                                    | ❌       | -                                                            | Child components (typically text content)                           |
 
 #### Features
 
 - **Smooth animations**: 1-second Chart.js-style transitions with easeOutQuart easing
 - **Multiple orientations**: Support for both vertical and horizontal layouts
 - **Individual corner control**: Customize each corner radius independently
-- **Dynamic two-color visualization**: 
+- **Dynamic two-color visualization**:
   - Background bar color defined by `max.color` represents the maximum value
   - Foreground bar color defined by `relative.color` represents the relative value
 - **Opacity control**: Optional opacity setting for background bars
@@ -220,7 +235,7 @@ A histogram component with smooth animations for energy data visualization.
 The component uses external CSS classes for styling. Make sure to import the CSS file:
 
 ```tsx
-import 'rte-utils/dist/index.css';
+import "rte-utils/dist/index.css";
 ```
 
 You can override the default styles by targeting the CSS classes:
@@ -237,6 +252,78 @@ You can override the default styles by targeting the CSS classes:
 - `.histogram-value` - Main value text
 - `.histogram-unit` - Unit text
 - `.histogram-label` - Label text
+
+### Chip
+
+A customizable chip component for displaying labels, tags, or status indicators.
+
+#### Props
+
+| Prop        | Type     | Required | Default | Description                                    |
+| ----------- | -------- | -------- | ------- | ---------------------------------------------- |
+| `label`     | `string` | ❌       | -       | Text content to display inside the chip        |
+| `bgColor`   | `string` | ❌       | -       | Background color of the chip (CSS color value) |
+| `textColor` | `string` | ❌       | -       | Text color of the chip (CSS color value)       |
+
+#### Example Usage
+
+```tsx
+import React from "react";
+import { Chip } from "rte-utils";
+import "rte-utils/dist/index.css";
+
+function ChipExample() {
+  return (
+    <div style={{ display: "flex", gap: "0.5rem" }}>
+      {/* Default chip */}
+      <Chip label="Default" />
+
+      {/* Success status chip */}
+      <Chip label="Success" bgColor="#d4edda" textColor="#155724" />
+
+      {/* Warning status chip */}
+      <Chip label="Warning" bgColor="#fff3cd" textColor="#856404" />
+
+      {/* Error status chip */}
+      <Chip label="Error" bgColor="#f8d7da" textColor="#721c24" />
+
+      {/* Custom branded chip */}
+      <Chip label="Custom" bgColor="#007bff" textColor="#ffffff" />
+    </div>
+  );
+}
+```
+
+#### Features
+
+- **Flexible styling**: Customize background and text colors
+- **Simple API**: Minimal props for easy integration
+- **TypeScript support**: Full type definitions included
+- **CSS classes**: Uses external CSS for consistent styling
+
+#### CSS Classes
+
+The Chip component uses the following CSS classes:
+
+- `.chip-container` - Main chip container
+- `.chip-content` - Content wrapper
+- `.chip-label` - Label text styling
+
+## Demo Application
+
+This package includes a demo application that showcases all available components with interactive examples. The demo is located in the `/demo` folder and includes:
+
+- **Interactive Histogram examples** with dynamic value controls
+- **Chip component variations** with different colors and styles
+- **Live examples** of all component features
+
+To run the demo application:
+
+```bash
+cd demo
+npm install
+npm run dev
+```
 
 ## License
 
