@@ -2,6 +2,9 @@ import { useState } from "react";
 import "rte-utils/dist/index.css"; // Import the CSS styles
 import { HistogramDemo } from "./HistogramDemo";
 import { ChipDemo } from "./ChipDemo";
+import { SwitchDemo } from "./SwitchDemo";
+import { InputDemo } from "./InputDemo";
+import { ProductionUnitDemo } from "./ProductionUnitDemo";
 function App() {
   const [variableValue, setVariableValue] = useState(56);
   return (
@@ -24,9 +27,11 @@ function App() {
 
       <div style={{ marginTop: "2rem" }}>
         <h2>Components</h2>
-
+        <ProductionUnitDemo />
         <HistogramDemo variableValue={variableValue} />
         <ChipDemo />
+        <SwitchDemo />
+        <InputDemo />
       </div>
 
       <div style={{ marginTop: "2rem" }}>

@@ -1,0 +1,148 @@
+.switch-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.switch-label {
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+}
+
+.switch-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.switch-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+}
+
+.switch-power-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.switch {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.switch:focus-visible {
+  outline: 2px solid #009CDF;
+  outline-offset: 2px;
+}
+
+.switch--disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.switch-track {
+  position: relative;
+  display: block;
+  background-color: #999fa1;
+  border-radius: 60px;
+  transition: background-color 0.2s ease;
+}
+
+.switch--checked .switch-track {
+  background-color: #009CDF;
+}
+
+.switch-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  background-color: #FFFFFF;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.switch-thumb-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Small size */
+.switch--small .switch-track {
+  width: 24px;
+  height: 12px;
+}
+
+.switch--small .switch-thumb {
+  width: 8px;
+  height: 8px;
+}
+
+.switch--small.switch--checked .switch-thumb {
+  transform: translateX(12px);
+}
+
+/* Medium size (default) */
+.switch--medium .switch-track {
+  width: 32px;
+  height: 16px;
+}
+
+.switch--medium .switch-thumb {
+  width: 12px;
+  height: 12px;
+}
+
+.switch--medium.switch--checked .switch-thumb {
+  transform: translateX(16px);
+}
+
+/* Large size */
+.switch--large .switch-track {
+  width: 40px;
+  height: 20px;
+}
+
+.switch--large .switch-thumb {
+  width: 16px;
+  height: 16px;
+}
+
+.switch--large.switch--checked .switch-thumb {
+  transform: translateX(20px);
+}
+
+/* Hover effects */
+.switch:not(.switch--disabled):hover .switch-track {
+  filter: brightness(1.1);
+}
+
+.switch:not(.switch--disabled):active .switch-thumb {
+  transform: scale(1.1);
+}
+
+.switch--checked:not(.switch--disabled):active .switch-thumb {
+  transform: translateX(16px) scale(1.1);
+}
+
+.switch--small.switch--checked:not(.switch--disabled):active .switch-thumb {
+  transform: translateX(12px) scale(1.1);
+}
+
+.switch--large.switch--checked:not(.switch--disabled):active .switch-thumb {
+  transform: translateX(20px) scale(1.1);
+}
