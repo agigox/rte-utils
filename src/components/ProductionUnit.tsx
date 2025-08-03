@@ -13,6 +13,7 @@ interface ProductionUnitProps {
   energyCost?: number;
   checkedImage?: React.ReactNode;
   uncheckedImage?: React.ReactNode;
+  readonly?: boolean;
 }
 export const ProductionUnit = ({
   onChangeInput,
@@ -23,15 +24,16 @@ export const ProductionUnit = ({
   energyCost = 0,
   checkedImage,
   uncheckedImage,
+  readonly = false,
 }: ProductionUnitProps) => {
   // Internal state management
   const [internalChecked, setInternalChecked] = useState(defaultChecked);
   const [internalValue, setInternalValue] = useState(defaultValue);
-  
+
   const handleSwitchChange = (newChecked: boolean) => {
     // Update internal state
     setInternalChecked(newChecked);
-    
+
     // Notify parent component if handler provided
     if (onChangeSwitch) {
       onChangeSwitch(newChecked);
@@ -42,7 +44,7 @@ export const ProductionUnit = ({
     const numValue = Number(val);
     // Update internal state
     setInternalValue(numValue);
-    
+
     // Notify parent component if handler provided
     if (onChangeInput) {
       onChangeInput(numValue);
@@ -60,13 +62,16 @@ export const ProductionUnit = ({
         label="PA"
         type="number"
         onChange={handleInputChange}
-        value={internalValue !== undefined ? internalValue.toString() : undefined}
-        disabled={!internalChecked}
+        value={
+          internalValue !== undefined ? internalValue.toString() : undefined
+        }
+        disabled={!internalChecked || readonly}
       />
       <Switch
         checked={internalChecked}
         onChange={handleSwitchChange}
         className="production-unit-switch"
+        disabled={readonly}
       />
     </div>
   );

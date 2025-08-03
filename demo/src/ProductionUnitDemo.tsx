@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { ProductionUnit } from "../../src/components";
+import { Avatar, ProductionUnit } from "../../src/components";
+import Lottie from "lottie-react";
+import NuclearAnimation from "./assets/NuclearAnimation.json";
 
 export const ProductionUnitDemo: React.FC = () => {
   const [solarValue, setSolarValue] = useState(0);
@@ -9,27 +11,37 @@ export const ProductionUnitDemo: React.FC = () => {
   const [windOn, setWindOn] = useState(false);
   const [nuclearOn, setNuclearOn] = useState(false);
 
-  const totalProduction = (solarOn ? solarValue : 0) + (windOn ? windValue : 0) + (nuclearOn ? nuclearValue : 0);
+  const totalProduction =
+    (solarOn ? solarValue : 0) +
+    (windOn ? windValue : 0) +
+    (nuclearOn ? nuclearValue : 0);
 
   return (
     <div style={{ padding: "20px", maxWidth: "1200px" }}>
       <h2>Production Unit Component Demo</h2>
-      
-      <div style={{ 
-        marginBottom: "20px", 
-        padding: "15px", 
-        backgroundColor: "#f5f5f5", 
-        borderRadius: "8px" 
-      }}>
+
+      <div
+        style={{
+          marginBottom: "20px",
+          padding: "15px",
+          backgroundColor: "#f5f5f5",
+          borderRadius: "8px",
+        }}
+      >
         <h3>Total Production: {totalProduction} MW</h3>
-        <p>Toggle switches to activate/deactivate production units and adjust their output values.</p>
+        <p>
+          Toggle switches to activate/deactivate production units and adjust
+          their output values.
+        </p>
       </div>
 
-      <div style={{ 
-        display: "flex", 
-        flexDirection: "column",
-        marginBottom: "40px"
-      }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          marginBottom: "40px",
+        }}
+      >
         {/* Solar Panel Unit */}
         <ProductionUnit
           unitName="Solar Panel Array"
@@ -37,15 +49,15 @@ export const ProductionUnitDemo: React.FC = () => {
           defaultChecked={true}
           defaultValue={50}
           checkedImage={
-            <img 
-              src="https://placehold.co/60x60/FFD700/000000/png?text=☀️" 
+            <img
+              src="https://placehold.co/60x60/FFD700/000000/png?text=☀️"
               alt="Solar Panel Active"
               style={{ borderRadius: "8px" }}
             />
           }
           uncheckedImage={
-            <img 
-              src="https://placehold.co/60x60/808080/FFFFFF/png?text=☀️" 
+            <img
+              src="https://placehold.co/60x60/808080/FFFFFF/png?text=☀️"
               alt="Solar Panel Inactive"
               style={{ borderRadius: "8px" }}
             />
@@ -61,31 +73,35 @@ export const ProductionUnitDemo: React.FC = () => {
           defaultChecked={false}
           defaultValue={75}
           checkedImage={
-            <div style={{
-              width: 60,
-              height: 60,
-              borderRadius: '8px',
-              backgroundColor: '#4CAF50',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '24px',
-              animation: 'spin 2s linear infinite'
-            }}>
+            <div
+              style={{
+                width: 60,
+                height: 60,
+                borderRadius: "8px",
+                backgroundColor: "#4CAF50",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "24px",
+                animation: "spin 2s linear infinite",
+              }}
+            >
               🌪️
             </div>
           }
           uncheckedImage={
-            <div style={{
-              width: 60,
-              height: 60,
-              borderRadius: '8px',
-              backgroundColor: '#9E9E9E',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '24px'
-            }}>
+            <div
+              style={{
+                width: 60,
+                height: 60,
+                borderRadius: "8px",
+                backgroundColor: "#9E9E9E",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "24px",
+              }}
+            >
               🌪️
             </div>
           }
@@ -99,59 +115,48 @@ export const ProductionUnitDemo: React.FC = () => {
           energyCost={1200}
           defaultChecked={true}
           defaultValue={800}
+          readonly={false}
           checkedImage={
-            <div style={{
-              width: 60,
-              height: 60,
-              borderRadius: '50%',
-              backgroundColor: '#2196F3',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '24px',
-              color: 'white',
-              fontWeight: 'bold',
-              boxShadow: '0 0 15px rgba(33, 150, 243, 0.5)'
-            }}>
-              ⚛️
-            </div>
+            <Avatar>
+              <Lottie
+                animationData={NuclearAnimation}
+                style={{ width: 80, height: 80 }}
+                loop={true}
+              />
+            </Avatar>
           }
-          uncheckedImage={
-            <div style={{
-              width: 60,
-              height: 60,
-              borderRadius: '50%',
-              backgroundColor: '#F44336',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '24px',
-              color: 'white',
-              fontWeight: 'bold'
-            }}>
-              ⚠️
-            </div>
-          }
+          uncheckedImage={<Avatar>JD</Avatar>}
           onChangeInput={(value) => setNuclearValue(value)}
           onChangeSwitch={(checked) => setNuclearOn(checked)}
         />
       </div>
 
-      <div style={{ 
-        padding: "20px", 
-        backgroundColor: "#e3f2fd", 
-        borderRadius: "8px" 
-      }}>
+      <div
+        style={{
+          padding: "20px",
+          backgroundColor: "#e3f2fd",
+          borderRadius: "8px",
+        }}
+      >
         <h3>Production Status</h3>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "10px" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+            gap: "10px",
+          }}
+        >
           <div>
-            <strong>Solar Panel:</strong> {solarOn ? `${solarValue} MW` : "Offline"}
+            <strong>Solar Panel:</strong>{" "}
+            {solarOn ? `${solarValue} MW` : "Offline"}
           </div>
           <div>
-            <strong>Wind Turbine:</strong> {windOn ? `${windValue} MW` : "Offline"}
+            <strong>Wind Turbine:</strong>{" "}
+            {windOn ? `${windValue} MW` : "Offline"}
           </div>
           <div>
-            <strong>Nuclear Plant:</strong> {nuclearOn ? `${nuclearValue} MW` : "Offline"}
+            <strong>Nuclear Plant:</strong>{" "}
+            {nuclearOn ? `${nuclearValue} MW` : "Offline"}
           </div>
         </div>
       </div>
