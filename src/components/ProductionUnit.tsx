@@ -1,58 +1,71 @@
+import { useState } from "react";
 import { Input } from "./Input";
 import { Switch } from "./Switch";
 import "./ProductionUnit.css";
 import { Chip } from "./Chip";
-interface ImagePreviewProps {
-  checked?: boolean;
-}
-const ImagePreview: React.FC<ImagePreviewProps> = ({ checked }) => {
-  return (
-    <div className="image-preview-container">
-      <img
-        src={
-          checked
-            ? "https://placehold.co/60x60/000000/FFFFFF/png"
-            : "https://placehold.co/60x60/FF0000/000000/png"
-        }
-        alt={checked ? "Checked" : "Unchecked"}
-      />
-    </div>
-  );
-};
+
 interface ProductionUnitProps {
   onChangeInput?: (value: number) => void;
   onChangeSwitch?: (checked: boolean) => void;
-  value?: number;
-  checked?: boolean;
+  defaultValue?: number;
+  defaultChecked?: boolean;
   unitName?: string;
   energyCost?: number;
+  checkedImage?: React.ReactNode;
+  uncheckedImage?: React.ReactNode;
 }
 export const ProductionUnit = ({
   onChangeInput,
   onChangeSwitch,
-  value,
-  checked,
+  defaultValue,
+  defaultChecked = false,
   unitName = "Production Unit",
   energyCost = 0,
+  checkedImage,
+  uncheckedImage,
 }: ProductionUnitProps) => {
+  // Internal state management
+  const [internalChecked, setInternalChecked] = useState(defaultChecked);
+  const [internalValue, setInternalValue] = useState(defaultValue);
+  
+  const handleSwitchChange = (newChecked: boolean) => {
+    // Update internal state
+    setInternalChecked(newChecked);
+    
+    // Notify parent component if handler provided
+    if (onChangeSwitch) {
+      onChangeSwitch(newChecked);
+    }
+  };
+
+  const handleInputChange = (val: string) => {
+    const numValue = Number(val);
+    // Update internal state
+    setInternalValue(numValue);
+    
+    // Notify parent component if handler provided
+    if (onChangeInput) {
+      onChangeInput(numValue);
+    }
+  };
+
   return (
     <div className="production-unit-container">
-      <ImagePreview checked={checked} />
+      <div className="image-preview-container">
+        {internalChecked ? checkedImage : uncheckedImage}
+      </div>
       <div>{unitName}</div>
       <Chip label={`${energyCost} MW`} />
       <Input
         label="PA"
         type="number"
-        onChange={
-          onChangeInput
-            ? (val: string) => onChangeInput(Number(val))
-            : undefined
-        }
-        value={value !== undefined ? value.toString() : undefined}
+        onChange={handleInputChange}
+        value={internalValue !== undefined ? internalValue.toString() : undefined}
+        disabled={!internalChecked}
       />
       <Switch
-        checked={checked}
-        onChange={onChangeSwitch}
+        checked={internalChecked}
+        onChange={handleSwitchChange}
         className="production-unit-switch"
       />
     </div>

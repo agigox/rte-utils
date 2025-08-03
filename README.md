@@ -253,6 +253,131 @@ You can override the default styles by targeting the CSS classes:
 - `.histogram-unit` - Unit text
 - `.histogram-label` - Label text
 
+### ProductionUnit
+
+A comprehensive production unit component that combines an image display, status chip, input field, and switch control. Perfect for energy management dashboards and industrial control interfaces.
+
+#### Props
+
+| Prop             | Type                      | Required | Default              | Description                                        |
+| ---------------- | ------------------------- | -------- | -------------------- | -------------------------------------------------- |
+| `onChangeInput`  | `(value: number) => void` | ❌       | -                    | Callback triggered when input value changes        |
+| `onChangeSwitch` | `(checked: boolean) => void` | ❌    | -                    | Callback triggered when switch state changes       |
+| `defaultValue`   | `number`                  | ❌       | -                    | Initial value for the input field                  |
+| `defaultChecked` | `boolean`                 | ❌       | `false`              | Initial state for the switch                       |
+| `unitName`       | `string`                  | ❌       | `"Production Unit"`  | Display name for the production unit               |
+| `energyCost`     | `number`                  | ❌       | `0`                  | Energy cost value displayed in the chip (MW)       |
+| `checkedImage`   | `React.ReactNode`         | ❌       | -                    | Custom image/component displayed when switch is ON |
+| `uncheckedImage` | `React.ReactNode`         | ❌       | -                    | Custom image/component displayed when switch is OFF |
+
+#### Example Usage
+
+```tsx
+import React from "react";
+import { ProductionUnit } from "rte-utils";
+import "rte-utils/dist/index.css";
+
+function ProductionUnitExample() {
+  const handleInputChange = (value: number) => {
+    console.log("Production value changed:", value);
+  };
+
+  const handleSwitchChange = (checked: boolean) => {
+    console.log("Production unit is now:", checked ? "ON" : "OFF");
+  };
+
+  return (
+    <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+      {/* Basic usage */}
+      <ProductionUnit
+        unitName="Solar Panel"
+        energyCost={25}
+        defaultChecked={true}
+        defaultValue={100}
+        onChangeInput={handleInputChange}
+        onChangeSwitch={handleSwitchChange}
+      />
+
+      {/* With custom images */}
+      <ProductionUnit
+        unitName="Wind Turbine"
+        energyCost={50}
+        defaultChecked={false}
+        defaultValue={75}
+        checkedImage={
+          <img 
+            src="https://placehold.co/60x60/4CAF50/FFFFFF/png?text=ON" 
+            alt="Wind Turbine On" 
+          />
+        }
+        uncheckedImage={
+          <img 
+            src="https://placehold.co/60x60/F44336/FFFFFF/png?text=OFF" 
+            alt="Wind Turbine Off" 
+          />
+        }
+        onChangeInput={handleInputChange}
+        onChangeSwitch={handleSwitchChange}
+      />
+
+      {/* With icon components */}
+      <ProductionUnit
+        unitName="Nuclear Plant"
+        energyCost={1000}
+        defaultChecked={true}
+        checkedImage={
+          <div style={{
+            width: 60,
+            height: 60,
+            borderRadius: '50%',
+            backgroundColor: '#4CAF50',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: 'white',
+            fontWeight: 'bold'
+          }}>
+            ⚡
+          </div>
+        }
+        uncheckedImage={
+          <div style={{
+            width: 60,
+            height: 60,
+            borderRadius: '50%',
+            backgroundColor: '#F44336',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: 'white',
+            fontWeight: 'bold'
+          }}>
+            ⚠️
+          </div>
+        }
+      />
+    </div>
+  );
+}
+```
+
+#### Features
+
+- **Self-contained state management**: Component manages its own input value and switch state
+- **Callback communication**: Parent components receive updates through callback functions
+- **Automatic input disabling**: Input field is disabled when switch is OFF
+- **Flexible image display**: Support for custom images, icons, or React components
+- **Energy cost display**: Built-in chip showing energy cost in MW
+- **TypeScript support**: Full type definitions included
+
+#### CSS Classes
+
+The ProductionUnit component uses the following CSS classes:
+
+- `.production-unit-container` - Main container
+- `.image-preview-container` - Image display wrapper
+- `.production-unit-switch` - Switch component styling
+
 ### Chip
 
 A customizable chip component for displaying labels, tags, or status indicators.
