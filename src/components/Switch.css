@@ -4,12 +4,6 @@
   gap: 8px;
 }
 
-.switch-label {
-  font-size: 14px;
-  color: #333;
-  font-weight: 500;
-}
-
 .switch-wrapper {
   display: flex;
   flex-direction: column;
@@ -41,7 +35,7 @@
 }
 
 .switch:focus-visible {
-  outline: 2px solid #009CDF;
+  outline: 2px solid #009cdf;
   outline-offset: 2px;
 }
 
@@ -59,14 +53,14 @@
 }
 
 .switch--checked .switch-track {
-  background-color: #009CDF;
+  background-color: #009cdf;
 }
 
 .switch-thumb {
   position: absolute;
   top: 2px;
   left: 2px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 50%;
   transition: transform 0.2s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
