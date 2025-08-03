@@ -1,6 +1,7 @@
 import { Chip } from "rte-utils";
 
 export function ChipDemo() {
+  
   return (
     <div style={{ marginTop: "1rem" }}>
       <h3>Chip</h3>

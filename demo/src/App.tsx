@@ -5,43 +5,85 @@ import { ChipDemo } from "./ChipDemo";
 import { SwitchDemo } from "./SwitchDemo";
 import { InputDemo } from "./InputDemo";
 import { ProductionUnitDemo } from "./ProductionUnitDemo";
+
+type DemoTab = 'production-unit' | 'histogram' | 'chip' | 'switch' | 'input';
+
 function App() {
-  const [variableValue, setVariableValue] = useState(56);
+  const [activeTab, setActiveTab] = useState<DemoTab>('production-unit');
+
+  const tabs = [
+    { id: 'production-unit' as const, label: 'Production Unit', component: <ProductionUnitDemo /> },
+    { id: 'histogram' as const, label: 'Histogram', component: <HistogramDemo /> },
+    { id: 'chip' as const, label: 'Chip', component: <ChipDemo /> },
+    { id: 'switch' as const, label: 'Switch', component: <SwitchDemo /> },
+    { id: 'input' as const, label: 'Input', component: <InputDemo /> },
+  ];
+
+  const activeComponent = tabs.find(tab => tab.id === activeTab)?.component;
+
   return (
     <div style={{ padding: "2rem" }}>
-      <h1>Agigox Utils Demo</h1>
-      <p>Demo application for testing rte-utils components</p>
+      <h1>RTE Utils Demo</h1>
+      <p>Interactive demo application for testing rte-utils components</p>
 
-      <div style={{ marginTop: "1rem" }}>
-        <p>Variable Value: {variableValue}</p>
-        <div style={{ display: "flex", gap: "0.5rem" }}>
-          <button onClick={() => setVariableValue((prev) => prev + 10)}>
-            Increase (+10)
-          </button>
-          <button onClick={() => setVariableValue((prev) => prev - 10)}>
-            Decrease (-10)
-          </button>
-          <button onClick={() => setVariableValue(56)}>Reset to 56</button>
-        </div>
+      {/* Tab Navigation */}
+      <div style={{ 
+        marginTop: "2rem", 
+        marginBottom: "2rem",
+        display: "flex", 
+        gap: "0.5rem", 
+        flexWrap: "wrap",
+        borderBottom: "1px solid #e0e0e0",
+        paddingBottom: "1rem"
+      }}>
+        {tabs.map((tab) => (
+          <div
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            style={{
+              padding: "8px 16px",
+              borderRadius: "20px",
+              backgroundColor: activeTab === tab.id ? "#007bff" : "#f8f9fa",
+              color: activeTab === tab.id ? "#ffffff" : "#6c757d",
+              cursor: "pointer",
+              transition: "all 0.2s ease-in-out",
+              border: "2px solid transparent",
+              fontSize: "14px",
+              fontWeight: activeTab === tab.id ? "600" : "400",
+              userSelect: "none"
+            }}
+            onMouseEnter={(e) => {
+              if (activeTab !== tab.id) {
+                e.currentTarget.style.backgroundColor = "#e9ecef";
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (activeTab !== tab.id) {
+                e.currentTarget.style.backgroundColor = "#f8f9fa";
+              }
+            }}
+          >
+            {tab.label}
+          </div>
+        ))}
       </div>
 
+      {/* Active Component */}
       <div style={{ marginTop: "2rem" }}>
-        <h2>Components</h2>
-        <ProductionUnitDemo />
-        <HistogramDemo variableValue={variableValue} />
-        <ChipDemo />
-        <SwitchDemo />
-        <InputDemo />
+        {activeComponent}
       </div>
 
-      <div style={{ marginTop: "2rem" }}>
-        <h2>Hooks</h2>
-        <p>Test your custom hooks here...</p>
-      </div>
-
-      <div style={{ marginTop: "2rem" }}>
-        <h2>Utils</h2>
-        <p>Test your utility functions here...</p>
+      {/* Footer Info */}
+      <div style={{ 
+        marginTop: "3rem", 
+        padding: "1rem", 
+        backgroundColor: "#f8f9fa", 
+        borderRadius: "8px",
+        fontSize: "0.9rem",
+        color: "#6c757d"
+      }}>
+        <p><strong>Navigation:</strong> Click on the tabs above to switch between different component demos.</p>
+        <p><strong>Components:</strong> {tabs.length} available components to explore.</p>
       </div>
     </div>
   );
