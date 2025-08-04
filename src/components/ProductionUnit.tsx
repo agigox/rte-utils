@@ -53,24 +53,36 @@ export const ProductionUnit = ({
 
   return (
     <div className="production-unit-container">
-      <div className="image-preview-container">
-        {internalChecked ? checkedImage : uncheckedImage}
+      <div className="production-unit-content">
+        <div className="image-preview-container">
+          {internalChecked ? checkedImage : uncheckedImage}
+        </div>
+        <div className="production-unit-chip">
+          <div className="production-unit-chip-name">{unitName}</div>
+
+          <Chip
+            label={`${energyCost} MW`}
+            width="fit-content"
+            bgColor="#E1F5FD"
+            textColor="#005896"
+          />
+        </div>
+        <div className="production-unit-switch-container">
+          <Input
+            label="PA"
+            type="number"
+            onChange={handleInputChange}
+            value={
+              internalValue !== undefined ? internalValue.toString() : undefined
+            }
+            disabled={!internalChecked || readonly}
+          />{" "}
+        </div>
       </div>
-      <div>{unitName}</div>
-      <Chip label={`${energyCost} MW`} />
-      <Input
-        label="PA"
-        type="number"
-        onChange={handleInputChange}
-        value={
-          internalValue !== undefined ? internalValue.toString() : undefined
-        }
-        disabled={!internalChecked || readonly}
-      />
+
       <Switch
         checked={internalChecked}
         onChange={handleSwitchChange}
-        className="production-unit-switch"
         disabled={readonly}
       />
     </div>

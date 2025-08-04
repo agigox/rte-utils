@@ -42,76 +42,9 @@ export const ProductionUnitDemo: React.FC = () => {
           marginBottom: "40px",
         }}
       >
-        {/* Solar Panel Unit */}
-        <ProductionUnit
-          unitName="Solar Panel Array"
-          energyCost={25}
-          defaultChecked={true}
-          defaultValue={50}
-          checkedImage={
-            <img
-              src="https://placehold.co/60x60/FFD700/000000/png?text=☀️"
-              alt="Solar Panel Active"
-              style={{ borderRadius: "8px" }}
-            />
-          }
-          uncheckedImage={
-            <img
-              src="https://placehold.co/60x60/808080/FFFFFF/png?text=☀️"
-              alt="Solar Panel Inactive"
-              style={{ borderRadius: "8px" }}
-            />
-          }
-          onChangeInput={(value) => setSolarValue(value)}
-          onChangeSwitch={(checked) => setSolarOn(checked)}
-        />
-
-        {/* Wind Turbine Unit */}
-        <ProductionUnit
-          unitName="Wind Turbine Farm"
-          energyCost={40}
-          defaultChecked={false}
-          defaultValue={75}
-          checkedImage={
-            <div
-              style={{
-                width: 60,
-                height: 60,
-                borderRadius: "8px",
-                backgroundColor: "#4CAF50",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: "24px",
-                animation: "spin 2s linear infinite",
-              }}
-            >
-              🌪️
-            </div>
-          }
-          uncheckedImage={
-            <div
-              style={{
-                width: 60,
-                height: 60,
-                borderRadius: "8px",
-                backgroundColor: "#9E9E9E",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: "24px",
-              }}
-            >
-              🌪️
-            </div>
-          }
-          onChangeInput={(value) => setWindValue(value)}
-          onChangeSwitch={(checked) => setWindOn(checked)}
-        />
-
         {/* Nuclear Plant Unit */}
         <ProductionUnit
-          unitName="Nuclear Power Plant"
+          unitName="Chalaronne"
           energyCost={1200}
           defaultChecked={true}
           defaultValue={800}

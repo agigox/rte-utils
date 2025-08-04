@@ -1,11 +1,19 @@
 .chip-container {
   display: inline-flex;
   align-items: center;
-  padding: 8px 8px;
+  padding: 4px 8px;
   border-radius: 60px;
   background-color: var(--chip-bg-color, #e0e0e0);
   color: var(--chip-text-color, #000);
   min-width: 84px;
+}
+
+.chip-container--fit-content {
+  width: fit-content;
+}
+
+.chip-container--full-width {
+  width: 100%;
 }
 
 .chip-content {
