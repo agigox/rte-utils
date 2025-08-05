@@ -1,24 +1,23 @@
 import { useState } from "react";
 import { Histogram } from "rte-utils";
 
-
 export function HistogramDemo() {
   const [variableValue, setVariableValue] = useState<number>(56);
   return (
     <div style={{ marginTop: "1rem" }}>
-      <h3>Histogram</h3>
+      <h3>Histogram Demo</h3>
       <div style={{ marginTop: "1rem" }}>
-              <p>Variable Value: {variableValue}</p>
-              <div style={{ display: "flex", gap: "0.5rem" }}>
-                <button onClick={() => setVariableValue((prev) => prev + 10)}>
-                  Increase (+10)
-                </button>
-                <button onClick={() => setVariableValue((prev) => prev - 10)}>
-                  Decrease (-10)
-                </button>
-                <button onClick={() => setVariableValue(56)}>Reset to 56</button>
-              </div>
-            </div>
+        <p>Variable Value: {variableValue}</p>
+        <div style={{ display: "flex", gap: "0.5rem" }}>
+          <button onClick={() => setVariableValue((prev) => prev + 10)}>
+            Increase (+10)
+          </button>
+          <button onClick={() => setVariableValue((prev) => prev - 10)}>
+            Decrease (-10)
+          </button>
+          <button onClick={() => setVariableValue(56)}>Reset to 56</button>
+        </div>
+      </div>
       <div
         style={{
           display: "flex",
