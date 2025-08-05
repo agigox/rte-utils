@@ -9,7 +9,7 @@ const meta: Meta<typeof Input> = {
     docs: {
       description: {
         component:
-          "A specialized Input component with floating labels, min/max constraints, and automatic value validation. Features visual constraint indicators that highlight when focused, and automatic clamping for number inputs.",
+          "A specialized Input component with floating labels, min/max constraints, and intelligent validation. Features real-time error styling while typing invalid values, visual constraint indicators that highlight when focused, and automatic value clamping on blur for number inputs.",
       },
     },
   },
@@ -170,6 +170,24 @@ export const FocusHighlight: Story = {
       description: {
         story:
           "Click on the input to see the min/max labels change color and weight when focused.",
+      },
+    },
+  },
+};
+
+export const ErrorStyling: Story = {
+  args: {
+    label: "Real-time Error Feedback",
+    type: "number",
+    min: { value: 20, label: "Min: 20" },
+    max: { value: 80, label: "Max: 80" },
+    value: "50",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Type values outside the 20-80 range to see immediate error styling. The input border turns red while typing invalid values, providing instant visual feedback. The value will be automatically corrected when you click outside the input.",
       },
     },
   },

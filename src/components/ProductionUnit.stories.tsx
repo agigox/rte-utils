@@ -14,6 +14,13 @@ const meta: Meta<typeof ProductionUnit> = {
     },
   },
   tags: ["autodocs"],
+  decorators: [
+    (Story) => (
+      <div style={{ padding: "20px" }}>
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {
     unitName: {
       control: "text",
@@ -46,9 +53,11 @@ const meta: Meta<typeof ProductionUnit> = {
         "Whether the component is in readonly mode (disables input and switch)",
     },
     checkedImage: {
+      control: false,
       description: "React node to display when the unit is active/checked",
     },
     uncheckedImage: {
+      control: false,
       description: "React node to display when the unit is inactive/unchecked",
     },
     min: {
@@ -60,9 +69,11 @@ const meta: Meta<typeof ProductionUnit> = {
       description: "Maximum power constraint with value and optional label",
     },
     onChangeInput: {
+      control: false,
       description: "Function called when input value changes",
     },
     onChangeSwitch: {
+      control: false,
       description: "Function called when switch state changes",
     },
   },
@@ -190,9 +201,14 @@ export const Default: Story = {
     defaultValue: 800,
     defaultChecked: false,
     readonly: false,
-    checkedImage: <NuclearCheckedImage />,
-    uncheckedImage: <NuclearUncheckedImage />,
   },
+  render: (args) => (
+    <ProductionUnit
+      {...args}
+      checkedImage={<NuclearCheckedImage />}
+      uncheckedImage={<NuclearUncheckedImage />}
+    />
+  ),
 };
 
 export const Active: Story = {
@@ -202,9 +218,14 @@ export const Active: Story = {
     defaultValue: 350,
     defaultChecked: true,
     readonly: false,
-    checkedImage: <SolarCheckedImage />,
-    uncheckedImage: <SolarUncheckedImage />,
   },
+  render: (args) => (
+    <ProductionUnit
+      {...args}
+      checkedImage={<SolarCheckedImage />}
+      uncheckedImage={<SolarUncheckedImage />}
+    />
+  ),
 };
 
 export const Readonly: Story = {
@@ -214,9 +235,14 @@ export const Readonly: Story = {
     defaultValue: 500,
     defaultChecked: true,
     readonly: true,
-    checkedImage: <WindCheckedImage />,
-    uncheckedImage: <WindUncheckedImage />,
   },
+  render: (args) => (
+    <ProductionUnit
+      {...args}
+      checkedImage={<WindCheckedImage />}
+      uncheckedImage={<WindUncheckedImage />}
+    />
+  ),
 };
 
 export const Controlled: Story = {
@@ -226,73 +252,80 @@ export const Controlled: Story = {
     value: 650,
     checked: true,
     readonly: false,
-    checkedImage: <NuclearCheckedImage />,
-    uncheckedImage: <NuclearUncheckedImage />,
   },
+  render: (args) => (
+    <ProductionUnit
+      {...args}
+      checkedImage={<NuclearCheckedImage />}
+      uncheckedImage={<NuclearUncheckedImage />}
+    />
+  ),
 };
 
 export const WithoutImages: Story = {
   args: {
-    unitName: "Thermal Plant E",
-    energyCost: 900,
-    defaultValue: 700,
+    unitName: "Generic Plant",
+    energyCost: 300,
+    defaultValue: 200,
     defaultChecked: false,
     readonly: false,
+    checkedImage: undefined,
+    uncheckedImage: undefined,
   },
+  render: (args) => <ProductionUnit {...args} />,
 };
 
 export const SmallWind: Story = {
   args: {
-    unitName: "Small Wind Turbine",
+    unitName: "Wind Turbine #3",
     energyCost: 150,
     defaultValue: 120,
     defaultChecked: true,
     readonly: false,
-    checkedImage: <WindCheckedImage />,
-    uncheckedImage: <WindUncheckedImage />,
   },
+  render: (args) => (
+    <ProductionUnit
+      {...args}
+      checkedImage={<WindCheckedImage />}
+      uncheckedImage={<WindUncheckedImage />}
+    />
+  ),
 };
 
 export const WithConstraints: Story = {
   args: {
-    unitName: "Solar Array with Limits",
-    energyCost: 300,
-    defaultValue: 200,
+    unitName: "Constrained Solar",
+    energyCost: 500,
+    defaultValue: 400,
     defaultChecked: true,
     readonly: false,
-    min: { value: 50, label: "Min Solar" },
-    max: { value: 350, label: "Max Solar" },
-    checkedImage: <SolarCheckedImage />,
-    uncheckedImage: <SolarUncheckedImage />,
+    min: { value: 200, label: "200 MW min" },
+    max: { value: 600, label: "600 MW max" },
   },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Production unit with custom min/max power constraints. The input will validate and clamp values within the specified range.",
-      },
-    },
-  },
+  render: (args) => (
+    <ProductionUnit
+      {...args}
+      checkedImage={<SolarCheckedImage />}
+      uncheckedImage={<SolarUncheckedImage />}
+    />
+  ),
 };
 
 export const NuclearWithLimits: Story = {
   args: {
-    unitName: "Nuclear Reactor Core",
-    energyCost: 1500,
-    defaultValue: 1200,
-    defaultChecked: false,
+    unitName: "Nuclear Reactor #1",
+    energyCost: 1200,
+    defaultValue: 800,
+    defaultChecked: true,
     readonly: false,
-    min: { value: 800, label: "Safe Min" },
-    max: { value: 1600, label: "Max Cap" },
-    checkedImage: <NuclearCheckedImage />,
-    uncheckedImage: <NuclearUncheckedImage />,
+    min: { value: 500, label: "500 MW minimum" },
+    max: { value: 1000, label: "1000 MW maximum" },
   },
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "High-capacity nuclear unit with safety constraints. Shows custom constraint labels for operational limits.",
-      },
-    },
-  },
+  render: (args) => (
+    <ProductionUnit
+      {...args}
+      checkedImage={<NuclearCheckedImage />}
+      uncheckedImage={<NuclearUncheckedImage />}
+    />
+  ),
 };
