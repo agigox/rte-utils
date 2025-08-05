@@ -79,6 +79,8 @@ export const Input: React.FC<InputProps> = ({
             required={required}
             className="input-element"
             aria-label={label}
+            min={min.value}
+            max={max.value}
           />
           <label className="input-label">
             {label}

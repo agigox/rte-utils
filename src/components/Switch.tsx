@@ -45,17 +45,23 @@ export const Switch: React.FC<SwitchProps> = ({
 }) => {
   const [internalChecked, setInternalChecked] = useState(checked);
 
+  // Use controlled value if provided, otherwise use internal state
+  const isChecked = checked !== undefined ? checked : internalChecked;
+
   const handleToggle = () => {
     if (disabled) return;
 
-    const newChecked = !internalChecked;
-    setInternalChecked(newChecked);
+    const newChecked = !isChecked;
+    // Only update internal state if uncontrolled
+    if (checked === undefined) {
+      setInternalChecked(newChecked);
+    }
     onChange?.(newChecked);
   };
 
   const switchClasses = [
     "switch",
-    internalChecked ? "switch--checked" : "",
+    isChecked ? "switch--checked" : "",
     disabled ? "switch--disabled" : "",
   ]
     .filter(Boolean)
@@ -66,20 +72,20 @@ export const Switch: React.FC<SwitchProps> = ({
       <div className="switch-wrapper">
         {showIcon && (
           <div className="switch-icon">
-            <ImgOn isOff={!internalChecked} />
+            <ImgOn isOff={!isChecked} />
           </div>
         )}
         <button
           type="button"
           role="switch"
-          aria-checked={internalChecked}
+          aria-checked={isChecked}
           className={switchClasses}
           onClick={handleToggle}
           disabled={disabled}
         >
           <span className="switch-track">
             <span className="switch-thumb">
-              <SwitchThumb isOff={!internalChecked} />
+              <SwitchThumb isOff={!isChecked} />
             </span>
           </span>
         </button>

@@ -9,6 +9,8 @@ interface ProductionUnitProps {
   onChangeSwitch?: (checked: boolean) => void;
   defaultValue?: number;
   defaultChecked?: boolean;
+  value?: number;
+  checked?: boolean;
   unitName?: string;
   energyCost?: number;
   checkedImage?: React.ReactNode;
@@ -20,19 +22,27 @@ export const ProductionUnit = ({
   onChangeSwitch,
   defaultValue,
   defaultChecked = false,
+  value,
+  checked,
   unitName = "Production Unit",
   energyCost = 0,
   checkedImage,
   uncheckedImage,
   readonly = false,
 }: ProductionUnitProps) => {
-  // Internal state management
+  // Internal state management for uncontrolled mode
   const [internalChecked, setInternalChecked] = useState(defaultChecked);
   const [internalValue, setInternalValue] = useState(defaultValue);
 
+  // Use controlled props if provided, otherwise use internal state
+  const isChecked = checked !== undefined ? checked : internalChecked;
+  const currentValue = value !== undefined ? value : internalValue;
+
   const handleSwitchChange = (newChecked: boolean) => {
-    // Update internal state
-    setInternalChecked(newChecked);
+    // Update internal state only if uncontrolled
+    if (checked === undefined) {
+      setInternalChecked(newChecked);
+    }
 
     // Notify parent component if handler provided
     if (onChangeSwitch) {
@@ -42,8 +52,10 @@ export const ProductionUnit = ({
 
   const handleInputChange = (val: string) => {
     const numValue = Number(val);
-    // Update internal state
-    setInternalValue(numValue);
+    // Update internal state only if uncontrolled
+    if (value === undefined) {
+      setInternalValue(numValue);
+    }
 
     // Notify parent component if handler provided
     if (onChangeInput) {
@@ -55,7 +67,7 @@ export const ProductionUnit = ({
     <div className="production-unit-container">
       <div className="production-unit-content">
         <div className="image-preview-container">
-          {internalChecked ? checkedImage : uncheckedImage}
+          {isChecked ? checkedImage : uncheckedImage}
         </div>
         <div className="production-unit-chip">
           <div className="production-unit-chip-name">{unitName}</div>
@@ -73,15 +85,15 @@ export const ProductionUnit = ({
             type="number"
             onChange={handleInputChange}
             value={
-              internalValue !== undefined ? internalValue.toString() : undefined
+              currentValue !== undefined ? currentValue.toString() : undefined
             }
-            disabled={!internalChecked || readonly}
+            disabled={!isChecked || readonly}
           />{" "}
         </div>
       </div>
 
       <Switch
-        checked={internalChecked}
+        checked={isChecked}
         onChange={handleSwitchChange}
         disabled={readonly}
       />
