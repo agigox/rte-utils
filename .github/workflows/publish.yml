@@ -1,5 +1,6 @@
 name: Publish to NPM
-
+permissions:
+  contents: write
 on:
   push:
     branches:
@@ -41,7 +42,7 @@ jobs:
 
       - name: Commit version bump
         run: |
-          git config --local user.email "action@github.com"
+          git config --local user.email "ami@github.com"
           git config --local user.name "GitHub Action"
           git add package.json
           git commit -m "Bump version [skip ci]" || exit 0
