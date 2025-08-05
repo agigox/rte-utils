@@ -19,7 +19,10 @@ jobs:
           node-version: "20"
           registry-url: "https://registry.npmjs.org"
 
-      - name: Install dependencies
+      - name: Print Node & NPM versions for debugging
+        run: node -v && npm -v
+
+      - name: Install dependencies (omit optional)
         run: npm ci --omit=optional
 
       - name: Run type check
