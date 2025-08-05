@@ -63,9 +63,6 @@
     "typescript": "^5.1.0",
     "vitest": "^3.2.4"
   },
-  "optionalDependencies": {
-    "fsevents": "^2.3.3"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/agigox/rte-utils.git"
@@ -76,5 +73,8 @@
   "homepage": "https://github.com/agigox/rte-utils#readme",
   "dependencies": {
     "rte-utils": "^1.0.0"
+  },
+  "optionalDependencies": {
+    "fsevents": "^2.3.3"
   }
 }
