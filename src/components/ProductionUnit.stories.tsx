@@ -51,6 +51,14 @@ const meta: Meta<typeof ProductionUnit> = {
     uncheckedImage: {
       description: "React node to display when the unit is inactive/unchecked",
     },
+    min: {
+      control: "object",
+      description: "Minimum power constraint with value and optional label",
+    },
+    max: {
+      control: "object",
+      description: "Maximum power constraint with value and optional label",
+    },
     onChangeInput: {
       description: "Function called when input value changes",
     },
@@ -242,5 +250,49 @@ export const SmallWind: Story = {
     readonly: false,
     checkedImage: <WindCheckedImage />,
     uncheckedImage: <WindUncheckedImage />,
+  },
+};
+
+export const WithConstraints: Story = {
+  args: {
+    unitName: "Solar Array with Limits",
+    energyCost: 300,
+    defaultValue: 200,
+    defaultChecked: true,
+    readonly: false,
+    min: { value: 50, label: "Min Solar" },
+    max: { value: 350, label: "Max Solar" },
+    checkedImage: <SolarCheckedImage />,
+    uncheckedImage: <SolarUncheckedImage />,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Production unit with custom min/max power constraints. The input will validate and clamp values within the specified range.",
+      },
+    },
+  },
+};
+
+export const NuclearWithLimits: Story = {
+  args: {
+    unitName: "Nuclear Reactor Core",
+    energyCost: 1500,
+    defaultValue: 1200,
+    defaultChecked: false,
+    readonly: false,
+    min: { value: 800, label: "Safe Min" },
+    max: { value: 1600, label: "Max Cap" },
+    checkedImage: <NuclearCheckedImage />,
+    uncheckedImage: <NuclearUncheckedImage />,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "High-capacity nuclear unit with safety constraints. Shows custom constraint labels for operational limits.",
+      },
+    },
   },
 };

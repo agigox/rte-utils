@@ -4,6 +4,10 @@ import { Switch } from "./Switch";
 import "./ProductionUnit.css";
 import { Chip } from "./Chip";
 
+type ProductionUnitLimit = {
+  value: number;
+  label?: string;
+};
 interface ProductionUnitProps {
   onChangeInput?: (value: number) => void;
   onChangeSwitch?: (checked: boolean) => void;
@@ -16,6 +20,8 @@ interface ProductionUnitProps {
   checkedImage?: React.ReactNode;
   uncheckedImage?: React.ReactNode;
   readonly?: boolean;
+  min?: ProductionUnitLimit;
+  max?: ProductionUnitLimit;
 }
 export const ProductionUnit = ({
   onChangeInput,
@@ -29,6 +35,8 @@ export const ProductionUnit = ({
   checkedImage,
   uncheckedImage,
   readonly = false,
+  min = { value: 10, label: "Pmin" },
+  max = { value: 100, label: "Pmax" },
 }: ProductionUnitProps) => {
   // Internal state management for uncontrolled mode
   const [internalChecked, setInternalChecked] = useState(defaultChecked);
@@ -88,6 +96,8 @@ export const ProductionUnit = ({
               currentValue !== undefined ? currentValue.toString() : undefined
             }
             disabled={!isChecked || readonly}
+            min={{ value: min.value, label: min.label }}
+            max={{ value: max.value, label: max.label }}
           />{" "}
         </div>
       </div>

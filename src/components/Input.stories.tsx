@@ -9,7 +9,7 @@ const meta: Meta<typeof Input> = {
     docs: {
       description: {
         component:
-          "A specialized Input component with floating labels and min/max constraints. Designed for numeric inputs with visual feedback and constraint indicators.",
+          "A specialized Input component with floating labels, min/max constraints, and automatic value validation. Features visual constraint indicators that highlight when focused, and automatic clamping for number inputs.",
       },
     },
   },
@@ -22,7 +22,7 @@ const meta: Meta<typeof Input> = {
     type: {
       control: "select",
       options: ["text", "number"],
-      description: "HTML input type (text or number)",
+      description: "HTML input type (text or number with validation)",
     },
     value: {
       control: "text",
@@ -34,7 +34,7 @@ const meta: Meta<typeof Input> = {
     },
     required: {
       control: "boolean",
-      description: "Whether the input is required (shows asterisk)",
+      description: "Whether the input is required (shows red asterisk)",
     },
     className: {
       control: "text",
@@ -42,11 +42,13 @@ const meta: Meta<typeof Input> = {
     },
     min: {
       control: "object",
-      description: "Minimum value constraint with value and optional label",
+      description:
+        "Minimum value constraint with value and optional label (auto-validates numbers)",
     },
     max: {
       control: "object",
-      description: "Maximum value constraint with value and optional label",
+      description:
+        "Maximum value constraint with value and optional label (auto-validates numbers)",
     },
     onChange: {
       description: "Function called when input value changes",
@@ -78,6 +80,15 @@ export const Number: Story = {
     type: "number",
     min: { value: 0, label: "Pmin" },
     max: { value: 1000, label: "Pmax" },
+    value: "500",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Number input with spinner controls and min/max validation. Try typing a value greater than 1000 or using the spinner arrows.",
+      },
+    },
   },
 };
 
@@ -125,5 +136,41 @@ export const LargeNumbers: Story = {
     min: { value: 0, label: "0 MW" },
     max: { value: 2000, label: "2000 MW" },
     value: "1200",
+  },
+};
+
+export const ValidationDemo: Story = {
+  args: {
+    label: "Auto-Clamping Demo",
+    type: "number",
+    min: { value: 10, label: "Min: 10" },
+    max: { value: 100, label: "Max: 100" },
+    value: "50",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Try typing values outside the 10-100 range. The input shows error styling while typing invalid values, but only clamps the value when you blur (leave) the input field. This allows you to freely type valid values like '50' without interference.",
+      },
+    },
+  },
+};
+
+export const FocusHighlight: Story = {
+  args: {
+    label: "Focus to See Highlight",
+    type: "number",
+    min: { value: 0, label: "Minimum" },
+    max: { value: 1000, label: "Maximum" },
+    required: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Click on the input to see the min/max labels change color and weight when focused.",
+      },
+    },
   },
 };
