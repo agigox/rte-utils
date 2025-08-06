@@ -6,3 +6,4 @@ export { Chip } from "./Chip";
 export { Switch } from "./Switch";
 export { Input } from "./Input";
 export { Avatar } from "./Avatar";
+export { CostText } from "./CostText";

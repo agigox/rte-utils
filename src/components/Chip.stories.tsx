@@ -1,36 +1,37 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { Chip } from './Chip';
+import type { Meta, StoryObj } from "@storybook/react";
+import { Chip } from "./Chip";
 
 const meta: Meta<typeof Chip> = {
-  title: 'Components/Chip',
+  title: "Components/Chip",
   component: Chip,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
     docs: {
       description: {
-        component: 'A versatile Chip component for displaying tags, labels, or status indicators with customizable colors and width options.'
-      }
-    }
+        component:
+          "A versatile Chip component for displaying content with customizable colors and width options. Can contain text, icons, or any React elements as children.",
+      },
+    },
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
-    label: {
-      control: 'text',
-      description: 'Text content displayed in the chip'
+    children: {
+      control: false,
+      description: "Content to display inside the chip",
     },
     bgColor: {
-      control: 'color',
-      description: 'Background color of the chip'
+      control: "color",
+      description: "Background color of the chip",
     },
     textColor: {
-      control: 'color',
-      description: 'Text color of the chip'
+      control: "color",
+      description: "Text color of the chip",
     },
     width: {
-      control: 'select',
-      options: ['fit-content', 'full-width'],
-      description: 'Width behavior of the chip'
-    }
+      control: "select",
+      options: ["fit-content", "full-width"],
+      description: "Width behavior of the chip",
+    },
   },
 };
 
@@ -39,55 +40,118 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    label: 'Default Chip',
-    width: 'fit-content',
+    width: "fit-content",
   },
+  render: (args) => <Chip {...args}>Default Chip</Chip>,
 };
 
 export const CustomColors: Story = {
   args: {
-    label: 'Custom Colors',
-    bgColor: '#E1F5FD',
-    textColor: '#005896',
-    width: 'fit-content',
+    bgColor: "#E1F5FD",
+    textColor: "#005896",
+    width: "fit-content",
   },
+  render: (args) => <Chip {...args}>Custom Colors</Chip>,
 };
 
 export const FullWidth: Story = {
   args: {
-    label: 'Full Width Chip',
-    bgColor: '#f3f4f6',
-    textColor: '#374151',
-    width: 'full-width',
+    bgColor: "#f3f4f6",
+    textColor: "#374151",
+    width: "full-width",
   },
   parameters: {
-    layout: 'padded',
-  }
+    layout: "padded",
+  },
+  render: (args) => <Chip {...args}>Full Width Chip</Chip>,
 };
 
 export const Status: Story = {
   args: {
-    label: 'Active',
-    bgColor: '#dcfce7',
-    textColor: '#166534',
-    width: 'fit-content',
+    bgColor: "#dcfce7",
+    textColor: "#166534",
+    width: "fit-content",
   },
+  render: (args) => <Chip {...args}>Active</Chip>,
 };
 
 export const Warning: Story = {
   args: {
-    label: 'Warning',
-    bgColor: '#fef3c7',
-    textColor: '#92400e',
-    width: 'fit-content',
+    bgColor: "#fef3c7",
+    textColor: "#92400e",
+    width: "fit-content",
   },
+  render: (args) => <Chip {...args}>Warning</Chip>,
 };
 
 export const Error: Story = {
   args: {
-    label: 'Error',
-    bgColor: '#fecaca',
-    textColor: '#991b1b',
-    width: 'fit-content',
+    bgColor: "#fecaca",
+    textColor: "#991b1b",
+    width: "fit-content",
   },
+  render: (args) => <Chip {...args}>Error</Chip>,
+};
+
+export const WithIcon: Story = {
+  args: {
+    bgColor: "#e0f2fe",
+    textColor: "#0277bd",
+    width: "fit-content",
+  },
+  render: (args) => (
+    <Chip {...args}>
+      <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+        <span>⚡</span>
+        Energy Active
+      </span>
+    </Chip>
+  ),
+};
+
+export const WithBadge: Story = {
+  args: {
+    bgColor: "#f3e8ff",
+    textColor: "#7c3aed",
+    width: "fit-content",
+  },
+  render: (args) => (
+    <Chip {...args}>
+      <span style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+        Status
+        <span
+          style={{
+            backgroundColor: "#10b981",
+            color: "white",
+            borderRadius: "50%",
+            width: "16px",
+            height: "16px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "10px",
+            fontWeight: "bold",
+          }}
+        >
+          3
+        </span>
+      </span>
+    </Chip>
+  ),
+};
+
+export const MultilineContent: Story = {
+  args: {
+    bgColor: "#fef7cd",
+    textColor: "#92400e",
+    width: "fit-content",
+  },
+  render: (args) => (
+    <Chip {...args}>
+      <div style={{ textAlign: "center" }}>
+        <div style={{ fontSize: "12px", fontWeight: "bold" }}>Production</div>
+        <div style={{ fontSize: "14px" }}>850 MW</div>
+      </div>
+    </Chip>
+  ),
 };

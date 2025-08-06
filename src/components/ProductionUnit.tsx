@@ -3,6 +3,7 @@ import { Input } from "./Input";
 import { Switch } from "./Switch";
 import "./ProductionUnit.css";
 import { Chip } from "./Chip";
+import { CostText } from "./CostText";
 import { ProductionUnitContainer } from "./ProductionUnitContainer";
 
 type ProductionUnitLimit = {
@@ -82,12 +83,9 @@ export const ProductionUnit = ({
           <div className="production-unit-chip">
             <div className="production-unit-chip-name">{unitName}</div>
 
-            <Chip
-              label={`${energyCost} MW`}
-              width="fit-content"
-              bgColor="#E1F5FD"
-              textColor="#005896"
-            />
+            <Chip width="fit-content" bgColor="#E1F5FD" textColor="#005896">
+              <CostText cost={energyCost} textColor="#005896" />
+            </Chip>
           </div>
           <div className="production-unit-switch-container">
             <Input
