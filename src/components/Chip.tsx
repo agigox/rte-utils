@@ -5,14 +5,12 @@ interface ChipProps {
   // Define any props you want to pass to the Chip component
   children: React.ReactNode;
   bgColor?: string;
-  textColor?: string;
   width?: "fit-content" | "full-width";
 }
 
 export const Chip: React.FC<ChipProps> = ({
   children,
   bgColor,
-  textColor,
   width = "fit-content",
 }) => {
   const chipClasses = [
@@ -25,9 +23,7 @@ export const Chip: React.FC<ChipProps> = ({
   return (
     <div className={chipClasses} style={{ backgroundColor: bgColor }}>
       <div className="chip-content">
-        <div className="chip-label" style={{ color: textColor }}>
-          {children}
-        </div>
+        <div className="chip-label">{children}</div>
       </div>
     </div>
   );

@@ -35,6 +35,7 @@ interface SwitchProps {
   onChange?: (checked: boolean) => void;
   disabled?: boolean;
   showIcon?: boolean;
+  label?: string;
 }
 
 export const Switch: React.FC<SwitchProps> = ({
@@ -42,6 +43,7 @@ export const Switch: React.FC<SwitchProps> = ({
   onChange,
   disabled = false,
   showIcon = true,
+  label,
 }) => {
   const [internalChecked, setInternalChecked] = useState(checked);
 
@@ -67,14 +69,23 @@ export const Switch: React.FC<SwitchProps> = ({
     .filter(Boolean)
     .join(" ");
 
+  const wrapperClasses = [
+    "switch-wrapper",
+    isChecked ? "switch-wrapper--checked" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
     <div className="switch-container">
-      <div className="switch-wrapper">
-        {showIcon && (
+      <div className={wrapperClasses}>
+        {showIcon ? (
           <div className="switch-icon">
             <ImgOn isOff={!isChecked} />
           </div>
-        )}
+        ) : label ? (
+          <div className="switch-label">{label}</div>
+        ) : null}
         <button
           type="button"
           role="switch"

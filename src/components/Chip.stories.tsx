@@ -23,10 +23,6 @@ const meta: Meta<typeof Chip> = {
       control: "color",
       description: "Background color of the chip",
     },
-    textColor: {
-      control: "color",
-      description: "Text color of the chip",
-    },
     width: {
       control: "select",
       options: ["fit-content", "full-width"],
@@ -48,7 +44,6 @@ export const Default: Story = {
 export const CustomColors: Story = {
   args: {
     bgColor: "#E1F5FD",
-    textColor: "#005896",
     width: "fit-content",
   },
   render: (args) => <Chip {...args}>Custom Colors</Chip>,
@@ -57,7 +52,6 @@ export const CustomColors: Story = {
 export const FullWidth: Story = {
   args: {
     bgColor: "#f3f4f6",
-    textColor: "#374151",
     width: "full-width",
   },
   parameters: {
@@ -69,7 +63,6 @@ export const FullWidth: Story = {
 export const Status: Story = {
   args: {
     bgColor: "#dcfce7",
-    textColor: "#166534",
     width: "fit-content",
   },
   render: (args) => <Chip {...args}>Active</Chip>,
@@ -78,7 +71,6 @@ export const Status: Story = {
 export const Warning: Story = {
   args: {
     bgColor: "#fef3c7",
-    textColor: "#92400e",
     width: "fit-content",
   },
   render: (args) => <Chip {...args}>Warning</Chip>,
@@ -87,7 +79,6 @@ export const Warning: Story = {
 export const Error: Story = {
   args: {
     bgColor: "#fecaca",
-    textColor: "#991b1b",
     width: "fit-content",
   },
   render: (args) => <Chip {...args}>Error</Chip>,
@@ -96,7 +87,6 @@ export const Error: Story = {
 export const WithIcon: Story = {
   args: {
     bgColor: "#e0f2fe",
-    textColor: "#0277bd",
     width: "fit-content",
   },
   render: (args) => (
@@ -112,7 +102,6 @@ export const WithIcon: Story = {
 export const WithBadge: Story = {
   args: {
     bgColor: "#f3e8ff",
-    textColor: "#7c3aed",
     width: "fit-content",
   },
   render: (args) => (
@@ -143,7 +132,6 @@ export const WithBadge: Story = {
 export const MultilineContent: Story = {
   args: {
     bgColor: "#fef7cd",
-    textColor: "#92400e",
     width: "fit-content",
   },
   render: (args) => (

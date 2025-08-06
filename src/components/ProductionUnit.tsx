@@ -83,7 +83,7 @@ export const ProductionUnit = ({
           <div className="production-unit-chip">
             <div className="production-unit-chip-name">{unitName}</div>
 
-            <Chip width="fit-content" bgColor="#E1F5FD" textColor="#005896">
+            <Chip width="fit-content" bgColor="#E1F5FD">
               <CostText cost={energyCost} textColor="#005896" />
             </Chip>
           </div>
