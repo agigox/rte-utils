@@ -3,6 +3,7 @@ import { Input } from "./Input";
 import { Switch } from "./Switch";
 import "./ProductionUnit.css";
 import { Chip } from "./Chip";
+import { ProductionUnitContainer } from "./ProductionUnitContainer";
 
 type ProductionUnitLimit = {
   value: number;
@@ -72,41 +73,43 @@ export const ProductionUnit = ({
   };
 
   return (
-    <div className="production-unit-container">
-      <div className="production-unit-content">
-        <div className="image-preview-container">
-          {isChecked ? checkedImage : uncheckedImage}
-        </div>
-        <div className="production-unit-chip">
-          <div className="production-unit-chip-name">{unitName}</div>
+    <ProductionUnitContainer>
+      <div className="production-unit-container">
+        <div className="production-unit-content">
+          <div className="image-preview-container">
+            {isChecked ? checkedImage : uncheckedImage}
+          </div>
+          <div className="production-unit-chip">
+            <div className="production-unit-chip-name">{unitName}</div>
 
-          <Chip
-            label={`${energyCost} MW`}
-            width="fit-content"
-            bgColor="#E1F5FD"
-            textColor="#005896"
-          />
+            <Chip
+              label={`${energyCost} MW`}
+              width="fit-content"
+              bgColor="#E1F5FD"
+              textColor="#005896"
+            />
+          </div>
+          <div className="production-unit-switch-container">
+            <Input
+              label="PA"
+              type="number"
+              onChange={handleInputChange}
+              value={
+                currentValue !== undefined ? currentValue.toString() : undefined
+              }
+              disabled={!isChecked || readonly}
+              min={{ value: min.value, label: min.label }}
+              max={{ value: max.value, label: max.label }}
+            />{" "}
+          </div>
         </div>
-        <div className="production-unit-switch-container">
-          <Input
-            label="PA"
-            type="number"
-            onChange={handleInputChange}
-            value={
-              currentValue !== undefined ? currentValue.toString() : undefined
-            }
-            disabled={!isChecked || readonly}
-            min={{ value: min.value, label: min.label }}
-            max={{ value: max.value, label: max.label }}
-          />{" "}
-        </div>
+
+        <Switch
+          checked={isChecked}
+          onChange={handleSwitchChange}
+          disabled={readonly}
+        />
       </div>
-
-      <Switch
-        checked={isChecked}
-        onChange={handleSwitchChange}
-        disabled={readonly}
-      />
-    </div>
+    </ProductionUnitContainer>
   );
 };
