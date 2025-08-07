@@ -3,7 +3,7 @@ import "rte-utils/dist/index.css"; // Import the CSS styles
 import { HistogramDemo } from "./HistogramDemo";
 import { ChipDemo } from "./ChipDemo";
 import { SwitchDemo } from "./SwitchDemo";
-import { InputDemo } from "./InputDemo";
+import { InputNumberDemo } from "./InputNumberDemo";
 import { ProductionUnitDemo } from "./ProductionUnitDemo";
 import { AvatarDemo } from "./AvatarDemo";
 
@@ -12,7 +12,7 @@ type DemoTab =
   | "histogram"
   | "chip"
   | "switch"
-  | "input"
+  | "input-number"
   | "avatar";
 
 function App() {
@@ -31,7 +31,11 @@ function App() {
     },
     { id: "chip" as const, label: "Chip", component: <ChipDemo /> },
     { id: "switch" as const, label: "Switch", component: <SwitchDemo /> },
-    { id: "input" as const, label: "Input", component: <InputDemo /> },
+    {
+      id: "input-number" as const,
+      label: "InputNumber",
+      component: <InputNumberDemo />,
+    },
     { id: "avatar" as const, label: "Avatar", component: <AvatarDemo /> },
   ];
 

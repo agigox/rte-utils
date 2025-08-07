@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import "./Input.css";
+import "./InputNumber.css";
 
 interface InputNumberProps {
   label: string;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Input } from "./Input";
+import { InputNumber } from "./InputNumber";
 import { Switch } from "./Switch";
 import "./ProductionUnit.css";
 import { Chip } from "./Chip";
@@ -61,15 +61,29 @@ export const ProductionUnit = ({
   };
 
   const handleInputChange = (val: string) => {
-    const numValue = Number(val);
-    // Update internal state only if uncontrolled
-    if (value === undefined) {
-      setInternalValue(numValue);
+    // Only convert to number if the string is not empty and is a valid number
+    if (val === "") {
+      // Handle empty string case
+      if (value === undefined) {
+        setInternalValue(undefined);
+      }
+      if (onChangeInput) {
+        onChangeInput(0); // or whatever default you prefer for empty values
+      }
+      return;
     }
 
-    // Notify parent component if handler provided
-    if (onChangeInput) {
-      onChangeInput(numValue);
+    const numValue = parseFloat(val);
+    if (!isNaN(numValue)) {
+      // Update internal state only if uncontrolled
+      if (value === undefined) {
+        setInternalValue(numValue);
+      }
+
+      // Notify parent component if handler provided
+      if (onChangeInput) {
+        onChangeInput(numValue);
+      }
     }
   };
 
@@ -88,9 +102,8 @@ export const ProductionUnit = ({
             </Chip>
           </div>
           <div className="production-unit-switch-container">
-            <Input
+            <InputNumber
               label="PA"
-              type="number"
               onChange={handleInputChange}
               value={
                 currentValue !== undefined ? currentValue.toString() : undefined
