@@ -1,12 +1,12 @@
 import React from "react";
-import "./CostText.css";
+import "./MwhCost.css";
 
-interface CostTextProps {
+interface MwhCostProps {
   cost?: number;
   textColor?: string;
 }
 
-export const CostText: React.FC<CostTextProps> = ({ cost, textColor }) => {
+export const MwhCost: React.FC<MwhCostProps> = ({ cost, textColor }) => {
   return (
     <div className="cost-text-container">
       <div className="cost-number" style={{ color: textColor }}>
