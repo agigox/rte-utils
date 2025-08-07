@@ -35,24 +35,26 @@ export const Input: React.FC<InputProps> = ({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
-    
-    // Check if value is out of range for visual feedback (but don't clamp yet)
+
+    // For number inputs, clamp the value immediately
     if (type === "number" && newValue !== "") {
       const numValue = parseFloat(newValue);
       if (!isNaN(numValue)) {
-        const outOfRange = numValue < min.value || numValue > max.value;
-        setIsOutOfRange(outOfRange);
-      } else {
-        setIsOutOfRange(false);
+        // Clamp the value to be within min and max bounds
+        const clampedValue = Math.max(min.value, Math.min(max.value, numValue));
+        const clampedString = clampedValue.toString();
+
+        setInternalValue(clampedString);
+        onChange?.(clampedString);
+        setIsOutOfRange(false); // Value is now within range
+        return;
       }
-    } else {
-      setIsOutOfRange(false);
     }
-    
-    // Allow typing without immediate validation
-    // Validation will happen on blur
+
+    // For non-number inputs or empty values, use the value as is
     setInternalValue(newValue);
     onChange?.(newValue);
+    setIsOutOfRange(false);
   };
 
   const handleFocus = () => {
@@ -61,20 +63,7 @@ export const Input: React.FC<InputProps> = ({
 
   const handleBlur = () => {
     setIsFocused(false);
-
-    // Validate and clamp value on blur for number inputs
-    if (type === "number" && internalValue !== "") {
-      const numValue = parseFloat(internalValue);
-      if (!isNaN(numValue)) {
-        const clampedValue = Math.max(min.value, Math.min(max.value, numValue));
-        if (clampedValue !== numValue) {
-          const clampedString = clampedValue.toString();
-          setInternalValue(clampedString);
-          onChange?.(clampedString);
-        }
-        setIsOutOfRange(false); // Reset out-of-range state after clamping
-      }
-    }
+    // The clamping is now handled in handleChange, so we just need to manage focus state
   };
 
   const isLabelFloating = isFocused || internalValue.length > 0;
