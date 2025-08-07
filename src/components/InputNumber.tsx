@@ -34,22 +34,35 @@ export const InputNumber: React.FC<InputNumberProps> = ({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
 
+    // Always update internal value for display
+    setInternalValue(newValue);
+
     // Check if value is out of range for visual feedback
     if (newValue !== "") {
       const numValue = parseFloat(newValue);
       if (!isNaN(numValue)) {
         const outOfRange = numValue < min.value || numValue > max.value;
         setIsOutOfRange(outOfRange);
+
+        if (outOfRange) {
+          // Clamp the value and notify parent with clamped value
+          const clampedValue = Math.max(
+            min.value,
+            Math.min(max.value, numValue)
+          );
+          onChange?.(clampedValue.toString());
+        } else {
+          // Value is in range, notify parent with actual value
+          onChange?.(newValue);
+        }
       } else {
         setIsOutOfRange(false);
+        onChange?.(newValue);
       }
     } else {
       setIsOutOfRange(false);
+      onChange?.(newValue);
     }
-
-    // Allow typing without immediate clamping to enable multi-digit entry
-    setInternalValue(newValue);
-    onChange?.(newValue);
   };
   const handleFocus = () => {
     setIsFocused(true);
