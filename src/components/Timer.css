@@ -1,0 +1,220 @@
+.timer-header-control {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
+  border: 1px solid red;
+}
+
+.timer-section {
+  background-color: #ffffff;
+  display: flex;
+  padding: 10px 0 10px 16px;
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+  flex-shrink: 0;
+}
+
+.timer-content {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding-right: 8px;
+}
+
+.timer-display-area {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.timer-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 124px;
+  color: #11161a;
+}
+
+.timer-title {
+  font-family: "Open Sans", sans-serif;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 12px;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  width: 64px;
+}
+
+.timer-time {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 17px;
+  text-align: right;
+  white-space: nowrap;
+  width: 61px;
+}
+
+.timer-progress-bar {
+  height: 8px;
+  width: 124px;
+  background: black;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.timer-progress-fill {
+  height: 100%;
+  background: #009cdf;
+
+  transition: width 0.3s ease;
+  border-radius: 4px;
+}
+
+.step-indicators {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.step-indicator {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 18px;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.step-indicator--active {
+  background-color: #009cdf;
+}
+
+.step-indicator--completed {
+  background-color: #005896;
+}
+
+.step-indicator--upcoming {
+  background-color: #b7bec2;
+}
+
+.step-expand {
+  background-color: #292e33;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  transform: rotate(90deg);
+  margin-left: 4px;
+}
+
+.timer-controls-section {
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px 10px 10px;
+  align-self: stretch;
+  flex-shrink: 0;
+}
+
+.control-button {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 0;
+  background: #d9d9d9;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+}
+
+.control-button::before {
+  content: "";
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.1) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+
+.control-button:hover::before {
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.15) 0%, transparent 70%);
+}
+
+.control-button svg {
+  width: 16px;
+  height: 16px;
+  color: #000000;
+}
+
+.timer--running .step-indicator--active {
+  animation: pulse 1s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+  from {
+    background-color: #009cdf;
+  }
+  to {
+    background-color: #0081b8;
+  }
+}
+
+/* Placeholder display for items without game actions */
+.step-indicator--placeholder {
+  background-color: #e9ecef;
+  color: #6c757d;
+  border: 2px dashed #dee2e6;
+  position: relative;
+}
+
+.step-indicator--placeholder::after {
+  content: attr(data-step);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.step-expand.step-expand--end {
+  background-color: #1a7f37; /* success green */
+  transform: none;
+}
+
+@media (max-width: 480px) {
+  .timer-header-control {
+    flex-direction: column;
+  }
+
+  .timer-section {
+    border-radius: 16px 16px 0 0;
+  }
+
+  .timer-controls-section {
+    border-radius: 0 0 16px 16px;
+    justify-content: center;
+  }
+}

@@ -7,3 +7,5 @@ export { Switch } from "./Switch";
 export { InputNumber } from "./InputNumber";
 export { Avatar } from "./Avatar";
 export { MwhCost } from "./MwhCost";
+export { Timer } from "./Timer";
+export type { TimerProps, TimerRef } from "./Timer";
