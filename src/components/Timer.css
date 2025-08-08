@@ -44,14 +44,14 @@
   line-height: 12px;
   text-transform: uppercase;
   flex-shrink: 0;
-  width: 64px;
+  min-width: 64px;
 }
 
 .timer-time {
   font-family: "Open Sans", sans-serif;
   font-weight: 600;
   font-size: 20px;
-  line-height: 17px;
+  line-height: 14px;
   text-align: right;
   white-space: nowrap;
   width: 61px;
@@ -185,7 +185,6 @@
 .step-indicator--placeholder {
   background-color: #e9ecef;
   color: #6c757d;
-  border: 2px dashed #dee2e6;
   position: relative;
 }
 
