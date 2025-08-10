@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
-import "./Timer.css";
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import './Timer.css';
 
 export interface TimerProps {
   phases: { duration: number; title?: string }[];
@@ -16,7 +16,7 @@ export interface TimerProps {
   autoStart?: boolean;
   className?: string;
   gameActions?: { [phaseIndex: number]: string };
-  user?: "actor" | "admin";
+  user?: 'actor' | 'admin';
 }
 
 export interface TimerRef {
@@ -34,9 +34,7 @@ export interface TimerRef {
 const formatTime = (seconds: number): string => {
   const minutes = Math.floor(seconds / 60);
   const secs = seconds % 60;
-  return `${minutes.toString().padStart(2, "0")}:${secs
-    .toString()
-    .padStart(2, "0")}`;
+  return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 };
 
 export const Timer = React.forwardRef<TimerRef, TimerProps>(
@@ -54,9 +52,9 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
       onNext,
       onPhaseClick, // NEW
       autoStart = true,
-      className = "",
+      className = '',
       gameActions = {},
-      user = "admin",
+      user = 'admin',
     },
     ref
   ) => {
@@ -96,15 +94,12 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
       onReset?.();
     }, [onReset]);
 
-    const setTimerPhases = useCallback(
-      (newPhases: { duration: number; title?: string }[]) => {
-        setIsRunning(false);
-        setIsPaused(false);
-        setCurrentTime(0);
-        setCurrentPhase(0);
-      },
-      []
-    );
+    const setTimerPhases = useCallback((newPhases: { duration: number; title?: string }[]) => {
+      setIsRunning(false);
+      setIsPaused(false);
+      setCurrentTime(0);
+      setCurrentPhase(0);
+    }, []);
 
     React.useImperativeHandle(ref, () => ({
       start,
@@ -133,10 +128,7 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
 
             // Check if current phase is complete
             if (newTime >= (phases[currentPhase]?.duration || 0)) {
-              onPhaseComplete?.(
-                currentPhase,
-                phases[currentPhase]?.duration || 0
-              );
+              onPhaseComplete?.(currentPhase, phases[currentPhase]?.duration || 0);
 
               // Move to next phase or complete
               if (currentPhase + 1 < phases.length) {
@@ -169,8 +161,7 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
     }, [isRunning, currentPhase, phases, onTick, onPhaseComplete, onComplete]);
 
     const currentPhaseDuration = phases[currentPhase]?.duration || 0;
-    const progress =
-      currentPhaseDuration > 0 ? (currentTime / currentPhaseDuration) * 100 : 0;
+    const progress = currentPhaseDuration > 0 ? (currentTime / currentPhaseDuration) * 100 : 0;
     // Determine if we finished all steps and are at the end
     const isAtEnd =
       phases.length > 0 &&
@@ -179,17 +170,16 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
       currentTime >= (phases[Math.max(0, currentPhase)]?.duration || 0);
 
     const timerClasses = [
-      "timer-header-control",
+      'timer-header-control',
       className,
-      isRunning ? "timer--running" : "",
-      isPaused ? "timer--paused" : "",
-      isAtEnd ? "timer--completed" : "",
+      isRunning ? 'timer--running' : '',
+      isPaused ? 'timer--paused' : '',
+      isAtEnd ? 'timer--completed' : '',
     ]
       .filter(Boolean)
-      .join(" ");
+      .join(' ');
 
-    const remainingTime =
-      currentPhaseDuration > 0 ? currentPhaseDuration - currentTime : 0;
+    const remainingTime = currentPhaseDuration > 0 ? currentPhaseDuration - currentTime : 0;
 
     const renderStepIndicators = () => {
       const steps = [] as React.ReactNode[];
@@ -201,38 +191,38 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
         const hasAction = gameActions[i];
         const isClickable = isActive || isCompleted; // only active or completed
 
-        let stepClass = "step-indicator";
+        let stepClass = 'step-indicator';
         if (!hasAction && !isActive && !isCompleted) {
-          stepClass += " step-indicator--placeholder";
+          stepClass += ' step-indicator--placeholder';
         } else if (isActive) {
           stepClass +=
-            " step-indicator--active" +
-            (user === "actor" ? " step-indicator--actor" : " step-indicator--admin");
+            ' step-indicator--active' +
+            (user === 'actor' ? ' step-indicator--actor' : ' step-indicator--admin');
         } else if (isCompleted) {
-          stepClass += " step-indicator--completed";
+          stepClass += ' step-indicator--completed';
         } else {
-          stepClass += " step-indicator--upcoming";
+          stepClass += ' step-indicator--upcoming';
         }
-        if (isClickable) stepClass += " step-indicator--clickable"; // add clickable style
-        if (selectedPhase === i) stepClass += " step-indicator--selected"; // highlight clicked
+        if (isClickable) stepClass += ' step-indicator--clickable'; // add clickable style
+        if (selectedPhase === i) stepClass += ' step-indicator--selected'; // highlight clicked
 
         const handleClick = () => {
           if (!isClickable) return;
-            setSelectedPhase(i);
-            onPhaseClick?.(i);
+          setSelectedPhase(i);
+          onPhaseClick?.(i);
         };
 
         const commonProps = {
           key: i,
           className: stepClass,
-          "data-step": i + 1,
+          'data-step': i + 1,
           title: phases[i]?.title
             ? `Step ${i + 1}: ${phases[i]?.title}`
             : hasAction
-            ? `Step ${i + 1}: ${hasAction}`
-            : `Step ${i + 1}`,
+              ? `Step ${i + 1}: ${hasAction}`
+              : `Step ${i + 1}`,
           onClick: isClickable ? handleClick : undefined,
-          role: isClickable ? "button" as const : undefined,
+          role: isClickable ? ('button' as const) : undefined,
           tabIndex: isClickable ? 0 : undefined,
           onKeyDown: isClickable
             ? (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -244,22 +234,16 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
             : undefined,
         };
 
-        steps.push(
-          <div {...commonProps}>
-            {hasAction || isActive || isCompleted ? i + 1 : ""}
-          </div>
-        );
+        steps.push(<div {...commonProps}>{hasAction || isActive || isCompleted ? i + 1 : ''}</div>);
 
-        if (user === "actor" && isActive) {
+        if (user === 'actor' && isActive) {
           steps.push(
             <div key={`header-inline-${i}`} className="timer-header--block">
               <div className="timer-header timer-header--inline">
                 <span className="timer-title">
-                  {(phases[currentPhase]?.title || "TIMER").toUpperCase()}
+                  {(phases[currentPhase]?.title || 'TIMER').toUpperCase()}
                 </span>
-                <span className="timer-time">
-                  {formatTime(Math.max(0, remainingTime))}
-                </span>
+                <span className="timer-time">{formatTime(Math.max(0, remainingTime))}</span>
               </div>
               <div className="timer-progress-bar timer-progress-bar--inline">
                 <div
@@ -276,8 +260,8 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
         <div className="step-indicators">
           {steps}
           <div
-            className={`step-expand ${isAtEnd ? "step-expand--end" : ""}`}
-            title={isAtEnd ? "All steps completed" : "In progress"}
+            className={`step-expand ${isAtEnd ? 'step-expand--end' : ''}`}
+            title={isAtEnd ? 'All steps completed' : 'In progress'}
           >
             {isAtEnd ? (
               <svg
@@ -316,17 +300,15 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
         <div className="timer-section">
           <div className="timer-content">
             <div className="timer-display-area">
-              {user === "admin" && (
+              {user === 'admin' && (
                 <div className="timer-header">
                   <span className="timer-title">
                     {(phases[currentPhase]?.title || 'TIMER').toUpperCase()}
                   </span>
-                  <span className="timer-time">
-                    {formatTime(Math.max(0, remainingTime))}
-                  </span>
+                  <span className="timer-time">{formatTime(Math.max(0, remainingTime))}</span>
                 </div>
               )}
-              {user === "admin" && (
+              {user === 'admin' && (
                 <div className="timer-progress-bar">
                   <div
                     className="timer-progress-fill"
@@ -339,7 +321,7 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
           </div>
         </div>
 
-        {user === "admin" && (
+        {user === 'admin' && (
           <div className="timer-controls-section">
             <button
               className="control-button control-button--previous"
@@ -399,10 +381,10 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
 
             <button
               className={`control-button control-button--play-pause ${
-                isRunning ? "control-button--pause" : "control-button--play"
+                isRunning ? 'control-button--pause' : 'control-button--play'
               }`}
               onClick={isRunning ? pause : start}
-              title={isRunning ? "Pause" : "Start"}
+              title={isRunning ? 'Pause' : 'Start'}
             >
               {isRunning ? (
                 <svg
@@ -483,11 +465,7 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
               )}
             </button>
 
-            <button
-              className="control-button control-button--stop"
-              onClick={stop}
-              title="Stop"
-            >
+            <button className="control-button control-button--stop" onClick={stop} title="Stop">
               <svg
                 width="16"
                 height="16"
@@ -508,4 +486,4 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
   }
 );
 
-Timer.displayName = "Timer";
+Timer.displayName = 'Timer';

@@ -1,12 +1,12 @@
-import type { Preview } from "@storybook/react-vite";
+import type { Preview } from '@storybook/react-vite';
 
 // Import component styles
-import "../src/components/Avatar.css";
-import "../src/components/Chip.css";
-import "../src/components/Histogram.css";
-import "../src/components/InputNumber.css";
-import "../src/components/ProductionUnit.css";
-import "../src/components/Switch.css";
+import '../src/components/Avatar.css';
+import '../src/components/Chip.css';
+import '../src/components/Histogram.css';
+import '../src/components/InputNumber.css';
+import '../src/components/ProductionUnit.css';
+import '../src/components/Switch.css';
 
 const preview: Preview = {
   parameters: {
@@ -18,14 +18,14 @@ const preview: Preview = {
     },
     docs: {
       description: {
-        component: "Component documentation",
+        component: 'Component documentation',
       },
     },
     a11y: {
-      test: "todo",
+      test: 'todo',
     },
     // Disable hot reloading in production builds
-    ...(process.env.NODE_ENV === "production" && {
+    ...(process.env.NODE_ENV === 'production' && {
       server: {
         hmr: false,
         ws: false,

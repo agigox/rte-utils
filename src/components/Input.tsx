@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
-import "./Input.css";
+import React, { useState, useRef, useEffect } from 'react';
+import './Input.css';
 
 interface InputNumberProps {
   label: string;
@@ -14,13 +14,13 @@ interface InputNumberProps {
 
 export const InputNumber: React.FC<InputNumberProps> = ({
   label,
-  value = "",
+  value = '',
   onChange,
   disabled = false,
-  className = "",
+  className = '',
   required = false,
-  min = { value: 0, label: "Pmin" },
-  max = { value: 100, label: "Pmax" },
+  min = { value: 0, label: 'Pmin' },
+  max = { value: 100, label: 'Pmax' },
 }) => {
   const [internalValue, setInternalValue] = useState(value);
   const [isFocused, setIsFocused] = useState(false);
@@ -35,7 +35,7 @@ export const InputNumber: React.FC<InputNumberProps> = ({
     const newValue = e.target.value;
 
     // Check if value is out of range for visual feedback
-    if (newValue !== "") {
+    if (newValue !== '') {
       const numValue = parseFloat(newValue);
       if (!isNaN(numValue)) {
         const outOfRange = numValue < min.value || numValue > max.value;
@@ -59,7 +59,7 @@ export const InputNumber: React.FC<InputNumberProps> = ({
     setIsFocused(false);
 
     // Clamp value on blur
-    if (internalValue !== "") {
+    if (internalValue !== '') {
       const numValue = parseFloat(internalValue);
       if (!isNaN(numValue)) {
         const clampedValue = Math.max(min.value, Math.min(max.value, numValue));
@@ -76,15 +76,15 @@ export const InputNumber: React.FC<InputNumberProps> = ({
   const isLabelFloating = isFocused || internalValue.length > 0;
 
   const containerClasses = [
-    "input-container",
-    isFocused ? "input-container--focused" : "",
-    isLabelFloating ? "input-container--floating" : "",
-    disabled ? "input-container--disabled" : "",
-    isOutOfRange ? "input-container--error" : "",
+    'input-container',
+    isFocused ? 'input-container--focused' : '',
+    isLabelFloating ? 'input-container--floating' : '',
+    disabled ? 'input-container--disabled' : '',
+    isOutOfRange ? 'input-container--error' : '',
     className,
   ]
     .filter(Boolean)
-    .join(" ");
+    .join(' ');
 
   return (
     <div className={containerClasses}>

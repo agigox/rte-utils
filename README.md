@@ -15,23 +15,23 @@ npm install rte-utils
 You need to import both the component and its CSS styles:
 
 ```tsx
-import { Histogram, Chip } from "rte-utils";
-import "rte-utils/dist/index.css"; // Import the CSS styles
+import { Histogram, Chip } from 'rte-utils';
+import 'rte-utils/dist/index.css'; // Import the CSS styles
 ```
 
 ### Basic Example
 
 ```tsx
-import React from "react";
-import { Histogram } from "rte-utils";
-import "rte-utils/dist/index.css";
+import React from 'react';
+import { Histogram } from 'rte-utils';
+import 'rte-utils/dist/index.css';
 
 function App() {
   return (
     <div>
       <Histogram
-        max={{ value: 100, color: "#D3D64E" }}
-        relative={{ value: 56, color: "#C0C402" }}
+        max={{ value: 100, color: '#D3D64E' }}
+        relative={{ value: 56, color: '#C0C402' }}
         barWidth={32}
       >
         <div className="histogram-value-container">
@@ -52,18 +52,18 @@ export default App;
 ### Advanced Example with Animation
 
 ```tsx
-import React, { useState } from "react";
-import { Histogram } from "rte-utils";
-import "rte-utils/dist/index.css";
+import React, { useState } from 'react';
+import { Histogram } from 'rte-utils';
+import 'rte-utils/dist/index.css';
 
 function EnergyDashboard() {
   const [currentValue, setCurrentValue] = useState(45);
 
   return (
-    <div style={{ display: "flex", gap: "1rem" }}>
+    <div style={{ display: 'flex', gap: '1rem' }}>
       <Histogram
-        max={{ value: 100, color: "#D3D64E" }}
-        relative={{ value: currentValue, color: "#C0C402" }}
+        max={{ value: 100, color: '#D3D64E' }}
+        relative={{ value: currentValue, color: '#C0C402' }}
         barHeight={120}
         barWidth={40}
       >
@@ -76,9 +76,7 @@ function EnergyDashboard() {
         </div>
       </Histogram>
 
-      <button onClick={() => setCurrentValue((prev) => prev + 10)}>
-        Increase (+10)
-      </button>
+      <button onClick={() => setCurrentValue((prev) => prev + 10)}>Increase (+10)</button>
     </div>
   );
 }
@@ -87,16 +85,16 @@ function EnergyDashboard() {
 ### Horizontal Orientation Example
 
 ```tsx
-import React from "react";
-import { Histogram } from "rte-utils";
-import "rte-utils/dist/index.css";
+import React from 'react';
+import { Histogram } from 'rte-utils';
+import 'rte-utils/dist/index.css';
 
 function HorizontalChart() {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
       <Histogram
-        max={{ value: 100, color: "#D3D64E" }}
-        relative={{ value: 75, color: "#C0C402" }}
+        max={{ value: 100, color: '#D3D64E' }}
+        relative={{ value: 75, color: '#C0C402' }}
         barWidth={200} // This becomes height in horizontal mode
         barHeight={24} // This becomes width in horizontal mode
         orientation="horizontal"
@@ -117,17 +115,17 @@ function HorizontalChart() {
 ### Custom Corner Radius Example
 
 ```tsx
-import React from "react";
-import { Histogram } from "rte-utils";
-import "rte-utils/dist/index.css";
+import React from 'react';
+import { Histogram } from 'rte-utils';
+import 'rte-utils/dist/index.css';
 
 function CustomCornerChart() {
   return (
-    <div style={{ display: "flex", gap: "1rem" }}>
+    <div style={{ display: 'flex', gap: '1rem' }}>
       {/* Rounded top corners only */}
       <Histogram
-        max={{ value: 100, color: "#E0E0E0" }}
-        relative={{ value: 60, color: "#4CAF50" }}
+        max={{ value: 100, color: '#E0E0E0' }}
+        relative={{ value: 60, color: '#4CAF50' }}
         barWidth={32}
         barHeight={120}
         cornerRadius={{
@@ -140,8 +138,8 @@ function CustomCornerChart() {
 
       {/* Fully rounded corners */}
       <Histogram
-        max={{ value: 100, color: "#F0F0F0", opacity: 0.5 }}
-        relative={{ value: 80, color: "#2196F3" }}
+        max={{ value: 100, color: '#F0F0F0', opacity: 0.5 }}
+        relative={{ value: 80, color: '#2196F3' }}
         barWidth={32}
         barHeight={120}
         cornerRadius={{
@@ -154,8 +152,8 @@ function CustomCornerChart() {
 
       {/* Asymmetric corners */}
       <Histogram
-        max={{ value: 100, color: "#FFECB3" }}
-        relative={{ value: 45, color: "#FF9800" }}
+        max={{ value: 100, color: '#FFECB3' }}
+        relative={{ value: 45, color: '#FF9800' }}
         barWidth={32}
         barHeight={120}
         cornerRadius={{
@@ -173,15 +171,15 @@ function CustomCornerChart() {
 ### Opacity and Advanced Styling Example
 
 ```tsx
-import React from "react";
-import { Histogram } from "rte-utils";
-import "rte-utils/dist/index.css";
+import React from 'react';
+import { Histogram } from 'rte-utils';
+import 'rte-utils/dist/index.css';
 
 function AdvancedStylingChart() {
   return (
     <Histogram
-      max={{ value: 100, color: "#000000", opacity: 0.1 }}
-      relative={{ value: 65, color: "#E91E63" }}
+      max={{ value: 100, color: '#000000', opacity: 0.1 }}
+      relative={{ value: 65, color: '#E91E63' }}
       barWidth={40}
       barHeight={150}
       orientation="vertical"
@@ -235,8 +233,25 @@ A histogram component with smooth animations for energy data visualization.
 The component uses external CSS classes for styling. Make sure to import the CSS file:
 
 ```tsx
-import "rte-utils/dist/index.css";
+import 'rte-utils/dist/index.css';
 ```
+
+## Scripts
+
+Development & quality commands:
+
+- `npm run build` – build the library (Rollup)
+- `npm run dev` – watch mode build
+- `npm run test` – run tests
+- `npm run lint` – run ESLint (no fixes)
+- `npm run lint:fix` – run ESLint with auto fixes
+- `npm run format` – apply Prettier formatting
+- `npm run format:check` – check formatting (CI)
+- `npm run typecheck` – TypeScript diagnostics (no emit)
+- `npm run storybook` – start Storybook
+- `npm run build-storybook` – build static Storybook
+
+Prettier is integrated with ESLint (plugin:prettier/recommended). Formatting issues will surface as ESLint errors.
 
 You can override the default styles by targeting the CSS classes:
 
@@ -259,35 +274,35 @@ A comprehensive production unit component that combines an image display, status
 
 #### Props
 
-| Prop             | Type                      | Required | Default              | Description                                        |
-| ---------------- | ------------------------- | -------- | -------------------- | -------------------------------------------------- |
-| `onChangeInput`  | `(value: number) => void` | ❌       | -                    | Callback triggered when input value changes        |
-| `onChangeSwitch` | `(checked: boolean) => void` | ❌    | -                    | Callback triggered when switch state changes       |
-| `defaultValue`   | `number`                  | ❌       | -                    | Initial value for the input field                  |
-| `defaultChecked` | `boolean`                 | ❌       | `false`              | Initial state for the switch                       |
-| `unitName`       | `string`                  | ❌       | `"Production Unit"`  | Display name for the production unit               |
-| `energyCost`     | `number`                  | ❌       | `0`                  | Energy cost value displayed in the chip (MW)       |
-| `checkedImage`   | `React.ReactNode`         | ❌       | -                    | Custom image/component displayed when switch is ON |
-| `uncheckedImage` | `React.ReactNode`         | ❌       | -                    | Custom image/component displayed when switch is OFF |
+| Prop             | Type                         | Required | Default             | Description                                         |
+| ---------------- | ---------------------------- | -------- | ------------------- | --------------------------------------------------- |
+| `onChangeInput`  | `(value: number) => void`    | ❌       | -                   | Callback triggered when input value changes         |
+| `onChangeSwitch` | `(checked: boolean) => void` | ❌       | -                   | Callback triggered when switch state changes        |
+| `defaultValue`   | `number`                     | ❌       | -                   | Initial value for the input field                   |
+| `defaultChecked` | `boolean`                    | ❌       | `false`             | Initial state for the switch                        |
+| `unitName`       | `string`                     | ❌       | `"Production Unit"` | Display name for the production unit                |
+| `energyCost`     | `number`                     | ❌       | `0`                 | Energy cost value displayed in the chip (MW)        |
+| `checkedImage`   | `React.ReactNode`            | ❌       | -                   | Custom image/component displayed when switch is ON  |
+| `uncheckedImage` | `React.ReactNode`            | ❌       | -                   | Custom image/component displayed when switch is OFF |
 
 #### Example Usage
 
 ```tsx
-import React from "react";
-import { ProductionUnit } from "rte-utils";
-import "rte-utils/dist/index.css";
+import React from 'react';
+import { ProductionUnit } from 'rte-utils';
+import 'rte-utils/dist/index.css';
 
 function ProductionUnitExample() {
   const handleInputChange = (value: number) => {
-    console.log("Production value changed:", value);
+    console.log('Production value changed:', value);
   };
 
   const handleSwitchChange = (checked: boolean) => {
-    console.log("Production unit is now:", checked ? "ON" : "OFF");
+    console.log('Production unit is now:', checked ? 'ON' : 'OFF');
   };
 
   return (
-    <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+    <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
       {/* Basic usage */}
       <ProductionUnit
         unitName="Solar Panel"
@@ -305,16 +320,10 @@ function ProductionUnitExample() {
         defaultChecked={false}
         defaultValue={75}
         checkedImage={
-          <img 
-            src="https://placehold.co/60x60/4CAF50/FFFFFF/png?text=ON" 
-            alt="Wind Turbine On" 
-          />
+          <img src="https://placehold.co/60x60/4CAF50/FFFFFF/png?text=ON" alt="Wind Turbine On" />
         }
         uncheckedImage={
-          <img 
-            src="https://placehold.co/60x60/F44336/FFFFFF/png?text=OFF" 
-            alt="Wind Turbine Off" 
-          />
+          <img src="https://placehold.co/60x60/F44336/FFFFFF/png?text=OFF" alt="Wind Turbine Off" />
         }
         onChangeInput={handleInputChange}
         onChangeSwitch={handleSwitchChange}
@@ -326,32 +335,36 @@ function ProductionUnitExample() {
         energyCost={1000}
         defaultChecked={true}
         checkedImage={
-          <div style={{
-            width: 60,
-            height: 60,
-            borderRadius: '50%',
-            backgroundColor: '#4CAF50',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'white',
-            fontWeight: 'bold'
-          }}>
+          <div
+            style={{
+              width: 60,
+              height: 60,
+              borderRadius: '50%',
+              backgroundColor: '#4CAF50',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'white',
+              fontWeight: 'bold',
+            }}
+          >
             ⚡
           </div>
         }
         uncheckedImage={
-          <div style={{
-            width: 60,
-            height: 60,
-            borderRadius: '50%',
-            backgroundColor: '#F44336',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'white',
-            fontWeight: 'bold'
-          }}>
+          <div
+            style={{
+              width: 60,
+              height: 60,
+              borderRadius: '50%',
+              backgroundColor: '#F44336',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'white',
+              fontWeight: 'bold',
+            }}
+          >
             ⚠️
           </div>
         }
@@ -393,13 +406,13 @@ A customizable chip component for displaying labels, tags, or status indicators.
 #### Example Usage
 
 ```tsx
-import React from "react";
-import { Chip } from "rte-utils";
-import "rte-utils/dist/index.css";
+import React from 'react';
+import { Chip } from 'rte-utils';
+import 'rte-utils/dist/index.css';
 
 function ChipExample() {
   return (
-    <div style={{ display: "flex", gap: "0.5rem" }}>
+    <div style={{ display: 'flex', gap: '0.5rem' }}>
       {/* Default chip */}
       <Chip label="Default" />
 

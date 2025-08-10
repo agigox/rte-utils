@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { InputNumber } from "./InputNumber";
-import { Switch } from "./Switch";
-import "./ProductionUnit.css";
-import { Chip } from "./Chip";
-import { ProductionUnitContainer } from "./ProductionUnitContainer";
-import { MwhCost } from ".";
+import { useState } from 'react';
+import { InputNumber } from './InputNumber';
+import { Switch } from './Switch';
+import './ProductionUnit.css';
+import { Chip } from './Chip';
+import { ProductionUnitContainer } from './ProductionUnitContainer';
+import { MwhCost } from '.';
 
 type ProductionUnitLimit = {
   value: number;
@@ -32,13 +32,13 @@ export const ProductionUnit = ({
   defaultChecked = false,
   value,
   checked,
-  unitName = "Production Unit",
+  unitName = 'Production Unit',
   energyCost = 0,
   checkedImage,
   uncheckedImage,
   readonly = false,
-  min = { value: 10, label: "Pmin" },
-  max = { value: 100, label: "Pmax" },
+  min = { value: 10, label: 'Pmin' },
+  max = { value: 100, label: 'Pmax' },
 }: ProductionUnitProps) => {
   // Internal state management for uncontrolled mode
   const [internalChecked, setInternalChecked] = useState(defaultChecked);
@@ -62,7 +62,7 @@ export const ProductionUnit = ({
 
   const handleInputChange = (val: string) => {
     // Only convert to number if the string is not empty and is a valid number
-    if (val === "") {
+    if (val === '') {
       // Handle empty string case
       if (value === undefined) {
         setInternalValue(undefined);
@@ -91,9 +91,7 @@ export const ProductionUnit = ({
     <ProductionUnitContainer>
       <div className="production-unit-container">
         <div className="production-unit-content">
-          <div className="image-preview-container">
-            {isChecked ? checkedImage : uncheckedImage}
-          </div>
+          <div className="image-preview-container">{isChecked ? checkedImage : uncheckedImage}</div>
           <div className="production-unit-chip">
             <div className="production-unit-chip-name">{unitName}</div>
 
@@ -105,21 +103,15 @@ export const ProductionUnit = ({
             <InputNumber
               label="PA"
               onChange={handleInputChange}
-              value={
-                currentValue !== undefined ? currentValue.toString() : undefined
-              }
+              value={currentValue !== undefined ? currentValue.toString() : undefined}
               disabled={!isChecked || readonly}
               min={{ value: min.value, label: min.label }}
               max={{ value: max.value, label: max.label }}
-            />{" "}
+            />{' '}
           </div>
         </div>
 
-        <Switch
-          checked={isChecked}
-          onChange={handleSwitchChange}
-          disabled={readonly}
-        />
+        <Switch checked={isChecked} onChange={handleSwitchChange} disabled={readonly} />
       </div>
     </ProductionUnitContainer>
   );

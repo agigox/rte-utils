@@ -1,5 +1,5 @@
-import React from "react";
-import "./Avatar.css";
+import React from 'react';
+import './Avatar.css';
 
 interface AvatarProps {
   children: React.ReactNode;

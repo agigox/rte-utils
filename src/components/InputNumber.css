@@ -14,7 +14,9 @@
   border-radius: 4px;
   font-size: 16px;
   background-color: #ffffff;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
   outline: none;
   box-sizing: border-box;
 }
@@ -166,8 +168,8 @@
 }
 
 /* Show number input spinners */
-.input-element[type="number"]::-webkit-outer-spin-button,
-.input-element[type="number"]::-webkit-inner-spin-button {
+.input-element[type='number']::-webkit-outer-spin-button,
+.input-element[type='number']::-webkit-inner-spin-button {
   -webkit-appearance: auto;
   opacity: 1;
   margin: 0;
@@ -175,12 +177,12 @@
 }
 
 /* Firefox number input */
-.input-element[type="number"] {
+.input-element[type='number'] {
   -moz-appearance: textfield;
 }
 
 /* Make spinners more visible on hover */
-.input-element[type="number"]:hover::-webkit-outer-spin-button,
-.input-element[type="number"]:hover::-webkit-inner-spin-button {
+.input-element[type='number']:hover::-webkit-outer-spin-button,
+.input-element[type='number']:hover::-webkit-inner-spin-button {
   opacity: 1;
 }

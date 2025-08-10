@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import "./Histogram.css";
+import React, { useEffect, useState } from 'react';
+import './Histogram.css';
 
 interface HistogramProps {
   /** Maximum value configuration with value and color */
@@ -50,7 +50,7 @@ export const Histogram: React.FC<HistogramProps> = ({
   useEffect(() => {
     setAnimatedHeight(0);
     setAnimatedWidth(0);
-    
+
     const startTime = Date.now();
     const duration = 1000;
 
@@ -60,7 +60,7 @@ export const Histogram: React.FC<HistogramProps> = ({
 
       // Chart.js-like easing (easeOutQuart)
       const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-      
+
       setAnimatedHeight(targetHeight * easeOutQuart);
       setAnimatedWidth(targetWidth * easeOutQuart);
 
@@ -86,7 +86,7 @@ export const Histogram: React.FC<HistogramProps> = ({
     radii: { topLeft: number; topRight: number; bottomLeft: number; bottomRight: number }
   ) => {
     const { topLeft, topRight, bottomLeft, bottomRight } = radii;
-    
+
     return `
       M ${x + topLeft} ${y}
       L ${x + width - topRight} ${y}
@@ -98,26 +98,34 @@ export const Histogram: React.FC<HistogramProps> = ({
       L ${x} ${y + topLeft}
       Q ${x} ${y} ${x + topLeft} ${y}
       Z
-    `.trim().replace(/\s+/g, ' ');
+    `
+      .trim()
+      .replace(/\s+/g, ' ');
   };
 
   // Default corner radius values
   const defaultCornerRadius = { topLeft: 2, topRight: 2, bottomLeft: 2, bottomRight: 2 };
-  const corners = cornerRadius ? {
-    topLeft: cornerRadius.topLeft ?? defaultCornerRadius.topLeft,
-    topRight: cornerRadius.topRight ?? defaultCornerRadius.topRight,
-    bottomLeft: cornerRadius.bottomLeft ?? defaultCornerRadius.bottomLeft,
-    bottomRight: cornerRadius.bottomRight ?? defaultCornerRadius.bottomRight,
-  } : defaultCornerRadius;
+  const corners = cornerRadius
+    ? {
+        topLeft: cornerRadius.topLeft ?? defaultCornerRadius.topLeft,
+        topRight: cornerRadius.topRight ?? defaultCornerRadius.topRight,
+        bottomLeft: cornerRadius.bottomLeft ?? defaultCornerRadius.bottomLeft,
+        bottomRight: cornerRadius.bottomRight ?? defaultCornerRadius.bottomRight,
+      }
+    : defaultCornerRadius;
 
   return (
-    <div className={`histogram-container ${orientation === 'horizontal' ? 'histogram-container--horizontal' : ''}`}>
-      <div className={`histogram-content ${orientation === 'horizontal' ? 'histogram-content--horizontal' : ''}`}>
-        <div 
+    <div
+      className={`histogram-container ${orientation === 'horizontal' ? 'histogram-container--horizontal' : ''}`}
+    >
+      <div
+        className={`histogram-content ${orientation === 'horizontal' ? 'histogram-content--horizontal' : ''}`}
+      >
+        <div
           className="histogram-bar"
           style={{
             height: `${displayHeight}px`,
-            width: `${displayWidth}px`
+            width: `${displayWidth}px`,
           }}
         >
           <svg
@@ -135,41 +143,31 @@ export const Histogram: React.FC<HistogramProps> = ({
             {/* Foreground bar (relative value) with animation */}
             {orientation === 'vertical' ? (
               <path
-                d={createRoundedRectPath(
-                  0,
-                  svgHeight - animatedHeight,
-                  svgWidth,
-                  animatedHeight,
-                  {
-                    topLeft: animatedHeight >= svgHeight ? corners.topLeft : 0,
-                    topRight: animatedHeight >= svgHeight ? corners.topRight : 0,
-                    bottomLeft: corners.bottomLeft,
-                    bottomRight: corners.bottomRight,
-                  }
-                )}
+                d={createRoundedRectPath(0, svgHeight - animatedHeight, svgWidth, animatedHeight, {
+                  topLeft: animatedHeight >= svgHeight ? corners.topLeft : 0,
+                  topRight: animatedHeight >= svgHeight ? corners.topRight : 0,
+                  bottomLeft: corners.bottomLeft,
+                  bottomRight: corners.bottomRight,
+                })}
                 fill={relative.color}
               />
             ) : (
               <path
-                d={createRoundedRectPath(
-                  0,
-                  0,
-                  animatedWidth,
-                  svgHeight,
-                  {
-                    topLeft: corners.topLeft,
-                    topRight: animatedWidth >= svgWidth ? corners.topRight : 0,
-                    bottomLeft: corners.bottomLeft,
-                    bottomRight: animatedWidth >= svgWidth ? corners.bottomRight : 0,
-                  }
-                )}
+                d={createRoundedRectPath(0, 0, animatedWidth, svgHeight, {
+                  topLeft: corners.topLeft,
+                  topRight: animatedWidth >= svgWidth ? corners.topRight : 0,
+                  bottomLeft: corners.bottomLeft,
+                  bottomRight: animatedWidth >= svgWidth ? corners.bottomRight : 0,
+                })}
                 fill={relative.color}
               />
             )}
           </svg>
         </div>
         {children && (
-          <div className={`histogram-text-container ${orientation === 'horizontal' ? 'histogram-text-container--horizontal' : ''}`}>
+          <div
+            className={`histogram-text-container ${orientation === 'horizontal' ? 'histogram-text-container--horizontal' : ''}`}
+          >
             {children}
           </div>
         )}

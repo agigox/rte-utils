@@ -1,5 +1,5 @@
-import React from "react";
-import "./MwhCost.css";
+import React from 'react';
+import './MwhCost.css';
 
 interface MwhCostProps {
   cost?: number;

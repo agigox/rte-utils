@@ -1,35 +1,31 @@
-import { useState } from "react";
-import { Histogram } from "rte-utils";
+import { useState } from 'react';
+import { Histogram } from 'rte-utils';
 
 export function HistogramDemo() {
   const [variableValue, setVariableValue] = useState<number>(56);
   return (
-    <div style={{ marginTop: "1rem" }}>
+    <div style={{ marginTop: '1rem' }}>
       <h3>Histogram Demo</h3>
-      <div style={{ marginTop: "1rem" }}>
+      <div style={{ marginTop: '1rem' }}>
         <p>Variable Value: {variableValue}</p>
-        <div style={{ display: "flex", gap: "0.5rem" }}>
-          <button onClick={() => setVariableValue((prev) => prev + 10)}>
-            Increase (+10)
-          </button>
-          <button onClick={() => setVariableValue((prev) => prev - 10)}>
-            Decrease (-10)
-          </button>
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <button onClick={() => setVariableValue((prev) => prev + 10)}>Increase (+10)</button>
+          <button onClick={() => setVariableValue((prev) => prev - 10)}>Decrease (-10)</button>
           <button onClick={() => setVariableValue(56)}>Reset to 56</button>
         </div>
       </div>
       <div
         style={{
-          display: "flex",
-          gap: "1rem",
-          alignItems: "end",
-          border: "1px solid #ccc",
-          padding: "1rem",
+          display: 'flex',
+          gap: '1rem',
+          alignItems: 'end',
+          border: '1px solid #ccc',
+          padding: '1rem',
         }}
       >
         <Histogram
-          max={{ value: 100, color: "#D3D64E" }}
-          relative={{ value: variableValue, color: "#C0C402" }}
+          max={{ value: 100, color: '#D3D64E' }}
+          relative={{ value: variableValue, color: '#C0C402' }}
           barWidth={32}
           barHeight={125}
         >
@@ -42,8 +38,8 @@ export function HistogramDemo() {
           </div>
         </Histogram>
         <Histogram
-          max={{ value: 80, color: "#C7ABFA" }}
-          relative={{ value: 42, color: "#A77CF7" }}
+          max={{ value: 80, color: '#C7ABFA' }}
+          relative={{ value: 42, color: '#A77CF7' }}
           barWidth={32}
           barHeight={94}
         >
@@ -56,20 +52,20 @@ export function HistogramDemo() {
           </div>
         </Histogram>
         <Histogram
-          max={{ value: 80, color: "#C7ABFA" }}
-          relative={{ value: 42, color: "#A77CF7" }}
+          max={{ value: 80, color: '#C7ABFA' }}
+          relative={{ value: 42, color: '#A77CF7' }}
           barWidth={16}
           barHeight={46}
         />
         <Histogram
-          max={{ value: 100, color: "#D3D64E" }}
-          relative={{ value: variableValue, color: "#C0C402" }}
+          max={{ value: 100, color: '#D3D64E' }}
+          relative={{ value: variableValue, color: '#C0C402' }}
           barWidth={16}
           barHeight={62}
         />
         <Histogram
-          max={{ value: 100, color: "#000000", opacity: 0.2 }}
-          relative={{ value: variableValue, color: "#4DA466" }}
+          max={{ value: 100, color: '#000000', opacity: 0.2 }}
+          relative={{ value: variableValue, color: '#4DA466' }}
           barWidth={24}
           barHeight={88}
           orientation="horizontal"

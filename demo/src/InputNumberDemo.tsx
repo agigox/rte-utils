@@ -1,8 +1,8 @@
-import React from "react";
-import { InputNumber } from "../../src/components";
+import React from 'react';
+import { InputNumber } from '../../src/components';
 
 export const InputNumberDemo: React.FC = () => {
-  const [currentValue, setCurrentValue] = React.useState("");
+  const [currentValue, setCurrentValue] = React.useState('');
 
   return (
     <div>
@@ -12,8 +12,8 @@ export const InputNumberDemo: React.FC = () => {
         label="PA"
         value={currentValue}
         onChange={setCurrentValue}
-        min={{ value: 0, label: "Min" }}
-        max={{ value: 1000, label: "Max" }}
+        min={{ value: 0, label: 'Min' }}
+        max={{ value: 1000, label: 'Max' }}
       />
       <h2>Current Value: {currentValue}</h2>
     </div>

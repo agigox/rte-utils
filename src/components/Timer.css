@@ -2,7 +2,7 @@
   display: flex;
   width: 100%;
   box-sizing: border-box;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   border: 1px solid red;
 }
 
@@ -38,7 +38,7 @@
 }
 
 .timer-title {
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-weight: bold;
   font-size: 12px;
   line-height: 12px;
@@ -48,7 +48,7 @@
 }
 
 .timer-time {
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-weight: 600;
   font-size: 20px;
   line-height: 14px;
@@ -87,7 +87,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-weight: 600;
   font-size: 12px;
   line-height: 18px;
@@ -107,7 +107,6 @@
   width: 16px;
   height: 16px;
 }
-
 
 .step-indicator--completed {
   background-color: #005896;
@@ -156,7 +155,7 @@
 }
 
 .control-button::before {
-  content: "";
+  content: '';
   position: absolute;
   width: 32px;
   height: 32px;
@@ -235,7 +234,10 @@
 .step-indicator--clickable {
   cursor: pointer;
   position: relative;
-  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.1s ease;
 }
 .step-indicator--clickable:focus-visible {
   outline: 2px solid #ffffff;
@@ -249,5 +251,7 @@
   transform: scale(0.9);
 }
 .step-indicator--selected {
-  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #ffb100; /* accent ring */
+  box-shadow:
+    0 0 0 2px #ffffff,
+    0 0 0 4px #ffb100; /* accent ring */
 }

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Avatar, ProductionUnit } from "../../src/components";
-import Lottie from "lottie-react";
-import NuclearAnimation from "./assets/NuclearAnimation.json";
+import React, { useState } from 'react';
+import { Avatar, ProductionUnit } from '../../src/components';
+import Lottie from 'lottie-react';
+import NuclearAnimation from './assets/NuclearAnimation.json';
 
 export const ProductionUnitDemo: React.FC = () => {
   const [solarValue, setSolarValue] = useState(0);
@@ -12,34 +12,31 @@ export const ProductionUnitDemo: React.FC = () => {
   const [nuclearOn, setNuclearOn] = useState(false);
 
   const totalProduction =
-    (solarOn ? solarValue : 0) +
-    (windOn ? windValue : 0) +
-    (nuclearOn ? nuclearValue : 0);
+    (solarOn ? solarValue : 0) + (windOn ? windValue : 0) + (nuclearOn ? nuclearValue : 0);
 
   return (
-    <div style={{ padding: "20px", maxWidth: "1200px" }}>
+    <div style={{ padding: '20px', maxWidth: '1200px' }}>
       <h2>Production Unit Component Demo</h2>
 
       <div
         style={{
-          marginBottom: "20px",
-          padding: "15px",
-          backgroundColor: "#f5f5f5",
-          borderRadius: "8px",
+          marginBottom: '20px',
+          padding: '15px',
+          backgroundColor: '#f5f5f5',
+          borderRadius: '8px',
         }}
       >
         <h3>Total Production: {totalProduction} MW</h3>
         <p>
-          Toggle switches to activate/deactivate production units and adjust
-          their output values.
+          Toggle switches to activate/deactivate production units and adjust their output values.
         </p>
       </div>
 
       <div
         style={{
-          display: "flex",
-          flexDirection: "column",
-          marginBottom: "40px",
+          display: 'flex',
+          flexDirection: 'column',
+          marginBottom: '40px',
         }}
       >
         {/* Nuclear Plant Unit */}
@@ -66,30 +63,27 @@ export const ProductionUnitDemo: React.FC = () => {
 
       <div
         style={{
-          padding: "20px",
-          backgroundColor: "#e3f2fd",
-          borderRadius: "8px",
+          padding: '20px',
+          backgroundColor: '#e3f2fd',
+          borderRadius: '8px',
         }}
       >
         <h3>Production Status</h3>
         <div
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-            gap: "10px",
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+            gap: '10px',
           }}
         >
           <div>
-            <strong>Solar Panel:</strong>{" "}
-            {solarOn ? `${solarValue} MW` : "Offline"}
+            <strong>Solar Panel:</strong> {solarOn ? `${solarValue} MW` : 'Offline'}
           </div>
           <div>
-            <strong>Wind Turbine:</strong>{" "}
-            {windOn ? `${windValue} MW` : "Offline"}
+            <strong>Wind Turbine:</strong> {windOn ? `${windValue} MW` : 'Offline'}
           </div>
           <div>
-            <strong>Nuclear Plant:</strong>{" "}
-            {nuclearOn ? `${nuclearValue} MW` : "Offline"}
+            <strong>Nuclear Plant:</strong> {nuclearOn ? `${nuclearValue} MW` : 'Offline'}
           </div>
         </div>
       </div>

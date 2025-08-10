@@ -3,21 +3,28 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ['eslint:recommended', '@typescript-eslint/recommended', 'plugin:react/recommended', 'plugin:react-hooks/recommended', 'plugin:storybook/recommended'],
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    '@typescript-eslint/recommended',
+    'plugin:storybook/recommended',
+    // Prettier MUST be last to turn off formatting rules conflicting with Prettier
+    'plugin:prettier/recommended',
+  ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 12,
+    ecmaVersion: 2021,
     sourceType: 'module',
   },
-  plugins: [
-    'react',
-    '@typescript-eslint',
-  ],
+  plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {
     'react/react-in-jsx-scope': 'off',
+    // Example additional preferences (adjust as desired):
+    'prettier/prettier': ['error'],
   },
   settings: {
     react: {

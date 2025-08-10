@@ -1,42 +1,40 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { Switch } from "./Switch";
+import type { Meta, StoryObj } from '@storybook/react';
+import { Switch } from './Switch';
 
 const meta: Meta<typeof Switch> = {
-  title: "Components/Switch",
+  title: 'Components/Switch',
   component: Switch,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
     docs: {
       description: {
         component:
-          "A specialized Switch component with built-in power icons and visual feedback. Can display either an icon or a text label next to the switch. When showIcon is true, it takes precedence over the label prop.",
+          'A specialized Switch component with built-in power icons and visual feedback. Can display either an icon or a text label next to the switch. When showIcon is true, it takes precedence over the label prop.',
       },
     },
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     checked: {
-      control: "boolean",
-      description: "Whether the switch is checked/active (controlled mode)",
+      control: 'boolean',
+      description: 'Whether the switch is checked/active (controlled mode)',
     },
     disabled: {
-      control: "boolean",
-      description: "Whether the switch is disabled and non-interactive",
+      control: 'boolean',
+      description: 'Whether the switch is disabled and non-interactive',
     },
     showIcon: {
-      control: "boolean",
+      control: 'boolean',
       description:
-        "Whether to show the power icon next to the switch. Takes precedence over label.",
+        'Whether to show the power icon next to the switch. Takes precedence over label.',
     },
     label: {
-      control: "text",
-      description:
-        "Text label to display next to the switch. Only shown when showIcon is false.",
+      control: 'text',
+      description: 'Text label to display next to the switch. Only shown when showIcon is false.',
     },
     onChange: {
       control: false,
-      description:
-        "Function called when switch state changes - receives boolean value",
+      description: 'Function called when switch state changes - receives boolean value',
     },
   },
 };
@@ -101,8 +99,7 @@ export const PowerControl: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          "Typical usage in power control interfaces - active state with power icon visible.",
+        story: 'Typical usage in power control interfaces - active state with power icon visible.',
       },
     },
   },
@@ -117,8 +114,7 @@ export const MinimalToggle: Story = {
   parameters: {
     docs: {
       description: {
-        story:
-          "Minimal toggle switch without power icon for simple on/off controls.",
+        story: 'Minimal toggle switch without power icon for simple on/off controls.',
       },
     },
   },
@@ -129,12 +125,12 @@ export const WithLabel: Story = {
     checked: false,
     disabled: false,
     showIcon: false,
-    label: "ON/OFF",
+    label: 'ON/OFF',
   },
   parameters: {
     docs: {
       description: {
-        story: "Switch with a text label instead of icon.",
+        story: 'Switch with a text label instead of icon.',
       },
     },
   },
@@ -145,12 +141,12 @@ export const WithLabelChecked: Story = {
     checked: true,
     disabled: false,
     showIcon: false,
-    label: "Power",
+    label: 'Power',
   },
   parameters: {
     docs: {
       description: {
-        story: "Active switch with text label.",
+        story: 'Active switch with text label.',
       },
     },
   },
@@ -161,12 +157,12 @@ export const LabelDisabled: Story = {
     checked: false,
     disabled: true,
     showIcon: false,
-    label: "Disabled",
+    label: 'Disabled',
   },
   parameters: {
     docs: {
       description: {
-        story: "Disabled switch with text label.",
+        story: 'Disabled switch with text label.',
       },
     },
   },
@@ -183,7 +179,7 @@ export const IconTakesPrecedence: Story = {
     docs: {
       description: {
         story:
-          "When both showIcon and label are provided, the icon takes precedence and the label is ignored.",
+          'When both showIcon and label are provided, the icon takes precedence and the label is ignored.',
       },
     },
   },
@@ -191,7 +187,7 @@ export const IconTakesPrecedence: Story = {
 
 export const CustomLabels: Story = {
   render: () => (
-    <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
+    <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
       <Switch checked={false} showIcon={false} label="Start" />
       <Switch checked={true} showIcon={false} label="Active" />
       <Switch checked={false} showIcon={false} label="Mode" />
@@ -201,7 +197,7 @@ export const CustomLabels: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Various switches with different custom labels including emoji.",
+        story: 'Various switches with different custom labels including emoji.',
       },
     },
   },

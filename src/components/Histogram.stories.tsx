@@ -1,49 +1,48 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { Histogram } from "./Histogram";
+import type { Meta, StoryObj } from '@storybook/react';
+import { Histogram } from './Histogram';
 
 const meta: Meta<typeof Histogram> = {
-  title: "Components/Histogram",
+  title: 'Components/Histogram',
   component: Histogram,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
     docs: {
       description: {
         component:
-          "A Histogram component with smooth animations for energy data visualization. Supports both vertical and horizontal orientations with customizable corner radii.",
+          'A Histogram component with smooth animations for energy data visualization. Supports both vertical and horizontal orientations with customizable corner radii.',
       },
     },
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     max: {
-      control: "object",
-      description:
-        "Maximum value configuration with value, color, and optional opacity",
+      control: 'object',
+      description: 'Maximum value configuration with value, color, and optional opacity',
     },
     relative: {
-      control: "object",
-      description: "Relative/current value configuration with value and color",
+      control: 'object',
+      description: 'Relative/current value configuration with value and color',
     },
     barHeight: {
-      control: "number",
-      description: "Height of the histogram bar in pixels",
+      control: 'number',
+      description: 'Height of the histogram bar in pixels',
     },
     barWidth: {
-      control: "number",
-      description: "Width of the histogram bar in pixels",
+      control: 'number',
+      description: 'Width of the histogram bar in pixels',
     },
     orientation: {
-      control: "select",
-      options: ["vertical", "horizontal"],
-      description: "Orientation of the histogram bars",
+      control: 'select',
+      options: ['vertical', 'horizontal'],
+      description: 'Orientation of the histogram bars',
     },
     cornerRadius: {
-      control: "object",
-      description: "Individual corner radius configuration",
+      control: 'object',
+      description: 'Individual corner radius configuration',
     },
     children: {
-      control: "text",
-      description: "Child components (typically text content)",
+      control: 'text',
+      description: 'Child components (typically text content)',
     },
   },
 };
@@ -53,8 +52,8 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    max: { value: 100, color: "#D3D64E" },
-    relative: { value: 56, color: "#C0C402" },
+    max: { value: 100, color: '#D3D64E' },
+    relative: { value: 56, color: '#C0C402' },
     barWidth: 32,
     barHeight: 125,
     children: (
@@ -73,8 +72,8 @@ export const Default: Story = {
 
 export const WithoutText: Story = {
   args: {
-    max: { value: 80, color: "#C7ABFA" },
-    relative: { value: 42, color: "#A77CF7" },
+    max: { value: 80, color: '#C7ABFA' },
+    relative: { value: 42, color: '#A77CF7' },
     barWidth: 32,
     barHeight: 94,
   },
@@ -82,11 +81,11 @@ export const WithoutText: Story = {
 
 export const Horizontal: Story = {
   args: {
-    max: { value: 100, color: "#000000", opacity: 0.2 },
-    relative: { value: 75, color: "#4DA466" },
+    max: { value: 100, color: '#000000', opacity: 0.2 },
+    relative: { value: 75, color: '#4DA466' },
     barWidth: 24,
     barHeight: 88,
-    orientation: "horizontal",
+    orientation: 'horizontal',
     cornerRadius: {
       topLeft: 12,
       topRight: 12,
@@ -98,8 +97,8 @@ export const Horizontal: Story = {
 
 export const CustomCorners: Story = {
   args: {
-    max: { value: 100, color: "#FFE0B2" },
-    relative: { value: 65, color: "#FF9800" },
+    max: { value: 100, color: '#FFE0B2' },
+    relative: { value: 65, color: '#FF9800' },
     barWidth: 32,
     barHeight: 120,
     cornerRadius: {
@@ -124,8 +123,8 @@ export const CustomCorners: Story = {
 
 export const SmallSize: Story = {
   args: {
-    max: { value: 100, color: "#E3F2FD" },
-    relative: { value: 30, color: "#2196F3" },
+    max: { value: 100, color: '#E3F2FD' },
+    relative: { value: 30, color: '#2196F3' },
     barWidth: 16,
     barHeight: 46,
   },
@@ -133,8 +132,8 @@ export const SmallSize: Story = {
 
 export const LargeSize: Story = {
   args: {
-    max: { value: 200, color: "#E8F5E8" },
-    relative: { value: 150, color: "#4CAF50" },
+    max: { value: 200, color: '#E8F5E8' },
+    relative: { value: 150, color: '#4CAF50' },
     barWidth: 48,
     barHeight: 180,
     children: (

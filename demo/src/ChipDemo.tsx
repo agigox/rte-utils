@@ -1,17 +1,17 @@
-import { Chip } from "rte-utils";
+import { Chip } from 'rte-utils';
 
 export function ChipDemo() {
   return (
-    <div style={{ marginTop: "1rem" }}>
+    <div style={{ marginTop: '1rem' }}>
       <h3>Chip</h3>
       <div
         style={{
-          display: "flex",
-          gap: "1rem",
-          alignItems: "center",
-          flexWrap: "wrap",
-          border: "1px solid #ccc",
-          padding: "1rem",
+          display: 'flex',
+          gap: '1rem',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          border: '1px solid #ccc',
+          padding: '1rem',
         }}
       >
         <Chip>Default Chip</Chip>
@@ -32,27 +32,27 @@ export function ChipDemo() {
 
         {/* Advanced examples with complex children */}
         <Chip bgColor="#e0f2fe">
-          <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+          <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
             <span>⚡</span>
             With Icon
           </span>
         </Chip>
 
         <Chip bgColor="#f3e8ff">
-          <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             Status
             <span
               style={{
-                backgroundColor: "#10b981",
-                color: "white",
-                borderRadius: "50%",
-                width: "16px",
-                height: "16px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: "10px",
-                fontWeight: "bold",
+                backgroundColor: '#10b981',
+                color: 'white',
+                borderRadius: '50%',
+                width: '16px',
+                height: '16px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '10px',
+                fontWeight: 'bold',
               }}
             >
               5

@@ -1,4 +1,4 @@
-import "./ProductionUnitContainer.css";
+import './ProductionUnitContainer.css';
 
 interface ProductionUnitContainerProps {
   bgColor?: string;
@@ -6,15 +6,12 @@ interface ProductionUnitContainerProps {
   height?: string;
 }
 export const ProductionUnitContainer = ({
-  bgColor = "#fff",
+  bgColor = '#fff',
   children,
   height,
 }: ProductionUnitContainerProps) => {
   return (
-    <div
-      className="production-unit-container-box"
-      style={{ backgroundColor: bgColor, height }}
-    >
+    <div className="production-unit-container-box" style={{ backgroundColor: bgColor, height }}>
       {children}
     </div>
   );

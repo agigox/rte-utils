@@ -1,24 +1,22 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { Avatar } from "./Avatar";
+import type { Meta, StoryObj } from '@storybook/react';
+import { Avatar } from './Avatar';
 
 const meta: Meta<typeof Avatar> = {
-  title: "Components/Avatar",
+  title: 'Components/Avatar',
   component: Avatar,
   parameters: {
-    layout: "centered",
+    layout: 'centered',
     docs: {
       description: {
-        component:
-          "A simple Avatar component that accepts any React content as children.",
+        component: 'A simple Avatar component that accepts any React content as children.',
       },
     },
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     children: {
-      control: "text",
-      description:
-        "Content to display inside the avatar (text, images, icons, etc.)",
+      control: 'text',
+      description: 'Content to display inside the avatar (text, images, icons, etc.)',
     },
   },
 };
@@ -28,7 +26,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    children: "JD",
+    children: 'JD',
   },
 };
 
@@ -38,7 +36,7 @@ export const WithImage: Story = {
       <img
         src="https://placehold.co/150/4CAF50/ffffff?text=A"
         alt="Avatar"
-        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
       />
     ),
   },
@@ -46,19 +44,19 @@ export const WithImage: Story = {
 
 export const WithIcon: Story = {
   args: {
-    children: "👤",
+    children: '👤',
   },
 };
 
 export const WithInitials: Story = {
   args: {
-    children: "AB",
+    children: 'AB',
   },
 };
 
 export const WithEmoji: Story = {
   args: {
-    children: "🚀",
+    children: '🚀',
   },
 };
 
@@ -67,14 +65,14 @@ export const WithCustomContent: Story = {
     children: (
       <div
         style={{
-          background: "linear-gradient(45deg, #ff6b6b, #4ecdc4)",
-          color: "white",
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontWeight: "bold",
+          background: 'linear-gradient(45deg, #ff6b6b, #4ecdc4)',
+          color: 'white',
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontWeight: 'bold',
         }}
       >
         ✓
