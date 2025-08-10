@@ -99,6 +99,16 @@
   background-color: #009cdf;
 }
 
+.step-indicator--active.step-indicator--actor {
+  width: 40px;
+  height: 40px;
+}
+.step-indicator--active.step-indicator--admin {
+  width: 16px;
+  height: 16px;
+}
+
+
 .step-indicator--completed {
   background-color: #005896;
 }
@@ -202,7 +212,11 @@
   background-color: #1a7f37; /* success green */
   transform: none;
 }
-
+.timer-header--block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 @media (max-width: 480px) {
   .timer-header-control {
     flex-direction: column;
@@ -216,4 +230,24 @@
     border-radius: 0 0 16px 16px;
     justify-content: center;
   }
+}
+
+.step-indicator--clickable {
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+}
+.step-indicator--clickable:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px #11161a;
+}
+.step-indicator--clickable:hover {
+  filter: brightness(1.1);
+}
+.step-indicator--clickable:active {
+  transform: scale(0.9);
+}
+.step-indicator--selected {
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #ffb100; /* accent ring */
 }

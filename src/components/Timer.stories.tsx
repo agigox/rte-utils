@@ -45,6 +45,7 @@ const meta: Meta<typeof Timer> = {
     onReset: { control: false },
     onPrevious: { control: false },
     onNext: { control: false },
+    onPhaseClick: { control: false, description: "Called when a completed or active phase indicator is clicked (phase index)." },
   },
 };
 
@@ -133,20 +134,12 @@ export const WithCallbacks: Story = {
     const [status, setStatus] = useState("Ready");
     const [currentPhase, setCurrentPhase] = useState(0);
     const [phaseInfo, setPhaseInfo] = useState("");
-    const [selectedFinishedPhase, setSelectedFinishedPhase] = useState<
-      number | null
-    >(null);
+    const [selectedFinishedPhase, setSelectedFinishedPhase] = useState<number | null>(null);
+    const [clickedPhase, setClickedPhase] = useState<number | null>(null); // NEW
 
     return (
       <div style={{ textAlign: "center" }}>
-        <div
-          style={{
-            marginBottom: 20,
-            padding: 15,
-            backgroundColor: "#f8f9fa",
-            borderRadius: 8,
-          }}
-        >
+        <div style={{ marginBottom: 20, padding: 15, backgroundColor: "#f8f9fa", borderRadius: 8 }}>
           <p>
             <strong>Status:</strong> {status}
           </p>
@@ -160,6 +153,9 @@ export const WithCallbacks: Story = {
             <p style={{ color: "#0a58ca" }}>
               Navigated to finished phase: #{selectedFinishedPhase + 1}
             </p>
+          )}
+          {clickedPhase !== null && (
+            <p style={{ color: "#198754" }}>Clicked phase indicator: #{clickedPhase + 1}</p>
           )}
         </div>
         <Timer
@@ -209,6 +205,7 @@ export const WithCallbacks: Story = {
               return prev === null ? fallback : prev + 1;
             });
           }}
+          onPhaseClick={(phase) => setClickedPhase(phase)}
         />
       </div>
     );
@@ -310,6 +307,7 @@ export const AdminUser: Story = {
     user: "admin",
     autoStart: false,
     gameActions: { 0: "Start Discussion", 1: "Begin Activity", 2: "Wrap Up" },
+    onPhaseClick: (p: number) => console.log("Admin clicked phase", p),
   },
   parameters: {
     docs: {
@@ -330,6 +328,7 @@ export const ActorUser: Story = {
     user: "actor",
     autoStart: true,
     gameActions: { 0: "Start Discussion", 1: "Begin Activity", 2: "Wrap Up" },
+    onPhaseClick: (p: number) => console.log("Actor clicked phase", p),
   },
   parameters: {
     docs: {
@@ -347,7 +346,6 @@ export const UserComparison: Story = {
       { duration: 35, title: "Main Task" },
       { duration: 10, title: "Cleanup" },
     ];
-
     return (
       <div style={{ display: "flex", gap: "40px", justifyContent: "center" }}>
         <div style={{ textAlign: "center" }}>
@@ -357,6 +355,7 @@ export const UserComparison: Story = {
             user="admin"
             autoStart={false}
             gameActions={{ 0: "Begin Setup", 1: "Start Task", 2: "Finish" }}
+            onPhaseClick={(p) => console.log("Admin comparison clicked", p)}
           />
         </div>
         <div style={{ textAlign: "center" }}>
@@ -366,6 +365,7 @@ export const UserComparison: Story = {
             user="actor"
             autoStart={false}
             gameActions={{ 0: "Begin Setup", 1: "Start Task", 2: "Finish" }}
+            onPhaseClick={(p) => console.log("Actor comparison clicked", p)}
           />
         </div>
       </div>
