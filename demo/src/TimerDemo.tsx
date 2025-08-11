@@ -1,41 +1,22 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 import { Timer, TimerRef } from '../../src/components';
 
 export const TimerDemo: React.FC = () => {
-  const [durationsInput, setDurationsInput] = useState('30,45,60');
-  const [gameStatus, setGameStatus] = useState('Ready');
-  const [currentPhase, setCurrentPhase] = useState(0);
-  const [phaseInfo, setPhaseInfo] = useState('');
-  const [selectedUserType, setSelectedUserType] = useState<'admin' | 'actor'>('admin');
+  // Simplified demo: removed unused state for durations/game status/user type
   const controlledTimerRef = useRef<TimerRef>(null);
-  const [customPhases, setCustomPhases] = useState([
+  // Using a static phases list; dynamic editing removed for brevity
+  const customPhases = [
     { duration: 30, title: 'Phase 1' },
     { duration: 45, title: 'Phase 2' },
     { duration: 60, title: 'Phase 3' },
-  ]);
-
-  const handleDurationsChange = (input: string) => {
-    setDurationsInput(input);
-    const newDurations = input
-      .split(',')
-      .map((d) => parseInt(d.trim()))
-      .filter((d) => !isNaN(d) && d > 0);
-
-    if (newDurations.length > 0) {
-      const newPhases = newDurations.map((d, idx) => ({
-        duration: d,
-        title: `Phase ${idx + 1}`,
-      }));
-      setCustomPhases(newPhases);
-      controlledTimerRef.current?.setPhases(newPhases);
-    }
-  };
+  ];
 
   return (
     <div style={{ padding: '20px', maxWidth: '800px' }}>
       <h2>Game Timer Component Demo</h2>
+      {/* Removed user type comparison for brevity */}
 
-      <div
+      {/* <div
         style={{
           marginBottom: '30px',
           padding: '20px',
@@ -67,59 +48,7 @@ export const TimerDemo: React.FC = () => {
         </ul>
       </div>
 
-      <div style={{ marginBottom: '40px' }}>
-        <h3>User Type Comparison - Admin vs Actor</h3>
-        <div
-          style={{
-            marginBottom: '20px',
-            padding: '15px',
-            backgroundColor: '#f0f8ff',
-            borderRadius: '8px',
-          }}
-        >
-          <p style={{ margin: '0 0 10px 0' }}>The Timer component supports two user types:</p>
-          <ul style={{ margin: '0', paddingLeft: '20px' }}>
-            <li>
-              <strong>Admin:</strong> Full controls with timer header at top
-            </li>
-            <li>
-              <strong>Actor:</strong> No game controls, timer header positioned after step
-              indicators
-            </li>
-          </ul>
-        </div>
-
-        <div
-          style={{ display: 'flex', gap: '40px', justifyContent: 'center', marginBottom: '20px' }}
-        >
-          <div style={{ textAlign: 'center' }}>
-            <h4 style={{ margin: '0 0 15px 0' }}>Admin View</h4>
-            <Timer
-              phases={[
-                { duration: 25, title: 'Setup' },
-                { duration: 35, title: 'Activity' },
-                { duration: 20, title: 'Review' },
-              ]}
-              user="admin"
-              autoStart={false}
-              gameActions={{ 0: 'Begin Setup', 1: 'Start Activity', 2: 'Review Phase' }}
-            />
-          </div>
-          <div style={{ textAlign: 'center' }}>
-            <h4 style={{ margin: '0 0 15px 0' }}>Actor View</h4>
-            <Timer
-              phases={[
-                { duration: 25, title: 'Setup' },
-                { duration: 35, title: 'Activity' },
-                { duration: 20, title: 'Review' },
-              ]}
-              user="actor"
-              autoStart={false}
-              gameActions={{ 0: 'Begin Setup', 1: 'Start Activity', 2: 'Review Phase' }}
-            />
-          </div>
-        </div>
-      </div>
+      
 
       <div style={{ marginBottom: '40px' }}>
         <h3>Interactive User Type Demo</h3>
@@ -166,7 +95,6 @@ export const TimerDemo: React.FC = () => {
             { duration: 45, title: 'ARENH P2' },
             { duration: 60, title: 'ARENH P3' },
           ]}
-          title="ARENH"
           gameActions={{
             0: 'Setup phase',
             1: 'Action phase',
@@ -189,7 +117,6 @@ export const TimerDemo: React.FC = () => {
             { duration: 20, title: 'Middle' },
             { duration: 25, title: 'End' },
           ]}
-          title="DEMO"
           gameActions={{
             0: 'Start',
             1: 'Middle',
@@ -232,123 +159,20 @@ export const TimerDemo: React.FC = () => {
         </p>
       </div>
 
+  {/* Removed minimal display-only variant */}
+
+      {/* Removed progress-only variant */}
+
+      {/* Removed status tracking variant for brevity */}
+
       <div style={{ marginBottom: '40px' }}>
-        <h3>Minimal Timer (Display Only)</h3>
+        <h3>Game Admin Control Panel (Simplified)</h3>
+
         <Timer
-          phases={[
-            { duration: 60, title: 'Phase 1' },
-            { duration: 90, title: 'Phase 2' },
-          ]}
+          ref={controlledTimerRef}
+          phases={customPhases}
+          onFreeze={() => console.log('Controlled timer frozen')}
         />
-        <p>
-          <em>No controls or progress bar - display and phase info only</em>
-        </p>
-      </div>
-
-      <div style={{ marginBottom: '40px' }}>
-        <h3>Progress Bar Only</h3>
-        <Timer
-          phases={[
-            { duration: 8, title: 'Short' },
-            { duration: 12, title: 'Long' },
-            { duration: 10, title: 'Medium' },
-          ]}
-          autoStart={true}
-        />
-        <p>
-          <em>Progress visualization without time display - useful for subtle indicators</em>
-        </p>
-      </div>
-
-      <div style={{ marginBottom: '40px' }}>
-        <h3>Game Timer with Status Tracking</h3>
-        <div
-          style={{
-            marginBottom: '20px',
-            padding: '15px',
-            backgroundColor: '#f5f5f5',
-            borderRadius: '8px',
-          }}
-        >
-          <p>
-            <strong>Game Status:</strong> {gameStatus}
-          </p>
-          <p>
-            <strong>Current Phase:</strong> {currentPhase + 1}
-          </p>
-          <p>
-            <strong>Phase Info:</strong> {phaseInfo}
-          </p>
-        </div>
-        <Timer
-          phases={[
-            { duration: 10, title: 'P1' },
-            { duration: 15, title: 'P2' },
-            { duration: 12, title: 'P3' },
-          ]}
-          onStart={() => {
-            setGameStatus('Game Running');
-            setCurrentPhase(0);
-            setPhaseInfo('Game started! Complete your actions within the time limit.');
-          }}
-          onPause={() => setGameStatus('Game Paused')}
-          onStop={() => {
-            setGameStatus('Game Stopped');
-            setCurrentPhase(0);
-            setPhaseInfo('Game was stopped by admin');
-          }}
-          onReset={() => {
-            setGameStatus('Ready to Start');
-            setCurrentPhase(0);
-            setPhaseInfo('Ready to begin new game');
-          }}
-          onTick={(time, phase) => {
-            setCurrentPhase(phase);
-            setPhaseInfo(`Phase ${phase + 1}: ${time}s elapsed - complete your actions!`);
-          }}
-          onPhaseComplete={(phase, duration) => {
-            setPhaseInfo(`Phase ${phase + 1} completed! You had ${duration}s to act.`);
-          }}
-          onComplete={() => {
-            setGameStatus('Game Completed! 🎉');
-            setPhaseInfo('Congratulations! You completed all game phases.');
-          }}
-        />
-      </div>
-
-      <div style={{ marginBottom: '40px' }}>
-        <h3>Game Admin Control Panel</h3>
-        <div style={{ marginBottom: '20px' }}>
-          <label
-            htmlFor="durations-input"
-            style={{
-              display: 'block',
-              marginBottom: '8px',
-              fontWeight: 'bold',
-            }}
-          >
-            Configure Game Phases (comma-separated seconds):
-          </label>
-          <input
-            id="durations-input"
-            type="text"
-            value={durationsInput}
-            onChange={(e) => handleDurationsChange(e.target.value)}
-            placeholder="30,45,60"
-            style={{
-              padding: '8px 12px',
-              borderRadius: '4px',
-              border: '1px solid #ccc',
-              width: '200px',
-              fontSize: '14px',
-            }}
-          />
-          <p style={{ fontSize: '12px', color: '#666', margin: '5px 0' }}>
-            Current game phases: {customPhases.map((p) => p.duration).join(', ')} seconds
-          </p>
-        </div>
-
-        <Timer ref={controlledTimerRef} phases={customPhases} />
 
         <div
           style={{
@@ -410,21 +234,22 @@ export const TimerDemo: React.FC = () => {
           >
             🔄 Reset Game
           </button>
+          <button
+            onClick={() => (controlledTimerRef.current as any)?.freeze?.()}
+            style={{
+              padding: '8px 16px',
+              backgroundColor: '#17a2b8',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+            }}
+          >
+            ❄️ Freeze Game
+          </button>
         </div>
 
-        <div style={{ marginTop: '15px', fontSize: '14px', color: '#666' }}>
-          <p>
-            <strong>Admin Control:</strong> As a game admin, you can control the entire game
-            sequence programmatically. Changes to phase durations require a reset to take effect.
-          </p>
-          <p>
-            <strong>Current state:</strong> Running:{' '}
-            {controlledTimerRef.current?.isRunning() ? 'Yes' : 'No'}, Paused:{' '}
-            {controlledTimerRef.current?.isPaused() ? 'Yes' : 'No'}, Current Time:{' '}
-            {controlledTimerRef.current?.getCurrentTime() || 0}s, Phase:{' '}
-            {(controlledTimerRef.current?.getCurrentPhase() || 0) + 1}
-          </p>
-        </div>
+        {/* Removed dynamic state display */}
       </div>
 
       <div style={{ marginBottom: '40px' }}>
@@ -450,7 +275,6 @@ export const TimerDemo: React.FC = () => {
                 { duration: 15, title: 'Q2' },
                 { duration: 20, title: 'Q3' },
               ]}
-              onComplete={() => alert('Quick game session complete!')}
             />
           </div>
 
@@ -468,7 +292,6 @@ export const TimerDemo: React.FC = () => {
                 { duration: 45, title: 'S2' },
                 { duration: 60, title: 'S3' },
               ]}
-              onComplete={() => alert('Standard game session complete!')}
             />
           </div>
 

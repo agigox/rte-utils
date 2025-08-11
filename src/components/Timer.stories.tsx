@@ -41,6 +41,8 @@ const meta: Meta<typeof Timer> = {
     onTick: { control: false },
     onStart: { control: false },
     onPause: { control: false },
+    onFreeze: { control: false },
+  onAnonymiseToggle: { control: false },
     onStop: { control: false },
     onReset: { control: false },
     onPrevious: { control: false },
@@ -264,7 +266,12 @@ export const ControlledTimer: Story = {
             Current phases: {phases.map((p) => p.duration).join(', ')} seconds
           </p>
         </div>
-        <Timer ref={timerRef} phases={phases} />
+        <Timer
+          ref={timerRef}
+          phases={phases}
+          onFreeze={(f) => console.log('Timer frozen state:', f)}
+          onAnonymiseToggle={(a)=>console.log('Anonymised state:', a)}
+        />
         <div style={{ marginTop: 20 }}>
           <button
             onClick={() => timerRef.current?.start()}
@@ -290,9 +297,66 @@ export const ControlledTimer: Story = {
           >
             External Reset
           </button>
+          <button
+            onClick={() => (timerRef.current as any)?.freeze?.()}
+            style={{ margin: '0 4px', padding: '8px 16px' }}
+          >
+            External Freeze
+          </button>
+          <button
+            onClick={() => (timerRef.current as any)?.toggleAnonymise?.()}
+            style={{ margin: '0 4px', padding: '8px 16px' }}
+          >
+            External Anonymise
+          </button>
         </div>
       </div>
     );
+  },
+};
+
+export const FreezeDemo: Story = {
+  render: () => {
+    const timerRef = React.useRef<TimerRef | null>(null);
+    return (
+      <div style={{ textAlign: 'center' }}>
+        <Timer
+          ref={timerRef}
+          phases={[
+            { duration: 10, title: 'Alpha' },
+            { duration: 12, title: 'Beta' },
+          ]}
+          autoStart={true}
+          onFreeze={(f) => console.log('Frozen via button or external control. Frozen:', f)}
+          onAnonymiseToggle={(a)=>console.log('Anonymised state:', a)}
+        />
+        <div style={{ marginTop: 16 }}>
+          <button onClick={() => timerRef.current?.start()} style={{ margin: '0 4px' }}>
+            Start
+          </button>
+          <button onClick={() => timerRef.current?.pause()} style={{ margin: '0 4px' }}>
+            Pause
+          </button>
+          <button onClick={() => (timerRef.current as any)?.freeze?.()} style={{ margin: '0 4px' }}>
+            Freeze / Unfreeze
+          </button>
+          <button onClick={() => (timerRef.current as any)?.toggleAnonymise?.()} style={{ margin: '0 4px' }}>
+            Anonymise / Reveal
+          </button>
+          <button onClick={() => timerRef.current?.reset()} style={{ margin: '0 4px' }}>
+            Reset
+          </button>
+        </div>
+      </div>
+    );
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Demonstrates the freeze functionality: while frozen, start/pause are disabled; unfreezing restores the previous running/paused state.',
+      },
+    },
   },
 };
 

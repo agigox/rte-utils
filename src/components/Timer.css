@@ -45,6 +45,7 @@
   text-transform: uppercase;
   flex-shrink: 0;
   min-width: 64px;
+  text-align: left;
 }
 
 .timer-time {
@@ -102,6 +103,7 @@
 .step-indicator--active.step-indicator--actor {
   width: 40px;
   height: 40px;
+  margin-right: 4px;
 }
 .step-indicator--active.step-indicator--admin {
   width: 16px;
@@ -181,6 +183,33 @@
   animation: pulse 1s ease-in-out infinite alternate;
 }
 
+.timer--frozen .timer-progress-fill {
+  background: #7aa6b9; /* muted color when frozen */
+}
+
+/* Anonymised state */
+/*
+.timer--anonymised .timer-title {
+  filter: blur(4px);
+}
+.timer--anonymised .step-indicator.step-indicator--active,
+.timer--anonymised .step-indicator.step-indicator--completed {
+  filter: blur(3px);
+}
+
+*/.control-button--anonymise-active {
+  background-color: #444;
+  color: #fff;
+}
+
+.control-button--freeze-active {
+  background: #7aa6b9;
+}
+
+.control-button--freeze-active svg path {
+  fill: #000000;
+}
+
 @keyframes pulse {
   from {
     background-color: #009cdf;
@@ -215,6 +244,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-right: 10px;
 }
 @media (max-width: 480px) {
   .timer-header-control {
