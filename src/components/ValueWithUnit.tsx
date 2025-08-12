@@ -7,7 +7,7 @@ interface ValueWithUnitProps {
   type?: 'euro' | 'megawatt' | 'europermegawatt';
 }
 
-export const ValueWithUnit: React.FC<ValueWithUnitProps> = ({ cost, textColor, type }) => {
+export const ValueWithUnit: React.FC<ValueWithUnitProps> = ({ cost, textColor, type = 'europermegawatt' }) => {
   return (
     <div className="cost-text-container">
       <div className="cost-number" style={{ color: textColor }}>
