@@ -150,3 +150,71 @@ export const LargeSize: Story = {
     ),
   },
 };
+
+export const SmallValueWithRounding: Story = {
+  args: {
+    max: { value: 100, color: '#E0E0E0' },
+    relative: { value: 2, color: '#FF4444' },
+    barHeight: 100,
+    barWidth: 32,
+    orientation: 'vertical',
+    cornerRadius: {
+      topLeft: 8,
+      topRight: 8,
+      bottomLeft: 8,
+      bottomRight: 8,
+    },
+    children: (
+      <>
+        <div className="histogram-value-container">
+          <p className="histogram-value">2</p>
+          <p className="histogram-unit">MWh</p>
+        </div>
+        <div>
+          <p className="histogram-label">Low Production</p>
+        </div>
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demonstrates the rendering issue with small values and corner radius where fill color may overflow.',
+      },
+    },
+  },
+};
+
+export const SmallValueHorizontal: Story = {
+  args: {
+    max: { value: 100, color: '#E0E0E0' },
+    relative: { value: 3, color: '#FF4444' },
+    barHeight: 24,
+    barWidth: 200,
+    orientation: 'horizontal',
+    cornerRadius: {
+      topLeft: 8,
+      topRight: 8,
+      bottomLeft: 8,
+      bottomRight: 8,
+    },
+    children: (
+      <>
+        <div className="histogram-value-container">
+          <p className="histogram-value">3</p>
+          <p className="histogram-unit">%</p>
+        </div>
+        <div>
+          <p className="histogram-label">Progress</p>
+        </div>
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demonstrates the horizontal rendering issue with small values and corner radius.',
+      },
+    },
+  },
+};
