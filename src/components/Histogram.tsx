@@ -134,13 +134,21 @@ export const Histogram: React.FC<HistogramProps> = ({
             viewBox={`0 0 ${svgWidth} ${svgHeight}`}
             className="histogram-svg"
           >
+            {/* Define clipping path with rounded corners matching the background */}
+            <defs>
+              <clipPath id={`histogram-clip-${svgWidth}-${svgHeight}-${corners.topLeft}`}>
+                <path d={createRoundedRectPath(0, 0, svgWidth, svgHeight, corners)} />
+              </clipPath>
+            </defs>
+            
             {/* Background bar (max value) */}
             <path
               d={createRoundedRectPath(0, 0, svgWidth, svgHeight, corners)}
               fill={max.color}
               fillOpacity={max.opacity || 1}
             />
-            {/* Foreground bar (relative value) with animation */}
+            
+            {/* Foreground bar (relative value) with clipping to stay within rounded corners */}
             {orientation === 'vertical' ? (
               <path
                 d={createRoundedRectPath(0, svgHeight - animatedHeight, svgWidth, animatedHeight, {
@@ -150,6 +158,7 @@ export const Histogram: React.FC<HistogramProps> = ({
                   bottomRight: corners.bottomRight,
                 })}
                 fill={relative.color}
+                clipPath={`url(#histogram-clip-${svgWidth}-${svgHeight}-${corners.topLeft})`}
               />
             ) : (
               <path
@@ -160,6 +169,7 @@ export const Histogram: React.FC<HistogramProps> = ({
                   bottomRight: animatedWidth >= svgWidth ? corners.bottomRight : 0,
                 })}
                 fill={relative.color}
+                clipPath={`url(#histogram-clip-${svgWidth}-${svgHeight}-${corners.topLeft})`}
               />
             )}
           </svg>
