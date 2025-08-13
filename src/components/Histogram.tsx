@@ -44,7 +44,7 @@ export const Histogram: React.FC<HistogramProps> = ({
 
   // Calculate target dimensions based on orientation
   const targetHeight = (Math.min((relative.value / max.value) * 100, 100) / 100) * barHeight;
-  const targetWidth = (Math.min((relative.value / max.value) * 100, 100) / 100) * barWidth;
+  const targetWidth = (Math.min((relative.value / max.value) * 100, 100) / 100) * (orientation === 'horizontal' ? barHeight : barWidth);
 
   // Simple Chart.js-like animation: always animate from 0 to target
   useEffect(() => {

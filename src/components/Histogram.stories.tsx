@@ -218,3 +218,144 @@ export const SmallValueHorizontal: Story = {
     },
   },
 };
+
+export const HorizontalFullWidth: Story = {
+  args: {
+    barHeight: 88,
+    barWidth: 24,
+    cornerRadius: {
+      bottomLeft: 12,
+      bottomRight: 12,
+      topLeft: 12,
+      topRight: 12,
+    },
+    max: {
+      color: '#000000',
+      opacity: 0.2,
+      value: 10000,
+    },
+    orientation: 'horizontal',
+    relative: {
+      color: '#4DA466',
+      value: 10000,
+    },
+    children: (
+      <>
+        <div className="histogram-value-container">
+          <p className="histogram-value">10000</p>
+          <p className="histogram-unit">MW</p>
+        </div>
+        <div>
+          <p className="histogram-label">Full Width Test</p>
+        </div>
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tests horizontal orientation with relative = max (should fill completely)',
+      },
+    },
+  },
+};
+
+export const HorizontalHalfWidth: Story = {
+  args: {
+    barHeight: 88,
+    barWidth: 24,
+    cornerRadius: {
+      bottomLeft: 12,
+      bottomRight: 12,
+      topLeft: 12,
+      topRight: 12,
+    },
+    max: {
+      color: '#000000',
+      opacity: 0.2,
+      value: 100,
+    },
+    orientation: 'horizontal',
+    relative: {
+      color: '#4DA466',
+      value: 50,
+    },
+    children: (
+      <>
+        <div className="histogram-value-container">
+          <p className="histogram-value">50</p>
+          <p className="histogram-unit">MW</p>
+        </div>
+        <div>
+          <p className="histogram-label">Half Width Test</p>
+        </div>
+      </>
+    ),
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tests horizontal orientation with relative = 50% of max (should be in the middle)',
+      },
+    },
+  },
+};
+
+export const OrientationComparison: Story = {
+  parameters: {
+    layout: 'padded',
+    docs: {
+      description: {
+        story: 'Side-by-side comparison of vertical vs horizontal orientation with identical relative values to verify the fix.',
+      },
+    },
+  },
+  render: () => (
+    <div style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
+      <div style={{ textAlign: 'center' }}>
+        <h4 style={{ margin: '0 0 16px 0' }}>Vertical (50%)</h4>
+        <Histogram
+          max={{ value: 100, color: '#000000', opacity: 0.2 }}
+          relative={{ value: 50, color: '#4DA466' }}
+          barHeight={88}
+          barWidth={24}
+          orientation="vertical"
+          cornerRadius={{ topLeft: 12, topRight: 12, bottomLeft: 12, bottomRight: 12 }}
+        />
+      </div>
+      <div style={{ textAlign: 'center' }}>
+        <h4 style={{ margin: '0 0 16px 0' }}>Horizontal (50%)</h4>
+        <Histogram
+          max={{ value: 100, color: '#000000', opacity: 0.2 }}
+          relative={{ value: 50, color: '#4DA466' }}
+          barHeight={88}
+          barWidth={24}
+          orientation="horizontal"
+          cornerRadius={{ topLeft: 12, topRight: 12, bottomLeft: 12, bottomRight: 12 }}
+        />
+      </div>
+      <div style={{ textAlign: 'center' }}>
+        <h4 style={{ margin: '0 0 16px 0' }}>Vertical (100%)</h4>
+        <Histogram
+          max={{ value: 100, color: '#000000', opacity: 0.2 }}
+          relative={{ value: 100, color: '#4DA466' }}
+          barHeight={88}
+          barWidth={24}
+          orientation="vertical"
+          cornerRadius={{ topLeft: 12, topRight: 12, bottomLeft: 12, bottomRight: 12 }}
+        />
+      </div>
+      <div style={{ textAlign: 'center' }}>
+        <h4 style={{ margin: '0 0 16px 0' }}>Horizontal (100%)</h4>
+        <Histogram
+          max={{ value: 100, color: '#000000', opacity: 0.2 }}
+          relative={{ value: 100, color: '#4DA466' }}
+          barHeight={88}
+          barWidth={24}
+          orientation="horizontal"
+          cornerRadius={{ topLeft: 12, topRight: 12, bottomLeft: 12, bottomRight: 12 }}
+        />
+      </div>
+    </div>
+  ),
+};
