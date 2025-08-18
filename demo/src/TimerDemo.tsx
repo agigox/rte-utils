@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Timer, TimerRef } from '../../src/components';
 
 export const TimerDemo: React.FC = () => {
@@ -10,160 +10,85 @@ export const TimerDemo: React.FC = () => {
     { duration: 45, title: 'Phase 2' },
     { duration: 60, title: 'Phase 3' },
   ];
+  const [status, setStatus] = useState('Ready');
+  const [currentPhase, setCurrentPhase] = useState(0);
+  const [phaseInfo, setPhaseInfo] = useState('');
+  const [selectedFinishedPhase, setSelectedFinishedPhase] = useState<number | null>(null);
+  const [clickedPhase, setClickedPhase] = useState<number | null>(null); // NEW
 
   return (
     <div style={{ padding: '20px', maxWidth: '800px' }}>
       <h2>Game Timer Component Demo</h2>
-      {/* Removed user type comparison for brevity */}
-
-      {/* <div
-        style={{
-          marginBottom: '30px',
-          padding: '20px',
-          backgroundColor: '#e8f4fd',
-          borderRadius: '8px',
-        }}
-      >
-        <h3 style={{ marginTop: '0' }}>Multi-Phase Game Timer</h3>
-        <p>
-          This timer counts up from 00:00 to each target duration in sequence. Perfect for games
-          with multiple phases where each phase has a time limit for completing actions.
-        </p>
-        <ul style={{ paddingLeft: '20px', margin: '10px 0' }}>
-          <li>
-            <strong>Count-up Timer:</strong> Starts from 00:00 and counts up to each target
-          </li>
-          <li>
-            <strong>Multi-phase Support:</strong> Automatically transitions between phases
-          </li>
-          <li>
-            <strong>Progress Tracking:</strong> Shows progress within current phase
-          </li>
-          <li>
-            <strong>Game Admin Controls:</strong> Start/pause/stop affects entire game sequence
-          </li>
-          <li>
-            <strong>Phase Callbacks:</strong> Notifications for each phase completion
-          </li>
-        </ul>
-      </div>
-
-      
-
-      <div style={{ marginBottom: '40px' }}>
-        <h3>Interactive User Type Demo</h3>
-        <div style={{ marginBottom: '20px' }}>
-          <label style={{ marginRight: '10px', fontWeight: 'bold' }}>Select User Type:</label>
-          <select
-            value={selectedUserType}
-            onChange={(e) => setSelectedUserType(e.target.value as 'admin' | 'actor')}
-            style={{
-              padding: '8px 12px',
-              borderRadius: '4px',
-              border: '1px solid #ccc',
-              fontSize: '14px',
-            }}
-          >
-            <option value="admin">Admin (Full Controls)</option>
-            <option value="actor">Actor (Simplified View)</option>
-          </select>
+      <div style={{
+        textAlign: 'center'
+      }}>
+        <div style={{
+          marginBottom: 20,
+          padding: 15,
+          backgroundColor: '#f8f9fa',
+          borderRadius: 8
+        }}>
+          <p>
+            <strong>Status:</strong> {status}
+          </p>
+          <p>
+            <strong>Current Phase:</strong> {currentPhase + 1}
+          </p>
+          <p>
+            <strong>Phase Info:</strong> {phaseInfo}
+          </p>
+          {selectedFinishedPhase !== null && <p style={{
+            color: '#0a58ca'
+          }}>
+            Navigated to finished phase: #{selectedFinishedPhase + 1}
+          </p>}
+          {clickedPhase !== null && <p style={{
+            color: '#198754'
+          }}>Clicked phase indicator: #{clickedPhase + 1}</p>}
         </div>
-        <Timer
-          phases={[
-            { duration: 30, title: 'Planning' },
-            { duration: 45, title: 'Execution' },
-            { duration: 15, title: 'Review' },
-          ]}
-          user={selectedUserType}
-          autoStart={false}
-          gameActions={{ 0: 'Start Planning', 1: 'Begin Execution', 2: 'Final Review' }}
-          onComplete={() => alert(`Game completed in ${selectedUserType} mode!`)}
-        />
-        <p style={{ fontSize: '14px', color: '#666', marginTop: '10px' }}>
-          Switch between Admin and Actor modes to see the different interfaces.
-          {selectedUserType === 'admin'
-            ? ' Admin mode shows all game controls.'
-            : ' Actor mode hides controls and repositions the timer header.'}
-        </p>
+        <Timer phases={[{
+          duration: 1113,
+          title: 'Intro'
+        }, {
+          duration: 5,
+          title: 'Action'
+        }, {
+          duration: 4,
+          title: 'Summary'
+        }]} onStart={() => {
+          setStatus('Running');
+          setCurrentPhase(0);
+          setPhaseInfo('Game started!');
+        }} onPause={() => {setStatus('Paused')}} onStop={() => {
+          setStatus('Stopped');
+          setCurrentPhase(0);
+          setPhaseInfo('Game stopped');
+          setSelectedFinishedPhase(null);
+        }} onReset={() => {
+          setStatus('Reset');
+          setCurrentPhase(0);
+          setPhaseInfo('Ready to start');
+          setSelectedFinishedPhase(null);
+        }} onTick={(time, phase) => {
+          setCurrentPhase(phase);
+          setPhaseInfo(`Phase ${phase + 1}: ${time}s elapsed`);
+        }} onPhaseComplete={(phase, duration) => {
+          setPhaseInfo(`Phase ${phase + 1} completed! (${duration}s)`);
+        }} onComplete={() => {
+          setStatus('All phases completed!');
+          setPhaseInfo('Game finished successfully!');
+        }} onPrevious={() => {
+          setSelectedFinishedPhase(prev => {
+            const fallback = currentPhase > 0 ? currentPhase - 1 : 0;
+            return prev === null ? fallback : Math.max(0, prev - 1);
+          });
+        }} onNext={() => {
+          setSelectedFinishedPhase(prev => {
+            const fallback = currentPhase + 1;
+            return prev === null ? fallback : prev + 1;
+          });
+        }} onPhaseClick={phase => setClickedPhase(phase)} />
       </div>
-
-      <div style={{ marginBottom: '40px' }}>
-        <h3>Figma-Inspired Timer (Header Control)</h3>
-        <Timer
-          phases={[
-            { duration: 30, title: 'ARENH P1' },
-            { duration: 45, title: 'ARENH P2' },
-            { duration: 60, title: 'ARENH P3' },
-          ]}
-          gameActions={{
-            0: 'Setup phase',
-            1: 'Action phase',
-            2: 'Resolution phase',
-          }}
-          onComplete={() => alert('Game completed! All phases finished.')}
-          onPhaseComplete={(phase, duration) =>
-            console.log(`Phase ${phase + 1} completed in ${duration} seconds!`)
-          }
-          onPrevious={() => console.log('Previous clicked')}
-          onNext={() => console.log('Next clicked')}
-        />
-      </div>
-
-      <div style={{ marginBottom: '40px' }}>
-        <h3>Timer with Placeholder Steps</h3>
-        <Timer
-          phases={[
-            { duration: 15, title: 'Start' },
-            { duration: 20, title: 'Middle' },
-            { duration: 25, title: 'End' },
-          ]}
-          gameActions={{
-            0: 'Start',
-            1: 'Middle',
-            2: 'End',
-          }}
-          onComplete={() => alert('Demo with placeholders completed!')}
-          onPhaseComplete={(phase, duration) =>
-            console.log(`Phase ${phase + 1} completed in ${duration} seconds!`)
-          }
-        />
-        <p>
-          <em>Phases without actions show as placeholders until reached.</em>
-        </p>
-      </div>
-
-      <div style={{ marginBottom: '40px' }}>
-        <h3>Quick Demo Timer (Auto-start)</h3>
-        <Timer
-          phases={[
-            { duration: 5, title: 'Start' },
-            { duration: 6, title: 'Middle' },
-            { duration: 7, title: 'End' },
-          ]}
-          autoStart={true}
-          onComplete={() => alert('Quick demo completed!')}
-          onPhaseComplete={(phase, duration) =>
-            alert(`Phase ${phase + 1} completed! Duration: ${duration}s`)
-          }
-        />
-      </div>
-
-      <div style={{ marginBottom: '40px' }}>
-        <h3>Single Phase Timer</h3>
-        <Timer
-          phases={[{ duration: 120, title: 'Single' }]}
-          onComplete={() => alert('Single phase completed!')}
-        />
-        <p>
-          <em>Single phase - no phase indicator shown</em>
-        </p>
-      </div>
-
-  {/* Removed minimal display-only variant */}
-
-      {/* Removed progress-only variant */}
-
-      {/* Removed status tracking variant for brevity */}
 
       <div style={{ marginBottom: '40px' }}>
         <h3>Game Admin Control Panel (Simplified)</h3>

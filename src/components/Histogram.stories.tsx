@@ -185,39 +185,7 @@ export const SmallValueWithRounding: Story = {
   },
 };
 
-export const SmallValueHorizontal: Story = {
-  args: {
-    max: { value: 100, color: '#E0E0E0' },
-    relative: { value: 3, color: '#FF4444' },
-    barHeight: 24,
-    barWidth: 200,
-    orientation: 'horizontal',
-    cornerRadius: {
-      topLeft: 8,
-      topRight: 8,
-      bottomLeft: 8,
-      bottomRight: 8,
-    },
-    children: (
-      <>
-        <div className="histogram-value-container">
-          <p className="histogram-value">3</p>
-          <p className="histogram-unit">%</p>
-        </div>
-        <div>
-          <p className="histogram-label">Progress</p>
-        </div>
-      </>
-    ),
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Demonstrates the horizontal rendering issue with small values and corner radius.',
-      },
-    },
-  },
-};
+
 
 export const HorizontalFullWidth: Story = {
   args: {
