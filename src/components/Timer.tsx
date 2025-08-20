@@ -124,14 +124,19 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
     }, [isFrozen, externalState, onStateChange, onPause]);
 
     const freeze = useCallback((force?: boolean) => {
+      
       const nextFrozen = force === undefined ? !isFrozen : force;
       
-      onStateChange({
+      const newState = {
         ...externalState,
         isFrozen: nextFrozen,
-        isRunning: nextFrozen ? false : externalState.isRunning,
-        isPaused: nextFrozen ? false : externalState.isPaused,
-      });
+        // When unfreezing, restore to running state (unless it was explicitly paused)
+        // When freezing, stop running but preserve pause state
+        isRunning: nextFrozen ? false : !externalState.isPaused,
+        isPaused: externalState.isPaused, // Preserve pause state
+      };
+      
+      onStateChange(newState);
       onFreeze?.(nextFrozen);
     }, [isFrozen, externalState, onStateChange, onFreeze]);
 
@@ -191,10 +196,17 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
       if (isRunning && !isFrozen && currentPhase < phases.length) {
         intervalRef.current = setInterval(() => {
           const newTime = currentTime + 1;
+          
+          // Always update the time first
+          onStateChange({
+            ...externalState,
+            currentTime: newTime,
+          });
           onTick?.(newTime, currentPhase);
 
-          // Check if current phase is complete
-          if (newTime >= (phases[currentPhase]?.duration || 0)) {
+          // Check if current phase is complete (after showing the duration)
+          // Complete when newTime > duration, not when newTime >= duration
+          if (newTime > (phases[currentPhase]?.duration || 0)) {
             onPhaseComplete?.(currentPhase, phases[currentPhase]?.duration || 0);
 
             // Move to next phase or complete
@@ -213,11 +225,6 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
               });
               onComplete?.();
             }
-          } else {
-            onStateChange({
-              ...externalState,
-              currentTime: newTime,
-            });
           }
         }, 1000);
       } else {

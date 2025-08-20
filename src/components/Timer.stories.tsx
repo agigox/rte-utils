@@ -104,10 +104,6 @@ export const GameTimer: Story = {
         ]}
         externalState={timerState}
         onStateChange={setTimerState}
-        onPhaseComplete={(phase: number, duration: number) =>
-          console.log(`Phase ${phase + 1} completed! Duration was ${duration}s`)
-        }
-        onComplete={() => alert('Game completed!')}
       />
     );
   },
@@ -221,9 +217,18 @@ export const WithCallbacks: Story = {
   render: () => {
     const [status, setStatus] = useState('Ready');
     const [currentPhase, setCurrentPhase] = useState(0);
+    const [currentTime, setCurrentTime] = useState(0);
     const [phaseInfo, setPhaseInfo] = useState('');
     const [selectedFinishedPhase, setSelectedFinishedPhase] = useState<number | null>(null);
-    const [clickedPhase, setClickedPhase] = useState<number | null>(null); // NEW
+    const [clickedPhase, setClickedPhase] = useState<number | null>(null);
+    const [timerState, setTimerState] = useState({
+      currentPhase: 0,
+      currentTime: 2,
+      isRunning: false,
+      isPaused: false,
+      isFrozen: false,
+    });
+
 
     return (
       <div style={{ textAlign: 'center' }}>
@@ -232,10 +237,18 @@ export const WithCallbacks: Story = {
             <strong>Status:</strong> {status}
           </p>
           <p>
-            <strong>Current Phase:</strong> {currentPhase + 1}
+            <strong>Current Phase:</strong> {timerState.currentPhase + 1}
+          </p>
+          <p>
+            <strong>Current Time:</strong> {timerState.currentTime}s
           </p>
           <p>
             <strong>Phase Info:</strong> {phaseInfo}
+          </p>
+          <p>
+            <strong>Timer State:</strong> Running: {timerState.isRunning ? 'Yes' : 'No'}, 
+            Paused: {timerState.isPaused ? 'Yes' : 'No'}, 
+            Frozen: {timerState.isFrozen ? 'Yes' : 'No'}
           </p>
           {selectedFinishedPhase !== null && (
             <p style={{ color: '#0a58ca' }}>
@@ -248,44 +261,53 @@ export const WithCallbacks: Story = {
         </div>
         <Timer
           phases={[
-            { duration: 3, title: 'Intro' },
+            { duration: 6, title: 'Intro' },
             { duration: 5, title: 'Action' },
             { duration: 4, title: 'Summary' },
           ]}
-          externalState={{
-            currentPhase,
-            currentTime: 0,
-            isRunning: status === 'Running',
-            isPaused: status === 'Paused',
-            isFrozen: false,
-          }}
+          externalState={timerState}
           onStateChange={(newState) => {
+            setTimerState(newState);
             setCurrentPhase(newState.currentPhase);
-            if (newState.isRunning && status !== 'Running') {
+            setCurrentTime(newState.currentTime);
+            
+            if (newState.isRunning && !newState.isPaused) {
               setStatus('Running');
-            } else if (newState.isPaused && status !== 'Paused') {
+            } else if (newState.isPaused) {
               setStatus('Paused');
+            } else if (newState.isFrozen) {
+              setStatus('Frozen');
+            } else if (!newState.isRunning) {
+              setStatus('Stopped');
             }
           }}
           onStart={() => {
             setStatus('Running');
             setPhaseInfo('Game started!');
           }}
-          onPause={() => setStatus('Paused')}
+          onPause={() => {
+            setStatus('Paused');
+          }}
+          onFreeze={(frozen) => {
+            setStatus(frozen ? 'Frozen' : 'Resumed');
+          }}
           onStop={() => {
             setStatus('Stopped');
             setCurrentPhase(0);
+            setCurrentTime(0);
             setPhaseInfo('Game stopped');
             setSelectedFinishedPhase(null);
           }}
           onReset={() => {
             setStatus('Reset');
             setCurrentPhase(0);
+            setCurrentTime(0);
             setPhaseInfo('Ready to start');
             setSelectedFinishedPhase(null);
           }}
           onTick={(time, phase) => {
             setPhaseInfo(`Phase ${phase + 1}: ${time}s elapsed`);
+            setCurrentTime(time);
           }}
           onPhaseComplete={(phase, duration) => {
             setPhaseInfo(`Phase ${phase + 1} completed! (${duration}s)`);
@@ -306,7 +328,9 @@ export const WithCallbacks: Story = {
               return prev === null ? fallback : prev + 1;
             });
           }}
-          onPhaseClick={(phase) => setClickedPhase(phase)}
+          onPhaseClick={(phase) => {
+            setClickedPhase(phase);
+          }}
         />
       </div>
     );
@@ -374,8 +398,6 @@ export const ControlledTimer: Story = {
             isFrozen: false,
           }}
           onStateChange={() => {}}
-          onFreeze={(f) => console.log('Timer frozen state:', f)}
-          onAnonymiseToggle={(a) => console.log('Anonymised state:', a)}
         />
         <div style={{ marginTop: 20 }}>
           <button
@@ -439,8 +461,6 @@ export const FreezeDemo: Story = {
             isFrozen: false,
           }}
           onStateChange={() => {}}
-          onFreeze={(f) => console.log('Frozen via button or external control. Frozen:', f)}
-          onAnonymiseToggle={(a) => console.log('Anonymised state:', a)}
         />
         <div style={{ marginTop: 16 }}>
           <button onClick={() => timerRef.current?.start()} style={{ margin: '0 4px' }}>
@@ -493,7 +513,6 @@ export const AdminUser: Story = {
         onStateChange={setTimerState}
         user="admin"
         gameActions={{ 0: 'Start Discussion', 1: 'Begin Activity', 2: 'Wrap Up' }}
-        onPhaseClick={(p: number) => console.log('Admin clicked phase', p)}
       />
     );
   },
@@ -528,7 +547,6 @@ export const ActorUser: Story = {
         onStateChange={setTimerState}
         user="actor"
         gameActions={{ 0: 'Start Discussion', 1: 'Begin Activity', 2: 'Wrap Up' }}
-        onPhaseClick={(p: number) => console.log('Actor clicked phase', p)}
       />
     );
   },
@@ -565,7 +583,6 @@ export const UserComparison: Story = {
             onStateChange={() => {}}
             user="admin"
             gameActions={{ 0: 'Begin Setup', 1: 'Start Task', 2: 'Finish' }}
-            onPhaseClick={(p) => console.log('Admin comparison clicked', p)}
           />
         </div>
         <div style={{ textAlign: 'center' }}>
@@ -582,7 +599,6 @@ export const UserComparison: Story = {
             onStateChange={() => {}}
             user="actor"
             gameActions={{ 0: 'Begin Setup', 1: 'Start Task', 2: 'Finish' }}
-            onPhaseClick={(p) => console.log('Actor comparison clicked', p)}
           />
         </div>
       </div>

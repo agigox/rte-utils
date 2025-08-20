@@ -153,7 +153,6 @@ export const TimerDemo: React.FC = () => {
           phases={customPhases}
           externalState={controlledTimerState}
           onStateChange={setControlledTimerState}
-          onFreeze={() => console.log('Controlled timer frozen')}
         />
 
         <div
