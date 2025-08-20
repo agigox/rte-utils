@@ -2,19 +2,69 @@ import React, { useRef, useState } from 'react';
 import { Timer, TimerRef } from '../../src/components';
 
 export const TimerDemo: React.FC = () => {
-  // Simplified demo: removed unused state for durations/game status/user type
   const controlledTimerRef = useRef<TimerRef>(null);
-  // Using a static phases list; dynamic editing removed for brevity
+  
+  // Timer states for different demos
+  const [mainTimerState, setMainTimerState] = useState({
+    currentPhase: 0,
+    currentTime: 0,
+    isRunning: false,
+    isPaused: false,
+    isFrozen: false,
+  });
+  
+  const [controlledTimerState, setControlledTimerState] = useState({
+    currentPhase: 0,
+    currentTime: 0,
+    isRunning: false,
+    isPaused: false,
+    isFrozen: false,
+  });
+  
+  // Timer states for multiple game sessions
+  const [quickGameState, setQuickGameState] = useState({
+    currentPhase: 0,
+    currentTime: 0,
+    isRunning: false,
+    isPaused: false,
+    isFrozen: false,
+  });
+  
+  const [standardGameState, setStandardGameState] = useState({
+    currentPhase: 0,
+    currentTime: 0,
+    isRunning: false,
+    isPaused: false,
+    isFrozen: false,
+  });
+  
+  const [extendedGameState, setExtendedGameState] = useState({
+    currentPhase: 0,
+    currentTime: 0,
+    isRunning: false,
+    isPaused: false,
+    isFrozen: false,
+  });
+  
   const customPhases = [
     { duration: 30, title: 'Phase 1' },
     { duration: 45, title: 'Phase 2' },
     { duration: 60, title: 'Phase 3' },
   ];
   const [status, setStatus] = useState('Ready');
-  const [currentPhase, setCurrentPhase] = useState(0);
   const [phaseInfo, setPhaseInfo] = useState('');
   const [selectedFinishedPhase, setSelectedFinishedPhase] = useState<number | null>(null);
-  const [clickedPhase, setClickedPhase] = useState<number | null>(null); // NEW
+  const [clickedPhase, setClickedPhase] = useState<number | null>(null);
+  
+  const handleMainTimerStateChange = (newState: typeof mainTimerState) => {
+    setMainTimerState(newState);
+    // Update UI state based on timer state changes
+    if (newState.isRunning && !mainTimerState.isRunning) {
+      setStatus('Running');
+    } else if (newState.isPaused && !mainTimerState.isPaused) {
+      setStatus('Paused');
+    }
+  };
 
   return (
     <div style={{ padding: '20px', maxWidth: '800px' }}>
@@ -32,7 +82,7 @@ export const TimerDemo: React.FC = () => {
             <strong>Status:</strong> {status}
           </p>
           <p>
-            <strong>Current Phase:</strong> {currentPhase + 1}
+            <strong>Current Phase:</strong> {mainTimerState.currentPhase + 1}
           </p>
           <p>
             <strong>Phase Info:</strong> {phaseInfo}
@@ -46,48 +96,53 @@ export const TimerDemo: React.FC = () => {
             color: '#198754'
           }}>Clicked phase indicator: #{clickedPhase + 1}</p>}
         </div>
-        <Timer phases={[{
-          duration: 1113,
-          title: 'Intro'
-        }, {
-          duration: 5,
-          title: 'Action'
-        }, {
-          duration: 4,
-          title: 'Summary'
-        }]} onStart={() => {
-          setStatus('Running');
-          setCurrentPhase(0);
-          setPhaseInfo('Game started!');
-        }} onPause={() => {setStatus('Paused')}} onStop={() => {
-          setStatus('Stopped');
-          setCurrentPhase(0);
-          setPhaseInfo('Game stopped');
-          setSelectedFinishedPhase(null);
-        }} onReset={() => {
-          setStatus('Reset');
-          setCurrentPhase(0);
-          setPhaseInfo('Ready to start');
-          setSelectedFinishedPhase(null);
-        }} onTick={(time, phase) => {
-          setCurrentPhase(phase);
-          setPhaseInfo(`Phase ${phase + 1}: ${time}s elapsed`);
-        }} onPhaseComplete={(phase, duration) => {
-          setPhaseInfo(`Phase ${phase + 1} completed! (${duration}s)`);
-        }} onComplete={() => {
-          setStatus('All phases completed!');
-          setPhaseInfo('Game finished successfully!');
-        }} onPrevious={() => {
-          setSelectedFinishedPhase(prev => {
-            const fallback = currentPhase > 0 ? currentPhase - 1 : 0;
-            return prev === null ? fallback : Math.max(0, prev - 1);
-          });
-        }} onNext={() => {
-          setSelectedFinishedPhase(prev => {
-            const fallback = currentPhase + 1;
-            return prev === null ? fallback : prev + 1;
-          });
-        }} onPhaseClick={phase => setClickedPhase(phase)} />
+        <Timer
+          phases={[
+            { duration: 3, title: 'Intro' },
+            { duration: 5, title: 'Action' },
+            { duration: 4, title: 'Summary' },
+          ]}
+          externalState={mainTimerState}
+          onStateChange={handleMainTimerStateChange}
+          onStart={() => {
+            setStatus('Running');
+            setPhaseInfo('Game started!');
+          }}
+          onPause={() => setStatus('Paused')}
+          onStop={() => {
+            setStatus('Stopped');
+            setPhaseInfo('Game stopped');
+            setSelectedFinishedPhase(null);
+          }}
+          onReset={() => {
+            setStatus('Reset');
+            setPhaseInfo('Ready to start');
+            setSelectedFinishedPhase(null);
+          }}
+          onTick={(time, phase) => {
+            setPhaseInfo(`Phase ${phase + 1}: ${time}s elapsed`);
+          }}
+          onPhaseComplete={(phase, duration) => {
+            setPhaseInfo(`Phase ${phase + 1} completed! (${duration}s)`);
+          }}
+          onComplete={() => {
+            setStatus('All phases completed!');
+            setPhaseInfo('Game finished successfully!');
+          }}
+          onPrevious={() => {
+            setSelectedFinishedPhase(prev => {
+              const fallback = mainTimerState.currentPhase > 0 ? mainTimerState.currentPhase - 1 : 0;
+              return prev === null ? fallback : Math.max(0, prev - 1);
+            });
+          }}
+          onNext={() => {
+            setSelectedFinishedPhase(prev => {
+              const fallback = mainTimerState.currentPhase + 1;
+              return prev === null ? fallback : prev + 1;
+            });
+          }}
+          onPhaseClick={phase => setClickedPhase(phase)}
+        />
       </div>
 
       <div style={{ marginBottom: '40px' }}>
@@ -96,6 +151,8 @@ export const TimerDemo: React.FC = () => {
         <Timer
           ref={controlledTimerRef}
           phases={customPhases}
+          externalState={controlledTimerState}
+          onStateChange={setControlledTimerState}
           onFreeze={() => console.log('Controlled timer frozen')}
         />
 
@@ -200,6 +257,8 @@ export const TimerDemo: React.FC = () => {
                 { duration: 15, title: 'Q2' },
                 { duration: 20, title: 'Q3' },
               ]}
+              externalState={quickGameState}
+              onStateChange={setQuickGameState}
             />
           </div>
 
@@ -217,6 +276,8 @@ export const TimerDemo: React.FC = () => {
                 { duration: 45, title: 'S2' },
                 { duration: 60, title: 'S3' },
               ]}
+              externalState={standardGameState}
+              onStateChange={setStandardGameState}
             />
           </div>
 
@@ -235,6 +296,8 @@ export const TimerDemo: React.FC = () => {
                 { duration: 120, title: 'E3' },
                 { duration: 90, title: 'E4' },
               ]}
+              externalState={extendedGameState}
+              onStateChange={setExtendedGameState}
             />
           </div>
         </div>

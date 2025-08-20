@@ -2,20 +2,42 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import './Timer.css';
 
 export interface TimerProps {
+  // Required phase configuration
   phases: { duration: number; title?: string }[];
+  
+  // Required external state - always controlled
+  externalState: {
+    currentPhase: number;
+    currentTime: number;
+    isRunning: boolean;
+    isPaused: boolean;
+    isFrozen: boolean;
+  };
+  
+  // Required state change handler
+  onStateChange: (state: {
+    currentPhase: number;
+    currentTime: number;
+    isRunning: boolean;
+    isPaused: boolean;
+    isFrozen: boolean;
+  }) => void;
+  
+  // Optional event callbacks
   onComplete?: () => void;
   onPhaseComplete?: (phaseIndex: number, phaseDuration: number) => void;
   onTick?: (currentTime: number, phaseIndex: number) => void;
   onStart?: () => void;
   onPause?: () => void;
-  onFreeze?: (frozen: boolean) => void; // modified to indicate new state
-  onAnonymiseToggle?: (anonymised: boolean) => void; // NEW
+  onFreeze?: (frozen: boolean) => void;
+  onAnonymiseToggle?: (anonymised: boolean) => void;
   onStop?: () => void;
   onReset?: () => void;
   onPrevious?: () => void;
   onNext?: () => void;
-  onPhaseClick?: (phaseIndex: number) => void; // NEW callback
-  autoStart?: boolean;
+  onPhaseClick?: (phaseIndex: number) => void;
+  
+  // UI configuration
   className?: string;
   gameActions?: { [phaseIndex: number]: string };
   user?: 'actor' | 'admin';
@@ -45,78 +67,73 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
   (
     {
       phases = [],
+      externalState,
+      onStateChange,
       onComplete,
       onPhaseComplete,
       onTick,
       onStart,
       onPause,
       onFreeze,
-  onAnonymiseToggle,
+      onAnonymiseToggle,
       onStop,
       onReset,
       onPrevious,
       onNext,
-      onPhaseClick, // NEW
-      autoStart = true,
+      onPhaseClick,
       className = '',
       gameActions = {},
       user = 'admin',
     },
     ref
   ) => {
-    const [currentPhase, setCurrentPhase] = useState(0);
-    const [currentTime, setCurrentTime] = useState(0);
-    const [isRunning, setIsRunning] = useState(false);
-    const [isPaused, setIsPaused] = useState(false);
-    const [isFrozen, setIsFrozen] = useState(false); // NEW
-  const [isAnonymised, setIsAnonymised] = useState(false); // NEW
-    const frozenPrevStateRef = useRef<{ wasRunning: boolean; wasPaused: boolean } | null>(null);
-    const [selectedPhase, setSelectedPhase] = useState<number | null>(null); // NEW state
+    // Extract state from externalState - no internal timer state
+    const {
+      currentPhase,
+      currentTime,
+      isRunning,
+      isPaused,
+      isFrozen,
+    } = externalState;
+
+    // Keep only UI-specific state (not timer logic)
+    const [selectedPhase, setSelectedPhase] = useState<number | null>(null);
+    const [isAnonymised, setIsAnonymised] = useState(false);
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
     const start = useCallback(() => {
-      console.log('starting')
       if (phases.length === 0 || currentPhase >= phases.length) return;
-      setIsRunning(true);
-      setIsPaused(false);
+      
+      onStateChange({
+        ...externalState,
+        isRunning: true,
+        isPaused: false,
+      });
       onStart?.();
-    }, [phases.length, currentPhase, onStart]);
+    }, [phases.length, currentPhase, externalState, onStateChange, onStart]);
 
     const pause = useCallback(() => {
-      console.log('pausing')
-      if (isFrozen) return; // freeze has priority
-      setIsRunning(false);
-      setIsPaused(true);
-      console.log('paused - isPaused should be true')
+      if (isFrozen) return;
+      
+      onStateChange({
+        ...externalState,
+        isRunning: false,
+        isPaused: true,
+      });
       onPause?.();
-    }, [onPause, isFrozen]);
+    }, [isFrozen, externalState, onStateChange, onPause]);
 
-    const freeze = useCallback(
-      (force?: boolean) => {
-        setIsFrozen((prev) => {
-          // Determine target state
-          const next = force === undefined ? !prev : force;
-          if (next && !prev) {
-            // entering frozen
-            frozenPrevStateRef.current = { wasRunning: isRunning, wasPaused: isPaused };
-            setIsRunning(false);
-            setIsPaused(false);
-          } else if (!next && prev) {
-            // leaving frozen -> restore previous state snapshot
-            const snap = frozenPrevStateRef.current;
-            if (snap) {
-              setIsRunning(snap.wasRunning);
-              setIsPaused(snap.wasPaused);
-            }
-            frozenPrevStateRef.current = null;
-          }
-          // callback after deciding
-          setTimeout(() => onFreeze?.(next), 0);
-          return next;
-        });
-      },
-      [isRunning, isPaused, onFreeze]
-    );
+    const freeze = useCallback((force?: boolean) => {
+      const nextFrozen = force === undefined ? !isFrozen : force;
+      
+      onStateChange({
+        ...externalState,
+        isFrozen: nextFrozen,
+        isRunning: nextFrozen ? false : externalState.isRunning,
+        isPaused: nextFrozen ? false : externalState.isPaused,
+      });
+      onFreeze?.(nextFrozen);
+    }, [isFrozen, externalState, onStateChange, onFreeze]);
 
     const toggleAnonymise = useCallback(
       (force?: boolean) => {
@@ -130,39 +147,36 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
     );
 
     const stop = useCallback(() => {
-      setIsRunning(false);
-      setIsPaused(false);
-      setIsFrozen(false);
-      frozenPrevStateRef.current = null;
-      setCurrentTime(0);
-      setCurrentPhase(0);
+      onStateChange({
+        currentPhase: 0,
+        currentTime: 0,
+        isRunning: false,
+        isPaused: false,
+        isFrozen: false,
+      });
       onStop?.();
-    }, [onStop]);
+    }, [onStateChange, onStop]);
 
     const reset = useCallback(() => {
-      setIsRunning(false);
-      setIsPaused(false);
-      setIsFrozen(false);
-      frozenPrevStateRef.current = null;
-      setCurrentTime(0);
-      setCurrentPhase(0);
+      onStateChange({
+        currentPhase: 0,
+        currentTime: 0,
+        isRunning: false,
+        isPaused: false,
+        isFrozen: false,
+      });
       onReset?.();
-    }, [onReset]);
+    }, [onStateChange, onReset]);
 
-    const setTimerPhases = useCallback((newPhases: { duration: number; title?: string }[]) => {
-      setIsRunning(false);
-      setIsPaused(false);
-      setIsFrozen(false);
-      frozenPrevStateRef.current = null;
-      setCurrentTime(0);
-      setCurrentPhase(0);
+    const setTimerPhases = useCallback(() => {
+      // No-op since phases come from props
     }, []);
 
     React.useImperativeHandle(ref, () => ({
       start,
       pause,
       freeze,
-  toggleAnonymise,
+      toggleAnonymise,
       stop,
       reset,
       setPhases: setTimerPhases,
@@ -170,43 +184,41 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
       getCurrentPhase: () => currentPhase,
       isRunning: () => isRunning,
       isPaused: () => isPaused,
-      // expose frozen status for future use (not in original interface but could be helpful)
     }));
 
-    useEffect(() => {
-      if (autoStart && phases.length > 0 && !isRunning && !isPaused && !isFrozen) {
-        setIsRunning(true);
-        setIsPaused(false);
-        onStart?.();
-      }
-    }, [autoStart, phases.length, isRunning, isPaused, isFrozen, onStart]);
 
     useEffect(() => {
       if (isRunning && !isFrozen && currentPhase < phases.length) {
         intervalRef.current = setInterval(() => {
-          setCurrentTime((prev) => {
-            const newTime = prev + 1;
-            onTick?.(newTime, currentPhase);
+          const newTime = currentTime + 1;
+          onTick?.(newTime, currentPhase);
 
-            // Check if current phase is complete
-            if (newTime >= (phases[currentPhase]?.duration || 0)) {
-              onPhaseComplete?.(currentPhase, phases[currentPhase]?.duration || 0);
+          // Check if current phase is complete
+          if (newTime >= (phases[currentPhase]?.duration || 0)) {
+            onPhaseComplete?.(currentPhase, phases[currentPhase]?.duration || 0);
 
-              // Move to next phase or complete
-              if (currentPhase + 1 < phases.length) {
-                setCurrentPhase(currentPhase + 1);
-                return 0; // Reset time for next phase
-              } else {
-                // All phases complete
-                setIsRunning(false);
-                setIsPaused(false);
-                onComplete?.();
-                return newTime;
-              }
+            // Move to next phase or complete
+            if (currentPhase + 1 < phases.length) {
+              onStateChange({
+                ...externalState,
+                currentPhase: currentPhase + 1,
+                currentTime: 0,
+              });
+            } else {
+              // All phases complete
+              onStateChange({
+                ...externalState,
+                isRunning: false,
+                isPaused: false,
+              });
+              onComplete?.();
             }
-
-            return newTime;
-          });
+          } else {
+            onStateChange({
+              ...externalState,
+              currentTime: newTime,
+            });
+          }
         }, 1000);
       } else {
         if (intervalRef.current) {
@@ -220,7 +232,7 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
           clearInterval(intervalRef.current);
         }
       };
-    }, [isRunning, isFrozen, currentPhase, phases, onTick, onPhaseComplete, onComplete]);
+    }, [isRunning, isFrozen, currentPhase, currentTime, phases, externalState, onStateChange, onTick, onPhaseComplete, onComplete]);
 
     const currentPhaseDuration = phases[currentPhase]?.duration || 0;
     const progress = currentPhaseDuration > 0 ? (currentTime / currentPhaseDuration) * 100 : 0;

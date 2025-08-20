@@ -21,9 +21,13 @@ const meta: Meta<typeof Timer> = {
       control: 'object',
       description: 'Array of phases with shape { duration: number; title?: string }.',
     },
-    autoStart: {
-      control: 'boolean',
-      description: 'Whether the timer should start automatically',
+    externalState: {
+      control: 'object',
+      description: 'External timer state object with currentPhase, currentTime, isRunning, isPaused, isFrozen',
+    },
+    onStateChange: {
+      control: false,
+      description: 'Callback for state changes',
     },
     gameActions: {
       control: 'object',
@@ -58,27 +62,54 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {
-    phases: [
-      { duration: 30, title: 'Preparation' },
-      { duration: 45, title: 'Play' },
-      { duration: 60, title: 'Wrap-up' },
-    ],
-    autoStart: false,
+  render: () => {
+    const [timerState, setTimerState] = useState({
+      currentPhase: 0,
+      currentTime: 0,
+      isRunning: false,
+      isPaused: false,
+      isFrozen: false,
+    });
+
+    return (
+      <Timer
+        phases={[
+          { duration: 30, title: 'Preparation' },
+          { duration: 45, title: 'Play' },
+          { duration: 60, title: 'Wrap-up' },
+        ]}
+        externalState={timerState}
+        onStateChange={setTimerState}
+      />
+    );
   },
 };
 
 export const GameTimer: Story = {
-  args: {
-    phases: [
-      { duration: 5, title: 'START' },
-      { duration: 6, title: 'MIDDLE' },
-      { duration: 7, title: 'END' },
-    ],
-    autoStart: true,
-    onPhaseComplete: (phase: number, duration: number) =>
-      console.log(`Phase ${phase + 1} completed! Duration was ${duration}s`),
-    onComplete: () => alert('Game completed!'),
+  render: () => {
+    const [timerState, setTimerState] = useState({
+      currentPhase: 0,
+      currentTime: 0,
+      isRunning: true, // auto-start
+      isPaused: false,
+      isFrozen: false,
+    });
+
+    return (
+      <Timer
+        phases={[
+          { duration: 5, title: 'START' },
+          { duration: 6, title: 'MIDDLE' },
+          { duration: 7, title: 'END' },
+        ]}
+        externalState={timerState}
+        onStateChange={setTimerState}
+        onPhaseComplete={(phase: number, duration: number) =>
+          console.log(`Phase ${phase + 1} completed! Duration was ${duration}s`)
+        }
+        onComplete={() => alert('Game completed!')}
+      />
+    );
   },
   parameters: {
     docs: {
@@ -90,9 +121,22 @@ export const GameTimer: Story = {
 };
 
 export const SinglePhase: Story = {
-  args: {
-    phases: [{ duration: 120, title: 'Single' }],
-    autoStart: false,
+  render: () => {
+    const [timerState, setTimerState] = useState({
+      currentPhase: 0,
+      currentTime: 0,
+      isRunning: false,
+      isPaused: false,
+      isFrozen: false,
+    });
+
+    return (
+      <Timer
+        phases={[{ duration: 120, title: 'Single' }]}
+        externalState={timerState}
+        onStateChange={setTimerState}
+      />
+    );
   },
   parameters: {
     docs: {
@@ -104,32 +148,72 @@ export const SinglePhase: Story = {
 };
 
 export const MinimalTimer: Story = {
-  args: {
-    phases: [
-      { duration: 60, title: 'Phase 1' },
-      { duration: 90, title: 'Phase 2' },
-    ],
-    autoStart: false,
+  render: () => {
+    const [timerState, setTimerState] = useState({
+      currentPhase: 0,
+      currentTime: 0,
+      isRunning: false,
+      isPaused: false,
+      isFrozen: false,
+    });
+
+    return (
+      <Timer
+        phases={[
+          { duration: 60, title: 'Phase 1' },
+          { duration: 90, title: 'Phase 2' },
+        ]}
+        externalState={timerState}
+        onStateChange={setTimerState}
+      />
+    );
   },
 };
 
 export const ProgressOnly: Story = {
-  args: {
-    phases: [
-      { duration: 8, title: 'Short' },
-      { duration: 12, title: 'Long' },
-    ],
-    autoStart: true,
+  render: () => {
+    const [timerState, setTimerState] = useState({
+      currentPhase: 0,
+      currentTime: 0,
+      isRunning: true, // auto-start
+      isPaused: false,
+      isFrozen: false,
+    });
+
+    return (
+      <Timer
+        phases={[
+          { duration: 8, title: 'Short' },
+          { duration: 12, title: 'Long' },
+        ]}
+        externalState={timerState}
+        onStateChange={setTimerState}
+      />
+    );
   },
 };
 
 export const WithPhaseTitles: Story = {
-  args: {
-    phases: [
-      { duration: 10, title: 'Warm-up' },
-      { duration: 10, title: 'Main' },
-      { duration: 10, title: 'Cooldown' },
-    ],
+  render: () => {
+    const [timerState, setTimerState] = useState({
+      currentPhase: 0,
+      currentTime: 0,
+      isRunning: false,
+      isPaused: false,
+      isFrozen: false,
+    });
+
+    return (
+      <Timer
+        phases={[
+          { duration: 10, title: 'Warm-up' },
+          { duration: 10, title: 'Main' },
+          { duration: 10, title: 'Cooldown' },
+        ]}
+        externalState={timerState}
+        onStateChange={setTimerState}
+      />
+    );
   },
 };
 
@@ -168,9 +252,23 @@ export const WithCallbacks: Story = {
             { duration: 5, title: 'Action' },
             { duration: 4, title: 'Summary' },
           ]}
+          externalState={{
+            currentPhase,
+            currentTime: 0,
+            isRunning: status === 'Running',
+            isPaused: status === 'Paused',
+            isFrozen: false,
+          }}
+          onStateChange={(newState) => {
+            setCurrentPhase(newState.currentPhase);
+            if (newState.isRunning && status !== 'Running') {
+              setStatus('Running');
+            } else if (newState.isPaused && status !== 'Paused') {
+              setStatus('Paused');
+            }
+          }}
           onStart={() => {
             setStatus('Running');
-            setCurrentPhase(0);
             setPhaseInfo('Game started!');
           }}
           onPause={() => setStatus('Paused')}
@@ -187,7 +285,6 @@ export const WithCallbacks: Story = {
             setSelectedFinishedPhase(null);
           }}
           onTick={(time, phase) => {
-            setCurrentPhase(phase);
             setPhaseInfo(`Phase ${phase + 1}: ${time}s elapsed`);
           }}
           onPhaseComplete={(phase, duration) => {
@@ -269,8 +366,16 @@ export const ControlledTimer: Story = {
         <Timer
           ref={timerRef}
           phases={phases}
+          externalState={{
+            currentPhase: 0,
+            currentTime: 0,
+            isRunning: false,
+            isPaused: false,
+            isFrozen: false,
+          }}
+          onStateChange={() => {}}
           onFreeze={(f) => console.log('Timer frozen state:', f)}
-          onAnonymiseToggle={(a)=>console.log('Anonymised state:', a)}
+          onAnonymiseToggle={(a) => console.log('Anonymised state:', a)}
         />
         <div style={{ marginTop: 20 }}>
           <button
@@ -326,9 +431,16 @@ export const FreezeDemo: Story = {
             { duration: 10, title: 'Alpha' },
             { duration: 12, title: 'Beta' },
           ]}
-          autoStart={true}
+          externalState={{
+            currentPhase: 0,
+            currentTime: 0,
+            isRunning: true, // auto-start
+            isPaused: false,
+            isFrozen: false,
+          }}
+          onStateChange={() => {}}
           onFreeze={(f) => console.log('Frozen via button or external control. Frozen:', f)}
-          onAnonymiseToggle={(a)=>console.log('Anonymised state:', a)}
+          onAnonymiseToggle={(a) => console.log('Anonymised state:', a)}
         />
         <div style={{ marginTop: 16 }}>
           <button onClick={() => timerRef.current?.start()} style={{ margin: '0 4px' }}>
@@ -361,16 +473,29 @@ export const FreezeDemo: Story = {
 };
 
 export const AdminUser: Story = {
-  args: {
-    phases: [
-      { duration: 30, title: 'Discussion' },
-      { duration: 45, title: 'Activity' },
-      { duration: 15, title: 'Reflection' },
-    ],
-    user: 'admin',
-    autoStart: false,
-    gameActions: { 0: 'Start Discussion', 1: 'Begin Activity', 2: 'Wrap Up' },
-    onPhaseClick: (p: number) => console.log('Admin clicked phase', p),
+  render: () => {
+    const [timerState, setTimerState] = useState({
+      currentPhase: 0,
+      currentTime: 0,
+      isRunning: false,
+      isPaused: false,
+      isFrozen: false,
+    });
+
+    return (
+      <Timer
+        phases={[
+          { duration: 30, title: 'Discussion' },
+          { duration: 45, title: 'Activity' },
+          { duration: 15, title: 'Reflection' },
+        ]}
+        externalState={timerState}
+        onStateChange={setTimerState}
+        user="admin"
+        gameActions={{ 0: 'Start Discussion', 1: 'Begin Activity', 2: 'Wrap Up' }}
+        onPhaseClick={(p: number) => console.log('Admin clicked phase', p)}
+      />
+    );
   },
   parameters: {
     docs: {
@@ -383,16 +508,29 @@ export const AdminUser: Story = {
 };
 
 export const ActorUser: Story = {
-  args: {
-    phases: [
-      { duration: 30, title: 'Discussion' },
-      { duration: 45, title: 'Activity' },
-      { duration: 15, title: 'Reflection' },
-    ],
-    user: 'actor',
-    autoStart: true,
-    gameActions: { 0: 'Start Discussion', 1: 'Begin Activity', 2: 'Wrap Up' },
-    onPhaseClick: (p: number) => console.log('Actor clicked phase', p),
+  render: () => {
+    const [timerState, setTimerState] = useState({
+      currentPhase: 0,
+      currentTime: 0,
+      isRunning: true, // auto-start
+      isPaused: false,
+      isFrozen: false,
+    });
+
+    return (
+      <Timer
+        phases={[
+          { duration: 30, title: 'Discussion' },
+          { duration: 45, title: 'Activity' },
+          { duration: 15, title: 'Reflection' },
+        ]}
+        externalState={timerState}
+        onStateChange={setTimerState}
+        user="actor"
+        gameActions={{ 0: 'Start Discussion', 1: 'Begin Activity', 2: 'Wrap Up' }}
+        onPhaseClick={(p: number) => console.log('Actor clicked phase', p)}
+      />
+    );
   },
   parameters: {
     docs: {
@@ -417,8 +555,15 @@ export const UserComparison: Story = {
           <h3 style={{ marginBottom: '20px' }}>Admin View</h3>
           <Timer
             phases={sharedPhases}
+            externalState={{
+              currentPhase: 0,
+              currentTime: 0,
+              isRunning: false,
+              isPaused: false,
+              isFrozen: false,
+            }}
+            onStateChange={() => {}}
             user="admin"
-            autoStart={false}
             gameActions={{ 0: 'Begin Setup', 1: 'Start Task', 2: 'Finish' }}
             onPhaseClick={(p) => console.log('Admin comparison clicked', p)}
           />
@@ -427,8 +572,15 @@ export const UserComparison: Story = {
           <h3 style={{ marginBottom: '20px' }}>Actor View</h3>
           <Timer
             phases={sharedPhases}
+            externalState={{
+              currentPhase: 0,
+              currentTime: 0,
+              isRunning: false,
+              isPaused: false,
+              isFrozen: false,
+            }}
+            onStateChange={() => {}}
             user="actor"
-            autoStart={false}
             gameActions={{ 0: 'Begin Setup', 1: 'Start Task', 2: 'Finish' }}
             onPhaseClick={(p) => console.log('Actor comparison clicked', p)}
           />
