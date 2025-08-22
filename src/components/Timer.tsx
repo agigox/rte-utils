@@ -27,7 +27,8 @@ export interface TimerProps {
   onComplete?: () => void;
   onPhaseComplete?: (phaseIndex: number, phaseDuration: number) => void;
   onTick?: (currentTime: number, phaseIndex: number) => void;
-  onStart?: () => void;
+  onUnfreeze?: () => void;
+  onUnpause?: () => void;
   onPause?: () => void;
   onFreeze?: (frozen: boolean) => void;
   onAnonymiseToggle?: (anonymised: boolean) => void;
@@ -72,7 +73,8 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
       onComplete,
       onPhaseComplete,
       onTick,
-      onStart,
+      onUnfreeze,
+      onUnpause,
       onPause,
       onFreeze,
       onAnonymiseToggle,
@@ -104,13 +106,24 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
     const start = useCallback(() => {
       if (phases.length === 0 || currentPhase >= phases.length) return;
       
+      // Determine which callback to trigger based on current state
+      const wasUnpausing = isPaused && !isFrozen;
+      const wasUnfreezing = isFrozen;
+      
       onStateChange({
         ...externalState,
         isRunning: true,
         isPaused: false,
+        isFrozen: false,
       });
-      onStart?.();
-    }, [phases.length, currentPhase, externalState, onStateChange, onStart]);
+      
+      // Call appropriate callback based on previous state
+      if (wasUnfreezing) {
+        onUnfreeze?.();
+      } else if (wasUnpausing) {
+        onUnpause?.();
+      }
+    }, [phases.length, currentPhase, externalState, onStateChange, isPaused, isFrozen, onUnfreeze, onUnpause]);
 
     const pause = useCallback(() => {
       if (isFrozen) return;
@@ -138,7 +151,12 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
       
       onStateChange(newState);
       onFreeze?.(nextFrozen);
-    }, [isFrozen, externalState, onStateChange, onFreeze]);
+      
+      // Call onUnfreeze when unfreezing
+      if (!nextFrozen && isFrozen) {
+        onUnfreeze?.();
+      }
+    }, [isFrozen, externalState, onStateChange, onFreeze, onUnfreeze]);
 
     const toggleAnonymise = useCallback(
       (force?: boolean) => {

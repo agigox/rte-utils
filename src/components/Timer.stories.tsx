@@ -43,7 +43,8 @@ const meta: Meta<typeof Timer> = {
     onComplete: { control: false },
     onPhaseComplete: { control: false },
     onTick: { control: false },
-    onStart: { control: false },
+    onUnfreeze: { control: false },
+    onUnpause: { control: false },
     onPause: { control: false },
     onFreeze: { control: false },
   onAnonymiseToggle: { control: false },
@@ -281,9 +282,13 @@ export const WithCallbacks: Story = {
               setStatus('Stopped');
             }
           }}
-          onStart={() => {
-            setStatus('Running');
-            setPhaseInfo('Game started!');
+          onUnfreeze={() => {
+            setStatus('Unfrozen');
+            setPhaseInfo('Game unfrozen!');
+          }}
+          onUnpause={() => {
+            setStatus('Unpaused');
+            setPhaseInfo('Game unpaused!');
           }}
           onPause={() => {
             setStatus('Paused');

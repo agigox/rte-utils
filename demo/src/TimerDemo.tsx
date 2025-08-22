@@ -104,9 +104,13 @@ export const TimerDemo: React.FC = () => {
           ]}
           externalState={mainTimerState}
           onStateChange={handleMainTimerStateChange}
-          onStart={() => {
-            setStatus('Running');
-            setPhaseInfo('Game started!');
+          onUnfreeze={() => {
+            setStatus('Unfrozen');
+            setPhaseInfo('Game unfrozen!');
+          }}
+          onUnpause={() => {
+            setStatus('Unpaused');
+            setPhaseInfo('Game unpaused!');
           }}
           onPause={() => setStatus('Paused')}
           onStop={() => {
