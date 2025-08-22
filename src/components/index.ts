@@ -8,4 +8,5 @@ export { InputNumber } from './InputNumber';
 export { Avatar } from './Avatar';
 export { ValueWithUnit } from './ValueWithUnit';
 export { Timer } from './Timer';
+export { ProgressBar } from './ProgressBar';
 export type { TimerProps, TimerRef } from './Timer';
