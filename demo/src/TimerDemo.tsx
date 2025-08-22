@@ -6,7 +6,7 @@ export const TimerDemo: React.FC = () => {
   
   // Timer states for different demos
   const [mainTimerState, setMainTimerState] = useState({
-    currentPhase: 0,
+    currentPhase: "Phase 1",
     currentTime: 0,
     isRunning: false,
     isPaused: false,
@@ -14,7 +14,7 @@ export const TimerDemo: React.FC = () => {
   });
   
   const [controlledTimerState, setControlledTimerState] = useState({
-    currentPhase: 0,
+    currentPhase: "Phase 1",
     currentTime: 0,
     isRunning: false,
     isPaused: false,
@@ -23,7 +23,7 @@ export const TimerDemo: React.FC = () => {
   
   // Timer states for multiple game sessions
   const [quickGameState, setQuickGameState] = useState({
-    currentPhase: 0,
+    currentPhase: "Phase 1",
     currentTime: 0,
     isRunning: false,
     isPaused: false,
@@ -31,7 +31,7 @@ export const TimerDemo: React.FC = () => {
   });
   
   const [standardGameState, setStandardGameState] = useState({
-    currentPhase: 0,
+    currentPhase: "Phase 1",
     currentTime: 0,
     isRunning: false,
     isPaused: false,
@@ -39,7 +39,7 @@ export const TimerDemo: React.FC = () => {
   });
   
   const [extendedGameState, setExtendedGameState] = useState({
-    currentPhase: 0,
+    currentPhase: "Phase 1",
     currentTime: 0,
     isRunning: false,
     isPaused: false,
@@ -47,9 +47,9 @@ export const TimerDemo: React.FC = () => {
   });
   
   const customPhases = [
-    { duration: 30, title: 'Phase 1' },
-    { duration: 45, title: 'Phase 2' },
-    { duration: 60, title: 'Phase 3' },
+    { duration: 30000, title: 'Phase 1' },
+    { duration: 45000, title: 'Phase 2' },
+    { duration: 60000, title: 'Phase 3' },
   ];
   const [status, setStatus] = useState('Ready');
   const [phaseInfo, setPhaseInfo] = useState('');
@@ -257,8 +257,8 @@ export const TimerDemo: React.FC = () => {
             <Timer
               phases={[
                 { duration: 10, title: 'Q1' },
-                { duration: 15, title: 'Q2' },
-                { duration: 20, title: 'Q3' },
+                { duration: 15000, title: 'Q2' },
+                { duration: 20000, title: 'Q3' },
               ]}
               externalState={quickGameState}
               onStateChange={setQuickGameState}
@@ -275,9 +275,9 @@ export const TimerDemo: React.FC = () => {
             <h4 style={{ margin: '0 0 15px 0', color: '#333' }}>Standard Game</h4>
             <Timer
               phases={[
-                { duration: 30, title: 'S1' },
-                { duration: 45, title: 'S2' },
-                { duration: 60, title: 'S3' },
+                { duration: 30000, title: 'S1' },
+                { duration: 45000, title: 'S2' },
+                { duration: 60000, title: 'S3' },
               ]}
               externalState={standardGameState}
               onStateChange={setStandardGameState}
@@ -294,7 +294,7 @@ export const TimerDemo: React.FC = () => {
             <h4 style={{ margin: '0 0 15px 0', color: '#333' }}>Extended Game</h4>
             <Timer
               phases={[
-                { duration: 60, title: 'E1' },
+                { duration: 60000, title: 'E1' },
                 { duration: 90, title: 'E2' },
                 { duration: 120, title: 'E3' },
                 { duration: 90, title: 'E4' },

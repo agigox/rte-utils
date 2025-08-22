@@ -65,7 +65,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: () => {
     const [timerState, setTimerState] = useState({
-      currentPhase: 0,
+      currentPhase: 'Preparation',
       currentTime: 0,
       isRunning: false,
       isPaused: false,
@@ -75,9 +75,9 @@ export const Default: Story = {
     return (
       <Timer
         phases={[
-          { duration: 30, title: 'Preparation' },
-          { duration: 45, title: 'Play' },
-          { duration: 60, title: 'Wrap-up' },
+          { duration: 30000, title: 'Preparation' }, // 30 seconds in milliseconds
+          { duration: 45000, title: 'Play' }, // 45 seconds in milliseconds
+          { duration: 60000, title: 'Wrap-up' }, // 60 seconds in milliseconds
         ]}
         externalState={timerState}
         onStateChange={setTimerState}
@@ -89,7 +89,7 @@ export const Default: Story = {
 export const GameTimer: Story = {
   render: () => {
     const [timerState, setTimerState] = useState({
-      currentPhase: 0,
+      currentPhase: 'START',
       currentTime: 0,
       isRunning: true, // auto-start
       isPaused: false,
@@ -99,9 +99,9 @@ export const GameTimer: Story = {
     return (
       <Timer
         phases={[
-          { duration: 5, title: 'START' },
-          { duration: 6, title: 'MIDDLE' },
-          { duration: 7, title: 'END' },
+          { duration: 5000, title: 'START' }, // 5 seconds in milliseconds
+          { duration: 6000, title: 'MIDDLE' }, // 6 seconds in milliseconds
+          { duration: 7000, title: 'END' }, // 7 seconds in milliseconds
         ]}
         externalState={timerState}
         onStateChange={setTimerState}
@@ -120,7 +120,7 @@ export const GameTimer: Story = {
 export const SinglePhase: Story = {
   render: () => {
     const [timerState, setTimerState] = useState({
-      currentPhase: 0,
+      currentPhase: 'Single',
       currentTime: 0,
       isRunning: false,
       isPaused: false,
@@ -129,7 +129,7 @@ export const SinglePhase: Story = {
 
     return (
       <Timer
-        phases={[{ duration: 120, title: 'Single' }]}
+        phases={[{ duration: 120000, title: 'Single' }]} // 120 seconds in milliseconds
         externalState={timerState}
         onStateChange={setTimerState}
       />
@@ -147,7 +147,7 @@ export const SinglePhase: Story = {
 export const MinimalTimer: Story = {
   render: () => {
     const [timerState, setTimerState] = useState({
-      currentPhase: 0,
+      currentPhase: "Phase 1",
       currentTime: 0,
       isRunning: false,
       isPaused: false,
@@ -157,8 +157,8 @@ export const MinimalTimer: Story = {
     return (
       <Timer
         phases={[
-          { duration: 60, title: 'Phase 1' },
-          { duration: 90, title: 'Phase 2' },
+          { duration: 60000, title: 'Phase 1' },
+          { duration: 90000, title: 'Phase 2' },
         ]}
         externalState={timerState}
         onStateChange={setTimerState}
@@ -170,7 +170,7 @@ export const MinimalTimer: Story = {
 export const ProgressOnly: Story = {
   render: () => {
     const [timerState, setTimerState] = useState({
-      currentPhase: 0,
+      currentPhase: 'Short',
       currentTime: 0,
       isRunning: true, // auto-start
       isPaused: false,
@@ -180,8 +180,8 @@ export const ProgressOnly: Story = {
     return (
       <Timer
         phases={[
-          { duration: 8, title: 'Short' },
-          { duration: 12, title: 'Long' },
+          { duration: 8000, title: 'Short' },
+          { duration: 12000, title: 'Long' },
         ]}
         externalState={timerState}
         onStateChange={setTimerState}
@@ -193,7 +193,7 @@ export const ProgressOnly: Story = {
 export const WithPhaseTitles: Story = {
   render: () => {
     const [timerState, setTimerState] = useState({
-      currentPhase: 0,
+      currentPhase: "Phase 1",
       currentTime: 0,
       isRunning: false,
       isPaused: false,
@@ -203,9 +203,9 @@ export const WithPhaseTitles: Story = {
     return (
       <Timer
         phases={[
-          { duration: 10, title: 'Warm-up' },
-          { duration: 10, title: 'Main' },
-          { duration: 10, title: 'Cooldown' },
+          { duration: 10000, title: 'Warm-up' },
+          { duration: 10000, title: 'Main' },
+          { duration: 10000, title: 'Cooldown' },
         ]}
         externalState={timerState}
         onStateChange={setTimerState}
@@ -217,14 +217,14 @@ export const WithPhaseTitles: Story = {
 export const WithCallbacks: Story = {
   render: () => {
     const [status, setStatus] = useState('Ready');
-    const [currentPhase, setCurrentPhase] = useState(0);
+    const [currentPhase, setCurrentPhase] = useState('Intro'); // Use string for phase title
     const [currentTime, setCurrentTime] = useState(0);
     const [phaseInfo, setPhaseInfo] = useState('');
     const [selectedFinishedPhase, setSelectedFinishedPhase] = useState<number | null>(null);
     const [clickedPhase, setClickedPhase] = useState<number | null>(null);
     const [timerState, setTimerState] = useState({
-      currentPhase: 0,
-      currentTime: 2,
+      currentPhase: 'Intro',
+      currentTime: 2000, // 2 seconds in milliseconds
       isRunning: false,
       isPaused: false,
       isFrozen: false,
@@ -238,7 +238,13 @@ export const WithCallbacks: Story = {
             <strong>Status:</strong> {status}
           </p>
           <p>
-            <strong>Current Phase:</strong> {timerState.currentPhase + 1}
+            <strong>Current Phase:</strong> {
+              (() => {
+                const phases = ['Intro', 'Action', 'Summary'];
+                const phaseIndex = phases.indexOf(timerState.currentPhase);
+                return phaseIndex + 1;
+              })()
+            }
           </p>
           <p>
             <strong>Current Time:</strong> {timerState.currentTime}s
@@ -262,9 +268,9 @@ export const WithCallbacks: Story = {
         </div>
         <Timer
           phases={[
-            { duration: 6, title: 'Intro' },
-            { duration: 5, title: 'Action' },
-            { duration: 4, title: 'Summary' },
+            { duration: 6000, title: 'Intro' },
+            { duration: 5000, title: 'Action' },
+            { duration: 4000, title: 'Summary' },
           ]}
           externalState={timerState}
           onStateChange={(newState) => {
@@ -298,24 +304,28 @@ export const WithCallbacks: Story = {
           }}
           onStop={() => {
             setStatus('Stopped');
-            setCurrentPhase(0);
+            setCurrentPhase("Phase 1");
             setCurrentTime(0);
             setPhaseInfo('Game stopped');
             setSelectedFinishedPhase(null);
           }}
           onReset={() => {
             setStatus('Reset');
-            setCurrentPhase(0);
+            setCurrentPhase("Phase 1");
             setCurrentTime(0);
             setPhaseInfo('Ready to start');
             setSelectedFinishedPhase(null);
           }}
-          onTick={(time, phase) => {
-            setPhaseInfo(`Phase ${phase + 1}: ${time}s elapsed`);
+          onTick={(time, phaseTitle) => {
+            const phases = ['Intro', 'Action', 'Summary'];
+            const phaseIndex = phases.indexOf(phaseTitle);
+            setPhaseInfo(`Phase ${phaseIndex + 1}: ${time}s elapsed`);
             setCurrentTime(time);
           }}
-          onPhaseComplete={(phase, duration) => {
-            setPhaseInfo(`Phase ${phase + 1} completed! (${duration}s)`);
+          onPhaseComplete={(phaseTitle, duration) => {
+            const phases = ['Intro', 'Action', 'Summary'];
+            const phaseIndex = phases.indexOf(phaseTitle);
+            setPhaseInfo(`Phase ${phaseIndex + 1} completed! (${duration}s)`);
           }}
           onComplete={() => {
             setStatus('All phases completed!');
@@ -323,13 +333,17 @@ export const WithCallbacks: Story = {
           }}
           onPrevious={() => {
             setSelectedFinishedPhase((prev) => {
-              const fallback = currentPhase > 0 ? currentPhase - 1 : 0;
+              const phases = ['Intro', 'Action', 'Summary'];
+              const currentIndex = phases.indexOf(currentPhase);
+              const fallback = currentIndex > 0 ? currentIndex - 1 : 0;
               return prev === null ? fallback : Math.max(0, prev - 1);
             });
           }}
           onNext={() => {
             setSelectedFinishedPhase((prev) => {
-              const fallback = currentPhase + 1;
+              const phases = ['Intro', 'Action', 'Summary'];
+              const currentIndex = phases.indexOf(currentPhase);
+              const fallback = currentIndex + 1;
               return prev === null ? fallback : prev + 1;
             });
           }}
@@ -345,9 +359,9 @@ export const WithCallbacks: Story = {
 export const ControlledTimer: Story = {
   render: () => {
     const [phases, setPhases] = useState([
-      { duration: 30, title: 'Phase 1' },
-      { duration: 45, title: 'Phase 2' },
-      { duration: 60, title: 'Phase 3' },
+      { duration: 30000, title: 'Phase 1' },
+      { duration: 45000, title: 'Phase 2' },
+      { duration: 60000, title: 'Phase 3' },
     ]);
     const [durationsInput, setDurationsInput] = useState('30,45,60');
     const timerRef = React.useRef<TimerRef | null>(null);
@@ -396,7 +410,7 @@ export const ControlledTimer: Story = {
           ref={timerRef}
           phases={phases}
           externalState={{
-            currentPhase: 0,
+            currentPhase: "Phase 1",
             currentTime: 0,
             isRunning: false,
             isPaused: false,
@@ -455,11 +469,11 @@ export const FreezeDemo: Story = {
         <Timer
           ref={timerRef}
           phases={[
-            { duration: 10, title: 'Alpha' },
-            { duration: 12, title: 'Beta' },
+            { duration: 10000, title: 'Alpha' },
+            { duration: 12000, title: 'Beta' },
           ]}
           externalState={{
-            currentPhase: 0,
+            currentPhase: "Phase 1",
             currentTime: 0,
             isRunning: true, // auto-start
             isPaused: false,
@@ -500,7 +514,7 @@ export const FreezeDemo: Story = {
 export const AdminUser: Story = {
   render: () => {
     const [timerState, setTimerState] = useState({
-      currentPhase: 0,
+      currentPhase: "Phase 1",
       currentTime: 0,
       isRunning: false,
       isPaused: false,
@@ -510,8 +524,8 @@ export const AdminUser: Story = {
     return (
       <Timer
         phases={[
-          { duration: 30, title: 'Discussion' },
-          { duration: 45, title: 'Activity' },
+          { duration: 30000, title: 'Discussion' },
+          { duration: 45000, title: 'Activity' },
           { duration: 15, title: 'Reflection' },
         ]}
         externalState={timerState}
@@ -534,7 +548,7 @@ export const AdminUser: Story = {
 export const ActorUser: Story = {
   render: () => {
     const [timerState, setTimerState] = useState({
-      currentPhase: 0,
+      currentPhase: "Phase 1",
       currentTime: 0,
       isRunning: true, // auto-start
       isPaused: false,
@@ -544,8 +558,8 @@ export const ActorUser: Story = {
     return (
       <Timer
         phases={[
-          { duration: 30, title: 'Discussion' },
-          { duration: 45, title: 'Activity' },
+          { duration: 30000, title: 'Discussion' },
+          { duration: 45000, title: 'Activity' },
           { duration: 15, title: 'Reflection' },
         ]}
         externalState={timerState}
@@ -570,7 +584,7 @@ export const UserComparison: Story = {
     const sharedPhases = [
       { duration: 20, title: 'Setup' },
       { duration: 35, title: 'Main Task' },
-      { duration: 10, title: 'Cleanup' },
+      { duration: 10000, title: 'Cleanup' },
     ];
     return (
       <div style={{ display: 'flex', gap: '40px', justifyContent: 'center' }}>
@@ -579,7 +593,7 @@ export const UserComparison: Story = {
           <Timer
             phases={sharedPhases}
             externalState={{
-              currentPhase: 0,
+              currentPhase: "Phase 1",
               currentTime: 0,
               isRunning: false,
               isPaused: false,
@@ -595,7 +609,7 @@ export const UserComparison: Story = {
           <Timer
             phases={sharedPhases}
             externalState={{
-              currentPhase: 0,
+              currentPhase: "Phase 1",
               currentTime: 0,
               isRunning: false,
               isPaused: false,

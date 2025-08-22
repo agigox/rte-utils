@@ -2,13 +2,13 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import './Timer.css';
 
 export interface TimerProps {
-  // Required phase configuration
+  // Required phase configuration - duration in milliseconds
   phases: { duration: number; title?: string }[];
   
   // Required external state - always controlled
   externalState: {
-    currentPhase: number;
-    currentTime: number;
+    currentPhase: string; // phase title instead of index
+    currentTime: number; // in milliseconds internally
     isRunning: boolean;
     isPaused: boolean;
     isFrozen: boolean;
@@ -16,8 +16,8 @@ export interface TimerProps {
   
   // Required state change handler
   onStateChange: (state: {
-    currentPhase: number;
-    currentTime: number;
+    currentPhase: string; // phase title instead of index
+    currentTime: number; // in milliseconds internally
     isRunning: boolean;
     isPaused: boolean;
     isFrozen: boolean;
@@ -25,8 +25,8 @@ export interface TimerProps {
   
   // Optional event callbacks
   onComplete?: () => void;
-  onPhaseComplete?: (phaseIndex: number, phaseDuration: number) => void;
-  onTick?: (currentTime: number, phaseIndex: number) => void;
+  onPhaseComplete?: (phaseTitle: string, phaseDuration: number) => void;
+  onTick?: (currentTime: number, phaseTitle: string) => void;
   onUnfreeze?: () => void;
   onUnpause?: () => void;
   onPause?: () => void;
@@ -53,7 +53,7 @@ export interface TimerRef {
   reset: () => void;
   setPhases: (phases: { duration: number; title?: string }[]) => void;
   getCurrentTime: () => number;
-  getCurrentPhase: () => number;
+  getCurrentPhase: () => string; // returns phase title
   isRunning: () => boolean;
   isPaused: () => boolean;
 }
@@ -98,13 +98,28 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
       isFrozen,
     } = externalState;
 
+    // Helper functions to work with phase indices internally
+    const getCurrentPhaseIndex = useCallback(() => {
+      return phases.findIndex(phase => (phase.title || `Phase ${phases.indexOf(phase) + 1}`) === currentPhase);
+    }, [phases, currentPhase]);
+
+    const getPhaseByIndex = useCallback((index: number) => {
+      return phases[index];
+    }, [phases]);
+
+    const getPhaseTitle = useCallback((index: number) => {
+      const phase = phases[index];
+      return phase?.title || `Phase ${index + 1}`;
+    }, [phases]);
+
     // Keep only UI-specific state (not timer logic)
     const [selectedPhase, setSelectedPhase] = useState<number | null>(null);
     const [isAnonymised, setIsAnonymised] = useState(false);
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
     const start = useCallback(() => {
-      if (phases.length === 0 || currentPhase >= phases.length) return;
+      const currentPhaseIndex = getCurrentPhaseIndex();
+      if (phases.length === 0 || currentPhaseIndex === -1 || currentPhaseIndex >= phases.length) return;
       
       // Determine which callback to trigger based on current state
       const wasUnpausing = isPaused && !isFrozen;
@@ -123,7 +138,7 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
       } else if (wasUnpausing) {
         onUnpause?.();
       }
-    }, [phases.length, currentPhase, externalState, onStateChange, isPaused, isFrozen, onUnfreeze, onUnpause]);
+    }, [phases.length, getCurrentPhaseIndex, externalState, onStateChange, isPaused, isFrozen, onUnfreeze, onUnpause]);
 
     const pause = useCallback(() => {
       if (isFrozen) return;
@@ -171,25 +186,25 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
 
     const stop = useCallback(() => {
       onStateChange({
-        currentPhase: 0,
+        currentPhase: getPhaseTitle(0), // Reset to first phase title
         currentTime: 0,
         isRunning: false,
         isPaused: false,
         isFrozen: false,
       });
       onStop?.();
-    }, [onStateChange, onStop]);
+    }, [onStateChange, onStop, getPhaseTitle]);
 
     const reset = useCallback(() => {
       onStateChange({
-        currentPhase: 0,
+        currentPhase: getPhaseTitle(0), // Reset to first phase title
         currentTime: 0,
         isRunning: false,
         isPaused: false,
         isFrozen: false,
       });
       onReset?.();
-    }, [onStateChange, onReset]);
+    }, [onStateChange, onReset, getPhaseTitle]);
 
     const setTimerPhases = useCallback(() => {
       // No-op since phases come from props
@@ -211,27 +226,29 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
 
 
     useEffect(() => {
-      if (isRunning && !isFrozen && currentPhase < phases.length) {
+      const currentPhaseIndex = getCurrentPhaseIndex();
+      if (isRunning && !isFrozen && currentPhaseIndex !== -1 && currentPhaseIndex < phases.length) {
         intervalRef.current = setInterval(() => {
-          const newTime = currentTime + 1;
+          const newTimeMs = currentTime + 1000; // increment by 1000ms (1 second)
+          const currentPhase = getPhaseByIndex(currentPhaseIndex);
+          const phaseDurationMs = currentPhase?.duration || 0;
           
-          // Always update the time first
+          // Update the elapsed time
           onStateChange({
             ...externalState,
-            currentTime: newTime,
+            currentTime: newTimeMs,
           });
-          onTick?.(newTime, currentPhase);
+          onTick?.(Math.floor(newTimeMs / 1000), getPhaseTitle(currentPhaseIndex)); // Pass seconds to callback
 
-          // Check if current phase is complete (after showing the duration)
-          // Complete when newTime > duration, not when newTime >= duration
-          if (newTime > (phases[currentPhase]?.duration || 0)) {
-            onPhaseComplete?.(currentPhase, phases[currentPhase]?.duration || 0);
+          // Check if current phase is complete (when time reaches duration in milliseconds)
+          if (newTimeMs >= phaseDurationMs) {
+            onPhaseComplete?.(getPhaseTitle(currentPhaseIndex), phaseDurationMs);
 
             // Move to next phase or complete
-            if (currentPhase + 1 < phases.length) {
+            if (currentPhaseIndex + 1 < phases.length) {
               onStateChange({
                 ...externalState,
-                currentPhase: currentPhase + 1,
+                currentPhase: getPhaseTitle(currentPhaseIndex + 1),
                 currentTime: 0,
               });
             } else {
@@ -257,16 +274,20 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
           clearInterval(intervalRef.current);
         }
       };
-    }, [isRunning, isFrozen, currentPhase, currentTime, phases, externalState, onStateChange, onTick, onPhaseComplete, onComplete]);
+    }, [isRunning, isFrozen, getCurrentPhaseIndex, currentTime, phases.length, externalState, onStateChange, onTick, onPhaseComplete, onComplete, getPhaseByIndex, getPhaseTitle]);
 
-    const currentPhaseDuration = phases[currentPhase]?.duration || 0;
-    const progress = currentPhaseDuration > 0 ? (currentTime / currentPhaseDuration) * 100 : 0;
+    const currentPhaseIndex = getCurrentPhaseIndex();
+    const currentPhaseData = getPhaseByIndex(currentPhaseIndex);
+    const currentPhaseDurationMs = currentPhaseData?.duration || 0;
+    const currentTimeSeconds = Math.floor(currentTime / 1000); // convert ms to seconds for display
+    const currentPhaseDurationSeconds = Math.floor(currentPhaseDurationMs / 1000); // convert ms to seconds for display
+    const progress = currentPhaseDurationMs > 0 ? (currentTime / currentPhaseDurationMs) * 100 : 0;
     // Determine if we finished all steps and are at the end
     const isAtEnd =
       phases.length > 0 &&
       !isRunning &&
-      currentPhase === Math.max(0, phases.length - 1) &&
-      currentTime >= (phases[Math.max(0, currentPhase)]?.duration || 0);
+      currentPhaseIndex === Math.max(0, phases.length - 1) &&
+      currentTime >= currentPhaseDurationMs;
 
     const timerClasses = [
       'timer-header-control',
@@ -280,15 +301,15 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
       .filter(Boolean)
       .join(' ');
 
-    const remainingTime = currentPhaseDuration > 0 ? currentPhaseDuration - currentTime : 0;
+    const remainingTime = currentPhaseDurationSeconds > 0 ? currentPhaseDurationSeconds - currentTimeSeconds : 0;
 
     const renderStepIndicators = () => {
       const steps = [] as React.ReactNode[];
       const maxSteps = phases.length;
 
       for (let i = 0; i < maxSteps; i++) {
-        const isActive = i === currentPhase;
-        const isCompleted = i < currentPhase;
+        const isActive = i === currentPhaseIndex;
+        const isCompleted = i < currentPhaseIndex;
         const hasAction = gameActions[i];
         const isClickable = isActive || isCompleted; // only active or completed
 
@@ -342,7 +363,7 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
             <div key={`header-inline-${i}`} className="timer-header--block">
               <div className="timer-header timer-header--inline">
                 <span className="timer-title">
-                  {(phases[currentPhase]?.title || 'TIMER').toUpperCase()}
+                  {(currentPhaseData?.title || 'TIMER').toUpperCase()}
                 </span>
                 <span className="timer-time">{formatTime(Math.max(0, remainingTime))}</span>
               </div>
@@ -448,7 +469,7 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
               {user === 'admin' && (
                 <div className="timer-header">
                   <span className="timer-title">
-                    {(phases[currentPhase]?.title || 'TIMER').toUpperCase()}
+                    {(currentPhaseData?.title || 'TIMER').toUpperCase()}
                   </span>
                   <span className="timer-time">{formatTime(Math.max(0, remainingTime))}</span>
                 </div>
@@ -471,7 +492,7 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
             <button
               className="control-button control-button--previous"
               onClick={() => onPrevious?.()}
-              disabled={currentPhase === 0}
+              disabled={currentPhaseIndex === 0}
               title="Previous"
             >
               <svg
@@ -499,7 +520,7 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
             <button
               className="control-button control-button--next"
               onClick={() => onNext?.()}
-              disabled={!(isAtEnd && currentPhase < phases.length - 1)}
+              disabled={!(isAtEnd && currentPhaseIndex < phases.length - 1)}
               title="Next"
             >
               <svg
