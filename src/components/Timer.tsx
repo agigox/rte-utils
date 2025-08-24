@@ -233,33 +233,43 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
           const currentPhase = getPhaseByIndex(currentPhaseIndex);
           const phaseDurationMs = currentPhase?.duration || 0;
           
-          // Update the elapsed time
+          // Check if phase will be complete after this tick
+          const willCompletePhase = newTimeMs >= phaseDurationMs;
+          
+          // For phase completion, show exact duration (00:00) first
+          const timeToUpdate = willCompletePhase ? phaseDurationMs : newTimeMs;
+          
+          // Update the elapsed time first
           onStateChange({
             ...externalState,
-            currentTime: newTimeMs,
+            currentTime: timeToUpdate,
           });
-          onTick?.(Math.floor(newTimeMs / 1000), getPhaseTitle(currentPhaseIndex)); // Pass seconds to callback
+          onTick?.(Math.floor(timeToUpdate / 1000), getPhaseTitle(currentPhaseIndex)); // Pass seconds to callback
 
-          // Check if current phase is complete (when time reaches duration in milliseconds)
-          if (newTimeMs >= phaseDurationMs) {
-            onPhaseComplete?.(getPhaseTitle(currentPhaseIndex), phaseDurationMs);
+          // Use setTimeout to allow the 00:00 display to render before phase completion
+          if (willCompletePhase) {
+            setTimeout(() => {
+              
+              onPhaseComplete?.(getPhaseTitle(currentPhaseIndex), phaseDurationMs);
 
-            // Move to next phase or complete
-            if (currentPhaseIndex + 1 < phases.length) {
-              onStateChange({
-                ...externalState,
-                currentPhase: getPhaseTitle(currentPhaseIndex + 1),
-                currentTime: 0,
-              });
-            } else {
-              // All phases complete
-              onStateChange({
-                ...externalState,
-                isRunning: false,
-                isPaused: false,
-              });
-              onComplete?.();
-            }
+              // Move to next phase or complete
+              if (currentPhaseIndex + 1 < phases.length) {
+                onStateChange({
+                  ...externalState,
+                  currentPhase: getPhaseTitle(currentPhaseIndex + 1),
+                  currentTime: 0,
+                });
+              } else {
+                
+                onStateChange({
+                  ...externalState,
+                  currentTime: phaseDurationMs, // Ensure we set time to exact duration
+                  isRunning: false,
+                  isPaused: false,
+                });
+                onComplete?.();
+              }
+            }, 1000); // Wait 1 full second to show 00:00 before phase transition
           }
         }, 1000);
       } else {
@@ -307,6 +317,9 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
       .join(' ');
 
     const remainingTime = currentPhaseDurationSeconds > 0 ? currentPhaseDurationSeconds - currentTimeSeconds : 0;
+    
+    // Force remaining time to 0 if we're at the exact phase duration or beyond
+    const finalRemainingTime = (isAtEnd || currentTime >= currentPhaseDurationMs) ? 0 : remainingTime;
 
     const renderStepIndicators = () => {
       const steps = [] as React.ReactNode[];
@@ -340,7 +353,6 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
         };
 
         const commonProps = {
-          key: i,
           className: stepClass,
           'data-step': i + 1,
           title: phases[i]?.title
@@ -361,7 +373,7 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
             : undefined,
         };
 
-        steps.push(<div {...commonProps}>{hasAction || isActive || isCompleted ? i + 1 : ''}</div>);
+        steps.push(<div key={i} {...commonProps}>{hasAction || isActive || isCompleted ? i + 1 : ''}</div>);
 
         if (user === 'actor' && isActive) {
           steps.push(
@@ -370,7 +382,7 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
                 <span className="timer-title">
                   {(currentPhaseData?.title || 'TIMER').toUpperCase()}
                 </span>
-                <span className="timer-time">{formatTime(Math.max(0, remainingTime))}</span>
+                <span className="timer-time">{formatTime(Math.max(0, finalRemainingTime))}</span>
               </div>
               <div className="timer-progress-bar timer-progress-bar--inline">
                 <div
@@ -476,7 +488,7 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
                   <span className="timer-title">
                     {(currentPhaseData?.title || 'TIMER').toUpperCase()}
                   </span>
-                  <span className="timer-time">{formatTime(Math.max(0, remainingTime))}</span>
+                  <span className="timer-time">{formatTime(Math.max(0, finalRemainingTime))}</span>
                 </div>
               )}
               {user === 'admin' && (
