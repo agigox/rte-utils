@@ -3,7 +3,6 @@
   width: 100%;
   box-sizing: border-box;
   font-family: 'Open Sans', sans-serif;
-  border: 1px solid red;
 }
 
 .timer-section {
@@ -61,7 +60,7 @@
 .timer-progress-bar {
   height: 8px;
   width: 124px;
-  background: black;
+  background-color: rgba(0,0,0,0.1);
   border-radius: 4px;
   overflow: hidden;
   position: relative;
@@ -69,7 +68,7 @@
 
 .timer-progress-fill {
   height: 100%;
-  background: #009cdf;
+  background: #005896;
 
   transition: width 0.3s ease;
   border-radius: 4px;
@@ -97,7 +96,7 @@
 }
 
 .step-indicator--active {
-  background-color: #009cdf;
+  background-color: #005896;
 }
 
 .step-indicator--active.step-indicator--actor {
@@ -111,11 +110,11 @@
 }
 
 .step-indicator--completed {
-  background-color: #005896;
+  background-color: #009CDF;
 }
 
 .step-indicator--upcoming {
-  background-color: #b7bec2;
+  background-color: #B7BEC2;
 }
 
 .step-expand {
@@ -178,11 +177,11 @@
   height: 16px;
   color: #000000;
 }
-
+/*
 .timer--running .step-indicator--active {
   animation: pulse 1s ease-in-out infinite alternate;
 }
-
+*/
 .timer--frozen .timer-progress-fill {
   background: #7aa6b9; /* muted color when frozen */
 }
@@ -280,8 +279,9 @@
 .step-indicator--clickable:active {
   transform: scale(0.9);
 }
+
 .step-indicator--selected {
   box-shadow:
-    0 0 0 2px #ffffff,
-    0 0 0 4px #ffb100; /* accent ring */
+    0 0 0 1px #ffffff,
+    0 0 0 2px #005896;
 }

@@ -133,19 +133,28 @@ export const TimerDemo: React.FC = () => {
             setStatus('All phases completed!');
             setPhaseInfo('Game finished successfully!');
           }}
-          onPrevious={() => {
+          onPrevious={(phaseName) => {
+            setPhaseInfo(`Navigated to previous phase: ${phaseName}`);
             setSelectedFinishedPhase(prev => {
-              const fallback = mainTimerState.currentPhase > 0 ? mainTimerState.currentPhase - 1 : 0;
-              return prev === null ? fallback : Math.max(0, prev - 1);
+              const phases = ['Phase 1', 'Phase 2', 'Phase 3', 'Phase 4', 'Phase 5'];
+              const phaseIndex = phases.indexOf(phaseName);
+              return phaseIndex >= 0 ? phaseIndex : (prev !== null ? Math.max(0, prev - 1) : 0);
             });
           }}
-          onNext={() => {
+          onNext={(phaseName) => {
+            setPhaseInfo(`Navigated to next phase: ${phaseName}`);
             setSelectedFinishedPhase(prev => {
-              const fallback = mainTimerState.currentPhase + 1;
-              return prev === null ? fallback : prev + 1;
+              const phases = ['Phase 1', 'Phase 2', 'Phase 3', 'Phase 4', 'Phase 5'];
+              const phaseIndex = phases.indexOf(phaseName);
+              return phaseIndex >= 0 ? phaseIndex : (prev !== null ? prev + 1 : 0);
             });
           }}
-          onPhaseClick={phase => setClickedPhase(phase)}
+          onPhaseClick={(phaseName) => {
+            setPhaseInfo(`Clicked on phase: ${phaseName}`);
+            const phases = ['Phase 1', 'Phase 2', 'Phase 3', 'Phase 4', 'Phase 5'];
+            const phaseIndex = phases.indexOf(phaseName);
+            setClickedPhase(phaseIndex >= 0 ? phaseIndex : 0);
+          }}
         />
       </div>
 

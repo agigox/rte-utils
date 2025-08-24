@@ -34,9 +34,9 @@ export interface TimerProps {
   onAnonymiseToggle?: (anonymised: boolean) => void;
   onStop?: () => void;
   onReset?: () => void;
-  onPrevious?: () => void;
-  onNext?: () => void;
-  onPhaseClick?: (phaseIndex: number) => void;
+  onPrevious?: (phaseName: string) => void;
+  onNext?: (phaseName: string) => void;
+  onPhaseClick?: (phaseName: string) => void;
   
   // UI configuration
   className?: string;
@@ -276,6 +276,11 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
       };
     }, [isRunning, isFrozen, getCurrentPhaseIndex, currentTime, phases.length, externalState, onStateChange, onTick, onPhaseComplete, onComplete, getPhaseByIndex, getPhaseTitle]);
 
+    // Clear selected phase when current phase changes
+    useEffect(() => {
+      setSelectedPhase(null);
+    }, [currentPhase]);
+
     const currentPhaseIndex = getCurrentPhaseIndex();
     const currentPhaseData = getPhaseByIndex(currentPhaseIndex);
     const currentPhaseDurationMs = currentPhaseData?.duration || 0;
@@ -331,7 +336,7 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
         const handleClick = () => {
           if (!isClickable) return;
           setSelectedPhase(i);
-          onPhaseClick?.(i);
+          onPhaseClick?.(getPhaseTitle(i));
         };
 
         const commonProps = {
@@ -491,8 +496,19 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
           <div className="timer-controls-section">
             <button
               className="control-button control-button--previous"
-              onClick={() => onPrevious?.()}
-              disabled={currentPhaseIndex === 0}
+              onClick={() => {
+                // Navigate to previous phase if available
+                const targetIndex = selectedPhase !== null ? selectedPhase - 1 : currentPhaseIndex - 1;
+                if (targetIndex >= 0) {
+                  setSelectedPhase(targetIndex);
+                  onPrevious?.(getPhaseTitle(targetIndex));
+                }
+              }}
+              disabled={
+                selectedPhase !== null 
+                  ? selectedPhase <= 0
+                  : currentPhaseIndex <= 0
+              }
               title="Previous"
             >
               <svg
@@ -519,8 +535,20 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
 
             <button
               className="control-button control-button--next"
-              onClick={() => onNext?.()}
-              disabled={!(isAtEnd && currentPhaseIndex < phases.length - 1)}
+              onClick={() => {
+                // Navigate to next phase if available
+                const currentRef = selectedPhase !== null ? selectedPhase : currentPhaseIndex;
+                const targetIndex = currentRef + 1;
+                if (targetIndex < phases.length && targetIndex <= currentPhaseIndex) {
+                  setSelectedPhase(targetIndex);
+                  onNext?.(getPhaseTitle(targetIndex));
+                }
+              }}
+              disabled={
+                selectedPhase !== null 
+                  ? (selectedPhase >= currentPhaseIndex || selectedPhase >= phases.length - 1)
+                  : (currentPhaseIndex >= phases.length - 1)
+              }
               title="Next"
             >
               <svg

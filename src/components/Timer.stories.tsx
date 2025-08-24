@@ -331,24 +331,27 @@ export const WithCallbacks: Story = {
             setStatus('All phases completed!');
             setPhaseInfo('Game finished successfully!');
           }}
-          onPrevious={() => {
+          onPrevious={(phaseName) => {
             setSelectedFinishedPhase((prev) => {
               const phases = ['Intro', 'Action', 'Summary'];
-              const currentIndex = phases.indexOf(currentPhase);
-              const fallback = currentIndex > 0 ? currentIndex - 1 : 0;
-              return prev === null ? fallback : Math.max(0, prev - 1);
+              const phaseIndex = phases.indexOf(phaseName);
+              return phaseIndex;
             });
+            setPhaseInfo(`Navigated to previous phase: ${phaseName}`);
           }}
-          onNext={() => {
+          onNext={(phaseName) => {
             setSelectedFinishedPhase((prev) => {
               const phases = ['Intro', 'Action', 'Summary'];
-              const currentIndex = phases.indexOf(currentPhase);
-              const fallback = currentIndex + 1;
-              return prev === null ? fallback : prev + 1;
+              const phaseIndex = phases.indexOf(phaseName);
+              return phaseIndex;
             });
+            setPhaseInfo(`Navigated to next phase: ${phaseName}`);
           }}
-          onPhaseClick={(phase) => {
-            setClickedPhase(phase);
+          onPhaseClick={(phaseName) => {
+            const phases = ['Intro', 'Action', 'Summary'];
+            const phaseIndex = phases.indexOf(phaseName);
+            setClickedPhase(phaseIndex);
+            setPhaseInfo(`Clicked on phase: ${phaseName}`);
           }}
         />
       </div>
