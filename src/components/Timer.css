@@ -196,8 +196,11 @@
   filter: blur(3px);
 }
 
-*/.control-button--anonymise-active {
-  background-color: #444;
+*/
+.control-button--anonymise-active {
+  background-color: #005896;
+}
+.control-button--anonymise-active svg path {
   color: #fff;
 }
 

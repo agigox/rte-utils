@@ -29,6 +29,11 @@ const meta: Meta<typeof ValueWithUnit> = {
       options: ['euro', 'megawatt', 'europermegawatt'],
       description: 'Unit type to display',
     },
+    size: {
+      control: { type: 'select' },
+      options: ['default', 'small'],
+      description: 'Size variant of the component',
+    },
   },
 };
 
@@ -65,5 +70,32 @@ export const CustomColor: Story = {
     cost: 99,
     type: 'euro',
     textColor: '#0B5ED7',
+  },
+};
+
+export const SmallEuro: Story = {
+  args: {
+    cost: 120,
+    type: 'euro',
+    textColor: '#111',
+    size: 'small',
+  },
+};
+
+export const SmallMegawatt: Story = {
+  args: {
+    cost: 56,
+    type: 'megawatt',
+    textColor: '#111',
+    size: 'small',
+  },
+};
+
+export const SmallEuroPerMegawatt: Story = {
+  args: {
+    cost: 42,
+    type: 'europermegawatt',
+    textColor: '#111',
+    size: 'small',
   },
 };

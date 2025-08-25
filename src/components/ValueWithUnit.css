@@ -4,19 +4,33 @@
   align-items: baseline;
 }
 
+.cost-text-container--small {
+  gap: 2px;
+}
+
 .cost-number {
   font-size: 16px;
   font-weight: 700;
+}
+
+.cost-number--small {
+  font-size: 14px;
 }
 
 .cost-unit {
   font-size: 16px;
   font-weight: 500;
 }
+
+.cost-unit--small {
+  font-size: 12px;
+}
+
 .cost-number, .cost-unit {
   line-height: 14px;
   letter-spacing: 0;
 }
+
 .cost-unit-per {
   font-size: 12px;
   font-weight: 400;
