@@ -19,8 +19,8 @@ export const InputNumber: React.FC<InputNumberProps> = ({
   disabled = false,
   className = '',
   required = false,
-  min = { value: 0, label: 'Pmin' },
-  max = { value: 100, label: 'Pmax' },
+  min = { value: 0 },
+  max = { value: 100 },
 }) => {
   const [internalValue, setInternalValue] = useState(value);
   const [isFocused, setIsFocused] = useState(false);
@@ -99,11 +99,11 @@ export const InputNumber: React.FC<InputNumberProps> = ({
   return (
     <div className={containerClasses}>
       <div className="input-constraints">
-        <div className="input-min">
+        {min.label && <div className="input-min">
           {min.label}
           <br />
           {min.value}
-        </div>
+        </div>}
 
         <div className="input-field">
           <input
@@ -126,10 +126,10 @@ export const InputNumber: React.FC<InputNumberProps> = ({
             {required && <span className="input-required">*</span>}
           </label>
         </div>
-        <div className="input-max">
+        {max.label && <div className="input-max">
           {max.label}
           <br /> {max.value}
-        </div>
+        </div>}
       </div>
     </div>
   );

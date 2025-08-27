@@ -380,7 +380,9 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
             <div key={`header-inline-${i}`} className="timer-header--block">
               <div className="timer-header timer-header--inline">
                 <span className="timer-title">
-                  {(currentPhaseData?.title || 'TIMER').toUpperCase()}
+                  {selectedPhase !== null 
+                    ? (getPhaseByIndex(selectedPhase)?.title || `Phase ${selectedPhase + 1}`).toUpperCase()
+                    : (currentPhaseData?.title || 'TIMER').toUpperCase()}
                 </span>
                 <span className="timer-time">{formatTime(Math.max(0, finalRemainingTime))}</span>
               </div>
@@ -486,7 +488,9 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
               {user === 'admin' && (
                 <div className="timer-header">
                   <span className="timer-title">
-                    {(currentPhaseData?.title || 'TIMER').toUpperCase()}
+                    {selectedPhase !== null 
+                      ? (getPhaseByIndex(selectedPhase)?.title || `Phase ${selectedPhase + 1}`).toUpperCase()
+                      : (currentPhaseData?.title || 'TIMER').toUpperCase()}
                   </span>
                   <span className="timer-time">{formatTime(Math.max(0, finalRemainingTime))}</span>
                 </div>
