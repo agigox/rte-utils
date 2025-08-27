@@ -52,36 +52,3 @@
   align-items: flex-start;
   margin-left: 8px;
 }
-
-.histogram-value-container {
-  text-align: center;
-  width: 40px;
-}
-
-.histogram-value {
-  color: #000;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 14px;
-  margin: 0;
-  display: block;
-}
-
-.histogram-unit {
-  color: #000;
-  font-weight: 600;
-  font-size: 12px;
-  margin: 0;
-  display: block;
-}
-
-.histogram-label {
-  color: #6f6f6f;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 18px;
-  text-align: left;
-  white-space: nowrap;
-  margin: 0;
-  font-style: normal;
-}
