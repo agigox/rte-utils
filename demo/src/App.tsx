@@ -7,6 +7,7 @@ import { InputNumberDemo } from './InputNumberDemo';
 import { ProductionUnitDemo } from './ProductionUnitDemo';
 import { AvatarDemo } from './AvatarDemo';
 import { TimerDemo } from './TimerDemo';
+import GainDemo from './GainDemo';
 
 type DemoTab =
   | 'production-unit'
@@ -15,7 +16,8 @@ type DemoTab =
   | 'switch'
   | 'input-number'
   | 'avatar'
-  | 'timer';
+  | 'timer'
+  | 'gain';
 
 function App() {
   const [activeTab, setActiveTab] = useState<DemoTab>('production-unit');
@@ -40,6 +42,7 @@ function App() {
     },
     { id: 'avatar' as const, label: 'Avatar', component: <AvatarDemo /> },
     { id: 'timer' as const, label: 'Timer', component: <TimerDemo /> },
+    { id: 'gain' as const, label: 'Gain', component: <GainDemo /> },
   ];
 
   const activeComponent = tabs.find((tab) => tab.id === activeTab)?.component;
