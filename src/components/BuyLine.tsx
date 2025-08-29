@@ -36,6 +36,22 @@ const SendIcon: React.FC<{ className?: string }> = ({ className }) => (
   </svg>
 );
 
+const EditIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <svg
+    width="24"
+    height="25"
+    viewBox="0 0 24 25"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+  >
+    <path
+      d="M10.1221 5.00073C10.5362 5.00073 10.8719 5.33666 10.8721 5.75073C10.8721 6.16495 10.5363 6.50073 10.1221 6.50073H2.62207C2.20796 6.50073 1.87223 6.83666 1.87207 7.25073V22.2507C1.87207 22.6649 2.20786 23.0007 2.62207 23.0007H17.6221C18.0363 23.0007 18.3721 22.6649 18.3721 22.2507V14.7507C18.3722 14.3367 18.708 14.0007 19.1221 14.0007C19.5362 14.0007 19.8719 14.3367 19.8721 14.7507V22.2507C19.8721 23.4934 18.8647 24.5007 17.6221 24.5007H2.62207C1.37943 24.5007 0.37207 23.4934 0.37207 22.2507V7.25073C0.37223 6.00823 1.37953 5.00073 2.62207 5.00073H10.1221ZM18.501 1.37866C19.6725 0.207539 21.5717 0.207579 22.7432 1.37866C23.9145 2.55026 23.9147 4.45033 22.7432 5.62183L13.1973 15.1677C13.0826 15.2823 12.9339 15.3567 12.7734 15.3796L9.06152 15.9109C8.56668 15.9817 8.14253 15.5571 8.21289 15.0623L8.74219 11.3494C8.76511 11.1888 8.84046 11.0403 8.95508 10.9255L18.501 1.37866ZM21.6826 2.44019C21.0968 1.85439 20.1473 1.85439 19.5615 2.44019L10.1924 11.8093L9.83887 14.2839L12.3135 13.9304L21.6826 4.56128C22.2683 3.9756 22.2681 3.02601 21.6826 2.44019Z"
+      fill="#009CDF"
+    />
+  </svg>
+);
+
 const TrashIcon: React.FC<{ className?: string }> = ({ className }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -135,6 +151,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
   };
 
   const isSendDisabled = internalVolume.trim() === '';
+  const isVolumePrefilled = volume.trim() !== '';
 
   return (
     <div className={`buyline ${className}`}>
@@ -170,9 +187,13 @@ export const BuyLine: React.FC<BuyLineProps> = ({
           className={`buyline__send ${isSendDisabled ? 'buyline__send--disabled' : ''}`}
           onClick={handleSend}
           disabled={isSendDisabled}
-          aria-label="Send"
+          aria-label={isVolumePrefilled ? "Edit" : "Send"}
         >
-          <SendIcon className="buyline__icon" />
+          {isVolumePrefilled ? (
+            <EditIcon className="buyline__icon" />
+          ) : (
+            <SendIcon className="buyline__icon" />
+          )}
         </button>
         {showTrashButton && (
           <button className="buyline__trash" onClick={handleClear} aria-label="Clear">
