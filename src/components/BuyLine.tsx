@@ -94,6 +94,14 @@ export const BuyLine: React.FC<BuyLineProps> = ({
     onVolumeChange?.(newValue);
   };
 
+  useEffect(() => {
+    setInternalVolume(volume);
+  }, [volume]);
+
+  useEffect(() => {
+    setInternalPrice(price);
+  }, [price]);
+
   const handlePriceChange = (newValue: string) => {
     setInternalPrice(newValue);
     onPriceChange?.(newValue);
