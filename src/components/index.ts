@@ -9,4 +9,6 @@ export { Avatar } from './Avatar';
 export { ValueWithUnit } from './ValueWithUnit';
 export { Timer } from './Timer';
 export { ProgressBar } from './ProgressBar';
+export { Gain } from './Gain';
+export { BuyLine } from './BuyLine';
 export type { TimerProps, TimerRef } from './Timer';

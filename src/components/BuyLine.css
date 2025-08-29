@@ -1,0 +1,113 @@
+.buyline {
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  position: relative;
+  width: 100%;
+}
+
+.buyline__border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-bottom: 1px solid #f2f4f4;
+  pointer-events: none;
+}
+
+.buyline__content {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: 243px;
+}
+
+.buyline__inputs {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+}
+
+.buyline__title {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 24px;
+  color: #11161a;
+  width: 64px;
+  flex-shrink: 0;
+}
+
+.buyline__input {
+  width: 54px;
+  flex-shrink: 0;
+}
+
+.buyline__price {
+  background: #f2f4f4;
+  display: flex;
+  gap: 4px;
+  height: 24px;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 4px 8px;
+  border-radius: 20px;
+  flex-shrink: 0;
+}
+
+.buyline__price span {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #999fa1;
+  white-space: nowrap;
+}
+
+.buyline__actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+}
+
+.buyline__send,
+.buyline__trash {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buyline__send {
+  width: 20px;
+  height: 20px;
+}
+
+.buyline__send--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.buyline__trash {
+  width: 24px;
+  height: 24px;
+}
+
+.buyline__icon {
+  width: 100%;
+  height: 100%;
+  display: block;
+  max-width: none;
+}
