@@ -78,6 +78,7 @@ interface BuyLineProps {
   defaultPrice?: number;
   showSecondInput?: boolean;
   showTrashButton?: boolean;
+  disabled?: boolean;
   volumeMax?: { value: number };
   priceMax?: { value: number };
   onVolumeChange?: (value: string) => void;
@@ -94,6 +95,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
   defaultPrice,
   showSecondInput = true,
   showTrashButton = false,
+  disabled = false,
   volumeMax,
   priceMax,
   onVolumeChange,
@@ -163,6 +165,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
             label="MWh"
             value={internalVolume}
             onChange={handleVolumeChange}
+            disabled={disabled}
             min={{ value: 0 }}
             max={volumeMax || { value: 9999 }}
             className="buyline__input"
@@ -172,6 +175,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
               label="€/MWh"
               value={internalPrice}
               onChange={handlePriceChange}
+              disabled={disabled}
               min={{ value: 0 }}
               max={priceMax || { value: 9999 }}
               className="buyline__input"
@@ -183,19 +187,21 @@ export const BuyLine: React.FC<BuyLineProps> = ({
         </div>
       </div>
       <div className="buyline__actions">
-        <button
-          className={`buyline__send ${isSendDisabled ? 'buyline__send--disabled' : ''}`}
-          onClick={handleSend}
-          disabled={isSendDisabled}
-          aria-label={isVolumePrefilled ? 'Edit' : 'Send'}
-        >
-          {isVolumePrefilled ? (
-            <EditIcon className="buyline__icon" />
-          ) : (
-            <SendIcon className="buyline__icon" />
-          )}
-        </button>
-        {showTrashButton && (
+        {!disabled && (
+          <button
+            className={`buyline__send ${isSendDisabled ? 'buyline__send--disabled' : ''}`}
+            onClick={handleSend}
+            disabled={isSendDisabled}
+            aria-label={isVolumePrefilled ? 'Edit' : 'Send'}
+          >
+            {isVolumePrefilled ? (
+              <EditIcon className="buyline__icon" />
+            ) : (
+              <SendIcon className="buyline__icon" />
+            )}
+          </button>
+        )}
+        {(showTrashButton || disabled) && (
           <button className="buyline__trash" onClick={handleClear} aria-label="Clear">
             <TrashIcon className="buyline__icon" />
           </button>

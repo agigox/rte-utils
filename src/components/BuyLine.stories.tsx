@@ -27,6 +27,9 @@ const meta: Meta<typeof BuyLine> = {
     showTrashButton: {
       control: 'boolean',
     },
+    disabled: {
+      control: 'boolean',
+    },
     volumeMax: {
       control: 'object',
     },
@@ -86,6 +89,14 @@ export const CustomTitle: Story = {
 export const EmptyWithTrash: Story = {
   args: {
     showTrashButton: true,
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    volume: '50',
+    price: '75',
+    disabled: true,
   },
 };
 
