@@ -151,7 +151,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
   };
 
   const isSendDisabled = internalVolume.trim() === '';
-  const isVolumePrefilled = volume.trim() !== '';
+  const isVolumePrefilled = volume.trim() !== '' && parseFloat(volume) !== 0;
 
   return (
     <div className={`buyline ${className}`}>
@@ -187,7 +187,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
           className={`buyline__send ${isSendDisabled ? 'buyline__send--disabled' : ''}`}
           onClick={handleSend}
           disabled={isSendDisabled}
-          aria-label={isVolumePrefilled ? "Edit" : "Send"}
+          aria-label={isVolumePrefilled ? 'Edit' : 'Send'}
         >
           {isVolumePrefilled ? (
             <EditIcon className="buyline__icon" />

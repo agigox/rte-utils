@@ -63,6 +63,10 @@ export const InputNumber: React.FC<InputNumberProps> = ({
   };
   const handleFocus = () => {
     setIsFocused(true);
+    // Select all text when focusing
+    if (inputRef.current) {
+      inputRef.current.select();
+    }
   };
 
   const handleBlur = () => {

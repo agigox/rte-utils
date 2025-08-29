@@ -167,22 +167,14 @@
   color: #009cdf;
 }
 
-/* Show number input spinners */
-.input-element[type='number']::-webkit-outer-spin-button,
-.input-element[type='number']::-webkit-inner-spin-button {
-  -webkit-appearance: auto;
-  opacity: 1;
-  margin: 0;
-  cursor: pointer;
-}
-
 /* Firefox number input */
 .input-element[type='number'] {
   -moz-appearance: textfield;
 }
 
-/* Make spinners more visible on hover */
-.input-element[type='number']:hover::-webkit-outer-spin-button,
-.input-element[type='number']:hover::-webkit-inner-spin-button {
-  opacity: 1;
+/* Hide webkit spinners completely */
+.input-element[type='number']::-webkit-outer-spin-button,
+.input-element[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
