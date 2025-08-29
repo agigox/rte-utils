@@ -59,8 +59,11 @@ interface BuyLineProps {
   title?: string;
   volume?: string;
   price?: string;
+  defaultPrice?: number;
   showSecondInput?: boolean;
   showTrashButton?: boolean;
+  volumeMax?: { value: number };
+  priceMax?: { value: number };
   onVolumeChange?: (value: string) => void;
   onPriceChange?: (value: string) => void;
   onSend?: () => void;
@@ -72,8 +75,11 @@ export const BuyLine: React.FC<BuyLineProps> = ({
   title = 'Achat 3',
   volume = '',
   price = '',
+  defaultPrice,
   showSecondInput = true,
   showTrashButton = false,
+  volumeMax,
+  priceMax,
   onVolumeChange,
   onPriceChange,
   onSend,
@@ -98,13 +104,6 @@ export const BuyLine: React.FC<BuyLineProps> = ({
       onSend?.();
     }
   };
-  useEffect(() => {
-    setInternalVolume(volume);
-  }, [volume]);
-
-  useEffect(() => {
-    setInternalPrice(price);
-  }, [price]);
 
   const handleClear = () => {
     setInternalVolume('');
@@ -113,10 +112,16 @@ export const BuyLine: React.FC<BuyLineProps> = ({
   };
 
   const calculatePrice = () => {
-    const num1 = parseFloat(internalVolume);
-    const num2 = parseFloat(internalPrice);
-    if (!isNaN(num1) && !isNaN(num2)) {
-      return num1 * num2;
+    const volumeNum = parseFloat(internalVolume);
+    if (!isNaN(volumeNum)) {
+      if (showSecondInput) {
+        const priceNum = parseFloat(internalPrice);
+        if (!isNaN(priceNum)) {
+          return volumeNum * priceNum;
+        }
+      } else if (defaultPrice !== undefined) {
+        return volumeNum * defaultPrice;
+      }
     }
     return 0;
   };
@@ -134,7 +139,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
             value={internalVolume}
             onChange={handleVolumeChange}
             min={{ value: 0 }}
-            max={{ value: 9999 }}
+            max={volumeMax || { value: 9999 }}
             className="buyline__input"
           />
           {showSecondInput && (
@@ -143,7 +148,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
               value={internalPrice}
               onChange={handlePriceChange}
               min={{ value: 0 }}
-              max={{ value: 9999 }}
+              max={priceMax || { value: 9999 }}
               className="buyline__input"
             />
           )}

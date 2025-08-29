@@ -18,11 +18,20 @@ const meta: Meta<typeof BuyLine> = {
     price: {
       control: 'text',
     },
+    defaultPrice: {
+      control: 'number',
+    },
     showSecondInput: {
       control: 'boolean',
     },
     showTrashButton: {
       control: 'boolean',
+    },
+    volumeMax: {
+      control: 'object',
+    },
+    priceMax: {
+      control: 'object',
     },
   },
 };
@@ -53,6 +62,16 @@ export const SingleInput: Story = {
   args: {
     showSecondInput: false,
     volume: '100',
+    defaultPrice: 25,
+  },
+};
+
+export const WithCustomMax: Story = {
+  args: {
+    volume: '50',
+    price: '30',
+    volumeMax: { value: 500 },
+    priceMax: { value: 200 },
   },
 };
 
