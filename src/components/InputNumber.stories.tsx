@@ -281,7 +281,8 @@ export const LongLabel: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Input with long label - width grows to accommodate the full label text without truncation.',
+        story:
+          'Input with long label - width grows to accommodate the full label text without truncation.',
       },
     },
   },
@@ -295,7 +296,8 @@ export const ExtraLongLabel: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Input with extremely long label - demonstrates how the input grows to keep the entire label visible.',
+        story:
+          'Input with extremely long label - demonstrates how the input grows to keep the entire label visible.',
       },
     },
   },

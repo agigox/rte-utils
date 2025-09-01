@@ -183,14 +183,14 @@ export const BuyLine: React.FC<BuyLineProps> = ({
               className="buyline__input"
             />
           )}
+          <Chip width="fit-content" bgColor={calculatePrice() === 0 ? '#F2F4F4' : '#E1F5FD'}>
+            <ValueWithUnit
+              cost={calculatePrice()}
+              textColor={calculatePrice() === 0 ? '#999FA1' : '#005896'}
+              type="euro"
+            />
+          </Chip>
         </div>
-        <Chip width="fit-content" bgColor={calculatePrice() === 0 ? '#F2F4F4' : '#E1F5FD'}>
-          <ValueWithUnit
-            cost={calculatePrice()}
-            textColor={calculatePrice() === 0 ? '#999FA1' : '#005896'}
-            type="euro"
-          />
-        </Chip>
       </div>
       <div className="buyline__actions">
         {!disabled && (

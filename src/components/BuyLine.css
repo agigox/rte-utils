@@ -1,5 +1,4 @@
 .buyline {
-  border: 1px solid red;
   background: white;
   display: flex;
   align-items: center;
@@ -29,7 +28,7 @@
 
 .buyline__inputs {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   align-items: center;
   justify-content: flex-start;
   flex-shrink: 0;
