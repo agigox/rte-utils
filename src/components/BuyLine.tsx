@@ -179,7 +179,6 @@ export const BuyLine: React.FC<BuyLineProps> = ({
             disabled={disabled}
             min={{ value: 0 }}
             max={volumeMax || { value: 9999 }}
-            className="buyline__input"
           />
           {showSecondInput && (
             <InputNumber
@@ -216,9 +215,9 @@ export const BuyLine: React.FC<BuyLineProps> = ({
             )}
           </button>
         )}
-        {(showTrashButton || disabled) && (
+        {showTrashButton && (
           <button className="buyline__trash" onClick={handleClear} aria-label="Clear">
-            <TrashIcon className="buyline__icon" disabled={disabled} />
+            <TrashIcon className="buyline__icon" disabled={false} />
           </button>
         )}
       </div>

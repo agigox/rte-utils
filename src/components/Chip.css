@@ -5,7 +5,6 @@
   border-radius: 60px;
   background-color: var(--chip-bg-color, #e0e0e0);
   color: var(--chip-text-color, #000);
-  min-width: 84px;
 }
 
 .chip-container--fit-content {
