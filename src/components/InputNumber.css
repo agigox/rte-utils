@@ -5,10 +5,10 @@
 
 .input-field {
   position: relative;
-  width: 100%;
+  /* Width will be set dynamically via inline styles */
 }
 .input-element {
-  width: 100%;
+  width: 100%; /* Will be constrained by parent's dynamic width */
   padding: 8px;
   border: 1px solid #b7bec2;
   border-radius: 2px;
@@ -41,6 +41,7 @@
   padding: 0 4px;
   white-space: nowrap;
   line-height: 16px;
+  /* Remove max-width constraints to allow full text */
 }
 
 .input-required {
@@ -171,6 +172,7 @@
 
 /* Firefox number input */
 .input-element[type='number'] {
+  appearance: textfield;
   -moz-appearance: textfield;
 }
 

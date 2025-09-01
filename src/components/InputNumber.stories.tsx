@@ -56,7 +56,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    label: 'Default Input',
+    label: 'MWH',
   },
 };
 
@@ -239,6 +239,63 @@ export const NegativeRangeClamping: Story = {
       description: {
         story:
           "Test with negative number ranges. Try typing positive numbers like '50' or very negative numbers like '-200'. Values will be clamped to the range boundaries on blur.",
+      },
+    },
+  },
+};
+
+// Dynamic Width Examples
+export const ShortLabel: Story = {
+  args: {
+    label: 'A',
+    value: '10',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Input with single character label - demonstrates minimum width of 54px.',
+      },
+    },
+  },
+};
+
+export const MediumLabel: Story = {
+  args: {
+    label: 'MWh',
+    value: '100',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Input with short label - width adjusts to fit the label text.',
+      },
+    },
+  },
+};
+
+export const LongLabel: Story = {
+  args: {
+    label: 'Very Long Label Text That Extends',
+    value: '500',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Input with long label - width grows to accommodate the full label text without truncation.',
+      },
+    },
+  },
+};
+
+export const ExtraLongLabel: Story = {
+  args: {
+    label: 'Extremely Long Label Text That Would Previously Overflow Outside Input Boundaries',
+    value: '1000',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Input with extremely long label - demonstrates how the input grows to keep the entire label visible.',
       },
     },
   },

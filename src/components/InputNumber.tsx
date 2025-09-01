@@ -25,7 +25,32 @@ export const InputNumber: React.FC<InputNumberProps> = ({
   const [internalValue, setInternalValue] = useState(value);
   const [isFocused, setIsFocused] = useState(false);
   const [isOutOfRange, setIsOutOfRange] = useState(false);
+  const [inputWidth, setInputWidth] = useState(54); // Smaller default minimum width
   const inputRef = useRef<HTMLInputElement>(null);
+  const labelRef = useRef<HTMLLabelElement>(null);
+
+  // Calculate input width based on label text
+  useEffect(() => {
+    if (labelRef.current) {
+      // Create a temporary element to measure text width
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      if (context) {
+        // Get computed styles for accurate measurement
+        const styles = window.getComputedStyle(labelRef.current);
+        context.font = `${styles.fontSize} ${styles.fontFamily}`;
+
+        // Measure the label text width
+        const textWidth = context.measureText(label + (required ? '*' : '')).width;
+
+        // Add minimal padding - just enough for label background and input padding
+        // 24px = 12px left padding + 12px right padding for input
+        // 8px = 4px padding on each side for label background
+        const calculatedWidth = Math.max(54, textWidth + 32); // More precise padding calculation
+        setInputWidth(calculatedWidth);
+      }
+    }
+  }, [label, required]);
 
   useEffect(() => {
     setInternalValue(value);
@@ -103,13 +128,15 @@ export const InputNumber: React.FC<InputNumberProps> = ({
   return (
     <div className={containerClasses}>
       <div className="input-constraints">
-        {min.label && <div className="input-min">
-          {min.label}
-          <br />
-          {min.value}
-        </div>}
+        {min.label && (
+          <div className="input-min">
+            {min.label}
+            <br />
+            {min.value}
+          </div>
+        )}
 
-        <div className="input-field">
+        <div className="input-field" style={{ width: `${inputWidth}px` }}>
           <input
             ref={inputRef}
             type="number"
@@ -120,20 +147,23 @@ export const InputNumber: React.FC<InputNumberProps> = ({
             disabled={disabled}
             required={required}
             className="input-element"
+            style={{ width: `${inputWidth}px` }}
             aria-label={label}
             min={min.value}
             max={max.value}
             step={1}
           />
-          <label className="input-label">
+          <label ref={labelRef} className="input-label">
             {label}
             {required && <span className="input-required">*</span>}
           </label>
         </div>
-        {max.label && <div className="input-max">
-          {max.label}
-          <br /> {max.value}
-        </div>}
+        {max.label && (
+          <div className="input-max">
+            {max.label}
+            <br /> {max.value}
+          </div>
+        )}
       </div>
     </div>
   );
