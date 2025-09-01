@@ -9,9 +9,9 @@
 }
 .input-element {
   width: 100%;
-  padding: 8px 0 8px 12px;
-  border: 2px solid #e0e0e0;
-  border-radius: 4px;
+  padding: 8px;
+  border: 1px solid #b7bec2;
+  border-radius: 2px;
   font-size: 16px;
   background-color: #ffffff;
   transition:
@@ -19,6 +19,8 @@
     box-shadow 0.2s ease;
   outline: none;
   box-sizing: border-box;
+  color: #11161a;
+  text-align: center;
 }
 
 .input-element:focus {
@@ -32,12 +34,13 @@
   top: 50%;
   transform: translateY(-50%);
   font-size: 16px;
-  color: #999;
+  color: #999fa1;
   pointer-events: none;
   transition: all 0.2s ease;
   background-color: #ffffff;
   padding: 0 4px;
   white-space: nowrap;
+  line-height: 16px;
 }
 
 .input-required {
@@ -57,7 +60,6 @@
 /* Focus state styles */
 .input-container--focused .input-element {
   border-color: #009cdf;
-  box-shadow: 0 0 0 2px rgba(0, 156, 223, 0.1);
 }
 
 .input-container--focused .input-label {
@@ -87,14 +89,14 @@
 
 /* Disabled state */
 .input-container--disabled .input-element {
-  background-color: #f5f5f5;
-  border-color: #d0d0d0;
-  color: #999;
+  background-color: #fff;
+  border-color: #999fa1;
+  color: #999fa1;
   cursor: not-allowed;
 }
 
 .input-container--disabled .input-label {
-  color: #999;
+  color: #999fa1;
 }
 
 /* Hover effects */

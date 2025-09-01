@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { InputNumber } from './InputNumber';
 import './BuyLine.css';
+import { Chip } from './Chip';
+import { ValueWithUnit } from './ValueWithUnit';
 
 const SendIcon: React.FC<{ className?: string }> = ({ className }) => (
   <svg
@@ -81,6 +83,7 @@ interface BuyLineProps {
   disabled?: boolean;
   volumeMax?: { value: number };
   priceMax?: { value: number };
+  iconType?: 'send' | 'edit';
   onVolumeChange?: (value: string) => void;
   onPriceChange?: (value: string) => void;
   onSend?: () => void;
@@ -98,6 +101,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
   disabled = false,
   volumeMax,
   priceMax,
+  iconType = 'send',
   onVolumeChange,
   onPriceChange,
   onSend,
@@ -153,11 +157,9 @@ export const BuyLine: React.FC<BuyLineProps> = ({
   };
 
   const isSendDisabled = internalVolume.trim() === '';
-  const isVolumePrefilled = volume.trim() !== '' && parseFloat(volume) !== 0;
 
   return (
     <div className={`buyline ${className}`}>
-      <div className="buyline__border" />
       <div className="buyline__content">
         <div className="buyline__inputs">
           <div className="buyline__title">{title}</div>
@@ -182,9 +184,13 @@ export const BuyLine: React.FC<BuyLineProps> = ({
             />
           )}
         </div>
-        <div className="buyline__price">
-          <span>{calculatePrice()} €</span>
-        </div>
+        <Chip width="fit-content" bgColor={calculatePrice() === 0 ? '#F2F4F4' : '#E1F5FD'}>
+          <ValueWithUnit
+            cost={calculatePrice()}
+            textColor={calculatePrice() === 0 ? '#999FA1' : '#005896'}
+            type="euro"
+          />
+        </Chip>
       </div>
       <div className="buyline__actions">
         {!disabled && (
@@ -192,9 +198,9 @@ export const BuyLine: React.FC<BuyLineProps> = ({
             className={`buyline__send ${isSendDisabled ? 'buyline__send--disabled' : ''}`}
             onClick={handleSend}
             disabled={isSendDisabled}
-            aria-label={isVolumePrefilled ? 'Edit' : 'Send'}
+            aria-label={iconType === 'edit' ? 'Edit' : 'Send'}
           >
-            {isVolumePrefilled ? (
+            {iconType === 'edit' ? (
               <EditIcon className="buyline__icon" />
             ) : (
               <SendIcon className="buyline__icon" />
@@ -207,6 +213,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
           </button>
         )}
       </div>
+      <div className="buyline__border" />
     </div>
   );
 };

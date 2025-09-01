@@ -1,9 +1,10 @@
 .buyline {
+  border: 1px solid red;
   background: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 0;
+  padding: 12px 0;
   position: relative;
   width: 100%;
 }
@@ -24,7 +25,6 @@
   align-items: center;
   justify-content: flex-start;
   flex-shrink: 0;
-  width: 243px;
 }
 
 .buyline__inputs {
@@ -50,18 +50,6 @@
   flex-shrink: 0;
 }
 
-.buyline__price {
-  background: #f2f4f4;
-  display: flex;
-  gap: 4px;
-  height: 24px;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 4px 8px;
-  border-radius: 20px;
-  flex-shrink: 0;
-}
-
 .buyline__price span {
   font-family: 'Open Sans', sans-serif;
   font-weight: 600;
@@ -75,7 +63,7 @@
   display: flex;
   gap: 8px;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   flex-shrink: 0;
 }
 

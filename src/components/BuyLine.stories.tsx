@@ -30,6 +30,10 @@ const meta: Meta<typeof BuyLine> = {
     disabled: {
       control: 'boolean',
     },
+    iconType: {
+      control: 'select',
+      options: ['send', 'edit'],
+    },
     volumeMax: {
       control: 'object',
     },
@@ -53,11 +57,20 @@ export const WithValues: Story = {
   },
 };
 
+export const WithEditIcon: Story = {
+  args: {
+    volume: '10',
+    price: '50',
+    iconType: 'edit',
+  },
+};
+
 export const WithTrashButton: Story = {
   args: {
     volume: '25',
     price: '75',
     showTrashButton: true,
+    iconType: 'edit',
   },
 };
 
