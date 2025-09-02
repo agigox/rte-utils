@@ -41,6 +41,10 @@ const meta: Meta<typeof Histogram> = {
       control: 'object',
       description: 'Individual corner radius configuration',
     },
+    showGain: {
+      control: 'boolean',
+      description: 'Enable gain display when relative value increases',
+    },
     children: {
       control: 'text',
       description: 'Child components (typically text content)',
@@ -326,4 +330,156 @@ export const OrientationComparison: Story = {
       </div>
     </div>
   ),
+};
+
+export const WithGainDisplay: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demonstrates the gain display feature. Click the button to increase the value by 20 points and see the gain animation.',
+      },
+    },
+  },
+  render: () => {
+    const [value, setValue] = React.useState(30);
+    
+    const handleIncrease = () => {
+      setValue(prev => Math.min(prev + 20, 100)); // Increase by 20, max 100
+    };
+    
+    const handleReset = () => {
+      setValue(30); // Reset to initial value
+    };
+    
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <button 
+            onClick={handleIncrease}
+            disabled={value >= 100}
+            style={{
+              padding: '8px 16px',
+              backgroundColor: value >= 100 ? '#ccc' : '#007bff',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: value >= 100 ? 'not-allowed' : 'pointer'
+            }}
+          >
+            Gain +20 Points
+          </button>
+          <button 
+            onClick={handleReset}
+            style={{
+              padding: '8px 16px',
+              backgroundColor: '#6c757d',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer'
+            }}
+          >
+            Reset
+          </button>
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ marginBottom: '16px' }}>
+            <div style={{ fontSize: '18px', fontWeight: 'bold' }}>Current Value: {value}</div>
+            <div style={{ fontSize: '14px', color: '#666' }}>Click "Gain +20 Points" to see the gain animation</div>
+          </div>
+          <Histogram
+            max={{ value: 100, color: '#000000', opacity: 0.2 }}
+            relative={{ value: value, color: '#4DA466' }}
+            barHeight={120}
+            barWidth={32}
+            orientation="vertical"
+            showGain={true}
+            cornerRadius={{ topLeft: 8, topRight: 8, bottomLeft: 8, bottomRight: 8 }}
+          >
+            <div className="histogram-value-container">
+              <span className="histogram-value">{value}</span>
+              <span className="histogram-unit">pts</span>
+            </div>
+            <span className="histogram-label">Score</span>
+          </Histogram>
+        </div>
+      </div>
+    );
+  },
+};
+
+export const WithGainDisplayHorizontal: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demonstrates the gain display feature in horizontal orientation. Click the button to increase the value and see the gain animation.',
+      },
+    },
+  },
+  render: () => {
+    const [value, setValue] = React.useState(40);
+    
+    const handleIncrease = () => {
+      setValue(prev => Math.min(prev + 15, 100)); // Increase by 15, max 100
+    };
+    
+    const handleReset = () => {
+      setValue(40); // Reset to initial value
+    };
+    
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <button 
+            onClick={handleIncrease}
+            disabled={value >= 100}
+            style={{
+              padding: '8px 16px',
+              backgroundColor: value >= 100 ? '#ccc' : '#28a745',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: value >= 100 ? 'not-allowed' : 'pointer'
+            }}
+          >
+            Gain +15 Points
+          </button>
+          <button 
+            onClick={handleReset}
+            style={{
+              padding: '8px 16px',
+              backgroundColor: '#6c757d',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer'
+            }}
+          >
+            Reset
+          </button>
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ marginBottom: '16px' }}>
+            <div style={{ fontSize: '18px', fontWeight: 'bold' }}>Current Value: {value}</div>
+            <div style={{ fontSize: '14px', color: '#666' }}>Horizontal orientation with gain display</div>
+          </div>
+          <Histogram
+            max={{ value: 100, color: '#000000', opacity: 0.2 }}
+            relative={{ value: value, color: '#28a745' }}
+            barHeight={120}
+            barWidth={24}
+            orientation="horizontal"
+            showGain={true}
+            cornerRadius={{ topLeft: 6, topRight: 6, bottomLeft: 6, bottomRight: 6 }}
+          >
+            <div className="histogram-value-container">
+              <span className="histogram-value">{value}</span>
+              <span className="histogram-unit">pts</span>
+            </div>
+            <span className="histogram-label">Energy Score</span>
+          </Histogram>
+        </div>
+      </div>
+    );
+  },
 };

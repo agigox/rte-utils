@@ -26,6 +26,8 @@ interface HistogramProps {
     bottomLeft?: number;
     bottomRight?: number;
   };
+  /** Enable gain display when relative value increases */
+  showGain?: boolean;
   /** Child components (typically text content) */
   children?: React.ReactNode;
 }
@@ -37,14 +39,33 @@ export const Histogram: React.FC<HistogramProps> = ({
   barWidth = 32,
   orientation = 'vertical',
   cornerRadius,
+  showGain = false,
   children,
 }) => {
   const [animatedHeight, setAnimatedHeight] = useState(0);
   const [animatedWidth, setAnimatedWidth] = useState(0);
+  const [gainPoints, setGainPoints] = useState<number | null>(null);
+  const [previousValue, setPreviousValue] = useState(relative.value);
 
   // Calculate target dimensions based on orientation
   const targetHeight = (Math.min((relative.value / max.value) * 100, 100) / 100) * barHeight;
   const targetWidth = (Math.min((relative.value / max.value) * 100, 100) / 100) * (orientation === 'horizontal' ? barHeight : barWidth);
+
+  // Detect value increase and show gain
+  useEffect(() => {
+    if (showGain && relative.value > previousValue) {
+      const gainAmount = relative.value - previousValue;
+      setGainPoints(gainAmount);
+      
+      // Hide gain after 2 seconds
+      const timer = setTimeout(() => {
+        setGainPoints(null);
+      }, 2000);
+      
+      return () => clearTimeout(timer);
+    }
+    setPreviousValue(relative.value);
+  }, [relative.value, previousValue, showGain]);
 
   // Simple Chart.js-like animation: always animate from 0 to target
   useEffect(() => {
@@ -173,6 +194,13 @@ export const Histogram: React.FC<HistogramProps> = ({
               />
             )}
           </svg>
+          
+          {/* Gain display */}
+          {showGain && gainPoints && (
+            <div className="histogram-gain-area">
+              <div className="histogram-gain-points">+{gainPoints}</div>
+            </div>
+          )}
         </div>
         {children && (
           <div
