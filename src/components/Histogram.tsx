@@ -48,41 +48,77 @@ export const Histogram: React.FC<HistogramProps> = ({
   const [isPositiveChange, setIsPositiveChange] = useState<boolean>(true);
   const previousValueRef = useRef(relative.value);
   const isFirstRender = useRef(true);
+  const animationTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const accumulatedChangeRef = useRef<number>(0);
+  const animationStartValueRef = useRef<number>(relative.value);
 
   // Calculate target dimensions based on orientation
   const targetHeight = (Math.min((relative.value / max.value) * 100, 100) / 100) * barHeight;
   const targetWidth = (Math.min((relative.value / max.value) * 100, 100) / 100) * (orientation === 'horizontal' ? barHeight : barWidth);
 
-  // Detect value change and show gain/loss
+  // Detect value change and show gain/loss with accumulation
   useEffect(() => {
     // Skip the first render to avoid showing initial value as gain
     if (isFirstRender.current) {
       isFirstRender.current = false;
       previousValueRef.current = relative.value;
+      animationStartValueRef.current = relative.value;
       return;
     }
 
     if (showGain && relative.value !== previousValueRef.current) {
       const changeAmount = relative.value - previousValueRef.current;
-      const isIncrease = changeAmount > 0;
       
-      setGainPoints(Math.abs(changeAmount));
-      setIsPositiveChange(isIncrease);
+      // If there's an ongoing animation, cancel it and accumulate the changes
+      if (animationTimerRef.current) {
+        clearTimeout(animationTimerRef.current);
+        // Add the new change to the accumulated change
+        accumulatedChangeRef.current += changeAmount;
+      } else {
+        // No ongoing animation, start fresh
+        animationStartValueRef.current = previousValueRef.current;
+        accumulatedChangeRef.current = changeAmount;
+      }
       
-      // Update previousValue immediately after calculating the change
+      // Update previous value
       previousValueRef.current = relative.value;
       
-      // Hide gain/loss after 2 seconds
-      const timer = setTimeout(() => {
+      // Calculate total change from animation start to now
+      const totalChange = relative.value - animationStartValueRef.current;
+      const isIncrease = totalChange > 0;
+      
+      setGainPoints(Math.abs(totalChange));
+      setIsPositiveChange(isIncrease);
+      
+      // Set new timer for hiding the animation
+      animationTimerRef.current = setTimeout(() => {
         setGainPoints(null);
+        animationTimerRef.current = null;
+        accumulatedChangeRef.current = 0;
+        animationStartValueRef.current = relative.value;
       }, 2000);
       
-      return () => clearTimeout(timer);
+      return () => {
+        if (animationTimerRef.current) {
+          clearTimeout(animationTimerRef.current);
+          animationTimerRef.current = null;
+        }
+      };
     } else if (!showGain) {
       // Update previous value even when showGain is false
       previousValueRef.current = relative.value;
+      animationStartValueRef.current = relative.value;
     }
   }, [relative.value, showGain]);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (animationTimerRef.current) {
+        clearTimeout(animationTimerRef.current);
+      }
+    };
+  }, []);
 
   // Simple Chart.js-like animation: always animate from 0 to target
   useEffect(() => {
