@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './Histogram.css';
 
 interface HistogramProps {
@@ -46,7 +46,8 @@ export const Histogram: React.FC<HistogramProps> = ({
   const [animatedWidth, setAnimatedWidth] = useState(0);
   const [gainPoints, setGainPoints] = useState<number | null>(null);
   const [isPositiveChange, setIsPositiveChange] = useState<boolean>(true);
-  const [previousValue, setPreviousValue] = useState(relative.value);
+  const previousValueRef = useRef(relative.value);
+  const isFirstRender = useRef(true);
 
   // Calculate target dimensions based on orientation
   const targetHeight = (Math.min((relative.value / max.value) * 100, 100) / 100) * barHeight;
@@ -54,15 +55,22 @@ export const Histogram: React.FC<HistogramProps> = ({
 
   // Detect value change and show gain/loss
   useEffect(() => {
-    if (showGain && relative.value !== previousValue) {
-      const changeAmount = relative.value - previousValue;
+    // Skip the first render to avoid showing initial value as gain
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      previousValueRef.current = relative.value;
+      return;
+    }
+
+    if (showGain && relative.value !== previousValueRef.current) {
+      const changeAmount = relative.value - previousValueRef.current;
       const isIncrease = changeAmount > 0;
       
       setGainPoints(Math.abs(changeAmount));
       setIsPositiveChange(isIncrease);
       
       // Update previousValue immediately after calculating the change
-      setPreviousValue(relative.value);
+      previousValueRef.current = relative.value;
       
       // Hide gain/loss after 2 seconds
       const timer = setTimeout(() => {
@@ -70,8 +78,11 @@ export const Histogram: React.FC<HistogramProps> = ({
       }, 2000);
       
       return () => clearTimeout(timer);
+    } else if (!showGain) {
+      // Update previous value even when showGain is false
+      previousValueRef.current = relative.value;
     }
-  }, [relative.value, previousValue, showGain]);
+  }, [relative.value, showGain]);
 
   // Simple Chart.js-like animation: always animate from 0 to target
   useEffect(() => {
