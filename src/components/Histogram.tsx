@@ -26,7 +26,7 @@ interface HistogramProps {
     bottomLeft?: number;
     bottomRight?: number;
   };
-  /** Enable gain display when relative value increases */
+  /** Enable gain/loss display when relative value changes */
   showGain?: boolean;
   /** Child components (typically text content) */
   children?: React.ReactNode;
@@ -45,19 +45,23 @@ export const Histogram: React.FC<HistogramProps> = ({
   const [animatedHeight, setAnimatedHeight] = useState(0);
   const [animatedWidth, setAnimatedWidth] = useState(0);
   const [gainPoints, setGainPoints] = useState<number | null>(null);
+  const [isPositiveChange, setIsPositiveChange] = useState<boolean>(true);
   const [previousValue, setPreviousValue] = useState(relative.value);
 
   // Calculate target dimensions based on orientation
   const targetHeight = (Math.min((relative.value / max.value) * 100, 100) / 100) * barHeight;
   const targetWidth = (Math.min((relative.value / max.value) * 100, 100) / 100) * (orientation === 'horizontal' ? barHeight : barWidth);
 
-  // Detect value increase and show gain
+  // Detect value change and show gain/loss
   useEffect(() => {
-    if (showGain && relative.value > previousValue) {
-      const gainAmount = relative.value - previousValue;
-      setGainPoints(gainAmount);
+    if (showGain && relative.value !== previousValue) {
+      const changeAmount = relative.value - previousValue;
+      const isIncrease = changeAmount > 0;
       
-      // Hide gain after 2 seconds
+      setGainPoints(Math.abs(changeAmount));
+      setIsPositiveChange(isIncrease);
+      
+      // Hide gain/loss after 2 seconds
       const timer = setTimeout(() => {
         setGainPoints(null);
       }, 2000);
@@ -195,10 +199,12 @@ export const Histogram: React.FC<HistogramProps> = ({
             )}
           </svg>
           
-          {/* Gain display */}
+          {/* Gain/Loss display */}
           {showGain && gainPoints && (
             <div className="histogram-gain-area">
-              <div className="histogram-gain-points">+{gainPoints}</div>
+              <div className={`histogram-gain-points ${isPositiveChange ? 'histogram-gain-points--positive' : 'histogram-gain-points--negative'}`}>
+                {isPositiveChange ? '+' : '-'}{gainPoints}
+              </div>
             </div>
           )}
         </div>

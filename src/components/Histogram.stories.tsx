@@ -43,7 +43,7 @@ const meta: Meta<typeof Histogram> = {
     },
     showGain: {
       control: 'boolean',
-      description: 'Enable gain display when relative value increases',
+      description: 'Enable gain/loss display when relative value changes',
     },
     children: {
       control: 'text',
@@ -336,19 +336,23 @@ export const WithGainDisplay: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Demonstrates the gain display feature. Click the button to increase the value by 20 points and see the gain animation.',
+        story: 'Demonstrates the gain/loss display feature. Click buttons to increase or decrease the value and see the animated feedback.',
       },
     },
   },
   render: () => {
-    const [value, setValue] = React.useState(30);
+    const [value, setValue] = React.useState(50);
     
     const handleIncrease = () => {
       setValue(prev => Math.min(prev + 20, 100)); // Increase by 20, max 100
     };
     
+    const handleDecrease = () => {
+      setValue(prev => Math.max(prev - 15, 0)); // Decrease by 15, min 0
+    };
+    
     const handleReset = () => {
-      setValue(30); // Reset to initial value
+      setValue(50); // Reset to initial value
     };
     
     return (
@@ -359,14 +363,28 @@ export const WithGainDisplay: Story = {
             disabled={value >= 100}
             style={{
               padding: '8px 16px',
-              backgroundColor: value >= 100 ? '#ccc' : '#007bff',
+              backgroundColor: value >= 100 ? '#ccc' : '#28a745',
               color: 'white',
               border: 'none',
               borderRadius: '4px',
               cursor: value >= 100 ? 'not-allowed' : 'pointer'
             }}
           >
-            Gain +20 Points
+            Gain +20
+          </button>
+          <button 
+            onClick={handleDecrease}
+            disabled={value <= 0}
+            style={{
+              padding: '8px 16px',
+              backgroundColor: value <= 0 ? '#ccc' : '#dc3545',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: value <= 0 ? 'not-allowed' : 'pointer'
+            }}
+          >
+            Loss -15
           </button>
           <button 
             onClick={handleReset}
@@ -385,7 +403,10 @@ export const WithGainDisplay: Story = {
         <div style={{ textAlign: 'center' }}>
           <div style={{ marginBottom: '16px' }}>
             <div style={{ fontSize: '18px', fontWeight: 'bold' }}>Current Value: {value}</div>
-            <div style={{ fontSize: '14px', color: '#666' }}>Click "Gain +20 Points" to see the gain animation</div>
+            <div style={{ fontSize: '14px', color: '#666' }}>
+              <span style={{ color: '#28a745' }}>Green +X</span> floats up for gains, 
+              <span style={{ color: '#dc3545' }}> Red -X</span> floats down for losses
+            </div>
           </div>
           <Histogram
             max={{ value: 100, color: '#000000', opacity: 0.2 }}
@@ -412,19 +433,23 @@ export const WithGainDisplayHorizontal: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Demonstrates the gain display feature in horizontal orientation. Click the button to increase the value and see the gain animation.',
+        story: 'Demonstrates the gain/loss display feature in horizontal orientation. Shows both positive and negative changes with appropriate animations.',
       },
     },
   },
   render: () => {
-    const [value, setValue] = React.useState(40);
+    const [value, setValue] = React.useState(60);
     
     const handleIncrease = () => {
-      setValue(prev => Math.min(prev + 15, 100)); // Increase by 15, max 100
+      setValue(prev => Math.min(prev + 10, 100)); // Increase by 10, max 100
+    };
+    
+    const handleDecrease = () => {
+      setValue(prev => Math.max(prev - 12, 0)); // Decrease by 12, min 0
     };
     
     const handleReset = () => {
-      setValue(40); // Reset to initial value
+      setValue(60); // Reset to initial value
     };
     
     return (
@@ -442,7 +467,21 @@ export const WithGainDisplayHorizontal: Story = {
               cursor: value >= 100 ? 'not-allowed' : 'pointer'
             }}
           >
-            Gain +15 Points
+            +10 Energy
+          </button>
+          <button 
+            onClick={handleDecrease}
+            disabled={value <= 0}
+            style={{
+              padding: '8px 16px',
+              backgroundColor: value <= 0 ? '#ccc' : '#dc3545',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: value <= 0 ? 'not-allowed' : 'pointer'
+            }}
+          >
+            -12 Energy
           </button>
           <button 
             onClick={handleReset}
@@ -460,8 +499,8 @@ export const WithGainDisplayHorizontal: Story = {
         </div>
         <div style={{ textAlign: 'center' }}>
           <div style={{ marginBottom: '16px' }}>
-            <div style={{ fontSize: '18px', fontWeight: 'bold' }}>Current Value: {value}</div>
-            <div style={{ fontSize: '14px', color: '#666' }}>Horizontal orientation with gain display</div>
+            <div style={{ fontSize: '18px', fontWeight: 'bold' }}>Energy Level: {value}</div>
+            <div style={{ fontSize: '14px', color: '#666' }}>Horizontal orientation with bidirectional feedback</div>
           </div>
           <Histogram
             max={{ value: 100, color: '#000000', opacity: 0.2 }}
@@ -474,10 +513,171 @@ export const WithGainDisplayHorizontal: Story = {
           >
             <div className="histogram-value-container">
               <span className="histogram-value">{value}</span>
-              <span className="histogram-unit">pts</span>
+              <span className="histogram-unit">%</span>
             </div>
-            <span className="histogram-label">Energy Score</span>
+            <span className="histogram-label">Energy Level</span>
           </Histogram>
+        </div>
+      </div>
+    );
+  },
+};
+
+export const ComprehensiveGainLossDemo: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Comprehensive demo showing gain/loss feedback with different amounts and orientations. Compare vertical and horizontal behaviors side by side.',
+      },
+    },
+  },
+  render: () => {
+    const [verticalValue, setVerticalValue] = React.useState(45);
+    const [horizontalValue, setHorizontalValue] = React.useState(65);
+    
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '30px' }}>
+        <div style={{ display: 'flex', gap: '20px' }}>
+          {/* Vertical Controls */}
+          <div style={{ textAlign: 'center' }}>
+            <h4 style={{ margin: '0 0 10px 0' }}>Vertical Histogram</h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '16px' }}>
+              <button 
+                onClick={() => setVerticalValue(prev => Math.min(prev + 25, 100))}
+                disabled={verticalValue >= 100}
+                style={{
+                  padding: '6px 12px',
+                  backgroundColor: verticalValue >= 100 ? '#ccc' : '#28a745',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: verticalValue >= 100 ? 'not-allowed' : 'pointer'
+                }}
+              >
+                +25
+              </button>
+              <button 
+                onClick={() => setVerticalValue(prev => Math.max(prev - 20, 0))}
+                disabled={verticalValue <= 0}
+                style={{
+                  padding: '6px 12px',
+                  backgroundColor: verticalValue <= 0 ? '#ccc' : '#dc3545',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: verticalValue <= 0 ? 'not-allowed' : 'pointer'
+                }}
+              >
+                -20
+              </button>
+              <button 
+                onClick={() => setVerticalValue(45)}
+                style={{
+                  padding: '6px 12px',
+                  backgroundColor: '#6c757d',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer'
+                }}
+              >
+                Reset
+              </button>
+            </div>
+            <div style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '8px' }}>
+              Value: {verticalValue}
+            </div>
+            <Histogram
+              max={{ value: 100, color: '#000000', opacity: 0.2 }}
+              relative={{ value: verticalValue, color: '#007bff' }}
+              barHeight={120}
+              barWidth={32}
+              orientation="vertical"
+              showGain={true}
+              cornerRadius={{ topLeft: 6, topRight: 6, bottomLeft: 6, bottomRight: 6 }}
+            >
+              <div className="histogram-value-container">
+                <span className="histogram-value">{verticalValue}</span>
+                <span className="histogram-unit">%</span>
+              </div>
+              <span className="histogram-label">Vertical</span>
+            </Histogram>
+          </div>
+          
+          {/* Horizontal Controls */}
+          <div style={{ textAlign: 'center' }}>
+            <h4 style={{ margin: '0 0 10px 0' }}>Horizontal Histogram</h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '16px' }}>
+              <button 
+                onClick={() => setHorizontalValue(prev => Math.min(prev + 18, 100))}
+                disabled={horizontalValue >= 100}
+                style={{
+                  padding: '6px 12px',
+                  backgroundColor: horizontalValue >= 100 ? '#ccc' : '#28a745',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: horizontalValue >= 100 ? 'not-allowed' : 'pointer'
+                }}
+              >
+                +18
+              </button>
+              <button 
+                onClick={() => setHorizontalValue(prev => Math.max(prev - 22, 0))}
+                disabled={horizontalValue <= 0}
+                style={{
+                  padding: '6px 12px',
+                  backgroundColor: horizontalValue <= 0 ? '#ccc' : '#dc3545',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: horizontalValue <= 0 ? 'not-allowed' : 'pointer'
+                }}
+              >
+                -22
+              </button>
+              <button 
+                onClick={() => setHorizontalValue(65)}
+                style={{
+                  padding: '6px 12px',
+                  backgroundColor: '#6c757d',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer'
+                }}
+              >
+                Reset
+              </button>
+            </div>
+            <div style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '8px' }}>
+              Value: {horizontalValue}
+            </div>
+            <Histogram
+              max={{ value: 100, color: '#000000', opacity: 0.2 }}
+              relative={{ value: horizontalValue, color: '#ffc107' }}
+              barHeight={120}
+              barWidth={24}
+              orientation="horizontal"
+              showGain={true}
+              cornerRadius={{ topLeft: 8, topRight: 8, bottomLeft: 8, bottomRight: 8 }}
+            >
+              <div className="histogram-value-container">
+                <span className="histogram-value">{horizontalValue}</span>
+                <span className="histogram-unit">%</span>
+              </div>
+              <span className="histogram-label">Horizontal</span>
+            </Histogram>
+          </div>
+        </div>
+        
+        <div style={{ fontSize: '14px', color: '#666', textAlign: 'center', maxWidth: '400px' }}>
+          <div style={{ marginBottom: '8px' }}>
+            <strong>Animation Behavior:</strong>
+          </div>
+          <div>• <span style={{ color: '#28a745' }}>Green gains (+X)</span> float upward</div>
+          <div>• <span style={{ color: '#dc3545' }}>Red losses (-X)</span> float downward</div>
+          <div>• Both orientations support bidirectional feedback</div>
         </div>
       </div>
     );
