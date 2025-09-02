@@ -61,6 +61,9 @@ export const Histogram: React.FC<HistogramProps> = ({
       setGainPoints(Math.abs(changeAmount));
       setIsPositiveChange(isIncrease);
       
+      // Update previousValue immediately after calculating the change
+      setPreviousValue(relative.value);
+      
       // Hide gain/loss after 2 seconds
       const timer = setTimeout(() => {
         setGainPoints(null);
@@ -68,7 +71,6 @@ export const Histogram: React.FC<HistogramProps> = ({
       
       return () => clearTimeout(timer);
     }
-    setPreviousValue(relative.value);
   }, [relative.value, previousValue, showGain]);
 
   // Simple Chart.js-like animation: always animate from 0 to target
