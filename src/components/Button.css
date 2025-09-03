@@ -1,5 +1,5 @@
 .button {
-  background-color: #009cdf;
+  background-color: #009CDF;
   box-sizing: border-box;
   display: flex;
   gap: 8px;
@@ -15,7 +15,7 @@
 }
 
 .button:hover {
-  background-color: #007bb5;
+  background-color: #0078B8;
 }
 
 .button:disabled {
