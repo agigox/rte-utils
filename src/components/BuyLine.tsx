@@ -193,9 +193,11 @@ export const BuyLine: React.FC<BuyLineProps> = ({
             <div className="buyline__title">{title}</div>
 
             <div className="buyline__input_container">
-              <div className="buyline__label--description">
-                {labels?.find((label) => label.key === 'volume')?.label || 'Volume'}
-              </div>
+              {labels?.find((label) => label.key === 'volume') && (
+                <div className="buyline__label--description">
+                  {labels.find((label) => label.key === 'volume')?.label}
+                </div>
+              )}
               <InputNumber
                 label="MWh"
                 value={internalVolume}
@@ -207,9 +209,11 @@ export const BuyLine: React.FC<BuyLineProps> = ({
             </div>
             {showSecondInput && (
               <div className="buyline__input_container">
-                <div className="buyline__label--description">
-                  {labels?.find((label) => label.key === 'price')?.label || 'Prix'}
-                </div>
+                {labels?.find((label) => label.key === 'price') && (
+                  <div className="buyline__label--description">
+                    {labels.find((label) => label.key === 'price')?.label}
+                  </div>
+                )}
                 <InputNumber
                   label="€/MWh"
                   value={internalPrice}
@@ -222,9 +226,11 @@ export const BuyLine: React.FC<BuyLineProps> = ({
             )}
           </div>
           <div className="buyline__recette">
-            <div className="buyline__label--description">
-              {labels?.find((label) => label.key === 'total')?.label || 'Recette'}
-            </div>
+            {labels?.find((label) => label.key === 'total') && (
+              <div className="buyline__label--description">
+                {labels.find((label) => label.key === 'total')?.label}
+              </div>
+            )}
             <div className="buyline__total">
               <Chip width="fit-content" bgColor={calculatePrice() === 0 ? '#F2F4F4' : '#E1F5FD'}>
                 <ValueWithUnit
