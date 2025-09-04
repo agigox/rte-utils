@@ -1,13 +1,20 @@
 .buyline {
   background: white;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
   padding: 12px 0;
   position: relative;
   width: 100%;
 }
-
+.buyline__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+}
 .buyline__border {
   position: absolute;
   top: 0;
@@ -33,6 +40,13 @@
   justify-content: flex-start;
   flex-shrink: 0;
 }
+.buyline__input_container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 15px;
+}
 
 .buyline__title {
   font-family: 'Open Sans', sans-serif;
@@ -43,6 +57,12 @@
   width: 64px;
   flex-shrink: 0;
 }
+.buyline__total {
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .buyline__price span {
   font-family: 'Open Sans', sans-serif;
   font-weight: 600;
@@ -50,6 +70,14 @@
   line-height: 24px;
   color: #999fa1;
   white-space: nowrap;
+}
+.buyline__recette {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 15px;
+  flex-shrink: 0;
 }
 
 .buyline__actions {
@@ -91,4 +119,41 @@
   height: 100%;
   display: block;
   max-width: none;
+}
+
+.buyline__labels {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 8px;
+}
+
+.buyline__label {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: #999fa1;
+  text-align: center;
+}
+
+.buyline__label--title {
+  width: 64px;
+  flex-shrink: 0;
+}
+
+.buyline__label--volume,
+.buyline__label--price {
+  width: 54px;
+  flex-shrink: 0;
+}
+
+.buyline__label--total {
+  min-width: 84px;
+  flex-shrink: 0;
+}
+.buyline__label--description {
+  color: #6f767b;
+  font-size: 12px;
 }

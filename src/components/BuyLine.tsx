@@ -93,6 +93,10 @@ interface BuyLineProps {
   volumeMax?: { value: number };
   priceMax?: { value: number };
   iconType?: 'send' | 'edit';
+  labels?: Array<{
+    key: 'volume' | 'price' | 'total';
+    label: string;
+  }>;
   onVolumeChange?: (value: string) => void;
   onPriceChange?: (value: string) => void;
   onSend?: () => void;
@@ -111,6 +115,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
   volumeMax,
   priceMax,
   iconType = 'send',
+  labels,
   onVolumeChange,
   onPriceChange,
   onSend,
@@ -169,57 +174,89 @@ export const BuyLine: React.FC<BuyLineProps> = ({
 
   return (
     <div className={`buyline ${className}`}>
-      <div className="buyline__content">
-        <div className="buyline__inputs">
-          <div className="buyline__title">{title}</div>
-          <InputNumber
-            label="MWh"
-            value={internalVolume}
-            onChange={handleVolumeChange}
-            disabled={disabled}
-            min={{ value: 0 }}
-            max={volumeMax || { value: 9999 }}
-          />
-          {showSecondInput && (
-            <InputNumber
-              label="€/MWh"
-              value={internalPrice}
-              onChange={handlePriceChange}
-              disabled={disabled}
-              min={{ value: 0 }}
-              max={priceMax || { value: 9999 }}
-              className="buyline__input"
-            />
+      {/*labels && (
+        <div className="buyline__labels">
+          <div className="buyline__label buyline__label--title"></div>
+          {labels.map((label) => (
+            <>
+              <div style={{ width: '64px' }}></div>
+              <div key={label.key} className={`buyline__label buyline__label--${label.key}`}>
+                {label.label}
+              </div>
+            </>
+          ))}
+        </div>
+      )*/}
+      <div className="buyline__container">
+        <div className="buyline__content">
+          <div className="buyline__inputs">
+            <div className="buyline__title">{title}</div>
+
+            <div className="buyline__input_container">
+              <div className="buyline__label--description">
+                {labels?.find((label) => label.key === 'volume')?.label || 'Volume'}
+              </div>
+              <InputNumber
+                label="MWh"
+                value={internalVolume}
+                onChange={handleVolumeChange}
+                disabled={disabled}
+                min={{ value: 0 }}
+                max={volumeMax || { value: 9999 }}
+              />
+            </div>
+            {showSecondInput && (
+              <div className="buyline__input_container">
+                <div className="buyline__label--description">
+                  {labels?.find((label) => label.key === 'price')?.label || 'Prix'}
+                </div>
+                <InputNumber
+                  label="€/MWh"
+                  value={internalPrice}
+                  onChange={handlePriceChange}
+                  disabled={disabled}
+                  min={{ value: 0 }}
+                  max={priceMax || { value: 9999 }}
+                />
+              </div>
+            )}
+          </div>
+          <div className="buyline__recette">
+            <div className="buyline__label--description">
+              {labels?.find((label) => label.key === 'total')?.label || 'Recette'}
+            </div>
+            <div className="buyline__total">
+              <Chip width="fit-content" bgColor={calculatePrice() === 0 ? '#F2F4F4' : '#E1F5FD'}>
+                <ValueWithUnit
+                  cost={calculatePrice()}
+                  textColor={calculatePrice() === 0 ? '#999FA1' : '#005896'}
+                  type="euro"
+                />
+              </Chip>
+            </div>
+          </div>
+        </div>
+        <div className="buyline__actions">
+          {!disabled && (
+            <button
+              className={`buyline__send ${isSendDisabled ? 'buyline__send--disabled' : ''}`}
+              onClick={handleSend}
+              disabled={isSendDisabled}
+              aria-label={iconType === 'edit' ? 'Edit' : 'Send'}
+            >
+              {iconType === 'edit' ? (
+                <EditIcon className="buyline__icon" disabled={isSendDisabled} />
+              ) : (
+                <SendIcon className="buyline__icon" disabled={isSendDisabled} />
+              )}
+            </button>
+          )}
+          {showTrashButton && (
+            <button className="buyline__trash" onClick={handleClear} aria-label="Clear">
+              <TrashIcon className="buyline__icon" disabled={false} />
+            </button>
           )}
         </div>
-        <Chip width="fit-content" bgColor={calculatePrice() === 0 ? '#F2F4F4' : '#E1F5FD'}>
-          <ValueWithUnit
-            cost={calculatePrice()}
-            textColor={calculatePrice() === 0 ? '#999FA1' : '#005896'}
-            type="euro"
-          />
-        </Chip>
-      </div>
-      <div className="buyline__actions">
-        {!disabled && (
-          <button
-            className={`buyline__send ${isSendDisabled ? 'buyline__send--disabled' : ''}`}
-            onClick={handleSend}
-            disabled={isSendDisabled}
-            aria-label={iconType === 'edit' ? 'Edit' : 'Send'}
-          >
-            {iconType === 'edit' ? (
-              <EditIcon className="buyline__icon" disabled={isSendDisabled} />
-            ) : (
-              <SendIcon className="buyline__icon" disabled={isSendDisabled} />
-            )}
-          </button>
-        )}
-        {showTrashButton && (
-          <button className="buyline__trash" onClick={handleClear} aria-label="Clear">
-            <TrashIcon className="buyline__icon" disabled={false} />
-          </button>
-        )}
       </div>
       <div className="buyline__border" />
     </div>

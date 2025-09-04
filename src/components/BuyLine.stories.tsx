@@ -40,6 +40,10 @@ const meta: Meta<typeof BuyLine> = {
     priceMax: {
       control: 'object',
     },
+    labels: {
+      control: 'object',
+      description: 'Array of label objects with key and label properties',
+    },
   },
 };
 
@@ -126,4 +130,44 @@ export const Interactive: Story = {
       onClear={() => console.log('Clear clicked')}
     />
   ),
+};
+
+export const WithLabels: Story = {
+  args: {
+    volume: '300',
+    price: '42',
+    labels: [
+      { key: 'volume', label: 'Volume' },
+      { key: 'price', label: 'Prix' },
+      { key: 'total', label: 'Coût total' },
+    ],
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'BuyLine component with column labels displayed above the inputs and total chip. The labels align with their respective elements.',
+      },
+    },
+  },
+};
+
+export const WithLabelsAndDefaultPrice: Story = {
+  args: {
+    volume: '500',
+    defaultPrice: 25,
+    showSecondInput: false,
+    labels: [
+      { key: 'volume', label: 'Volume' },
+      { key: 'total', label: 'Coût total' },
+    ],
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'BuyLine component with labels when using default price (single input). Only volume and total labels are shown.',
+      },
+    },
+  },
 };
