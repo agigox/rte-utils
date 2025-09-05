@@ -191,7 +191,6 @@ export const SuccessStateDemo: Story = {
       onPriceChange={(value) => console.log('Price changed:', value)}
       onSend={() => {
         console.log('Send clicked - Success state will show for 2 seconds');
-        alert('Send clicked! Watch the green borders appear for 2 seconds.');
       }}
       onClear={() => console.log('Clear clicked')}
     />

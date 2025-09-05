@@ -16,6 +16,7 @@
   background-color: #ffffff;
   transition:
     border-color 0.2s ease,
+    border-width 0.2s ease,
     box-shadow 0.2s ease;
   outline: none;
   box-sizing: border-box;
@@ -64,10 +65,25 @@
 /* Focus state styles */
 .input-container--focused .input-element {
   border-color: #009cdf;
+  border-width: 2px;
 }
 
 .input-container--focused .input-label {
   color: #009cdf;
+}
+
+/* Success state - takes precedence over focus state */
+.input-container--success .input-element {
+  border-color: #27ae60 !important;
+  border-width: 1px !important;
+  transition:
+    border-color 0.3s ease,
+    border-width 0.3s ease;
+}
+
+.input-container--success .input-label {
+  color: #27ae60 !important;
+  transition: color 0.3s ease;
 }
 
 /* Error state */
@@ -82,20 +98,6 @@
 
 .input-container--error .input-label {
   color: #e74c3c;
-}
-
-/* Success state */
-.input-container--success .input-element {
-  border-color: #27ae60;
-  border-width: 2px;
-  transition:
-    border-color 0.3s ease,
-    border-width 0.3s ease;
-}
-
-.input-container--success .input-label {
-  color: #27ae60;
-  transition: color 0.3s ease;
 }
 
 .input-error {

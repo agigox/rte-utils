@@ -152,7 +152,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
       // Hide success state after 2 seconds
       setTimeout(() => {
         setShowSuccessState(false);
-      }, 3000);
+      }, 1000);
 
       onSend?.();
     }
