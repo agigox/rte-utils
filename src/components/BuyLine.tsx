@@ -124,6 +124,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
 }) => {
   const [internalVolume, setInternalVolume] = useState(volume);
   const [internalPrice, setInternalPrice] = useState(price);
+  const [showSuccessState, setShowSuccessState] = useState(false);
 
   const handleVolumeChange = (newValue: string) => {
     setInternalVolume(newValue);
@@ -145,6 +146,14 @@ export const BuyLine: React.FC<BuyLineProps> = ({
 
   const handleSend = () => {
     if (internalVolume.trim() !== '') {
+      // Show success state
+      setShowSuccessState(true);
+
+      // Hide success state after 2 seconds
+      setTimeout(() => {
+        setShowSuccessState(false);
+      }, 3000);
+
       onSend?.();
     }
   };
@@ -205,6 +214,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
                 disabled={disabled}
                 min={{ value: 0 }}
                 max={volumeMax || { value: 9999 }}
+                showSuccess={showSuccessState}
               />
             </div>
             {showSecondInput && (
@@ -221,6 +231,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
                   disabled={disabled}
                   min={{ value: 0 }}
                   max={priceMax || { value: 9999 }}
+                  showSuccess={showSuccessState}
                 />
               </div>
             )}

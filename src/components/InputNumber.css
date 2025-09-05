@@ -84,6 +84,20 @@
   color: #e74c3c;
 }
 
+/* Success state */
+.input-container--success .input-element {
+  border-color: #27ae60;
+  border-width: 2px;
+  transition:
+    border-color 0.3s ease,
+    border-width 0.3s ease;
+}
+
+.input-container--success .input-label {
+  color: #27ae60;
+  transition: color 0.3s ease;
+}
+
 .input-error {
   font-size: 12px;
   color: #e74c3c;

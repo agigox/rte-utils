@@ -10,6 +10,7 @@ interface InputNumberProps {
   required?: boolean;
   min?: { value: number; label?: string };
   max?: { value: number; label?: string };
+  showSuccess?: boolean;
 }
 
 export const InputNumber: React.FC<InputNumberProps> = ({
@@ -21,6 +22,7 @@ export const InputNumber: React.FC<InputNumberProps> = ({
   required = false,
   min = { value: 0 },
   max = { value: 100 },
+  showSuccess = false,
 }) => {
   const [internalValue, setInternalValue] = useState(value);
   const [isFocused, setIsFocused] = useState(false);
@@ -120,6 +122,7 @@ export const InputNumber: React.FC<InputNumberProps> = ({
     isLabelFloating ? 'input-container--floating' : '',
     disabled ? 'input-container--disabled' : '',
     isOutOfRange ? 'input-container--error' : '',
+    showSuccess ? 'input-container--success' : '',
     className,
   ]
     .filter(Boolean)

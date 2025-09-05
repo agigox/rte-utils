@@ -171,3 +171,37 @@ export const WithLabelsAndDefaultPrice: Story = {
     },
   },
 };
+
+export const SuccessStateDemo: Story = {
+  args: {
+    volume: '150',
+    price: '35',
+    title: 'Achat Test',
+    showTrashButton: true,
+    labels: [
+      { key: 'volume', label: 'Volume' },
+      { key: 'price', label: 'Prix' },
+      { key: 'total', label: 'Recette' },
+    ],
+  },
+  render: (args) => (
+    <BuyLine
+      {...args}
+      onVolumeChange={(value) => console.log('Volume changed:', value)}
+      onPriceChange={(value) => console.log('Price changed:', value)}
+      onSend={() => {
+        console.log('Send clicked - Success state will show for 2 seconds');
+        alert('Send clicked! Watch the green borders appear for 2 seconds.');
+      }}
+      onClear={() => console.log('Clear clicked')}
+    />
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Demonstrates the success state functionality. Click the send button to see the InputNumber components briefly turn green (borders and text) for 2 seconds, providing visual feedback that the action was successful. This story includes pre-filled values and labels for a complete demonstration.',
+      },
+    },
+  },
+};
