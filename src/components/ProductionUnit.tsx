@@ -40,7 +40,7 @@ export const ProductionUnit = ({
   readonly = false,
   min = { value: 10, label: 'Pmin' },
   max = { value: 100, label: 'Pmax' },
-  unitLabel = 'W'
+  unitLabel = 'W',
 }: ProductionUnitProps) => {
   // Internal state management for uncontrolled mode
   const [internalChecked, setInternalChecked] = useState(defaultChecked);
@@ -95,7 +95,7 @@ export const ProductionUnit = ({
         <div className="production-unit-content">
           <div className="image-preview-container">
             {isChecked ? checkedImage : uncheckedImage}
-            {isChecked && <div className='image-preview-label'>{unitLabel}</div>}
+            <div className="image-preview-label">{unitLabel}</div>
           </div>
           <div className="production-unit-chip">
             <div className="production-unit-chip-name">{unitName}</div>

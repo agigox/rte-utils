@@ -60,7 +60,7 @@
 .timer-progress-bar {
   height: 8px;
   width: 124px;
-  background-color: rgba(0,0,0,0.1);
+  background-color: rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   overflow: hidden;
   position: relative;
@@ -110,11 +110,11 @@
 }
 
 .step-indicator--completed {
-  background-color: #009CDF;
+  background-color: #009cdf;
 }
 
 .step-indicator--upcoming {
-  background-color: #B7BEC2;
+  background-color: #b7bec2;
 }
 
 .step-expand {
@@ -133,9 +133,11 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 16px 10px 10px;
+  padding: 10px 10px 10px 16px;
   align-self: stretch;
   flex-shrink: 0;
+  box-sizing: border-box;
+  width: 186px;
 }
 
 .control-button {
@@ -151,8 +153,6 @@
   padding: 0;
   background: #d9d9d9;
   border-radius: 50%;
-  width: 32px;
-  height: 32px;
 }
 
 .control-button::before {

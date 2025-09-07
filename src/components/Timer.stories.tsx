@@ -23,7 +23,8 @@ const meta: Meta<typeof Timer> = {
     },
     externalState: {
       control: 'object',
-      description: 'External timer state object with currentPhase, currentTime, isRunning, isPaused, isFrozen',
+      description:
+        'External timer state object with currentPhase, currentTime, isRunning, isPaused, isFrozen',
     },
     onStateChange: {
       control: false,
@@ -47,7 +48,7 @@ const meta: Meta<typeof Timer> = {
     onUnpause: { control: false },
     onPause: { control: false },
     onFreeze: { control: false },
-  onAnonymiseToggle: { control: false },
+    onAnonymiseToggle: { control: false },
     onStop: { control: false },
     onReset: { control: false },
     onPrevious: { control: false },
@@ -65,7 +66,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: () => {
     const [timerState, setTimerState] = useState({
-      currentPhase: 'Preparation',
+      currentPhase: 'arenh',
       currentTime: 0,
       isRunning: false,
       isPaused: false,
@@ -75,9 +76,12 @@ export const Default: Story = {
     return (
       <Timer
         phases={[
-          { duration: 30000, title: 'Preparation' }, // 30 seconds in milliseconds
-          { duration: 45000, title: 'Play' }, // 45 seconds in milliseconds
-          { duration: 60000, title: 'Wrap-up' }, // 60 seconds in milliseconds
+          { duration: 30000, title: 'arenh' }, // 30 seconds in milliseconds
+          { duration: 45000, title: 'ij' }, // 45 seconds in milliseconds
+          { duration: 60000, title: 'Wrap' }, // 60 seconds in milliseconds
+          { duration: 60000, title: 'rp' }, // 60 seconds in milliseconds
+          { duration: 60000, title: 'dr' }, // 60 seconds in milliseconds
+          { duration: 60000, title: 'end' }, // 60 seconds in milliseconds
         ]}
         externalState={timerState}
         onStateChange={setTimerState}
@@ -147,7 +151,7 @@ export const SinglePhase: Story = {
 export const MinimalTimer: Story = {
   render: () => {
     const [timerState, setTimerState] = useState({
-      currentPhase: "Phase 1",
+      currentPhase: 'Phase 1',
       currentTime: 0,
       isRunning: false,
       isPaused: false,
@@ -193,7 +197,7 @@ export const ProgressOnly: Story = {
 export const WithPhaseTitles: Story = {
   render: () => {
     const [timerState, setTimerState] = useState({
-      currentPhase: "Phase 1",
+      currentPhase: 'Phase 1',
       currentTime: 0,
       isRunning: false,
       isPaused: false,
@@ -230,7 +234,6 @@ export const WithCallbacks: Story = {
       isFrozen: false,
     });
 
-
     return (
       <div style={{ textAlign: 'center' }}>
         <div style={{ marginBottom: 20, padding: 15, backgroundColor: '#f8f9fa', borderRadius: 8 }}>
@@ -238,13 +241,12 @@ export const WithCallbacks: Story = {
             <strong>Status:</strong> {status}
           </p>
           <p>
-            <strong>Current Phase:</strong> {
-              (() => {
-                const phases = ['Intro', 'Action', 'Summary'];
-                const phaseIndex = phases.indexOf(timerState.currentPhase);
-                return phaseIndex + 1;
-              })()
-            }
+            <strong>Current Phase:</strong>{' '}
+            {(() => {
+              const phases = ['Intro', 'Action', 'Summary'];
+              const phaseIndex = phases.indexOf(timerState.currentPhase);
+              return phaseIndex + 1;
+            })()}
           </p>
           <p>
             <strong>Current Time:</strong> {timerState.currentTime}s
@@ -253,9 +255,8 @@ export const WithCallbacks: Story = {
             <strong>Phase Info:</strong> {phaseInfo}
           </p>
           <p>
-            <strong>Timer State:</strong> Running: {timerState.isRunning ? 'Yes' : 'No'}, 
-            Paused: {timerState.isPaused ? 'Yes' : 'No'}, 
-            Frozen: {timerState.isFrozen ? 'Yes' : 'No'}
+            <strong>Timer State:</strong> Running: {timerState.isRunning ? 'Yes' : 'No'}, Paused:{' '}
+            {timerState.isPaused ? 'Yes' : 'No'}, Frozen: {timerState.isFrozen ? 'Yes' : 'No'}
           </p>
           {selectedFinishedPhase !== null && (
             <p style={{ color: '#0a58ca' }}>
@@ -277,7 +278,7 @@ export const WithCallbacks: Story = {
             setTimerState(newState);
             setCurrentPhase(newState.currentPhase);
             setCurrentTime(newState.currentTime);
-            
+
             if (newState.isRunning && !newState.isPaused) {
               setStatus('Running');
             } else if (newState.isPaused) {
@@ -304,14 +305,14 @@ export const WithCallbacks: Story = {
           }}
           onStop={() => {
             setStatus('Stopped');
-            setCurrentPhase("Phase 1");
+            setCurrentPhase('Phase 1');
             setCurrentTime(0);
             setPhaseInfo('Game stopped');
             setSelectedFinishedPhase(null);
           }}
           onReset={() => {
             setStatus('Reset');
-            setCurrentPhase("Phase 1");
+            setCurrentPhase('Phase 1');
             setCurrentTime(0);
             setPhaseInfo('Ready to start');
             setSelectedFinishedPhase(null);
@@ -413,7 +414,7 @@ export const ControlledTimer: Story = {
           ref={timerRef}
           phases={phases}
           externalState={{
-            currentPhase: "Phase 1",
+            currentPhase: 'Phase 1',
             currentTime: 0,
             isRunning: false,
             isPaused: false,
@@ -476,7 +477,7 @@ export const FreezeDemo: Story = {
             { duration: 12000, title: 'Beta' },
           ]}
           externalState={{
-            currentPhase: "Phase 1",
+            currentPhase: 'Phase 1',
             currentTime: 0,
             isRunning: true, // auto-start
             isPaused: false,
@@ -494,7 +495,10 @@ export const FreezeDemo: Story = {
           <button onClick={() => (timerRef.current as any)?.freeze?.()} style={{ margin: '0 4px' }}>
             Freeze / Unfreeze
           </button>
-          <button onClick={() => (timerRef.current as any)?.toggleAnonymise?.()} style={{ margin: '0 4px' }}>
+          <button
+            onClick={() => (timerRef.current as any)?.toggleAnonymise?.()}
+            style={{ margin: '0 4px' }}
+          >
             Anonymise / Reveal
           </button>
           <button onClick={() => timerRef.current?.reset()} style={{ margin: '0 4px' }}>
@@ -517,7 +521,7 @@ export const FreezeDemo: Story = {
 export const AdminUser: Story = {
   render: () => {
     const [timerState, setTimerState] = useState({
-      currentPhase: "Phase 1",
+      currentPhase: 'Phase 1',
       currentTime: 0,
       isRunning: false,
       isPaused: false,
@@ -551,7 +555,7 @@ export const AdminUser: Story = {
 export const ActorUser: Story = {
   render: () => {
     const [timerState, setTimerState] = useState({
-      currentPhase: "Phase 1",
+      currentPhase: 'Phase 1',
       currentTime: 0,
       isRunning: true, // auto-start
       isPaused: false,
@@ -596,7 +600,7 @@ export const UserComparison: Story = {
           <Timer
             phases={sharedPhases}
             externalState={{
-              currentPhase: "Phase 1",
+              currentPhase: 'Phase 1',
               currentTime: 0,
               isRunning: false,
               isPaused: false,
@@ -612,7 +616,7 @@ export const UserComparison: Story = {
           <Timer
             phases={sharedPhases}
             externalState={{
-              currentPhase: "Phase 1",
+              currentPhase: 'Phase 1',
               currentTime: 0,
               isRunning: false,
               isPaused: false,
