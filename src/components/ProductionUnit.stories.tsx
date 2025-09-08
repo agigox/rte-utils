@@ -194,11 +194,12 @@ const NuclearUncheckedImage = () => (
 
 export const Default: Story = {
   args: {
-    unitName: 'Nuclear Plant A',
+    unitName: 'Nuclear',
     energyCost: 1200,
     defaultValue: 800,
-    defaultChecked: false,
+    defaultChecked: true,
     readonly: false,
+    editable: false,
   },
   render: (args) => (
     <ProductionUnit

@@ -3,7 +3,6 @@ import { InputNumber } from './InputNumber';
 import { Switch } from './Switch';
 import './ProductionUnit.css';
 import { Chip } from './Chip';
-import { ProductionUnitContainer } from './ProductionUnitContainer';
 import { ValueWithUnit } from '.';
 
 type ProductionUnitLimit = {
@@ -25,6 +24,7 @@ interface ProductionUnitProps {
   min?: ProductionUnitLimit;
   max?: ProductionUnitLimit;
   unitLabel?: string;
+  editable?: boolean;
 }
 export const ProductionUnit = ({
   onChangeInput,
@@ -41,6 +41,7 @@ export const ProductionUnit = ({
   min = { value: 10, label: 'Pmin' },
   max = { value: 100, label: 'Pmax' },
   unitLabel = 'W',
+  editable = true,
 }: ProductionUnitProps) => {
   // Internal state management for uncontrolled mode
   const [internalChecked, setInternalChecked] = useState(defaultChecked);
@@ -90,7 +91,12 @@ export const ProductionUnit = ({
   };
 
   return (
-    <ProductionUnitContainer>
+    <div
+      className="production-unit-container-box"
+      style={{
+        boxShadow: editable ? '0px 2px 16px 0px rgba(0, 0, 0, 0.16)' : 'none',
+      }}
+    >
       <div className="production-unit-container">
         <div className="production-unit-content">
           <div className="image-preview-container">
@@ -116,8 +122,14 @@ export const ProductionUnit = ({
           </div>
         </div>
 
-        <Switch checked={isChecked} onChange={handleSwitchChange} disabled={readonly} />
+        {editable ? (
+          <Switch checked={isChecked} onChange={handleSwitchChange} disabled={readonly} />
+        ) : isChecked ? (
+          <Chip bgColor="#E1F5FD">
+            <span style={{ color: '#005896' }}>Souscrit</span>
+          </Chip>
+        ) : null}
       </div>
-    </ProductionUnitContainer>
+    </div>
   );
 };

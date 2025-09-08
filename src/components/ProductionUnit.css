@@ -1,3 +1,8 @@
+.production-unit-container-box {
+  box-sizing: border-box;
+  border-radius: 64px;
+  width: 100%;
+}
 .production-unit-container {
   display: flex;
   align-items: center;

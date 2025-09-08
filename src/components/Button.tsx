@@ -62,7 +62,7 @@ const getIcon = (iconName: string, color: string = 'white'): React.ReactNode => 
         />
       </svg>
     ),
-    arrowDown: (
+    arrowDownIcon: (
       <svg
         width="16"
         height="10"
