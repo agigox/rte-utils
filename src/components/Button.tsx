@@ -3,7 +3,8 @@ import './Button.css';
 
 interface ButtonProps {
   text: string;
-  icon?: string;
+  leftIcon?: string;
+  rightIcon?: string;
   onClick?: () => void;
   disabled?: boolean;
   className?: string;
@@ -15,7 +16,13 @@ interface ButtonProps {
 const getIcon = (iconName: string, color: string = 'white'): React.ReactNode => {
   const iconMap: Record<string, React.ReactNode> = {
     plusIcon: (
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -25,7 +32,13 @@ const getIcon = (iconName: string, color: string = 'white'): React.ReactNode => 
       </svg>
     ),
     settingIcon: (
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg
+        width="22"
+        height="22"
+        viewBox="0 0 22 22"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
         <path
           fillRule="evenodd"
           clipRule="evenodd"
@@ -49,19 +62,36 @@ const getIcon = (iconName: string, color: string = 'white'): React.ReactNode => 
         />
       </svg>
     ),
+    arrowDown: (
+      <svg
+        width="16"
+        height="10"
+        viewBox="0 0 16 10"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M15.8235 1.61477C16.065 1.35365 16.0578 0.946887 15.8072 0.694302C15.5566 0.441718 15.153 0.434496 14.8933 0.677901L7.87732 7.74957L1.10614 0.677901C0.847065 0.434503 0.442824 0.441725 0.192211 0.694302C-0.0577526 0.946887 -0.0649185 1.35365 0.176588 1.61477L7.87729 9.5L15.8235 1.61477Z"
+          fill="white"
+        />
+      </svg>
+    ),
   };
   return iconMap[iconName];
 };
 
-export const Button = ({ 
-  text, 
-  icon, 
-  onClick, 
-  disabled = false, 
-  className = '', 
-  bgColor, 
+export const Button = ({
+  text,
+  leftIcon,
+  rightIcon,
+  onClick,
+  disabled = false,
+  className = '',
+  bgColor,
   textColor,
-  size = 'large'
+  size = 'large',
 }: ButtonProps) => {
   const getSizeStyles = (size: 'small' | 'large'): React.CSSProperties => {
     switch (size) {
@@ -88,14 +118,19 @@ export const Button = ({
       data-name="Button"
       style={buttonStyle}
     >
-      {icon && getIcon(icon, textColor || 'white') && (
-        <div className="button-icon" data-name={icon}>
-          {getIcon(icon, textColor || 'white')}
+      {leftIcon && getIcon(leftIcon, textColor || 'white') && (
+        <div className="button-icon" data-name={leftIcon}>
+          {getIcon(leftIcon, textColor || 'white')}
         </div>
       )}
       <div className="button-text" style={textColor ? { color: textColor } : {}}>
         <p>{text}</p>
       </div>
+      {rightIcon && getIcon(rightIcon, textColor || 'white') && (
+        <div className="button-icon" data-name={rightIcon}>
+          {getIcon(rightIcon, textColor || 'white')}
+        </div>
+      )}
     </button>
   );
 };

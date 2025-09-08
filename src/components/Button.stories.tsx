@@ -25,30 +25,30 @@ export const Default: Story = {
   },
 };
 
-export const WithIcon: Story = {
+export const WithLeftIcon: Story = {
   args: {
     text: 'nouvelle proposition',
-    icon: 'plusIcon',
+    leftIcon: 'plusIcon',
   },
 };
-export const WithIconSettings: Story = {
+export const WithRightIcon: Story = {
   args: {
     text: 'nouvelle proposition',
-    icon: 'settingIcon',
+    rightIcon: 'settingIcon',
   },
 };
 export const Disabled: Story = {
   args: {
     text: 'nouvelle proposition',
     disabled: true,
-    icon: 'plusIcon',
+    leftIcon: 'plusIcon',
   },
 };
 
 export const CustomColors: Story = {
   args: {
     text: 'custom colors',
-    icon: 'plusIcon',
+    leftIcon: 'plusIcon',
     bgColor: '#FF6B6B',
     textColor: '#FFFFFF',
   },
@@ -57,7 +57,7 @@ export const CustomColors: Story = {
 export const GreenButton: Story = {
   args: {
     text: 'success button',
-    icon: 'settingIcon',
+    leftIcon: 'settingIcon',
     bgColor: '#4ECDC4',
     textColor: '#2C3E50',
   },
@@ -66,7 +66,7 @@ export const GreenButton: Story = {
 export const DarkButton: Story = {
   args: {
     text: 'dark theme',
-    icon: 'plusIcon',
+    leftIcon: 'plusIcon',
     bgColor: '#2C3E50',
     textColor: '#ECF0F1',
   },
@@ -83,7 +83,7 @@ export const PurpleButton: Story = {
 export const SmallButton: Story = {
   args: {
     text: 'small button',
-    icon: 'plusIcon',
+    leftIcon: 'plusIcon',
     size: 'small',
   },
 };
@@ -91,7 +91,7 @@ export const SmallButton: Story = {
 export const LargeButton: Story = {
   args: {
     text: 'large button',
-    icon: 'settingIcon',
+    leftIcon: 'settingIcon',
     size: 'large',
   },
 };
@@ -99,9 +99,37 @@ export const LargeButton: Story = {
 export const SmallCustomColors: Story = {
   args: {
     text: 'small custom',
-    icon: 'plusIcon',
+    leftIcon: 'plusIcon',
     size: 'small',
     bgColor: '#E74C3C',
+    textColor: '#FFFFFF',
+  },
+};
+
+export const WithBothIcons: Story = {
+  args: {
+    text: 'both icons',
+    leftIcon: 'plusIcon',
+    rightIcon: 'settingIcon',
+  },
+};
+
+export const RightIconOnly: Story = {
+  args: {
+    text: 'settings',
+    rightIcon: 'settingIcon',
+    bgColor: '#3498DB',
+    textColor: '#FFFFFF',
+  },
+};
+
+export const BothIconsCustom: Story = {
+  args: {
+    text: 'complete',
+    leftIcon: 'plusIcon',
+    rightIcon: 'settingIcon',
+    size: 'small',
+    bgColor: '#8E44AD',
     textColor: '#FFFFFF',
   },
 };
