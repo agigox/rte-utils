@@ -9,7 +9,7 @@ const meta: Meta<typeof Button> = {
     docs: {
       description: {
         component:
-          'A blue button component with customizable icon and text. Features a rounded design with hover and disabled states.',
+          'A customizable button component with icon and text support. Features a rounded design with hover and disabled states, plus customizable background and text colors.',
       },
     },
   },
@@ -31,11 +31,51 @@ export const WithIcon: Story = {
     icon: 'plusIcon',
   },
 };
-
+export const WithIconSettings: Story = {
+  args: {
+    text: 'nouvelle proposition',
+    icon: 'settingIcon',
+  },
+};
 export const Disabled: Story = {
   args: {
     text: 'nouvelle proposition',
     disabled: true,
     icon: 'plusIcon',
+  },
+};
+
+export const CustomColors: Story = {
+  args: {
+    text: 'custom colors',
+    icon: 'plusIcon',
+    bgColor: '#FF6B6B',
+    textColor: '#FFFFFF',
+  },
+};
+
+export const GreenButton: Story = {
+  args: {
+    text: 'success button',
+    icon: 'settingIcon',
+    bgColor: '#4ECDC4',
+    textColor: '#2C3E50',
+  },
+};
+
+export const DarkButton: Story = {
+  args: {
+    text: 'dark theme',
+    icon: 'plusIcon',
+    bgColor: '#2C3E50',
+    textColor: '#ECF0F1',
+  },
+};
+
+export const PurpleButton: Story = {
+  args: {
+    text: 'purple style',
+    bgColor: '#9B59B6',
+    textColor: '#FFFFFF',
   },
 };
