@@ -1,5 +1,6 @@
 export { ProductionUnit } from './ProductionUnit';
 export { Histogram } from './Histogram';
+export { ProductionUnitContainer } from './ProductionUnitContainer';
 export { Chip } from './Chip';
 export { Switch } from './Switch';
 export { InputNumber } from './InputNumber';
