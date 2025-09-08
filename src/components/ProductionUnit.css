@@ -2,6 +2,7 @@
   box-sizing: border-box;
   border-radius: 64px;
   width: 100%;
+  background-color: white;
 }
 .production-unit-container {
   display: flex;
