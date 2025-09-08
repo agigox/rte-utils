@@ -79,3 +79,29 @@ export const PurpleButton: Story = {
     textColor: '#FFFFFF',
   },
 };
+
+export const SmallButton: Story = {
+  args: {
+    text: 'small button',
+    icon: 'plusIcon',
+    size: 'small',
+  },
+};
+
+export const LargeButton: Story = {
+  args: {
+    text: 'large button',
+    icon: 'settingIcon',
+    size: 'large',
+  },
+};
+
+export const SmallCustomColors: Story = {
+  args: {
+    text: 'small custom',
+    icon: 'plusIcon',
+    size: 'small',
+    bgColor: '#E74C3C',
+    textColor: '#FFFFFF',
+  },
+};

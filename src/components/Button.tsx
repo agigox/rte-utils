@@ -9,6 +9,7 @@ interface ButtonProps {
   className?: string;
   bgColor?: string;
   textColor?: string;
+  size?: 'small' | 'large';
 }
 
 const getIcon = (iconName: string, color: string = 'white'): React.ReactNode => {
@@ -59,9 +60,22 @@ export const Button = ({
   disabled = false, 
   className = '', 
   bgColor, 
-  textColor 
+  textColor,
+  size = 'large'
 }: ButtonProps) => {
+  const getSizeStyles = (size: 'small' | 'large'): React.CSSProperties => {
+    switch (size) {
+      case 'small':
+        return { height: '32px', padding: '8px 12px' };
+      case 'large':
+        return { height: '40px', padding: '12px 16px' };
+      default:
+        return { height: '40px', padding: '12px 16px' };
+    }
+  };
+
   const buttonStyle: React.CSSProperties = {
+    ...getSizeStyles(size),
     ...(bgColor && { backgroundColor: bgColor }),
     ...(textColor && { color: textColor }),
   };
