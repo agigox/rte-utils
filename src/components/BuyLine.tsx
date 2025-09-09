@@ -238,7 +238,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
   const isSendDisabled = internalVolume.trim() === '';
 
   return (
-    <div className={`buyline ${className}`}>
+    <div className={`buyline ${labels ? 'buyline--has-labels' : ''} ${className}`}>
       {/*labels && (
         <div className="buyline__labels">
           <div className="buyline__label buyline__label--title"></div>

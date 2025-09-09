@@ -57,6 +57,11 @@
   width: 64px;
   flex-shrink: 0;
 }
+
+.buyline--has-labels .buyline__title {
+  position: relative;
+  top: 15px;
+}
 .buyline__total {
   height: 40px;
   display: flex;
@@ -86,6 +91,11 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+}
+
+.buyline--has-labels .buyline__actions {
+  position: relative;
+  top: 15px;
 }
 
 .buyline__send,
