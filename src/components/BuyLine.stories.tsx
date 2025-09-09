@@ -172,6 +172,27 @@ export const WithLabelsAndDefaultPrice: Story = {
   },
 };
 
+export const WithoutTitle: Story = {
+  args: {
+    title: '',
+    volume: '100',
+    price: '45',
+    labels: [
+      { key: 'volume', label: 'Volume' },
+      { key: 'price', label: 'Prix' },
+      { key: 'total', label: 'Coût total' },
+    ],
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'BuyLine component without a title. When no title is provided, the title div is not rendered, and the labels still position the inputs correctly with their 15px top offset.',
+      },
+    },
+  },
+};
+
 export const SuccessStateDemo: Story = {
   args: {
     volume: '150',

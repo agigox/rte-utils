@@ -255,7 +255,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
       <div className="buyline__container">
         <div className="buyline__content">
           <div className="buyline__inputs">
-            <div className="buyline__title">{title}</div>
+            {title && <div className="buyline__title">{title}</div>}
 
             <div className="buyline__input_container">
               {labels?.find((label) => label.key === 'volume') && (
