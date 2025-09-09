@@ -82,6 +82,21 @@ const TrashIcon: React.FC<{ className?: string; disabled?: boolean }> = ({
   </svg>
 );
 
+const SuccessIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+    <path fillRule="evenodd" clipRule="evenodd" d="M0.299805 12C0.299805 5.53832 5.53807 0.300049 11.9998 0.300049C18.4615 0.300049 23.6998 5.53832 23.6998 12C23.6998 18.4618 18.4615 23.7001 11.9998 23.7001C5.53807 23.7001 0.299805 18.4618 0.299805 12Z" fill="#99DE62"/>
+    <path fillRule="evenodd" clipRule="evenodd" d="M17.5201 8.53178C17.7787 8.81914 17.7554 9.26174 17.4681 9.52036L10.8014 15.5204C10.5352 15.76 10.131 15.76 9.86483 15.5204L6.53153 12.5204C6.24418 12.2617 6.22088 11.8191 6.47951 11.5318C6.73813 11.2444 7.18073 11.2211 7.46809 11.4798L10.3331 14.0583L16.5315 8.47975C16.8189 8.22113 17.2615 8.24442 17.5201 8.53178Z" fill="#3B434A"/>
+  </svg>
+);
+
+const FailureIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+    <path fillRule="evenodd" clipRule="evenodd" d="M0.299805 12C0.299805 5.53832 5.53807 0.300049 11.9998 0.300049C18.4615 0.300049 23.6998 5.53832 23.6998 12C23.6998 18.4618 18.4615 23.7001 11.9998 23.7001C5.53807 23.7001 0.299805 18.4618 0.299805 12Z" fill="#EE695C"/>
+    <path fillRule="evenodd" clipRule="evenodd" d="M15.4948 8.50507C15.7681 8.77844 15.7681 9.22166 15.4948 9.49502L9.49478 15.495C9.22141 15.7684 8.7782 15.7684 8.50483 15.495C8.23146 15.2217 8.23146 14.7784 8.50483 14.5051L14.5048 8.50507C14.7782 8.23171 15.2214 8.23171 15.4948 8.50507Z" fill="#3B434A"/>
+    <path fillRule="evenodd" clipRule="evenodd" d="M8.50483 8.50507C8.7782 8.23171 9.22141 8.23171 9.49478 8.50507L15.4948 14.5051C15.7681 14.7784 15.7681 15.2217 15.4948 15.495C15.2214 15.7684 14.7782 15.7684 14.5048 15.495L8.50483 9.49502C8.23146 9.22166 8.23146 8.77844 8.50483 8.50507Z" fill="#3B434A"/>
+  </svg>
+);
+
 interface BuyLineProps {
   title?: string;
   volume?: string;
@@ -102,6 +117,7 @@ interface BuyLineProps {
   onSend?: () => void;
   onClear?: () => void;
   className?: string;
+  showStatus?: 'success' | 'failure';
 }
 
 export const BuyLine: React.FC<BuyLineProps> = ({
@@ -121,6 +137,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
   onSend,
   onClear,
   className = '',
+  showStatus,
 }) => {
   const [internalVolume, setInternalVolume] = useState(volume);
   const [internalPrice, setInternalPrice] = useState(price);
@@ -253,27 +270,37 @@ export const BuyLine: React.FC<BuyLineProps> = ({
             </div>
           </div>
         </div>
-        <div className="buyline__actions">
-          {!disabled && (
-            <button
-              className={`buyline__send ${isSendDisabled ? 'buyline__send--disabled' : ''}`}
-              onClick={handleSend}
-              disabled={isSendDisabled}
-              aria-label={iconType === 'edit' ? 'Edit' : 'Send'}
-            >
-              {iconType === 'edit' ? (
-                <EditIcon className="buyline__icon" disabled={isSendDisabled} />
-              ) : (
-                <SendIcon className="buyline__icon" disabled={isSendDisabled} />
-              )}
-            </button>
-          )}
-          {showTrashButton && (
-            <button className="buyline__trash" onClick={handleClear} aria-label="Clear">
-              <TrashIcon className="buyline__icon" disabled={false} />
-            </button>
-          )}
-        </div>
+        {showStatus ? (
+          <div className="buyline__status">
+            {showStatus === 'success' ? (
+              <SuccessIcon className="buyline__status-icon" />
+            ) : (
+              <FailureIcon className="buyline__status-icon" />
+            )}
+          </div>
+        ) : (
+          <div className="buyline__actions">
+            {!disabled && (
+              <button
+                className={`buyline__send ${isSendDisabled ? 'buyline__send--disabled' : ''}`}
+                onClick={handleSend}
+                disabled={isSendDisabled}
+                aria-label={iconType === 'edit' ? 'Edit' : 'Send'}
+              >
+                {iconType === 'edit' ? (
+                  <EditIcon className="buyline__icon" disabled={isSendDisabled} />
+                ) : (
+                  <SendIcon className="buyline__icon" disabled={isSendDisabled} />
+                )}
+              </button>
+            )}
+            {showTrashButton && (
+              <button className="buyline__trash" onClick={handleClear} aria-label="Clear">
+                <TrashIcon className="buyline__icon" disabled={false} />
+              </button>
+            )}
+          </div>
+        )}
       </div>
       <div className="buyline__border" />
     </div>

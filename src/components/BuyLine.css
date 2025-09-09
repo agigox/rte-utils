@@ -27,7 +27,7 @@
 
 .buyline__content {
   display: flex;
-  gap: 8px;
+  gap: 12px;
   align-items: center;
   justify-content: flex-start;
   flex-shrink: 0;
