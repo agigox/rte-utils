@@ -136,6 +136,26 @@ const FailureIcon: React.FC<{ className?: string }> = ({ className }) => (
   </svg>
 );
 
+const SpinnerIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+    style={{ animation: 'spin 1s linear infinite' }}
+  >
+    <path
+      d="M12 2V6M12 18V22M4.93 4.93L7.76 7.76M16.24 16.24L19.07 19.07M2 12H6M18 12H22M4.93 19.07L7.76 16.24M16.24 7.76L19.07 4.93"
+      stroke="#009CDF"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 interface BuyLineProps {
   title?: string;
   volume?: string;
@@ -181,6 +201,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
   const [internalVolume, setInternalVolume] = useState(volume);
   const [internalPrice, setInternalPrice] = useState(price);
   const [showSuccessState, setShowSuccessState] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [volumeHasError, setVolumeHasError] = useState(false);
   const [priceHasError, setPriceHasError] = useState(false);
 
@@ -212,21 +233,23 @@ export const BuyLine: React.FC<BuyLineProps> = ({
 
   const handleSend = () => {
     if (internalVolume.trim() !== '' && !volumeHasError && !priceHasError) {
-      // Show success state
+      // Show success state and loading spinner
       setShowSuccessState(true);
+      setIsLoading(true);
 
-      // Hide success state after 1 second
+      // Wait 1 second, then execute onSend and cleanup
       setTimeout(() => {
+        // Execute the onSend callback
+        onSend?.();
+
+        // Clear fields and states after successful send
+        setInternalVolume('');
+        setInternalPrice('');
+        setVolumeHasError(false);
+        setPriceHasError(false);
         setShowSuccessState(false);
+        setIsLoading(false);
       }, 1000);
-
-      // Clear fields after successful send
-      setInternalVolume('');
-      setInternalPrice('');
-      setVolumeHasError(false);
-      setPriceHasError(false);
-
-      onSend?.();
     }
   };
 
@@ -235,6 +258,8 @@ export const BuyLine: React.FC<BuyLineProps> = ({
     setInternalPrice('');
     setVolumeHasError(false);
     setPriceHasError(false);
+    setIsLoading(false);
+    setShowSuccessState(false);
     onClear?.();
   };
 
@@ -243,7 +268,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
     if (volumeHasError || priceHasError) {
       return 0;
     }
-    
+
     const volumeNum = parseFloat(internalVolume);
     if (!isNaN(volumeNum)) {
       if (showSecondInput) {
@@ -348,12 +373,14 @@ export const BuyLine: React.FC<BuyLineProps> = ({
           <div className="buyline__actions">
             {!disabled && (
               <button
-                className={`buyline__send ${isSendDisabled ? 'buyline__send--disabled' : ''}`}
+                className={`buyline__send ${isSendDisabled || isLoading ? 'buyline__send--disabled' : ''}`}
                 onClick={handleSend}
-                disabled={isSendDisabled}
-                aria-label={iconType === 'edit' ? 'Edit' : 'Send'}
+                disabled={isSendDisabled || isLoading}
+                aria-label={isLoading ? 'Sending...' : iconType === 'edit' ? 'Edit' : 'Send'}
               >
-                {iconType === 'edit' ? (
+                {isLoading ? (
+                  <SpinnerIcon className="buyline__icon" />
+                ) : iconType === 'edit' ? (
                   <EditIcon className="buyline__icon" disabled={isSendDisabled} />
                 ) : (
                   <SendIcon className="buyline__icon" disabled={isSendDisabled} />
@@ -361,8 +388,13 @@ export const BuyLine: React.FC<BuyLineProps> = ({
               </button>
             )}
             {showTrashButton && (
-              <button className="buyline__trash" onClick={handleClear} aria-label="Clear">
-                <TrashIcon className="buyline__icon" disabled={false} />
+              <button
+                className="buyline__trash"
+                onClick={handleClear}
+                disabled={isLoading}
+                aria-label="Clear"
+              >
+                <TrashIcon className="buyline__icon" disabled={isLoading} />
               </button>
             )}
           </div>

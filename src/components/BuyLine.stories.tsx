@@ -197,7 +197,7 @@ export const ErrorHandling: Story = {
   args: {
     title: 'Error Test',
     volume: '15000',
-    price: '12000', 
+    price: '12000',
     volumeMax: { value: 100 },
     priceMax: { value: 500 },
     showTrashButton: true,
@@ -246,7 +246,8 @@ export const SuccessStateDemo: Story = {
       onVolumeChange={(value) => console.log('Volume changed:', value)}
       onPriceChange={(value) => console.log('Price changed:', value)}
       onSend={() => {
-        console.log('Send clicked - Success state will show for 1 second');
+        console.log('Send action executed after 1 second delay');
+        alert('Send action completed! The form has been cleared.');
       }}
       onClear={() => console.log('Clear clicked')}
     />
@@ -255,7 +256,7 @@ export const SuccessStateDemo: Story = {
     docs: {
       description: {
         story:
-          'Demonstrates the success state functionality. Click the send button to see the InputNumber components briefly turn green (borders and text) for 1 second, providing visual feedback that the action was successful. After clicking send, all fields are automatically cleared.',
+          'Demonstrates the complete send workflow: Click the send button to see the green borders appear on InputNumber components, followed by a loading spinner for 1 second. After the delay, the onSend callback is executed and the form is automatically cleared. The component is disabled during the loading state to prevent duplicate submissions.',
       },
     },
   },
