@@ -180,6 +180,7 @@
   font-size: 12px;
   color: #999;
   text-align: center;
+  width: 35px;
 }
 
 /* Focused state styles for min/max labels */

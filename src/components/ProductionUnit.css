@@ -32,6 +32,7 @@
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
+  width: 100px;
 }
 .production-unit-chip-name {
   color: #11161a;

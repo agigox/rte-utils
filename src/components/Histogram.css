@@ -70,18 +70,17 @@
   left: 50%;
   top: -10px;
   transform: translateX(-50%);
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
+  color: white;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .histogram-gain-points--positive {
-  color: #00ff00;
   animation: histogramGainFloatUp 2s forwards;
 }
 
 .histogram-gain-points--negative {
-  color: #ff4444;
   animation: histogramGainFloatDown 2s forwards;
 }
 
@@ -103,14 +102,14 @@
 @keyframes histogramGainFloatDown {
   0% {
     opacity: 0;
-    transform: translateX(-50%) translateY(0px) scale(0.8);
+    transform: translateX(-50%) translateY(-40px) scale(0.8);
   }
   30% {
     opacity: 1;
-    transform: translateX(-50%) translateY(15px) scale(1);
+    transform: translateX(-50%) translateY(-15px) scale(1);
   }
   100% {
     opacity: 0;
-    transform: translateX(-50%) translateY(40px) scale(1);
+    transform: translateX(-50%) translateY(0px) scale(1);
   }
 }
