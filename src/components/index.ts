@@ -11,4 +11,5 @@ export { ProgressBar } from './ProgressBar';
 export { Gain } from './Gain';
 export { BuyLine } from './BuyLine';
 export { Button } from './Button';
+export { Accordion } from './Accordion';
 export type { TimerProps, TimerRef } from './Timer';
