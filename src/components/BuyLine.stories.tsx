@@ -193,6 +193,41 @@ export const WithoutTitle: Story = {
   },
 };
 
+export const ErrorHandling: Story = {
+  args: {
+    title: 'Error Test',
+    volume: '15000',
+    price: '12000', 
+    volumeMax: { value: 100 },
+    priceMax: { value: 500 },
+    showTrashButton: true,
+    labels: [
+      { key: 'volume', label: 'Volume' },
+      { key: 'price', label: 'Prix' },
+      { key: 'total', label: 'Coût total' },
+    ],
+  },
+  render: (args) => (
+    <BuyLine
+      {...args}
+      onVolumeChange={(value) => console.log('Volume changed:', value)}
+      onPriceChange={(value) => console.log('Price changed:', value)}
+      onSend={() => {
+        console.log('Send clicked - Fields cleared after successful send');
+      }}
+      onClear={() => console.log('Clear clicked')}
+    />
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Demonstrates error handling functionality. The initial values exceed the max limits (volume: 15000 > 100, price: 12000 > 500), causing inputs to show error states. The send button is disabled when there are errors and the total shows 0. Try changing values to be within range to enable the send button. When send is successful, all fields are cleared automatically.',
+      },
+    },
+  },
+};
+
 export const SuccessStateDemo: Story = {
   args: {
     volume: '150',
@@ -211,7 +246,7 @@ export const SuccessStateDemo: Story = {
       onVolumeChange={(value) => console.log('Volume changed:', value)}
       onPriceChange={(value) => console.log('Price changed:', value)}
       onSend={() => {
-        console.log('Send clicked - Success state will show for 2 seconds');
+        console.log('Send clicked - Success state will show for 1 second');
       }}
       onClear={() => console.log('Clear clicked')}
     />
@@ -220,7 +255,7 @@ export const SuccessStateDemo: Story = {
     docs: {
       description: {
         story:
-          'Demonstrates the success state functionality. Click the send button to see the InputNumber components briefly turn green (borders and text) for 2 seconds, providing visual feedback that the action was successful. This story includes pre-filled values and labels for a complete demonstration.',
+          'Demonstrates the success state functionality. Click the send button to see the InputNumber components briefly turn green (borders and text) for 1 second, providing visual feedback that the action was successful. After clicking send, all fields are automatically cleared.',
       },
     },
   },

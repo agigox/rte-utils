@@ -181,10 +181,16 @@ export const BuyLine: React.FC<BuyLineProps> = ({
   const [internalVolume, setInternalVolume] = useState(volume);
   const [internalPrice, setInternalPrice] = useState(price);
   const [showSuccessState, setShowSuccessState] = useState(false);
+  const [volumeHasError, setVolumeHasError] = useState(false);
+  const [priceHasError, setPriceHasError] = useState(false);
 
   const handleVolumeChange = (newValue: string) => {
     setInternalVolume(newValue);
     onVolumeChange?.(newValue);
+  };
+
+  const handleVolumeError = (hasError: boolean) => {
+    setVolumeHasError(hasError);
   };
 
   useEffect(() => {
@@ -200,15 +206,25 @@ export const BuyLine: React.FC<BuyLineProps> = ({
     onPriceChange?.(newValue);
   };
 
+  const handlePriceError = (hasError: boolean) => {
+    setPriceHasError(hasError);
+  };
+
   const handleSend = () => {
-    if (internalVolume.trim() !== '') {
+    if (internalVolume.trim() !== '' && !volumeHasError && !priceHasError) {
       // Show success state
       setShowSuccessState(true);
 
-      // Hide success state after 2 seconds
+      // Hide success state after 1 second
       setTimeout(() => {
         setShowSuccessState(false);
       }, 1000);
+
+      // Clear fields after successful send
+      setInternalVolume('');
+      setInternalPrice('');
+      setVolumeHasError(false);
+      setPriceHasError(false);
 
       onSend?.();
     }
@@ -217,10 +233,17 @@ export const BuyLine: React.FC<BuyLineProps> = ({
   const handleClear = () => {
     setInternalVolume('');
     setInternalPrice('');
+    setVolumeHasError(false);
+    setPriceHasError(false);
     onClear?.();
   };
 
   const calculatePrice = () => {
+    // Return 0 if there are any validation errors
+    if (volumeHasError || priceHasError) {
+      return 0;
+    }
+    
     const volumeNum = parseFloat(internalVolume);
     if (!isNaN(volumeNum)) {
       if (showSecondInput) {
@@ -235,7 +258,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
     return 0;
   };
 
-  const isSendDisabled = internalVolume.trim() === '';
+  const isSendDisabled = internalVolume.trim() === '' || volumeHasError || priceHasError;
 
   return (
     <div className={`buyline ${labels ? 'buyline--has-labels' : ''} ${className}`}>
@@ -267,6 +290,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
                 label="MWh"
                 value={internalVolume}
                 onChange={handleVolumeChange}
+                onErrorChange={handleVolumeError}
                 disabled={disabled}
                 min={{ value: 0 }}
                 max={volumeMax || { value: 9999 }}
@@ -285,6 +309,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
                   label="€/MWh"
                   value={internalPrice}
                   onChange={handlePriceChange}
+                  onErrorChange={handlePriceError}
                   disabled={disabled}
                   min={{ value: 0 }}
                   max={priceMax || { value: 9999 }}

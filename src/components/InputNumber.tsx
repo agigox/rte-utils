@@ -5,6 +5,7 @@ interface InputNumberProps {
   label: string;
   value?: string;
   onChange?: (value: string) => void;
+  onErrorChange?: (hasError: boolean) => void;
   disabled?: boolean;
   className?: string;
   required?: boolean;
@@ -18,6 +19,7 @@ export const InputNumber: React.FC<InputNumberProps> = ({
   label,
   value = '',
   onChange,
+  onErrorChange,
   disabled = false,
   className = '',
   required = false,
@@ -75,6 +77,7 @@ export const InputNumber: React.FC<InputNumberProps> = ({
       if (!isNaN(numValue)) {
         const outOfRange = numValue < min.value || numValue > max.value;
         setIsOutOfRange(outOfRange);
+        onErrorChange?.(outOfRange);
 
         if (outOfRange) {
           // Clamp the value and notify parent with clamped value
@@ -86,10 +89,12 @@ export const InputNumber: React.FC<InputNumberProps> = ({
         }
       } else {
         setIsOutOfRange(false);
+        onErrorChange?.(false);
         onChange?.(newValue);
       }
     } else {
       setIsOutOfRange(false);
+      onErrorChange?.(false);
       onChange?.(newValue);
     }
   };
@@ -115,6 +120,7 @@ export const InputNumber: React.FC<InputNumberProps> = ({
           onChange?.(clampedString);
         }
         setIsOutOfRange(false); // Reset out-of-range state after clamping
+        onErrorChange?.(false);
       }
     }
   };
