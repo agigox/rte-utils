@@ -14,3 +14,28 @@ export { Button } from './Button';
 export { Accordion } from './Accordion';
 export { Ecart } from './Ecart';
 export type { TimerProps, TimerRef } from './Timer';
+
+// Export all individual icons and the Icons object
+export {
+  SendIcon,
+  EditIcon,
+  TrashIcon,
+  SuccessIcon,
+  FailureIcon,
+  PartialIcon,
+  SpinnerIcon,
+  PlusIcon,
+  PlusCircleIcon,
+  MinusCircleIcon,
+  ArrowDownIcon,
+  PowerIcon,
+  SwitchThumbIcon,
+  TargetIcon,
+  PreviousIcon,
+  NextIcon,
+  PauseIcon,
+  PlayIcon,
+  FreezeIcon,
+  AnonymizeIcon,
+  Icons
+} from './Icons';
