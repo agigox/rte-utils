@@ -71,8 +71,8 @@ const getIcon = (iconName: string, color: string = 'white'): React.ReactNode => 
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M15.8235 1.61477C16.065 1.35365 16.0578 0.946887 15.8072 0.694302C15.5566 0.441718 15.153 0.434496 14.8933 0.677901L7.87732 7.74957L1.10614 0.677901C0.847065 0.434503 0.442824 0.441725 0.192211 0.694302C-0.0577526 0.946887 -0.0649185 1.35365 0.176588 1.61477L7.87729 9.5L15.8235 1.61477Z"
           fill="white"
         />

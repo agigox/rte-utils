@@ -83,57 +83,23 @@ const TrashIcon: React.FC<{ className?: string; disabled?: boolean }> = ({
 );
 
 const SuccessIcon: React.FC<{ className?: string }> = ({ className }) => (
-  <svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M0.299805 12C0.299805 5.53832 5.53807 0.300049 11.9998 0.300049C18.4615 0.300049 23.6998 5.53832 23.6998 12C23.6998 18.4618 18.4615 23.7001 11.9998 23.7001C5.53807 23.7001 0.299805 18.4618 0.299805 12Z"
-      fill="#99DE62"
-    />
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M17.5201 8.53178C17.7787 8.81914 17.7554 9.26174 17.4681 9.52036L10.8014 15.5204C10.5352 15.76 10.131 15.76 9.86483 15.5204L6.53153 12.5204C6.24418 12.2617 6.22088 11.8191 6.47951 11.5318C6.73813 11.2444 7.18073 11.2211 7.46809 11.4798L10.3331 14.0583L16.5315 8.47975C16.8189 8.22113 17.2615 8.24442 17.5201 8.53178Z"
-      fill="#3B434A"
-    />
-  </svg>
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fillRule="evenodd" clipRule="evenodd" d="M0.200073 7.99971C0.200073 3.69189 3.69225 0.199707 8.00007 0.199707C12.3079 0.199707 15.8001 3.69189 15.8001 7.99971C15.8001 12.3075 12.3079 15.7997 8.00007 15.7997C3.69225 15.7997 0.200073 12.3075 0.200073 7.99971Z" fill="#4DA466"/>
+<path fillRule="evenodd" clipRule="evenodd" d="M11.6803 5.68769C11.8527 5.87926 11.8372 6.17433 11.6456 6.34675L7.20112 10.3467C7.02365 10.5065 6.75423 10.5065 6.57676 10.3467L4.35456 8.34674C4.16299 8.17433 4.14746 7.87926 4.31988 7.68769C4.49229 7.49612 4.78736 7.48059 4.97893 7.65301L6.88894 9.37204L11.0212 5.653C11.2128 5.48059 11.5079 5.49612 11.6803 5.68769Z" fill="white"/>
+</svg>
 );
-
 const FailureIcon: React.FC<{ className?: string }> = ({ className }) => (
-  <svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={className}
-  >
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M0.299805 12C0.299805 5.53832 5.53807 0.300049 11.9998 0.300049C18.4615 0.300049 23.6998 5.53832 23.6998 12C23.6998 18.4618 18.4615 23.7001 11.9998 23.7001C5.53807 23.7001 0.299805 18.4618 0.299805 12Z"
-      fill="#EE695C"
-    />
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M15.4948 8.50507C15.7681 8.77844 15.7681 9.22166 15.4948 9.49502L9.49478 15.495C9.22141 15.7684 8.7782 15.7684 8.50483 15.495C8.23146 15.2217 8.23146 14.7784 8.50483 14.5051L14.5048 8.50507C14.7782 8.23171 15.2214 8.23171 15.4948 8.50507Z"
-      fill="#3B434A"
-    />
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M8.50483 8.50507C8.7782 8.23171 9.22141 8.23171 9.49478 8.50507L15.4948 14.5051C15.7681 14.7784 15.7681 15.2217 15.4948 15.495C15.2214 15.7684 14.7782 15.7684 14.5048 15.495L8.50483 9.49502C8.23146 9.22166 8.23146 8.77844 8.50483 8.50507Z"
-      fill="#3B434A"
-    />
-  </svg>
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fillRule="evenodd" clipRule="evenodd" d="M0.200073 7.99971C0.200073 3.69189 3.69225 0.199707 8.00007 0.199707C12.3079 0.199707 15.8001 3.69189 15.8001 7.99971C15.8001 12.3075 12.3079 15.7997 8.00007 15.7997C3.69225 15.7997 0.200073 12.3075 0.200073 7.99971Z" fill="#EE695C"/>
+<path fillRule="evenodd" clipRule="evenodd" d="M10.33 5.66989C10.5122 5.85213 10.5122 6.14761 10.33 6.32985L6.32997 10.3299C6.14773 10.5121 5.85225 10.5121 5.67001 10.3299C5.48776 10.1476 5.48776 9.85213 5.67001 9.66989L9.67001 5.66989C9.85225 5.48764 10.1477 5.48764 10.33 5.66989Z" fill="white"/>
+<path fillRule="evenodd" clipRule="evenodd" d="M5.67001 5.66989C5.85225 5.48764 6.14773 5.48764 6.32997 5.66989L10.33 9.66989C10.5122 9.85213 10.5122 10.1476 10.33 10.3299C10.1477 10.5121 9.85225 10.5121 9.67001 10.3299L5.67001 6.32985C5.48776 6.14761 5.48776 5.85213 5.67001 5.66989Z" fill="white"/>
+</svg>
+);
+const PartialIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fillRule="evenodd" clipRule="evenodd" d="M0.200073 7.99971C0.200073 3.69189 3.69225 0.199707 8.00007 0.199707C12.3079 0.199707 15.8001 3.69189 15.8001 7.99971C15.8001 12.3075 12.3079 15.7997 8.00007 15.7997C3.69225 15.7997 0.200073 12.3075 0.200073 7.99971Z" fill="#FBA23A"/>
+<path fillRule="evenodd" clipRule="evenodd" d="M11.6803 5.68769C11.8527 5.87926 11.8372 6.17433 11.6456 6.34675L7.20112 10.3467C7.02365 10.5065 6.75423 10.5065 6.57676 10.3467L4.35456 8.34674C4.16299 8.17433 4.14746 7.87926 4.31988 7.68769C4.49229 7.49612 4.78736 7.48059 4.97893 7.65301L6.88894 9.37204L11.0212 5.653C11.2128 5.48059 11.5079 5.49612 11.6803 5.68769Z" fill="white"/>
+</svg>
 );
 
 const SpinnerIcon: React.FC<{ className?: string }> = ({ className }) => (
@@ -176,7 +142,7 @@ interface BuyLineProps {
   onSend?: () => void;
   onClear?: () => void;
   className?: string;
-  showStatus?: 'success' | 'failure';
+  showStatus?: 'accepted' | 'refused' | 'partial';
 }
 
 export const BuyLine: React.FC<BuyLineProps> = ({
@@ -363,8 +329,10 @@ export const BuyLine: React.FC<BuyLineProps> = ({
         </div>
         {showStatus ? (
           <div className="buyline__status">
-            {showStatus === 'success' ? (
+            {showStatus === 'accepted' ? (
               <SuccessIcon className="buyline__status-icon" />
+            ) : showStatus === 'partial' ? (
+              <PartialIcon className="buyline__status-icon" />
             ) : (
               <FailureIcon className="buyline__status-icon" />
             )}

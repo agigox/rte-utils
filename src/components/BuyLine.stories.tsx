@@ -34,6 +34,10 @@ const meta: Meta<typeof BuyLine> = {
       control: 'select',
       options: ['send', 'edit'],
     },
+    showStatus: {
+      control: 'select',
+      options: ['accepted', 'refused', 'partial'],
+    },
     volumeMax: {
       control: 'object',
     },
@@ -257,6 +261,75 @@ export const SuccessStateDemo: Story = {
       description: {
         story:
           'Demonstrates the complete send workflow: Click the send button to see the green borders appear on InputNumber components, followed by a loading spinner for 1 second. After the delay, the onSend callback is executed and the form is automatically cleared. The component is disabled during the loading state to prevent duplicate submissions.',
+      },
+    },
+  },
+};
+
+export const WithAcceptedStatus: Story = {
+  args: {
+    volume: '200',
+    price: '45',
+    title: 'Achat Accepté',
+    showStatus: 'accepted',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'BuyLine component showing accepted status with green success icon.',
+      },
+    },
+  },
+};
+
+export const WithRefusedStatus: Story = {
+  args: {
+    volume: '150',
+    price: '60',
+    title: 'Achat Refusé',
+    showStatus: 'refused',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'BuyLine component showing refused status with red failure icon.',
+      },
+    },
+  },
+};
+
+export const WithPartialStatus: Story = {
+  args: {
+    volume: '100',
+    price: '35',
+    title: 'Achat Partiel',
+    showStatus: 'partial',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'BuyLine component showing partial status with orange partial icon.',
+      },
+    },
+  },
+};
+
+export const StatusComparison: Story = {
+  args: {
+    volume: '75',
+    price: '40',
+  },
+  render: (args) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
+      <BuyLine {...args} title="Achat Accepté" showStatus="accepted" />
+      <BuyLine {...args} title="Achat Partiel" showStatus="partial" />
+      <BuyLine {...args} title="Achat Refusé" showStatus="refused" />
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Side-by-side comparison of all status states: accepted (green), partial (orange), and refused (red).',
       },
     },
   },

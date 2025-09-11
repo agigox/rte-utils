@@ -176,3 +176,16 @@
   color: #6f767b;
   font-size: 12px;
 }
+
+.buyline__status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+}
+
+.buyline__status-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
