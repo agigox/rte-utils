@@ -35,8 +35,8 @@ interface HistogramProps {
 export const Histogram: React.FC<HistogramProps> = ({
   max,
   relative,
-  barHeight,
-  barWidth,
+  barHeight = 103,
+  barWidth = 32,
   orientation = 'vertical',
   cornerRadius,
   showGain = false,
@@ -46,43 +46,15 @@ export const Histogram: React.FC<HistogramProps> = ({
   const [animatedWidth, setAnimatedWidth] = useState(0);
   const [gainPoints, setGainPoints] = useState<number | null>(null);
   const [isPositiveChange, setIsPositiveChange] = useState<boolean>(true);
-  const [containerDimensions, setContainerDimensions] = useState({ width: 0, height: 0 });
-  const containerRef = useRef<HTMLDivElement>(null);
   const previousValueRef = useRef(relative.value);
   const isFirstRender = useRef(true);
   const animationTimerRef = useRef<NodeJS.Timeout | null>(null);
   const accumulatedChangeRef = useRef<number>(0);
   const animationStartValueRef = useRef<number>(relative.value);
 
-  // Measure container dimensions when size props are not provided
-  useEffect(() => {
-    const measureContainer = () => {
-      if (containerRef.current && (!barHeight || !barWidth)) {
-        const rect = containerRef.current.getBoundingClientRect();
-        setContainerDimensions({ width: rect.width, height: rect.height });
-      }
-    };
-
-    measureContainer();
-    
-    // Add resize observer for responsive behavior
-    const resizeObserver = new ResizeObserver(measureContainer);
-    if (containerRef.current) {
-      resizeObserver.observe(containerRef.current);
-    }
-
-    return () => {
-      resizeObserver.disconnect();
-    };
-  }, [barHeight, barWidth]);
-
-  // Use provided dimensions or fall back to container dimensions
-  const actualBarHeight = barHeight || containerDimensions.height || 103;
-  const actualBarWidth = barWidth || containerDimensions.width || 32;
-
   // Calculate target dimensions based on orientation
-  const targetHeight = (Math.min((relative.value / max.value) * 100, 100) / 100) * actualBarHeight;
-  const targetWidth = (Math.min((relative.value / max.value) * 100, 100) / 100) * (orientation === 'horizontal' ? actualBarHeight : actualBarWidth);
+  const targetHeight = (Math.min((relative.value / max.value) * 100, 100) / 100) * barHeight;
+  const targetWidth = (Math.min((relative.value / max.value) * 100, 100) / 100) * (orientation === 'horizontal' ? barHeight : barWidth);
 
   // Detect value change and show gain/loss with accumulation
   useEffect(() => {
@@ -174,10 +146,10 @@ export const Histogram: React.FC<HistogramProps> = ({
     requestAnimationFrame(animate);
   }, [targetHeight, targetWidth]);
 
-  const displayWidth = orientation === 'horizontal' ? actualBarHeight : actualBarWidth;
-  const displayHeight = orientation === 'horizontal' ? actualBarWidth : actualBarHeight;
-  const svgWidth = orientation === 'horizontal' ? actualBarHeight : actualBarWidth;
-  const svgHeight = orientation === 'horizontal' ? actualBarWidth : actualBarHeight;
+  const displayWidth = orientation === 'horizontal' ? barHeight : barWidth;
+  const displayHeight = orientation === 'horizontal' ? barWidth : barHeight;
+  const svgWidth = orientation === 'horizontal' ? barHeight : barWidth;
+  const svgHeight = orientation === 'horizontal' ? barWidth : barHeight;
 
   // Helper function to create rounded rectangle path
   const createRoundedRectPath = (
@@ -216,14 +188,9 @@ export const Histogram: React.FC<HistogramProps> = ({
       }
     : defaultCornerRadius;
 
-  // Determine if we should use responsive sizing
-  const isResponsive = !barHeight || !barWidth;
-  const responsiveClass = isResponsive ? 'histogram-container--responsive' : '';
-
   return (
     <div
-      ref={containerRef}
-      className={`histogram-container ${orientation === 'horizontal' ? 'histogram-container--horizontal' : ''} ${responsiveClass}`}
+      className={`histogram-container ${orientation === 'horizontal' ? 'histogram-container--horizontal' : ''}`}
     >
       <div
         className={`histogram-content ${orientation === 'horizontal' ? 'histogram-content--horizontal' : ''}`}
