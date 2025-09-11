@@ -3,7 +3,8 @@ import './Accordion.css';
 
 interface AccordionProps {
   title: string;
-  content?: React.ReactNode;
+  openedContent?: React.ReactNode;
+  closedContent?: React.ReactNode;
   defaultOpen?: boolean;
   className?: string;
   theme?: 'white' | 'blue';
@@ -31,7 +32,8 @@ const ArrowIcon = ({ isOpen, theme }: { isOpen: boolean; theme: 'white' | 'blue'
 
 export const Accordion = ({
   title,
-  content = 'Content',
+  openedContent,
+  closedContent,
   defaultOpen = false,
   className = '',
   theme = 'white',
@@ -55,9 +57,11 @@ export const Accordion = ({
         </div>
         <ArrowIcon isOpen={isOpen} theme={theme} />
       </div>
-      {isOpen && (
+      {((isOpen && openedContent) || (!isOpen && closedContent)) && (
         <div className="accordion-content">
-          <div className="accordion-content-item">{content}</div>
+          <div className="accordion-content-item">
+            {isOpen ? openedContent : closedContent}
+          </div>
         </div>
       )}
     </div>

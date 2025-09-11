@@ -9,7 +9,7 @@ const meta: Meta<typeof Accordion> = {
     docs: {
       description: {
         component:
-          'An accordion component that can expand and collapse to show/hide content. Features a clickable header with an animated arrow icon, smooth transitions between states, and supports both white and blue themes. Content can be a string or React component.',
+          'An accordion component that can expand and collapse to show/hide different content. Features a clickable header with an animated arrow icon, smooth transitions between states, and supports both white and blue themes. Can display different content when opened vs closed, or no content if not provided.',
       },
     },
   },
@@ -26,52 +26,55 @@ const meta: Meta<typeof Accordion> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// White Theme Stories
-export const WhiteClosed: Story = {
+// Basic Stories - Only opened content
+export const WithOpenedContentOnly: Story = {
   args: {
     title: 'Bouclage énergétique',
-    content: 'Content',
+    openedContent: 'This appears when opened',
     theme: 'white',
     defaultOpen: false,
   },
 };
 
-export const WhiteOpen: Story = {
+export const WithClosedContentOnly: Story = {
   args: {
     title: 'Bouclage énergétique',
-    content: 'Content',
+    closedContent: 'This appears when closed',
     theme: 'white',
-    defaultOpen: true,
-  },
-};
-
-// Blue Theme Stories
-export const BlueClosed: Story = {
-  args: {
-    title: 'Bouclage énergétique',
-    content: 'Content',
-    theme: 'blue',
     defaultOpen: false,
   },
 };
 
-export const BlueOpen: Story = {
+// Different content for opened and closed states
+export const WithBothContents: Story = {
   args: {
     title: 'Bouclage énergétique',
-    content: 'Content',
+    openedContent: 'Opened: Detailed information is now visible',
+    closedContent: 'Closed: Summary view only',
+    theme: 'white',
+    defaultOpen: false,
+  },
+};
+
+// Blue theme with both contents
+export const BlueWithBothContents: Story = {
+  args: {
+    title: 'Bouclage énergétique',
+    openedContent: 'Opened: Full details in blue theme',
+    closedContent: 'Closed: Brief info in blue theme',
     theme: 'blue',
-    defaultOpen: true,
+    defaultOpen: false,
   },
 };
 
 // React Component Content
-export const WithReactComponent: Story = {
+export const WithReactComponents: Story = {
   args: {
     title: 'React Component Content',
-    content: (
+    openedContent: (
       <div>
-        <h4 style={{ margin: '0 0 8px 0' }}>Custom React Content</h4>
-        <p style={{ margin: '0 0 8px 0' }}>This is a custom React component with:</p>
+        <h4 style={{ margin: '0 0 8px 0' }}>Opened State</h4>
+        <p style={{ margin: '0 0 8px 0' }}>This is detailed React content with:</p>
         <ul style={{ margin: 0, paddingLeft: '20px' }}>
           <li>Multiple elements</li>
           <li>Rich formatting</li>
@@ -79,31 +82,52 @@ export const WithReactComponent: Story = {
         </ul>
       </div>
     ),
+    closedContent: (
+      <div>
+        <strong>Closed State</strong>
+        <p style={{ margin: '4px 0 0 0' }}>Brief summary here</p>
+      </div>
+    ),
     theme: 'white',
-    defaultOpen: true,
+    defaultOpen: false,
   },
 };
 
-export const BlueWithReactComponent: Story = {
+export const BlueWithReactComponents: Story = {
   args: {
     title: 'Blue Theme with React',
-    content: (
+    openedContent: (
       <div>
         <div style={{ backgroundColor: 'rgba(255,255,255,0.1)', padding: '8px', borderRadius: '4px', marginBottom: '8px' }}>
-          <strong>Highlighted Section</strong>
+          <strong>Opened: Full Details</strong>
         </div>
-        <p style={{ margin: '0' }}>React components work great with the blue theme!</p>
+        <p style={{ margin: '0' }}>Complete information displayed</p>
+      </div>
+    ),
+    closedContent: (
+      <div style={{ backgroundColor: 'rgba(255,255,255,0.05)', padding: '4px', borderRadius: '2px' }}>
+        <strong>Closed: Summary</strong>
       </div>
     ),
     theme: 'blue',
-    defaultOpen: true,
+    defaultOpen: false,
+  },
+};
+
+// No content provided - shows only header
+export const HeaderOnly: Story = {
+  args: {
+    title: 'Header Only Accordion',
+    theme: 'white',
+    defaultOpen: false,
   },
 };
 
 export const Interactive: Story = {
   args: {
-    title: 'Interactive Accordion',
-    content: 'Click the header to toggle this content',
+    title: 'Interactive Demo',
+    openedContent: 'Now you see the opened content!',
+    closedContent: 'This shows when closed - click to expand!',
     theme: 'white',
     defaultOpen: false,
   },
