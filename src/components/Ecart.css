@@ -1,0 +1,45 @@
+.ecart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 60px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.ecart-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.ecart-label {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  color: #11161a;
+  white-space: nowrap;
+}
+
+.ecart-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ecart-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+.ecart-icon-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ecart-value-wrapper {
+  width: 100px;
+}

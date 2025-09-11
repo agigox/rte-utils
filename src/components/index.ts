@@ -12,4 +12,5 @@ export { Gain } from './Gain';
 export { BuyLine } from './BuyLine';
 export { Button } from './Button';
 export { Accordion } from './Accordion';
+export { Ecart } from './Ecart';
 export type { TimerProps, TimerRef } from './Timer';
