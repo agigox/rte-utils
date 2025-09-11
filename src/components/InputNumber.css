@@ -75,7 +75,7 @@
 /* Success state - takes precedence over focus state */
 .input-container--success .input-element {
   border-color: #27ae60 !important;
-  border-width: 1px !important;
+  border-width: 2px !important;
   transition:
     border-color 0.3s ease,
     border-width 0.3s ease;
