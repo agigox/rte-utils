@@ -143,6 +143,7 @@ interface BuyLineProps {
   onClear?: () => void;
   className?: string;
   showStatus?: 'accepted' | 'refused' | 'partial';
+  dark?: boolean;
 }
 
 export const BuyLine: React.FC<BuyLineProps> = ({
@@ -163,6 +164,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
   onClear,
   className = '',
   showStatus,
+  dark = false,
 }) => {
   const [internalVolume, setInternalVolume] = useState(volume);
   const [internalPrice, setInternalPrice] = useState(price);
@@ -252,7 +254,10 @@ export const BuyLine: React.FC<BuyLineProps> = ({
   const isSendDisabled = internalVolume.trim() === '' || volumeHasError || priceHasError;
 
   return (
-    <div className={`buyline ${labels ? 'buyline--has-labels' : ''} ${className}`}>
+    <div 
+      className={`buyline ${labels ? 'buyline--has-labels' : ''} ${dark ? 'buyline--dark' : ''} ${className}`}
+      style={dark ? { backgroundColor: '#292E33' } : {}}
+    >
       {/*labels && (
         <div className="buyline__labels">
           <div className="buyline__label buyline__label--title"></div>
@@ -287,6 +292,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
                 max={volumeMax || { value: 9999 }}
                 showSuccess={showSuccessState}
                 inputWidth={70}
+                theme={dark ? 'dark' : 'light'}
               />
             </div>
             {showSecondInput && (
@@ -306,6 +312,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
                   max={priceMax || { value: 9999 }}
                   showSuccess={showSuccessState}
                   inputWidth={85}
+                  theme={dark ? 'dark' : 'light'}
                 />
               </div>
             )}
@@ -317,10 +324,21 @@ export const BuyLine: React.FC<BuyLineProps> = ({
               </div>
             )}
             <div className="buyline__total">
-              <Chip width="fit-content" bgColor={calculatePrice() === 0 ? '#F2F4F4' : '#E1F5FD'}>
+              <Chip 
+                width="fit-content" 
+                bgColor={
+                  calculatePrice() === 0 
+                    ? (dark ? '#292E33' : '#F2F4F4') 
+                    : (dark ? '#005896' : '#E1F5FD')
+                }
+              >
                 <ValueWithUnit
                   cost={calculatePrice()}
-                  textColor={calculatePrice() === 0 ? '#999FA1' : '#005896'}
+                  textColor={
+                    calculatePrice() === 0 
+                      ? '#999FA1' 
+                      : (dark ? '#B3E5F9' : '#005896')
+                  }
                   type="euro"
                 />
               </Chip>

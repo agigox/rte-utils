@@ -48,6 +48,11 @@ const meta: Meta<typeof InputNumber> = {
     onChange: {
       description: 'Function called when input value changes',
     },
+    theme: {
+      control: 'select',
+      options: ['light', 'dark'],
+      description: 'Theme variant for the input styling',
+    },
   },
 };
 
@@ -298,6 +303,75 @@ export const ExtraLongLabel: Story = {
       description: {
         story:
           'Input with extremely long label - demonstrates how the input grows to keep the entire label visible.',
+      },
+    },
+  },
+};
+
+// Theme Examples
+export const DarkTheme: Story = {
+  args: {
+    label: 'Dark Theme Input',
+    value: '150',
+    min: { value: 0, label: 'Min' },
+    max: { value: 1000, label: 'Max' },
+    theme: 'dark',
+  },
+  parameters: {
+    backgrounds: {
+      default: 'dark',
+      values: [
+        { name: 'dark', value: '#1a1a1a' },
+      ],
+    },
+    docs: {
+      description: {
+        story: 'InputNumber with dark theme styling. Background is #292E33, text is #FFFFFF, and border is #B7BEC2.',
+      },
+    },
+  },
+};
+
+export const LightTheme: Story = {
+  args: {
+    label: 'Light Theme Input',
+    value: '150',
+    min: { value: 0, label: 'Min' },
+    max: { value: 1000, label: 'Max' },
+    theme: 'light',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'InputNumber with light theme styling (default). Background is white, text is dark.',
+      },
+    },
+  },
+};
+
+export const ThemeComparison: Story = {
+  args: {
+    label: 'Theme Test',
+    value: '100',
+    min: { value: 0, label: 'Min' },
+    max: { value: 500, label: 'Max' },
+  },
+  render: (args) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '100%' }}>
+      <div>
+        <h3 style={{ margin: '0 0 16px 0', color: '#000' }}>Light Theme</h3>
+        <InputNumber {...args} theme="light" />
+      </div>
+      <div style={{ backgroundColor: '#1a1a1a', padding: '16px', borderRadius: '8px' }}>
+        <h3 style={{ margin: '0 0 16px 0', color: '#fff' }}>Dark Theme</h3>
+        <InputNumber {...args} theme="dark" />
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Side-by-side comparison of light and dark theme InputNumber components.',
       },
     },
   },

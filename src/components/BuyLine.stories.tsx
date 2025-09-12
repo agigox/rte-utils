@@ -48,6 +48,10 @@ const meta: Meta<typeof BuyLine> = {
       control: 'object',
       description: 'Array of label objects with key and label properties',
     },
+    dark: {
+      control: 'boolean',
+      description: 'Enable dark theme styling',
+    },
   },
 };
 
@@ -330,6 +334,119 @@ export const StatusComparison: Story = {
     docs: {
       description: {
         story: 'Side-by-side comparison of all status states: accepted (green), partial (orange), and refused (red).',
+      },
+    },
+  },
+};
+
+export const DarkTheme: Story = {
+  args: {
+    title: 'Dark Purchase',
+    volume: '150',
+    price: '42',
+    dark: true,
+    showTrashButton: true,
+  },
+  parameters: {
+    backgrounds: {
+      default: 'dark',
+      values: [
+        { name: 'dark', value: '#1a1a1a' },
+      ],
+    },
+    docs: {
+      description: {
+        story: 'BuyLine component with dark theme. Background is #292E33, input backgrounds are #292E33, input text is #FFFFFF, input borders are #B7BEC2, chip background is #005896, and chip text is #B3E5F9.',
+      },
+    },
+  },
+};
+
+export const DarkThemeWithLabels: Story = {
+  args: {
+    title: 'Dark Purchase with Labels',
+    volume: '300',
+    price: '55',
+    dark: true,
+    showTrashButton: true,
+    labels: [
+      { key: 'volume', label: 'Volume' },
+      { key: 'price', label: 'Prix' },
+      { key: 'total', label: 'Coût total' },
+    ],
+  },
+  parameters: {
+    backgrounds: {
+      default: 'dark',
+      values: [
+        { name: 'dark', value: '#1a1a1a' },
+      ],
+    },
+    docs: {
+      description: {
+        story: 'BuyLine component with dark theme and labels. Shows the complete dark theme implementation with all specified colors applied.',
+      },
+    },
+  },
+};
+
+export const DarkThemeInteractive: Story = {
+  args: {
+    title: 'Interactive Dark',
+    volume: '100',
+    price: '30',
+    dark: true,
+    showTrashButton: true,
+  },
+  render: (args) => (
+    <BuyLine
+      {...args}
+      onVolumeChange={(value) => console.log('Volume changed:', value)}
+      onPriceChange={(value) => console.log('Price changed:', value)}
+      onSend={() => {
+        console.log('Send action executed in dark theme');
+        alert('Dark theme send action completed!');
+      }}
+      onClear={() => console.log('Clear clicked in dark theme')}
+    />
+  ),
+  parameters: {
+    backgrounds: {
+      default: 'dark',
+      values: [
+        { name: 'dark', value: '#1a1a1a' },
+      ],
+    },
+    docs: {
+      description: {
+        story: 'Interactive dark theme BuyLine. Test the complete workflow with dark theme styling: click send to see the loading state and form clearing behavior.',
+      },
+    },
+  },
+};
+
+export const ThemeComparison: Story = {
+  args: {
+    volume: '200',
+    price: '35',
+    title: 'Theme Test',
+  },
+  render: (args) => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '100%' }}>
+      <div>
+        <h3 style={{ margin: '0 0 16px 0', color: '#000' }}>Light Theme</h3>
+        <BuyLine {...args} />
+      </div>
+      <div style={{ backgroundColor: '#1a1a1a', padding: '16px', borderRadius: '8px' }}>
+        <h3 style={{ margin: '0 0 16px 0', color: '#fff' }}>Dark Theme</h3>
+        <BuyLine {...args} dark />
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Side-by-side comparison of light and dark themes showing the color differences.',
       },
     },
   },

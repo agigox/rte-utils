@@ -13,6 +13,7 @@ interface InputNumberProps {
   max?: { value: number; label?: string };
   showSuccess?: boolean;
   inputWidth?: number;
+  theme?: 'light' | 'dark';
 }
 
 export const InputNumber: React.FC<InputNumberProps> = ({
@@ -27,6 +28,7 @@ export const InputNumber: React.FC<InputNumberProps> = ({
   max = { value: 100 },
   showSuccess = false,
   inputWidth,
+  theme = 'light',
 }) => {
   const [internalValue, setInternalValue] = useState(value);
   const [isFocused, setIsFocused] = useState(false);
@@ -129,6 +131,7 @@ export const InputNumber: React.FC<InputNumberProps> = ({
 
   const containerClasses = [
     'input-container',
+    `input-container--${theme}`,
     isFocused ? 'input-container--focused' : '',
     isLabelFloating ? 'input-container--floating' : '',
     disabled ? 'input-container--disabled' : '',
