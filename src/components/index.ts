@@ -13,6 +13,7 @@ export { BuyLine } from './BuyLine';
 export { Button } from './Button';
 export { Accordion } from './Accordion';
 export { Ecart } from './Ecart';
+export { Modal } from './Modal';
 export type { TimerProps, TimerRef } from './Timer';
 
 // Export all individual icons and the Icons object

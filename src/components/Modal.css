@@ -1,0 +1,200 @@
+/* Modal overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Fade in animation for overlay */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Modal content container */
+.modal-content {
+  background: white;
+  border-radius: 8px;
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  max-width: calc(100vw - 100px);
+  max-height: calc(100vh - 100px);
+  overflow: hidden;
+  transition:
+    width 0.3s ease-out,
+    height 0.3s ease-out,
+    opacity 0.3s ease-out;
+}
+
+/* Opening animation - starts from 0 and animates to target size */
+.modal-content--open {
+  width: var(--modal-width);
+  height: var(--modal-height);
+  opacity: 1;
+  animation: modalOpen 0.3s ease-out;
+}
+
+/* Closing animation - animates from current size to 0 */
+.modal-content--close {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  animation: modalClose 0.3s ease-in;
+}
+
+/* Keyframe animations */
+@keyframes modalOpen {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    width: var(--modal-width);
+    height: var(--modal-height);
+    opacity: 1;
+  }
+}
+
+@keyframes modalClose {
+  0% {
+    width: var(--modal-width);
+    height: var(--modal-height);
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+@keyframes contentFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Close button */
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    opacity 0.2s ease-in-out;
+  z-index: 10;
+  opacity: 0;
+}
+
+/* Show close button after modal opens */
+.modal-content--open .modal-close {
+  animation: contentFadeIn 0.2s ease-out 0.3s forwards;
+}
+
+/* Hide close button before modal closes */
+.modal-content--close .modal-close {
+  opacity: 0;
+  animation: none;
+}
+
+.modal-close:hover {
+  background-color: #f3f4f6;
+  color: #111;
+}
+
+.modal-close:focus {
+  outline: 2px solid #009cdf;
+  outline-offset: 2px;
+}
+
+/* Modal body */
+.modal-body {
+  padding: 24px;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* Show content after modal opens */
+.modal-content--open .modal-body {
+  animation: contentFadeIn 0.2s ease-out 0.3s forwards;
+}
+
+/* Hide content before modal closes */
+.modal-content--close .modal-body {
+  opacity: 0;
+  animation: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .modal-content {
+    top: 20px;
+    left: 20px;
+    max-width: calc(100vw - 40px);
+    max-height: calc(100vh - 40px);
+  }
+
+  .modal-body {
+    padding: 16px;
+  }
+}
+
+/* Custom scrollbar for modal body */
+.modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
