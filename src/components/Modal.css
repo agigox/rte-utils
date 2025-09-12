@@ -6,7 +6,7 @@
   right: 0;
   bottom: 0;
   z-index: 1000;
-  animation: fadeIn 0.3s ease-out;
+  animation: fadeIn 0.5s ease-out;
 }
 
 /* Fade in animation for overlay */
@@ -33,9 +33,9 @@
   max-height: calc(100vh - 100px);
   overflow: hidden;
   transition:
-    width 0.3s ease-out,
-    height 0.3s ease-out,
-    opacity 0.3s ease-out;
+    width 0.5s ease-out,
+    height 0.5s ease-out,
+    opacity 0.5s ease-out;
 }
 
 /* Opening animation - starts from 0 and animates to target size */
@@ -43,7 +43,7 @@
   width: var(--modal-width);
   height: var(--modal-height);
   opacity: 1;
-  animation: modalOpen 0.3s ease-out;
+  animation: modalOpen 0.5s ease-out;
 }
 
 /* Closing animation - animates from current size to 0 */
@@ -51,7 +51,7 @@
   width: 0;
   height: 0;
   opacity: 0;
-  animation: modalClose 0.3s ease-in;
+  animation: modalClose 0.5s ease-in;
 }
 
 /* Keyframe animations */
@@ -89,15 +89,6 @@
   }
 }
 
-@keyframes contentFadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
 /* Close button */
 .modal-close {
   position: absolute;
@@ -116,21 +107,8 @@
   border-radius: 4px;
   transition:
     background-color 0.2s,
-    color 0.2s,
-    opacity 0.2s ease-in-out;
+    color 0.2s;
   z-index: 10;
-  opacity: 0;
-}
-
-/* Show close button after modal opens */
-.modal-content--open .modal-close {
-  animation: contentFadeIn 0.2s ease-out 0.3s forwards;
-}
-
-/* Hide close button before modal closes */
-.modal-content--close .modal-close {
-  opacity: 0;
-  animation: none;
 }
 
 .modal-close:hover {
@@ -151,19 +129,6 @@
   overflow: auto;
   display: flex;
   flex-direction: column;
-  opacity: 0;
-  transition: opacity 0.2s ease-in-out;
-}
-
-/* Show content after modal opens */
-.modal-content--open .modal-body {
-  animation: contentFadeIn 0.2s ease-out 0.3s forwards;
-}
-
-/* Hide content before modal closes */
-.modal-content--close .modal-body {
-  opacity: 0;
-  animation: none;
 }
 
 /* Responsive adjustments */
