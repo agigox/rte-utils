@@ -1,5 +1,6 @@
 import React from 'react';
 import './ValueWithUnit.css';
+import { formatDisplayValue } from '../utils';
 
 interface ValueWithUnitProps {
   cost?: number | string;
@@ -14,13 +15,15 @@ export const ValueWithUnit: React.FC<ValueWithUnitProps> = ({
   type = 'europermegawatt',
   size = 'default',
 }) => {
+  const formattedCost = formatDisplayValue(cost);
+
   return (
     <div className={`cost-text-container ${size === 'small' ? 'cost-text-container--small' : ''}`}>
       <div
         className={`cost-number ${size === 'small' ? 'cost-number--small' : ''}`}
         style={{ color: textColor }}
       >
-        {cost}
+        {formattedCost}
       </div>
       <div
         className={`cost-unit ${size === 'small' ? 'cost-unit--small' : ''}`}

@@ -43,7 +43,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Euro: Story = {
   args: {
-    cost: 120,
+    cost: 12600,
     type: 'euro',
     textColor: '#111',
   },
@@ -51,7 +51,7 @@ export const Euro: Story = {
 
 export const Megawatt: Story = {
   args: {
-    cost: 56,
+    cost: 1560,
     type: 'megawatt',
     textColor: '#111',
   },
@@ -59,7 +59,7 @@ export const Megawatt: Story = {
 
 export const EuroPerMegawatt: Story = {
   args: {
-    cost: 42,
+    cost: 4500,
     type: 'europermegawatt',
     textColor: '#111',
   },
@@ -97,5 +97,21 @@ export const SmallEuroPerMegawatt: Story = {
     type: 'europermegawatt',
     textColor: '#111',
     size: 'small',
+  },
+};
+
+export const LargeNumbers: Story = {
+  args: {
+    cost: 1234567,
+    type: 'euro',
+    textColor: '#111',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Demonstrates French number formatting with large numbers (spaces as thousands separators).',
+      },
+    },
   },
 };
