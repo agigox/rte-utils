@@ -133,3 +133,30 @@ export const BothIconsCustom: Story = {
     textColor: '#FFFFFF',
   },
 };
+
+export const WithBorder: Story = {
+  args: {
+    text: 'bordered button',
+    borderColor: '#FF0000',
+  },
+};
+
+export const BorderWithIcon: Story = {
+  args: {
+    text: 'border + icon',
+    leftIcon: 'plusIcon',
+    borderColor: '#009CDF',
+    bgColor: '#FFFFFF',
+    textColor: '#009CDF',
+  },
+};
+
+export const BorderSmallSize: Story = {
+  args: {
+    text: 'small border',
+    size: 'small',
+    borderColor: '#4ECDC4',
+    bgColor: 'transparent',
+    textColor: '#4ECDC4',
+  },
+};

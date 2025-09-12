@@ -10,6 +10,7 @@ interface ButtonProps {
   className?: string;
   bgColor?: string;
   textColor?: string;
+  borderColor?: string;
   size?: 'small' | 'large';
 }
 
@@ -91,6 +92,7 @@ export const Button = ({
   className = '',
   bgColor,
   textColor,
+  borderColor,
   size = 'large',
 }: ButtonProps) => {
   const getSizeStyles = (size: 'small' | 'large'): React.CSSProperties => {
@@ -108,6 +110,10 @@ export const Button = ({
     ...getSizeStyles(size),
     ...(bgColor && { backgroundColor: bgColor }),
     ...(textColor && { color: textColor }),
+    ...(borderColor && { 
+      border: `2px solid ${borderColor}`,
+      boxSizing: 'border-box'
+    }),
   };
 
   return (
