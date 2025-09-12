@@ -111,7 +111,7 @@ export const Button = ({
     ...(bgColor && { backgroundColor: bgColor }),
     ...(textColor && { color: textColor }),
     ...(borderColor && { 
-      border: `2px solid ${borderColor}`,
+      border: `1px solid ${borderColor}`,
       boxSizing: 'border-box'
     }),
   };
