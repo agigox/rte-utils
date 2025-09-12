@@ -447,6 +447,23 @@ export const AnonymizeIcon: React.FC<IconProps & { isAnonymised?: boolean }> = (
   </svg>
 );
 
+// User icon
+export const UserIcon: React.FC<IconProps> = ({ className, size = 16, color }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+  >
+    <path
+      d="M8.00037 2.66699C9.76603 2.66724 11.1976 4.14551 11.1976 5.96875C11.1975 7.78449 9.77755 9.25735 8.02185 9.26953C10.0979 9.27896 11.9455 10.6336 12.6381 12.6562C12.7286 12.9207 12.5944 13.2112 12.3383 13.3047C12.0823 13.3979 11.8019 13.2592 11.7113 12.9951C11.1554 11.3713 9.66826 10.2853 8.00037 10.2852C6.33234 10.2852 4.84537 11.3712 4.28943 12.9951C4.19884 13.2595 3.91757 13.3981 3.6615 13.3047C3.40536 13.2112 3.27115 12.9207 3.36169 12.6562C4.05415 10.6337 5.90196 9.2791 7.97791 9.26953C6.2223 9.25723 4.80321 7.78442 4.8031 5.96875C4.8031 4.1454 6.23455 2.66706 8.00037 2.66699ZM8.00037 3.68262C6.7779 3.68268 5.7865 4.70644 5.7865 5.96875C5.78661 7.23096 6.77797 8.25384 8.00037 8.25391C9.22262 8.25366 10.2141 7.23085 10.2142 5.96875C10.2142 4.70655 9.22269 3.68286 8.00037 3.68262Z"
+      fill={color || "black"}
+    />
+  </svg>
+);
+
 // Export all icons as a single object for easier imports
 export const Icons = {
   Send: SendIcon,
@@ -469,6 +486,7 @@ export const Icons = {
   Play: PlayIcon,
   Freeze: FreezeIcon,
   Anonymize: AnonymizeIcon,
+  User: UserIcon,
 };
 
 export default Icons;
