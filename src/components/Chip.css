@@ -7,6 +7,14 @@
   color: var(--chip-text-color, #000);
 }
 
+.chip-container--small {
+  padding: 0 8px;
+}
+
+.chip-container--large {
+  padding: 4px 8px;
+}
+
 .chip-container--fit-content {
   width: fit-content;
 }

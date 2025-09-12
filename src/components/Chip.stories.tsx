@@ -28,6 +28,11 @@ const meta: Meta<typeof Chip> = {
       options: ['fit-content', 'full-width'],
       description: 'Width behavior of the chip',
     },
+    size: {
+      control: 'select',
+      options: ['small', 'large'],
+      description: 'Size of the chip - affects padding',
+    },
   },
 };
 
@@ -141,5 +146,32 @@ export const MultilineContent: Story = {
         <div style={{ fontSize: '14px' }}>850 MW</div>
       </div>
     </Chip>
+  ),
+};
+
+export const SmallChip: Story = {
+  args: {
+    bgColor: '#e0f2fe',
+    width: 'fit-content',
+    size: 'small',
+  },
+  render: (args) => <Chip {...args}>Small Chip</Chip>,
+};
+
+export const LargeChip: Story = {
+  args: {
+    bgColor: '#e0f2fe',
+    width: 'fit-content',
+    size: 'large',
+  },
+  render: (args) => <Chip {...args}>Large Chip</Chip>,
+};
+
+export const SizeComparison: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+      <Chip size="small" bgColor="#fecaca">Small</Chip>
+      <Chip size="large" bgColor="#dcfce7">Large (Default)</Chip>
+    </div>
   ),
 };

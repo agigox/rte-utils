@@ -6,12 +6,14 @@ interface ChipProps {
   children: React.ReactNode;
   bgColor?: string;
   width?: 'fit-content' | 'full-width';
+  size?: 'small' | 'large';
 }
 
-export const Chip: React.FC<ChipProps> = ({ children, bgColor, width = 'fit-content' }) => {
+export const Chip: React.FC<ChipProps> = ({ children, bgColor, width = 'fit-content', size = 'large' }) => {
   const chipClasses = [
     'chip-container',
     width === 'full-width' ? 'chip-container--full-width' : 'chip-container--fit-content',
+    `chip-container--${size}`,
   ].join(' ');
 
   return (
