@@ -37,5 +37,6 @@ export {
   PlayIcon,
   FreezeIcon,
   AnonymizeIcon,
+  UserIcon,
   Icons
 } from './Icons';

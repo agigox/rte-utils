@@ -37,6 +37,11 @@ export const AllIcons: Story = {
         </div>
         
         <div className="icon-item">
+          <Icons.User />
+          <span>User</span>
+        </div>
+        
+        <div className="icon-item">
           <Icons.Success />
           <span>Success</span>
         </div>
@@ -145,6 +150,7 @@ export const IconSizes: Story = {
           <div className="icons-row">
             <Icons.Send size={16} />
             <Icons.Edit size={16} />
+            <Icons.User size={16} />
             <Icons.Success size={16} />
             <Icons.Plus size={16} />
           </div>
@@ -155,6 +161,7 @@ export const IconSizes: Story = {
           <div className="icons-row">
             <Icons.Send size={24} />
             <Icons.Edit size={24} />
+            <Icons.User size={24} />
             <Icons.Success size={24} />
             <Icons.Plus size={24} />
           </div>
@@ -165,6 +172,7 @@ export const IconSizes: Story = {
           <div className="icons-row">
             <Icons.Send size={32} />
             <Icons.Edit size={32} />
+            <Icons.User size={32} />
             <Icons.Success size={32} />
             <Icons.Plus size={32} />
           </div>
@@ -175,6 +183,7 @@ export const IconSizes: Story = {
           <div className="icons-row">
             <Icons.Send size={48} />
             <Icons.Edit size={48} />
+            <Icons.User size={48} />
             <Icons.Success size={48} />
             <Icons.Plus size={48} />
           </div>
@@ -215,6 +224,7 @@ export const IconColors: Story = {
           <div className="icons-row">
             <Icons.Send color="#ff0000" />
             <Icons.Edit color="#ff0000" />
+            <Icons.User color="#ff0000" />
             <Icons.Plus color="#ff0000" />
             <Icons.Target color="#ff0000" />
           </div>
@@ -225,6 +235,7 @@ export const IconColors: Story = {
           <div className="icons-row">
             <Icons.Send color="#0066cc" />
             <Icons.Edit color="#0066cc" />
+            <Icons.User color="#0066cc" />
             <Icons.Plus color="#0066cc" />
             <Icons.Target color="#0066cc" />
           </div>
@@ -235,6 +246,7 @@ export const IconColors: Story = {
           <div className="icons-row">
             <Icons.Send color="#00aa00" />
             <Icons.Edit color="#00aa00" />
+            <Icons.User color="#00aa00" />
             <Icons.Plus color="#00aa00" />
             <Icons.Target color="#00aa00" />
           </div>
