@@ -75,22 +75,15 @@ export const Modal: React.FC<ModalProps> = ({
         <div className="modal-overlay" onClick={handleBackdropClick}>
           <div
             className={`modal-content ${isAnimating ? 'modal-content--open' : 'modal-content--close'} ${className}`}
-            style={{
-              '--modal-width': width,
-              '--modal-height': height,
-              backgroundColor,
-            } as React.CSSProperties}
+            style={
+              {
+                '--modal-width': width,
+                '--modal-height': height,
+                backgroundColor,
+              } as React.CSSProperties
+            }
           >
-            <button
-              className="modal-close"
-              onClick={handleClose}
-              aria-label="Close modal"
-            >
-              ×
-            </button>
-            <div className="modal-body">
-              {children}
-            </div>
+            <div className="modal-body">test</div>
           </div>
         </div>
       )}
