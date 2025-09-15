@@ -254,3 +254,34 @@
 .input-container--dark .input-element:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0 30px #292E33 inset !important;
 }
+
+/* Slate theme styles - same as dark but with #3B434A background */
+.input-container--slate .input-element {
+  background-color: #3B434A;
+  color: #FFFFFF;
+  border-color: #B7BEC2;
+}
+
+.input-container--slate .input-label {
+  background-color: #3B434A;
+  color: #FFFFFF;
+}
+
+.input-container--slate .input-element:focus {
+  border-color: #009cdf;
+  color: #FFFFFF;
+  box-shadow: 0 0 0 2px rgba(0, 156, 223, 0.1);
+}
+
+.input-container--slate.input-container--focused .input-label {
+  color: #FFFFFF;
+}
+
+.input-container--slate .input-element:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px #3B434A inset !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+}
+
+.input-container--slate .input-element:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 30px #3B434A inset !important;
+}

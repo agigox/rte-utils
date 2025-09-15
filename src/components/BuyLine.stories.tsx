@@ -48,9 +48,10 @@ const meta: Meta<typeof BuyLine> = {
       control: 'object',
       description: 'Array of label objects with key and label properties',
     },
-    dark: {
-      control: 'boolean',
-      description: 'Enable dark theme styling',
+    theme: {
+      control: 'select',
+      options: ['light', 'dark', 'slate'],
+      description: 'Theme styling for the component',
     },
   },
 };
@@ -344,7 +345,7 @@ export const DarkTheme: Story = {
     title: 'Dark Purchase',
     volume: '150',
     price: '42',
-    dark: true,
+    theme: 'dark',
     showTrashButton: true,
   },
   parameters: {
@@ -367,7 +368,7 @@ export const DarkThemeWithLabels: Story = {
     title: 'Dark Purchase with Labels',
     volume: '300',
     price: '55',
-    dark: true,
+    theme: 'dark',
     showTrashButton: true,
     labels: [
       { key: 'volume', label: 'Volume' },
@@ -395,7 +396,7 @@ export const DarkThemeInteractive: Story = {
     title: 'Interactive Dark',
     volume: '100',
     price: '30',
-    dark: true,
+    theme: 'dark',
     showTrashButton: true,
   },
   render: (args) => (
@@ -425,6 +426,57 @@ export const DarkThemeInteractive: Story = {
   },
 };
 
+export const SlateTheme: Story = {
+  args: {
+    title: 'Slate Purchase',
+    volume: '120',
+    price: '38',
+    theme: 'slate',
+    showTrashButton: true,
+  },
+  parameters: {
+    backgrounds: {
+      default: 'slate',
+      values: [
+        { name: 'slate', value: '#2a2a2a' },
+      ],
+    },
+    docs: {
+      description: {
+        story: 'BuyLine component with slate theme. Background is #3B434A, same styling as dark theme but with a different background color.',
+      },
+    },
+  },
+};
+
+export const SlateThemeWithLabels: Story = {
+  args: {
+    title: 'Slate Purchase with Labels',
+    volume: '250',
+    price: '62',
+    theme: 'slate',
+    showTrashButton: true,
+    labels: [
+      { key: 'volume', label: 'Volume' },
+      { key: 'price', label: 'Prix' },
+      { key: 'total', label: 'Coût total' },
+    ],
+  },
+  parameters: {
+    backgrounds: {
+      default: 'slate',
+      values: [
+        { name: 'slate', value: '#2a2a2a' },
+      ],
+    },
+    docs: {
+      description: {
+        story: 'BuyLine component with slate theme and labels. Shows the slate theme implementation with all specified colors applied.',
+      },
+    },
+  },
+};
+
 export const ThemeComparison: Story = {
   args: {
     volume: '200',
@@ -439,14 +491,18 @@ export const ThemeComparison: Story = {
       </div>
       <div style={{ backgroundColor: '#1a1a1a', padding: '16px', borderRadius: '8px' }}>
         <h3 style={{ margin: '0 0 16px 0', color: '#fff' }}>Dark Theme</h3>
-        <BuyLine {...args} dark />
+        <BuyLine {...args} theme="dark" />
+      </div>
+      <div style={{ backgroundColor: '#2a2a2a', padding: '16px', borderRadius: '8px' }}>
+        <h3 style={{ margin: '0 0 16px 0', color: '#fff' }}>Slate Theme</h3>
+        <BuyLine {...args} theme="slate" />
       </div>
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Side-by-side comparison of light and dark themes showing the color differences.',
+        story: 'Side-by-side comparison of all three themes: light, dark, and slate showing the color differences.',
       },
     },
   },

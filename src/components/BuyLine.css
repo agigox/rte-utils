@@ -188,3 +188,29 @@
   height: 16px;
   flex-shrink: 0;
 }
+
+/* Dark theme styles */
+.buyline--dark {
+  background-color: #292E33;
+}
+
+.buyline--dark .buyline__title {
+  color: #FFFFFF;
+}
+
+.buyline--dark .buyline__label--description {
+  color: #B7BEC2;
+}
+
+/* Slate theme styles - same as dark but with different background */
+.buyline--slate {
+  background-color: #3B434A;
+}
+
+.buyline--slate .buyline__title {
+  color: #FFFFFF;
+}
+
+.buyline--slate .buyline__label--description {
+  color: #B7BEC2;
+}
