@@ -5,7 +5,6 @@ interface ModalProps {
   open: boolean;
   children: React.ReactNode;
   width?: string;
-  height?: string;
   onClose?: () => void;
   className?: string;
   backgroundColor?: string;
@@ -15,7 +14,6 @@ export const Modal: React.FC<ModalProps> = ({
   open,
   children,
   width = '400px',
-  height = '300px',
   onClose,
   className = '',
   backgroundColor = 'white',
@@ -78,7 +76,6 @@ export const Modal: React.FC<ModalProps> = ({
             style={
               {
                 '--modal-width': width,
-                '--modal-height': height,
                 backgroundColor,
               } as React.CSSProperties
             }

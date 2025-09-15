@@ -34,14 +34,13 @@
   overflow: hidden;
   transition:
     width 0.5s ease-out,
-    height 0.5s ease-out,
     opacity 0.5s ease-out;
 }
 
 /* Opening animation - starts from 0 and animates to target size */
 .modal-content--open {
   width: var(--modal-width);
-  height: var(--modal-height);
+  height: auto;
   opacity: 1;
   animation: modalOpen 0.5s ease-out;
 }
@@ -49,7 +48,7 @@
 /* Closing animation - animates from current size to 0 */
 .modal-content--close {
   width: 0;
-  height: 0;
+  height: auto;
   opacity: 0;
   animation: modalClose 0.5s ease-in;
 }
@@ -58,7 +57,6 @@
 @keyframes modalOpen {
   0% {
     width: 0;
-    height: 0;
     opacity: 0;
   }
   50% {
@@ -66,7 +64,6 @@
   }
   100% {
     width: var(--modal-width);
-    height: var(--modal-height);
     opacity: 1;
   }
 }
@@ -74,7 +71,6 @@
 @keyframes modalClose {
   0% {
     width: var(--modal-width);
-    height: var(--modal-height);
     opacity: 1;
     transform: scale(1);
   }
@@ -83,7 +79,6 @@
   }
   100% {
     width: 0;
-    height: 0;
     opacity: 0;
     transform: scale(0.8);
   }
@@ -123,8 +118,7 @@
 
 /* Modal body */
 .modal-body {
-  padding: 24px;
-  height: 100%;
+  padding: 8px 16px;
   box-sizing: border-box;
   overflow: auto;
   display: flex;
