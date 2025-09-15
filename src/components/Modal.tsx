@@ -83,7 +83,7 @@ export const Modal: React.FC<ModalProps> = ({
               } as React.CSSProperties
             }
           >
-            <div className="modal-body">test</div>
+            <div className="modal-body">{children}</div>
           </div>
         </div>
       )}
