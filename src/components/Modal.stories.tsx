@@ -28,10 +28,6 @@ const meta: Meta<typeof Modal> = {
       control: 'text',
       description: 'Width of the modal (CSS value)',
     },
-    height: {
-      control: 'text',
-      description: 'Height of the modal (CSS value)',
-    },
     onClose: {
       control: false,
       description: 'Callback function called when modal closes',
@@ -46,28 +42,29 @@ const meta: Meta<typeof Modal> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const ModalWithTrigger = ({ children, triggerText = 'Open Modal', triggerStyle = {}, ...modalProps }: any) => {
+const ModalWithTrigger = ({
+  children,
+  triggerText = 'Open Modal',
+  triggerStyle = {},
+  ...modalProps
+}: any) => {
   const [open, setOpen] = useState(false);
-  
+
   return (
     <>
-      <button 
+      <button
         onClick={() => setOpen(true)}
-        style={{ 
-          padding: '12px 24px', 
-          borderRadius: '6px', 
-          border: '1px solid #ccc', 
+        style={{
+          padding: '12px 24px',
+          borderRadius: '6px',
+          border: '1px solid #ccc',
           cursor: 'pointer',
-          ...triggerStyle
+          ...triggerStyle,
         }}
       >
         {triggerText}
       </button>
-      <Modal 
-        {...modalProps}
-        open={open}
-        onClose={() => setOpen(false)}
-      >
+      <Modal {...modalProps} open={open} onClose={() => setOpen(false)}>
         {children}
       </Modal>
     </>
@@ -77,14 +74,13 @@ const ModalWithTrigger = ({ children, triggerText = 'Open Modal', triggerStyle =
 export const Default: Story = {
   args: {
     width: '400px',
-    height: '300px',
   },
   render: (args) => (
     <ModalWithTrigger {...args}>
       <h2 style={{ margin: '0 0 16px 0', color: '#333' }}>Default Modal</h2>
       <p style={{ margin: 0, color: '#666' }}>
-        This is a basic modal with default dimensions (400px × 300px). 
-        Notice the smooth width and height animation when opening and closing.
+        This is a basic modal with default dimensions (400px × 300px). Notice the smooth width and
+        height animation when opening and closing.
       </p>
     </ModalWithTrigger>
   ),
@@ -93,13 +89,18 @@ export const Default: Story = {
 export const LargeModal: Story = {
   args: {
     width: '600px',
-    height: '500px',
   },
   render: (args) => (
-    <ModalWithTrigger 
+    <ModalWithTrigger
       {...args}
       triggerText="Open Large Modal"
-      triggerStyle={{ padding: '16px 32px', borderRadius: '8px', backgroundColor: '#009CDF', color: 'white', border: 'none' }}
+      triggerStyle={{
+        padding: '16px 32px',
+        borderRadius: '8px',
+        backgroundColor: '#009CDF',
+        color: 'white',
+        border: 'none',
+      }}
     >
       <h2 style={{ margin: '0 0 20px 0', color: '#333' }}>Large Modal</h2>
       <p style={{ margin: '0 0 16px 0', color: '#666' }}>
@@ -125,13 +126,19 @@ export const LargeModal: Story = {
 export const SmallModal: Story = {
   args: {
     width: '250px',
-    height: '150px',
   },
   render: (args) => (
-    <ModalWithTrigger 
+    <ModalWithTrigger
       {...args}
       triggerText="Small Modal"
-      triggerStyle={{ padding: '8px 16px', borderRadius: '4px', backgroundColor: '#10b981', color: 'white', border: 'none', fontSize: '14px' }}
+      triggerStyle={{
+        padding: '8px 16px',
+        borderRadius: '4px',
+        backgroundColor: '#10b981',
+        color: 'white',
+        border: 'none',
+        fontSize: '14px',
+      }}
     >
       <h3 style={{ margin: '0 0 12px 0', color: '#333', fontSize: '16px' }}>Compact Modal</h3>
       <p style={{ margin: 0, color: '#666', fontSize: '14px' }}>
@@ -143,17 +150,13 @@ export const SmallModal: Story = {
 
 const ModalWithCustomTrigger = ({ children, trigger, ...modalProps }: any) => {
   const [open, setOpen] = useState(false);
-  
+
   return (
     <>
       <div onClick={() => setOpen(true)} style={{ cursor: 'pointer' }}>
         {trigger}
       </div>
-      <Modal 
-        {...modalProps}
-        open={open}
-        onClose={() => setOpen(false)}
-      >
+      <Modal {...modalProps} open={open} onClose={() => setOpen(false)}>
         {children}
       </Modal>
     </>
@@ -163,35 +166,40 @@ const ModalWithCustomTrigger = ({ children, trigger, ...modalProps }: any) => {
 export const WithDivTrigger: Story = {
   args: {
     width: '500px',
-    height: '400px',
   },
   render: (args) => (
-    <ModalWithCustomTrigger 
+    <ModalWithCustomTrigger
       {...args}
       trigger={
-        <div style={{ 
-          padding: '20px', 
-          border: '2px dashed #009CDF', 
-          borderRadius: '8px', 
-          backgroundColor: '#f0f9ff', 
-          textAlign: 'center',
-          transition: 'all 0.2s ease'
-        }}>
-          <span style={{ color: '#009CDF', fontWeight: 'bold' }}>📦 Click this div to open modal</span>
+        <div
+          style={{
+            padding: '20px',
+            border: '2px dashed #009CDF',
+            borderRadius: '8px',
+            backgroundColor: '#f0f9ff',
+            textAlign: 'center',
+            transition: 'all 0.2s ease',
+          }}
+        >
+          <span style={{ color: '#009CDF', fontWeight: 'bold' }}>
+            📦 Click this div to open modal
+          </span>
         </div>
       }
     >
       <h2 style={{ margin: '0 0 16px 0', color: '#333' }}>Triggered by Div</h2>
       <p style={{ margin: '0 0 16px 0', color: '#666' }}>
-        This modal was triggered by clicking a custom div element instead of a button.
-        You can use any React element as a trigger.
+        This modal was triggered by clicking a custom div element instead of a button. You can use
+        any React element as a trigger.
       </p>
-      <div style={{ 
-        padding: '16px', 
-        backgroundColor: '#f8fafc', 
-        borderRadius: '6px', 
-        border: '1px solid #e2e8f0' 
-      }}>
+      <div
+        style={{
+          padding: '16px',
+          backgroundColor: '#f8fafc',
+          borderRadius: '6px',
+          border: '1px solid #e2e8f0',
+        }}
+      >
         <h4 style={{ margin: '0 0 8px 0', color: '#333' }}>Custom Trigger Examples:</h4>
         <ul style={{ color: '#666', margin: '0', paddingLeft: '20px' }}>
           <li>Buttons</li>
@@ -208,26 +216,33 @@ export const WithDivTrigger: Story = {
 export const WithCallbacks: Story = {
   args: {
     width: '450px',
-    height: '250px',
   },
   render: (args) => (
-    <ModalWithTrigger 
+    <ModalWithTrigger
       {...args}
       triggerText="Modal with Callbacks"
-      triggerStyle={{ padding: '12px 24px', borderRadius: '6px', backgroundColor: '#8b5cf6', color: 'white', border: 'none' }}
+      triggerStyle={{
+        padding: '12px 24px',
+        borderRadius: '6px',
+        backgroundColor: '#8b5cf6',
+        color: 'white',
+        border: 'none',
+      }}
       onClose={() => console.log('Modal closed!')}
     >
       <h2 style={{ margin: '0 0 16px 0', color: '#333' }}>Modal with Callbacks</h2>
       <p style={{ margin: '0 0 16px 0', color: '#666' }}>
-        This modal has an onClose callback function. 
-        Check the browser console to see the callback message when you close the modal!
+        This modal has an onClose callback function. Check the browser console to see the callback
+        message when you close the modal!
       </p>
-      <div style={{ 
-        padding: '12px', 
-        backgroundColor: '#fef3c7', 
-        borderRadius: '4px', 
-        borderLeft: '4px solid #f59e0b' 
-      }}>
+      <div
+        style={{
+          padding: '12px',
+          backgroundColor: '#fef3c7',
+          borderRadius: '4px',
+          borderLeft: '4px solid #f59e0b',
+        }}
+      >
         <strong style={{ color: '#92400e' }}>💡 Tip:</strong>
         <span style={{ color: '#92400e', marginLeft: '8px' }}>
           Open the browser console to see callback logs
@@ -240,25 +255,32 @@ export const WithCallbacks: Story = {
 export const ResponsiveModal: Story = {
   args: {
     width: '80vw',
-    height: '60vh',
   },
   render: (args) => (
-    <ModalWithTrigger 
+    <ModalWithTrigger
       {...args}
       triggerText="Responsive Modal"
-      triggerStyle={{ padding: '12px 24px', borderRadius: '6px', backgroundColor: '#ef4444', color: 'white', border: 'none' }}
+      triggerStyle={{
+        padding: '12px 24px',
+        borderRadius: '6px',
+        backgroundColor: '#ef4444',
+        color: 'white',
+        border: 'none',
+      }}
     >
       <h2 style={{ margin: '0 0 16px 0', color: '#333' }}>Responsive Modal</h2>
       <p style={{ margin: '0 0 16px 0', color: '#666' }}>
-        This modal uses viewport units (80vw × 60vh) to be responsive to screen size.
-        Try resizing your browser window to see how it adapts.
+        This modal uses viewport units (80vw × 60vh) to be responsive to screen size. Try resizing
+        your browser window to see how it adapts.
       </p>
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', 
-        gap: '16px',
-        marginTop: '20px'
-      }}>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+          gap: '16px',
+          marginTop: '20px',
+        }}
+      >
         <div style={{ padding: '16px', backgroundColor: '#ddd6fe', borderRadius: '6px' }}>
           <h4 style={{ margin: '0 0 8px 0', color: '#333' }}>Flexible Width</h4>
           <p style={{ margin: 0, color: '#666', fontSize: '14px' }}>Adapts to screen width</p>
@@ -275,38 +297,68 @@ export const ResponsiveModal: Story = {
 export const AnimationShowcase: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
-      <ModalWithTrigger 
-        width="200px" 
+      <ModalWithTrigger
+        width="200px"
         height="150px"
         triggerText="Tiny (200×150)"
-        triggerStyle={{ padding: '10px 16px', borderRadius: '4px', backgroundColor: '#06b6d4', color: 'white', border: 'none' }}
+        triggerStyle={{
+          padding: '10px 16px',
+          borderRadius: '4px',
+          backgroundColor: '#06b6d4',
+          color: 'white',
+          border: 'none',
+        }}
       >
         <h4 style={{ margin: '0 0 12px 0' }}>Tiny Modal</h4>
         <p style={{ margin: 0, fontSize: '14px' }}>Quick animation demo</p>
       </ModalWithTrigger>
-      
-      <ModalWithTrigger 
-        width="350px" 
+
+      <ModalWithTrigger
+        width="350px"
         height="250px"
         triggerText="Medium (350×250)"
-        triggerStyle={{ padding: '10px 16px', borderRadius: '4px', backgroundColor: '#10b981', color: 'white', border: 'none' }}
+        triggerStyle={{
+          padding: '10px 16px',
+          borderRadius: '4px',
+          backgroundColor: '#10b981',
+          color: 'white',
+          border: 'none',
+        }}
       >
         <h3 style={{ margin: '0 0 12px 0' }}>Medium Modal</h3>
-        <p style={{ margin: 0 }}>Notice how the animation scales smoothly regardless of the target size.</p>
+        <p style={{ margin: 0 }}>
+          Notice how the animation scales smoothly regardless of the target size.
+        </p>
       </ModalWithTrigger>
-      
-      <ModalWithTrigger 
-        width="700px" 
+
+      <ModalWithTrigger
+        width="700px"
         height="500px"
         triggerText="Large (700×500)"
-        triggerStyle={{ padding: '10px 16px', borderRadius: '4px', backgroundColor: '#f59e0b', color: 'white', border: 'none' }}
+        triggerStyle={{
+          padding: '10px 16px',
+          borderRadius: '4px',
+          backgroundColor: '#f59e0b',
+          color: 'white',
+          border: 'none',
+        }}
       >
         <h2 style={{ margin: '0 0 16px 0' }}>Large Modal</h2>
         <p style={{ margin: '0 0 16px 0' }}>
-          This demonstrates how the animation works with larger dimensions.
-          The scaling effect is consistent across all sizes.
+          This demonstrates how the animation works with larger dimensions. The scaling effect is
+          consistent across all sizes.
         </p>
-        <div style={{ height: '200px', backgroundColor: '#f3f4f6', borderRadius: '6px', padding: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div
+          style={{
+            height: '200px',
+            backgroundColor: '#f3f4f6',
+            borderRadius: '6px',
+            padding: '16px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
           <p style={{ margin: 0, color: '#666' }}>Extra content to show scrollable area</p>
         </div>
       </ModalWithTrigger>
@@ -319,14 +371,13 @@ export const ControlledModal: Story = {
   args: {
     open: false,
     width: '400px',
-    height: '300px',
   },
   render: (args) => (
     <Modal {...args}>
       <h2 style={{ margin: '0 0 16px 0', color: '#333' }}>Controlled Modal</h2>
       <p style={{ margin: 0, color: '#666' }}>
-        This modal is controlled by the 'open' prop in the Storybook controls. 
-        Toggle it in the controls panel below to see the animation!
+        This modal is controlled by the 'open' prop in the Storybook controls. Toggle it in the
+        controls panel below to see the animation!
       </p>
     </Modal>
   ),
@@ -336,45 +387,65 @@ export const ControlledModal: Story = {
 export const RichContentModal: Story = {
   args: {
     width: '500px',
-    height: '400px',
   },
   render: (args) => (
-    <ModalWithTrigger 
+    <ModalWithTrigger
       {...args}
       triggerText="Open Rich Content Modal"
-      triggerStyle={{ padding: '12px 24px', borderRadius: '6px', backgroundColor: '#6366f1', color: 'white', border: 'none' }}
+      triggerStyle={{
+        padding: '12px 24px',
+        borderRadius: '6px',
+        backgroundColor: '#6366f1',
+        color: 'white',
+        border: 'none',
+      }}
     >
       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-        <h2 style={{ margin: 0, color: '#333', borderBottom: '2px solid #e5e7eb', paddingBottom: '8px' }}>
+        <h2
+          style={{
+            margin: 0,
+            color: '#333',
+            borderBottom: '2px solid #e5e7eb',
+            paddingBottom: '8px',
+          }}
+        >
           Rich Content Modal
         </h2>
-        
+
         <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-          <div style={{ 
-            width: '40px', 
-            height: '40px', 
-            borderRadius: '20px', 
-            backgroundColor: '#10b981',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'white',
-            fontSize: '18px'
-          }}>
+          <div
+            style={{
+              width: '40px',
+              height: '40px',
+              borderRadius: '20px',
+              backgroundColor: '#10b981',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'white',
+              fontSize: '18px',
+            }}
+          >
             ✓
           </div>
           <div>
-            <h3 style={{ margin: '0 0 4px 0', color: '#333', fontSize: '16px' }}>Action Completed</h3>
-            <p style={{ margin: 0, color: '#666', fontSize: '14px' }}>Your request has been processed successfully.</p>
+            <h3 style={{ margin: '0 0 4px 0', color: '#333', fontSize: '16px' }}>
+              Action Completed
+            </h3>
+            <p style={{ margin: 0, color: '#666', fontSize: '14px' }}>
+              Your request has been processed successfully.
+            </p>
           </div>
         </div>
 
-        <div style={{ 
-          padding: '12px', 
-          backgroundColor: '#f3f4f6', 
-          borderRadius: '6px',
-          borderLeft: '4px solid #6366f1'
-        }}>
+        <div
+          style={{
+            padding: '12px',
+            backgroundColor: '#f3f4f6',
+            borderRadius: '6px',
+            borderLeft: '4px solid #6366f1',
+          }}
+        >
           <h4 style={{ margin: '0 0 8px 0', color: '#333', fontSize: '14px' }}>Details:</h4>
           <ul style={{ margin: 0, paddingLeft: '16px', color: '#666' }}>
             <li>Animation duration: 500ms</li>
@@ -385,24 +456,28 @@ export const RichContentModal: Story = {
         </div>
 
         <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end', marginTop: '16px' }}>
-          <button style={{ 
-            padding: '8px 16px', 
-            border: '1px solid #d1d5db', 
-            backgroundColor: 'white',
-            borderRadius: '4px',
-            color: '#374151',
-            cursor: 'pointer'
-          }}>
+          <button
+            style={{
+              padding: '8px 16px',
+              border: '1px solid #d1d5db',
+              backgroundColor: 'white',
+              borderRadius: '4px',
+              color: '#374151',
+              cursor: 'pointer',
+            }}
+          >
             Cancel
           </button>
-          <button style={{ 
-            padding: '8px 16px', 
-            border: 'none', 
-            backgroundColor: '#6366f1',
-            borderRadius: '4px',
-            color: 'white',
-            cursor: 'pointer'
-          }}>
+          <button
+            style={{
+              padding: '8px 16px',
+              border: 'none',
+              backgroundColor: '#6366f1',
+              borderRadius: '4px',
+              color: 'white',
+              cursor: 'pointer',
+            }}
+          >
             Confirm
           </button>
         </div>
@@ -415,13 +490,12 @@ export const RichContentModal: Story = {
 export const FormModal: Story = {
   args: {
     width: '450px',
-    height: '350px',
   },
   render: (args) => {
     const FormModalWithState = () => {
       const [open, setOpen] = useState(false);
       const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-      
+
       const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         console.log('Form submitted:', formData);
@@ -431,112 +505,142 @@ export const FormModal: Story = {
 
       return (
         <>
-          <button 
+          <button
             onClick={() => setOpen(true)}
-            style={{ 
-              padding: '12px 24px', 
-              borderRadius: '6px', 
-              backgroundColor: '#059669', 
-              color: 'white', 
+            style={{
+              padding: '12px 24px',
+              borderRadius: '6px',
+              backgroundColor: '#059669',
+              color: 'white',
               border: 'none',
-              cursor: 'pointer'
+              cursor: 'pointer',
             }}
           >
             Open Form Modal
           </button>
-          <Modal 
-            {...args}
-            open={open}
-            onClose={() => setOpen(false)}
-          >
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <Modal {...args} open={open} onClose={() => setOpen(false)}>
+            <form
+              onSubmit={handleSubmit}
+              style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}
+            >
               <h2 style={{ margin: '0 0 16px 0', color: '#333' }}>Contact Form</h2>
-              
+
               <div>
-                <label style={{ display: 'block', marginBottom: '4px', color: '#333', fontSize: '14px', fontWeight: '500' }}>
+                <label
+                  style={{
+                    display: 'block',
+                    marginBottom: '4px',
+                    color: '#333',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                  }}
+                >
                   Name
                 </label>
-                <input 
+                <input
                   type="text"
                   value={formData.name}
-                  onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                  style={{ 
-                    width: '100%', 
-                    padding: '8px 12px', 
+                  onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
+                  style={{
+                    width: '100%',
+                    padding: '8px 12px',
                     border: '1px solid #d1d5db',
                     borderRadius: '4px',
                     fontSize: '14px',
-                    boxSizing: 'border-box'
+                    boxSizing: 'border-box',
                   }}
                   placeholder="Enter your name"
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', marginBottom: '4px', color: '#333', fontSize: '14px', fontWeight: '500' }}>
+                <label
+                  style={{
+                    display: 'block',
+                    marginBottom: '4px',
+                    color: '#333',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                  }}
+                >
                   Email
                 </label>
-                <input 
+                <input
                   type="email"
                   value={formData.email}
-                  onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                  style={{ 
-                    width: '100%', 
-                    padding: '8px 12px', 
+                  onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
+                  style={{
+                    width: '100%',
+                    padding: '8px 12px',
                     border: '1px solid #d1d5db',
                     borderRadius: '4px',
                     fontSize: '14px',
-                    boxSizing: 'border-box'
+                    boxSizing: 'border-box',
                   }}
                   placeholder="Enter your email"
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', marginBottom: '4px', color: '#333', fontSize: '14px', fontWeight: '500' }}>
+                <label
+                  style={{
+                    display: 'block',
+                    marginBottom: '4px',
+                    color: '#333',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                  }}
+                >
                   Message
                 </label>
-                <textarea 
+                <textarea
                   value={formData.message}
-                  onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, message: e.target.value }))}
                   rows={3}
-                  style={{ 
-                    width: '100%', 
-                    padding: '8px 12px', 
+                  style={{
+                    width: '100%',
+                    padding: '8px 12px',
                     border: '1px solid #d1d5db',
                     borderRadius: '4px',
                     fontSize: '14px',
                     boxSizing: 'border-box',
-                    resize: 'vertical'
+                    resize: 'vertical',
                   }}
                   placeholder="Enter your message"
                 />
               </div>
 
-              <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end', marginTop: '8px' }}>
-                <button 
+              <div
+                style={{
+                  display: 'flex',
+                  gap: '8px',
+                  justifyContent: 'flex-end',
+                  marginTop: '8px',
+                }}
+              >
+                <button
                   type="button"
                   onClick={() => setOpen(false)}
-                  style={{ 
-                    padding: '8px 16px', 
-                    border: '1px solid #d1d5db', 
+                  style={{
+                    padding: '8px 16px',
+                    border: '1px solid #d1d5db',
                     backgroundColor: 'white',
                     borderRadius: '4px',
                     color: '#374151',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
                   }}
                 >
                   Cancel
                 </button>
-                <button 
+                <button
                   type="submit"
-                  style={{ 
-                    padding: '8px 16px', 
-                    border: 'none', 
+                  style={{
+                    padding: '8px 16px',
+                    border: 'none',
                     backgroundColor: '#059669',
                     borderRadius: '4px',
                     color: 'white',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
                   }}
                 >
                   Submit
