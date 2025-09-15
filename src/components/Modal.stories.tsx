@@ -331,3 +331,223 @@ export const ControlledModal: Story = {
     </Modal>
   ),
 };
+
+// New story showing different content types
+export const RichContentModal: Story = {
+  args: {
+    width: '500px',
+    height: '400px',
+  },
+  render: (args) => (
+    <ModalWithTrigger 
+      {...args}
+      triggerText="Open Rich Content Modal"
+      triggerStyle={{ padding: '12px 24px', borderRadius: '6px', backgroundColor: '#6366f1', color: 'white', border: 'none' }}
+    >
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <h2 style={{ margin: 0, color: '#333', borderBottom: '2px solid #e5e7eb', paddingBottom: '8px' }}>
+          Rich Content Modal
+        </h2>
+        
+        <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+          <div style={{ 
+            width: '40px', 
+            height: '40px', 
+            borderRadius: '20px', 
+            backgroundColor: '#10b981',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: 'white',
+            fontSize: '18px'
+          }}>
+            ✓
+          </div>
+          <div>
+            <h3 style={{ margin: '0 0 4px 0', color: '#333', fontSize: '16px' }}>Action Completed</h3>
+            <p style={{ margin: 0, color: '#666', fontSize: '14px' }}>Your request has been processed successfully.</p>
+          </div>
+        </div>
+
+        <div style={{ 
+          padding: '12px', 
+          backgroundColor: '#f3f4f6', 
+          borderRadius: '6px',
+          borderLeft: '4px solid #6366f1'
+        }}>
+          <h4 style={{ margin: '0 0 8px 0', color: '#333', fontSize: '14px' }}>Details:</h4>
+          <ul style={{ margin: 0, paddingLeft: '16px', color: '#666' }}>
+            <li>Animation duration: 500ms</li>
+            <li>Position: Top-left (50px, 50px)</li>
+            <li>Backdrop: Click to close</li>
+            <li>Keyboard: ESC to close</li>
+          </ul>
+        </div>
+
+        <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end', marginTop: '16px' }}>
+          <button style={{ 
+            padding: '8px 16px', 
+            border: '1px solid #d1d5db', 
+            backgroundColor: 'white',
+            borderRadius: '4px',
+            color: '#374151',
+            cursor: 'pointer'
+          }}>
+            Cancel
+          </button>
+          <button style={{ 
+            padding: '8px 16px', 
+            border: 'none', 
+            backgroundColor: '#6366f1',
+            borderRadius: '4px',
+            color: 'white',
+            cursor: 'pointer'
+          }}>
+            Confirm
+          </button>
+        </div>
+      </div>
+    </ModalWithTrigger>
+  ),
+};
+
+// Story showing form integration
+export const FormModal: Story = {
+  args: {
+    width: '450px',
+    height: '350px',
+  },
+  render: (args) => {
+    const FormModalWithState = () => {
+      const [open, setOpen] = useState(false);
+      const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+      
+      const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        console.log('Form submitted:', formData);
+        setOpen(false);
+        setFormData({ name: '', email: '', message: '' });
+      };
+
+      return (
+        <>
+          <button 
+            onClick={() => setOpen(true)}
+            style={{ 
+              padding: '12px 24px', 
+              borderRadius: '6px', 
+              backgroundColor: '#059669', 
+              color: 'white', 
+              border: 'none',
+              cursor: 'pointer'
+            }}
+          >
+            Open Form Modal
+          </button>
+          <Modal 
+            {...args}
+            open={open}
+            onClose={() => setOpen(false)}
+          >
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <h2 style={{ margin: '0 0 16px 0', color: '#333' }}>Contact Form</h2>
+              
+              <div>
+                <label style={{ display: 'block', marginBottom: '4px', color: '#333', fontSize: '14px', fontWeight: '500' }}>
+                  Name
+                </label>
+                <input 
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                  style={{ 
+                    width: '100%', 
+                    padding: '8px 12px', 
+                    border: '1px solid #d1d5db',
+                    borderRadius: '4px',
+                    fontSize: '14px',
+                    boxSizing: 'border-box'
+                  }}
+                  placeholder="Enter your name"
+                />
+              </div>
+
+              <div>
+                <label style={{ display: 'block', marginBottom: '4px', color: '#333', fontSize: '14px', fontWeight: '500' }}>
+                  Email
+                </label>
+                <input 
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                  style={{ 
+                    width: '100%', 
+                    padding: '8px 12px', 
+                    border: '1px solid #d1d5db',
+                    borderRadius: '4px',
+                    fontSize: '14px',
+                    boxSizing: 'border-box'
+                  }}
+                  placeholder="Enter your email"
+                />
+              </div>
+
+              <div>
+                <label style={{ display: 'block', marginBottom: '4px', color: '#333', fontSize: '14px', fontWeight: '500' }}>
+                  Message
+                </label>
+                <textarea 
+                  value={formData.message}
+                  onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
+                  rows={3}
+                  style={{ 
+                    width: '100%', 
+                    padding: '8px 12px', 
+                    border: '1px solid #d1d5db',
+                    borderRadius: '4px',
+                    fontSize: '14px',
+                    boxSizing: 'border-box',
+                    resize: 'vertical'
+                  }}
+                  placeholder="Enter your message"
+                />
+              </div>
+
+              <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end', marginTop: '8px' }}>
+                <button 
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  style={{ 
+                    padding: '8px 16px', 
+                    border: '1px solid #d1d5db', 
+                    backgroundColor: 'white',
+                    borderRadius: '4px',
+                    color: '#374151',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Cancel
+                </button>
+                <button 
+                  type="submit"
+                  style={{ 
+                    padding: '8px 16px', 
+                    border: 'none', 
+                    backgroundColor: '#059669',
+                    borderRadius: '4px',
+                    color: 'white',
+                    cursor: 'pointer'
+                  }}
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
+          </Modal>
+        </>
+      );
+    };
+
+    return <FormModalWithState />;
+  },
+};

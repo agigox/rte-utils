@@ -8,6 +8,7 @@ interface ModalProps {
   height?: string;
   onClose?: () => void;
   className?: string;
+  backgroundColor?: string;
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -17,6 +18,7 @@ export const Modal: React.FC<ModalProps> = ({
   height = '300px',
   onClose,
   className = '',
+  backgroundColor = 'white',
 }) => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [shouldRender, setShouldRender] = useState(false);
@@ -31,7 +33,7 @@ export const Modal: React.FC<ModalProps> = ({
       // Wait for animation to complete before removing from DOM
       setTimeout(() => {
         setShouldRender(false);
-      }, 300); // Match this with CSS animation duration
+      }, 500); // Match this with CSS animation duration
     }
   }, [open]);
 
@@ -76,6 +78,7 @@ export const Modal: React.FC<ModalProps> = ({
             style={{
               '--modal-width': width,
               '--modal-height': height,
+              backgroundColor,
             } as React.CSSProperties}
           >
             <button
