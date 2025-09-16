@@ -62,7 +62,8 @@
   flex-shrink: 0;
 }
 
-.buyline--has-labels .buyline__title {
+.buyline--has-labels .buyline__title,
+.buyline--has-labels .buyline__status {
   position: relative;
   top: 15px;
 }
