@@ -147,9 +147,8 @@ export const InputNumber: React.FC<InputNumberProps> = ({
       <div className="input-constraints">
         {min.label && (
           <div className="input-min">
-            {min.label}
-            <br />
-            {min.value}
+            <div className="input-min-label">{min.label}</div>
+            <div className="input-min-value">{min.value}</div>
           </div>
         )}
 
@@ -177,8 +176,8 @@ export const InputNumber: React.FC<InputNumberProps> = ({
         </div>
         {max.label && (
           <div className="input-max">
-            {max.label}
-            <br /> {max.value}
+            <div className="input-max-label">{max.label}</div>
+            <div className="input-max-value">{max.value}</div>
           </div>
         )}
       </div>

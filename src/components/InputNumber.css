@@ -181,10 +181,20 @@
 }
 .input-min,
 .input-max {
-  font-size: 12px;
   color: #999;
   text-align: center;
   width: 35px;
+  display: flex;
+  flex-direction: column;
+}
+.input-min-label,
+.input-max-label {
+  font-size: 12px;
+  line-height: 10px;
+}
+.input-min-value,
+.input-max-value {
+  font-size: 14px;
 }
 
 /* Focused state styles for min/max labels */

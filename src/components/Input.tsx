@@ -90,9 +90,9 @@ export const InputNumber: React.FC<InputNumberProps> = ({
     <div className={containerClasses}>
       <div className="input-constraints">
         <div className="input-min">
-          {min.label}
+          <span className="input-min-label">{min.label}</span>
           <br />
-          {min.value}
+          <span className="input-min-value">{min.value}</span>
         </div>
 
         <div className="input-field">
@@ -117,8 +117,8 @@ export const InputNumber: React.FC<InputNumberProps> = ({
           </label>
         </div>
         <div className="input-max">
-          {max.label}
-          <br /> {max.value}
+          <span className="input-max-label">{max.label}</span>
+          <br /> <span className="input-max-value">{max.value}</span>
         </div>
       </div>
     </div>
