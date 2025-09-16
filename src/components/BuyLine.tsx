@@ -35,6 +35,7 @@ interface BuyLineProps {
   className?: string;
   showStatus?: 'accepted' | 'refused' | 'partial';
   theme?: 'light' | 'dark' | 'slate';
+  hasBorderBottom?: boolean;
 }
 
 export const BuyLine: React.FC<BuyLineProps> = ({
@@ -56,6 +57,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
   className = '',
   showStatus,
   theme = 'light',
+  hasBorderBottom = true,
 }) => {
   const [internalVolume, setInternalVolume] = useState(volume);
   const [internalPrice, setInternalPrice] = useState(price);
@@ -145,14 +147,14 @@ export const BuyLine: React.FC<BuyLineProps> = ({
   const isSendDisabled = internalVolume.trim() === '' || volumeHasError || priceHasError;
 
   return (
-    <div 
+    <div
       className={`buyline ${labels ? 'buyline--has-labels' : ''} ${theme === 'dark' ? 'buyline--dark' : ''} ${theme === 'slate' ? 'buyline--slate' : ''} ${className}`}
       style={
-        theme === 'dark' 
-          ? { backgroundColor: '#292E33' } 
-          : theme === 'slate' 
-          ? { backgroundColor: '#3B434A' } 
-          : {}
+        theme === 'dark'
+          ? { backgroundColor: '#292E33' }
+          : theme === 'slate'
+            ? { backgroundColor: '#3B434A' }
+            : {}
       }
     >
       {/*labels && (
@@ -221,20 +223,28 @@ export const BuyLine: React.FC<BuyLineProps> = ({
               </div>
             )}
             <div className="buyline__total">
-              <Chip 
-                width="fit-content" 
+              <Chip
+                width="fit-content"
                 bgColor={
-                  calculatePrice() === 0 
-                    ? (theme === 'dark' ? '#292E33' : theme === 'slate' ? '#3B434A' : '#F2F4F4') 
-                    : (theme === 'dark' || theme === 'slate' ? '#005896' : '#E1F5FD')
+                  calculatePrice() === 0
+                    ? theme === 'dark'
+                      ? '#292E33'
+                      : theme === 'slate'
+                        ? '#3B434A'
+                        : '#F2F4F4'
+                    : theme === 'dark' || theme === 'slate'
+                      ? '#005896'
+                      : '#E1F5FD'
                 }
               >
                 <ValueWithUnit
                   cost={calculatePrice()}
                   textColor={
-                    calculatePrice() === 0 
-                      ? '#999FA1' 
-                      : (theme === 'dark' || theme === 'slate' ? '#B3E5F9' : '#005896')
+                    calculatePrice() === 0
+                      ? '#999FA1'
+                      : theme === 'dark' || theme === 'slate'
+                        ? '#B3E5F9'
+                        : '#005896'
                   }
                   type="euro"
                 />
@@ -283,7 +293,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
           </div>
         )}
       </div>
-      <div className="buyline__border" />
+      {hasBorderBottom && <div className="buyline__border" />}
     </div>
   );
 };
