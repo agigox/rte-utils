@@ -4,7 +4,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  position: relative;
   width: 100%;
 }
 
@@ -24,11 +23,8 @@
   box-sizing: border-box;
 }
 .buyline__border {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: -10px;
+  width: 100%;
+  margin-top: 12px;
   border-bottom: 1px solid #f2f4f4;
   pointer-events: none;
 }
