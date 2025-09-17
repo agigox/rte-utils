@@ -1,0 +1,121 @@
+/* Tabs Container */
+.tabs-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Tabs Header */
+.tabs-header {
+  display: flex;
+  width: 100%;
+}
+
+/* Tab Item */
+.tab-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+  cursor: pointer;
+  padding-top: 16px;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+/* Tab Content */
+.tab-content {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 24px;
+}
+
+/* Tab Label */
+.tab-label {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #11161a;
+  white-space: nowrap;
+}
+
+.tab-item--active .tab-label {
+  color: #009cdf;
+}
+
+/* Tab Count Badge */
+.tab-count {
+  background: #11161a;
+  color: white;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 12px;
+  padding: 0 8px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 16px;
+}
+
+.tab-count--active {
+  background: #009cdf;
+}
+
+/* Tab Divider */
+.tab-divider {
+  height: 2px;
+  width: 100%;
+  background: #f2f4f4;
+  position: relative;
+}
+
+.tab-divider--active {
+  background: #009cdf;
+}
+
+/* Tabs Body */
+.tabs-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+/* Tab Body Content */
+.tab-body-content {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  color: black;
+  white-space: nowrap;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .tabs-container {
+    width: 100%;
+    max-width: calc(100vw - 32px);
+    border-radius: 16px;
+    padding: 12px;
+  }
+
+  .tab-content {
+    padding: 0 12px;
+  }
+
+  .tab-label {
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+}
