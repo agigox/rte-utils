@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import './Timer.css';
+import { NextIcon, PreviousIcon } from './Icons';
 
 export interface TimerProps {
   // Required phase configuration - duration in milliseconds
   phases: { duration: number; title?: string }[];
-  
+
   // Required external state - always controlled
   externalState: {
     currentPhase: string; // phase title instead of index
@@ -13,7 +14,7 @@ export interface TimerProps {
     isPaused: boolean;
     isFrozen: boolean;
   };
-  
+
   // Required state change handler
   onStateChange: (state: {
     currentPhase: string; // phase title instead of index
@@ -22,7 +23,7 @@ export interface TimerProps {
     isPaused: boolean;
     isFrozen: boolean;
   }) => void;
-  
+
   // Optional event callbacks
   onComplete?: () => void;
   onPhaseComplete?: (phaseTitle: string, phaseDuration: number) => void;
@@ -37,7 +38,7 @@ export interface TimerProps {
   onPrevious?: (phaseName: string) => void;
   onNext?: (phaseName: string) => void;
   onPhaseClick?: (phaseName: string) => void;
-  
+
   // UI configuration
   className?: string;
   gameActions?: { [phaseIndex: number]: string };
@@ -90,27 +91,29 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
     ref
   ) => {
     // Extract state from externalState - no internal timer state
-    const {
-      currentPhase,
-      currentTime,
-      isRunning,
-      isPaused,
-      isFrozen,
-    } = externalState;
+    const { currentPhase, currentTime, isRunning, isPaused, isFrozen } = externalState;
 
     // Helper functions to work with phase indices internally
     const getCurrentPhaseIndex = useCallback(() => {
-      return phases.findIndex(phase => (phase.title || `Phase ${phases.indexOf(phase) + 1}`) === currentPhase);
+      return phases.findIndex(
+        (phase) => (phase.title || `Phase ${phases.indexOf(phase) + 1}`) === currentPhase
+      );
     }, [phases, currentPhase]);
 
-    const getPhaseByIndex = useCallback((index: number) => {
-      return phases[index];
-    }, [phases]);
+    const getPhaseByIndex = useCallback(
+      (index: number) => {
+        return phases[index];
+      },
+      [phases]
+    );
 
-    const getPhaseTitle = useCallback((index: number) => {
-      const phase = phases[index];
-      return phase?.title || `Phase ${index + 1}`;
-    }, [phases]);
+    const getPhaseTitle = useCallback(
+      (index: number) => {
+        const phase = phases[index];
+        return phase?.title || `Phase ${index + 1}`;
+      },
+      [phases]
+    );
 
     // Keep only UI-specific state (not timer logic)
     const [selectedPhase, setSelectedPhase] = useState<number | null>(null);
@@ -119,30 +122,40 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
 
     const start = useCallback(() => {
       const currentPhaseIndex = getCurrentPhaseIndex();
-      if (phases.length === 0 || currentPhaseIndex === -1 || currentPhaseIndex >= phases.length) return;
-      
+      if (phases.length === 0 || currentPhaseIndex === -1 || currentPhaseIndex >= phases.length)
+        return;
+
       // Determine which callback to trigger based on current state
       const wasUnpausing = isPaused && !isFrozen;
       const wasUnfreezing = isFrozen;
-      
+
       onStateChange({
         ...externalState,
         isRunning: true,
         isPaused: false,
         isFrozen: false,
       });
-      
+
       // Call appropriate callback based on previous state
       if (wasUnfreezing) {
         onUnfreeze?.();
       } else if (wasUnpausing) {
         onUnpause?.();
       }
-    }, [phases.length, getCurrentPhaseIndex, externalState, onStateChange, isPaused, isFrozen, onUnfreeze, onUnpause]);
+    }, [
+      phases.length,
+      getCurrentPhaseIndex,
+      externalState,
+      onStateChange,
+      isPaused,
+      isFrozen,
+      onUnfreeze,
+      onUnpause,
+    ]);
 
     const pause = useCallback(() => {
       if (isFrozen) return;
-      
+
       onStateChange({
         ...externalState,
         isRunning: false,
@@ -151,27 +164,29 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
       onPause?.();
     }, [isFrozen, externalState, onStateChange, onPause]);
 
-    const freeze = useCallback((force?: boolean) => {
-      
-      const nextFrozen = force === undefined ? !isFrozen : force;
-      
-      const newState = {
-        ...externalState,
-        isFrozen: nextFrozen,
-        // When unfreezing, restore to running state (unless it was explicitly paused)
-        // When freezing, stop running but preserve pause state
-        isRunning: nextFrozen ? false : !externalState.isPaused,
-        isPaused: externalState.isPaused, // Preserve pause state
-      };
-      
-      onStateChange(newState);
-      onFreeze?.(nextFrozen);
-      
-      // Call onUnfreeze when unfreezing
-      if (!nextFrozen && isFrozen) {
-        onUnfreeze?.();
-      }
-    }, [isFrozen, externalState, onStateChange, onFreeze, onUnfreeze]);
+    const freeze = useCallback(
+      (force?: boolean) => {
+        const nextFrozen = force === undefined ? !isFrozen : force;
+
+        const newState = {
+          ...externalState,
+          isFrozen: nextFrozen,
+          // When unfreezing, restore to running state (unless it was explicitly paused)
+          // When freezing, stop running but preserve pause state
+          isRunning: nextFrozen ? false : !externalState.isPaused,
+          isPaused: externalState.isPaused, // Preserve pause state
+        };
+
+        onStateChange(newState);
+        onFreeze?.(nextFrozen);
+
+        // Call onUnfreeze when unfreezing
+        if (!nextFrozen && isFrozen) {
+          onUnfreeze?.();
+        }
+      },
+      [isFrozen, externalState, onStateChange, onFreeze, onUnfreeze]
+    );
 
     const toggleAnonymise = useCallback(
       (force?: boolean) => {
@@ -224,7 +239,6 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
       isPaused: () => isPaused,
     }));
 
-
     useEffect(() => {
       const currentPhaseIndex = getCurrentPhaseIndex();
       if (isRunning && !isFrozen && currentPhaseIndex !== -1 && currentPhaseIndex < phases.length) {
@@ -232,13 +246,13 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
           const newTimeMs = currentTime + 1000; // increment by 1000ms (1 second)
           const currentPhase = getPhaseByIndex(currentPhaseIndex);
           const phaseDurationMs = currentPhase?.duration || 0;
-          
+
           // Check if phase will be complete after this tick
           const willCompletePhase = newTimeMs >= phaseDurationMs;
-          
+
           // For phase completion, show exact duration (00:00) first
           const timeToUpdate = willCompletePhase ? phaseDurationMs : newTimeMs;
-          
+
           // Update the elapsed time first
           onStateChange({
             ...externalState,
@@ -249,7 +263,6 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
           // Use setTimeout to allow the 00:00 display to render before phase completion
           if (willCompletePhase) {
             setTimeout(() => {
-              
               onPhaseComplete?.(getPhaseTitle(currentPhaseIndex), phaseDurationMs);
 
               // Move to next phase or complete
@@ -260,7 +273,6 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
                   currentTime: 0,
                 });
               } else {
-                
                 onStateChange({
                   ...externalState,
                   currentTime: phaseDurationMs, // Ensure we set time to exact duration
@@ -284,7 +296,20 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
           clearInterval(intervalRef.current);
         }
       };
-    }, [isRunning, isFrozen, getCurrentPhaseIndex, currentTime, phases.length, externalState, onStateChange, onTick, onPhaseComplete, onComplete, getPhaseByIndex, getPhaseTitle]);
+    }, [
+      isRunning,
+      isFrozen,
+      getCurrentPhaseIndex,
+      currentTime,
+      phases.length,
+      externalState,
+      onStateChange,
+      onTick,
+      onPhaseComplete,
+      onComplete,
+      getPhaseByIndex,
+      getPhaseTitle,
+    ]);
 
     // Clear selected phase when current phase changes
     useEffect(() => {
@@ -310,16 +335,17 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
       isRunning ? 'timer--running' : '',
       isPaused ? 'timer--paused' : '',
       isFrozen ? 'timer--frozen' : '',
-  // isAnonymised ? 'timer--anonymised' : '',
+      // isAnonymised ? 'timer--anonymised' : '',
       isAtEnd ? 'timer--completed' : '',
     ]
       .filter(Boolean)
       .join(' ');
 
-    const remainingTime = currentPhaseDurationSeconds > 0 ? currentPhaseDurationSeconds - currentTimeSeconds : 0;
-    
+    const remainingTime =
+      currentPhaseDurationSeconds > 0 ? currentPhaseDurationSeconds - currentTimeSeconds : 0;
+
     // Force remaining time to 0 if we're at the exact phase duration or beyond
-    const finalRemainingTime = (isAtEnd || currentTime >= currentPhaseDurationMs) ? 0 : remainingTime;
+    const finalRemainingTime = isAtEnd || currentTime >= currentPhaseDurationMs ? 0 : remainingTime;
 
     const renderStepIndicators = () => {
       const steps = [] as React.ReactNode[];
@@ -373,15 +399,21 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
             : undefined,
         };
 
-        steps.push(<div key={i} {...commonProps}>{hasAction || isActive || isCompleted ? i + 1 : ''}</div>);
+        steps.push(
+          <div key={i} {...commonProps}>
+            {hasAction || isActive || isCompleted ? i + 1 : ''}
+          </div>
+        );
 
         if (user === 'actor' && isActive) {
           steps.push(
             <div key={`header-inline-${i}`} className="timer-header--block">
               <div className="timer-header timer-header--inline">
                 <span className="timer-title">
-                  {selectedPhase !== null 
-                    ? (getPhaseByIndex(selectedPhase)?.title || `Phase ${selectedPhase + 1}`).toUpperCase()
+                  {selectedPhase !== null
+                    ? (
+                        getPhaseByIndex(selectedPhase)?.title || `Phase ${selectedPhase + 1}`
+                      ).toUpperCase()
                     : (currentPhaseData?.title || 'TIMER').toUpperCase()}
                 </span>
                 <span className="timer-time">{formatTime(Math.max(0, finalRemainingTime))}</span>
@@ -488,8 +520,10 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
               {user === 'admin' && (
                 <div className="timer-header">
                   <span className="timer-title">
-                    {selectedPhase !== null 
-                      ? (getPhaseByIndex(selectedPhase)?.title || `Phase ${selectedPhase + 1}`).toUpperCase()
+                    {selectedPhase !== null
+                      ? (
+                          getPhaseByIndex(selectedPhase)?.title || `Phase ${selectedPhase + 1}`
+                        ).toUpperCase()
                       : (currentPhaseData?.title || 'TIMER').toUpperCase()}
                   </span>
                   <span className="timer-time">{formatTime(Math.max(0, finalRemainingTime))}</span>
@@ -514,39 +548,17 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
               className="control-button control-button--previous"
               onClick={() => {
                 // Navigate to previous phase if available
-                const targetIndex = selectedPhase !== null ? selectedPhase - 1 : currentPhaseIndex - 1;
+                const targetIndex =
+                  selectedPhase !== null ? selectedPhase - 1 : currentPhaseIndex - 1;
                 if (targetIndex >= 0) {
                   setSelectedPhase(targetIndex);
                   onPrevious?.(getPhaseTitle(targetIndex));
                 }
               }}
-              disabled={
-                selectedPhase !== null 
-                  ? selectedPhase <= 0
-                  : currentPhaseIndex <= 0
-              }
+              disabled={selectedPhase !== null ? selectedPhase <= 0 : currentPhaseIndex <= 0}
               title="Previous"
             >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M11.9813 2.39178C12.1589 2.38845 12.3342 2.43251 12.4892 2.51941C12.6441 2.60631 12.7731 2.73291 12.8629 2.88621C12.9527 3.0395 13 3.21395 13 3.3916L12.5 3.3916H13V12.6085C13 12.7862 12.9527 12.9606 12.8629 13.1139C12.7731 13.2672 12.6441 13.3938 12.4892 13.4807C12.3342 13.5676 12.1589 13.6117 11.9813 13.6084C11.8037 13.605 11.6301 13.5545 11.4785 13.4618L3.93741 8.85335C3.79124 8.76403 3.67046 8.63865 3.58667 8.48923C3.50287 8.33982 3.45886 8.17138 3.45886 8.00007C3.45886 7.82877 3.50287 7.66033 3.58667 7.51092C3.67046 7.3615 3.79124 7.23612 3.93741 7.14679L11.4785 2.53832C11.6301 2.44568 11.8037 2.3951 11.9813 2.39178ZM12 3.3916L4.45886 8.00007L4.19814 7.57343L4.45886 8.00007L12 12.6085V3.3916Z"
-                  fill="black"
-                />
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M2 2C2.27614 2 2.5 2.22386 2.5 2.5V13.5C2.5 13.7761 2.27614 14 2 14C1.72386 14 1.5 13.7761 1.5 13.5V2.5C1.5 2.22386 1.72386 2 2 2Z"
-                  fill="black"
-                />
-              </svg>
+              <PreviousIcon />
             </button>
 
             <button
@@ -561,32 +573,13 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
                 }
               }}
               disabled={
-                selectedPhase !== null 
-                  ? (selectedPhase >= currentPhaseIndex || selectedPhase >= phases.length - 1)
-                  : (currentPhaseIndex >= phases.length - 1)
+                selectedPhase !== null
+                  ? selectedPhase >= currentPhaseIndex || selectedPhase >= phases.length - 1
+                  : currentPhaseIndex >= phases.length - 1
               }
               title="Next"
             >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M3.51084 2.51941C3.66579 2.43251 3.84109 2.38845 4.01871 2.39178C4.19633 2.3951 4.36986 2.44568 4.52145 2.53832L12.0626 7.14679C12.2088 7.23612 12.3295 7.3615 12.4133 7.51092C12.4971 7.66033 12.5411 7.82877 12.5411 8.00007C12.5411 8.17138 12.4971 8.33982 12.4133 8.48923C12.3295 8.63865 12.2088 8.76403 12.0626 8.85335L4.52145 13.4618C4.36986 13.5545 4.19633 13.605 4.01871 13.6084C3.84109 13.6117 3.66579 13.5676 3.51084 13.4807C3.3559 13.3938 3.2269 13.2672 3.13711 13.1139C3.04733 12.9606 3 12.7862 3 12.6085V3.3916C3 3.21395 3.04733 3.0395 3.13711 2.88621C3.22689 2.73292 3.35589 2.60631 3.51084 2.51941ZM11.5411 8.00007L4 3.3916V12.6085L11.5411 8.00007Z"
-                  fill="black"
-                />
-                <path
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                  d="M14 2C14.2761 2 14.5 2.22386 14.5 2.5V13.5C14.5 13.7761 14.2761 14 14 14C13.7239 14 13.5 13.7761 13.5 13.5V2.5C13.5 2.22386 13.7239 2 14 2Z"
-                  fill="black"
-                />
-              </svg>
+              <NextIcon />
             </button>
 
             <button
@@ -683,10 +676,18 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
               disabled={!isRunning && !isPaused && !isFrozen}
             >
               {/* Simple snowflake / asterisk style placeholder icon */}
-              <svg width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M8.14697 0.146484C8.34224 -0.0486747 8.65878 -0.0487434 8.854 0.146484C9.04889 0.341739 9.04905 0.658358 8.854 0.853516L7.50049 2.20703V5.13281L10.0337 3.66992L10.5298 1.82129C10.6012 1.5547 10.8755 1.3966 11.1421 1.46777C11.4088 1.53922 11.5679 1.8134 11.4966 2.08008L11.0767 3.64648L12.6421 4.06543C12.9088 4.1369 13.0681 4.41198 12.9966 4.67871C12.925 4.94527 12.6499 5.10368 12.3833 5.03223L10.5347 4.53613L7.99951 5.99902L10.5347 7.46191L12.3833 6.96777C12.65 6.8963 12.9251 7.05456 12.9966 7.32129C13.068 7.58799 12.9088 7.86213 12.6421 7.93359L11.0767 8.35352L11.4966 9.91992C11.5677 10.1865 11.4086 10.4608 11.1421 10.5322C10.8756 10.6033 10.6013 10.4451 10.5298 10.1787L10.0337 8.32812L7.50049 6.86523V9.79297L8.854 11.1465C9.04889 11.3417 9.04905 11.6584 8.854 11.8535C8.65885 12.0487 8.34226 12.0484 8.14697 11.8535L7.00049 10.707L5.854 11.8535C5.65885 12.0487 5.34226 12.0484 5.14697 11.8535C4.95171 11.6583 4.95171 11.3417 5.14697 11.1465L6.50049 9.79297V6.86523L3.96533 8.32812L3.47021 10.1787C3.39865 10.4451 3.12439 10.6034 2.85791 10.5322C2.59128 10.4608 2.43314 10.1866 2.50439 9.91992L2.92334 8.35352L1.35791 7.93359C1.09118 7.86212 0.932919 7.58802 1.00439 7.32129C1.07593 7.05464 1.35001 6.89631 1.6167 6.96777L3.46436 7.46191L5.99951 5.99902L3.46436 4.53613L1.6167 5.03223C1.35014 5.10366 1.07608 4.94513 1.00439 4.67871C0.932919 4.41198 1.09118 4.1369 1.35791 4.06543L2.92334 3.64648L2.50439 2.08008C2.43293 1.81334 2.59118 1.53924 2.85791 1.46777C3.12453 1.39654 3.39878 1.55467 3.47021 1.82129L3.96533 3.66992L6.50049 5.13281V2.20703L5.14697 0.853516C4.95171 0.658253 4.95171 0.341747 5.14697 0.146484C5.34224 -0.0486746 5.65878 -0.0487434 5.854 0.146484L7.00049 1.29297L8.14697 0.146484Z" fill="black"/>
-</svg>
-
+              <svg
+                width="14"
+                height="12"
+                viewBox="0 0 14 12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M8.14697 0.146484C8.34224 -0.0486747 8.65878 -0.0487434 8.854 0.146484C9.04889 0.341739 9.04905 0.658358 8.854 0.853516L7.50049 2.20703V5.13281L10.0337 3.66992L10.5298 1.82129C10.6012 1.5547 10.8755 1.3966 11.1421 1.46777C11.4088 1.53922 11.5679 1.8134 11.4966 2.08008L11.0767 3.64648L12.6421 4.06543C12.9088 4.1369 13.0681 4.41198 12.9966 4.67871C12.925 4.94527 12.6499 5.10368 12.3833 5.03223L10.5347 4.53613L7.99951 5.99902L10.5347 7.46191L12.3833 6.96777C12.65 6.8963 12.9251 7.05456 12.9966 7.32129C13.068 7.58799 12.9088 7.86213 12.6421 7.93359L11.0767 8.35352L11.4966 9.91992C11.5677 10.1865 11.4086 10.4608 11.1421 10.5322C10.8756 10.6033 10.6013 10.4451 10.5298 10.1787L10.0337 8.32812L7.50049 6.86523V9.79297L8.854 11.1465C9.04889 11.3417 9.04905 11.6584 8.854 11.8535C8.65885 12.0487 8.34226 12.0484 8.14697 11.8535L7.00049 10.707L5.854 11.8535C5.65885 12.0487 5.34226 12.0484 5.14697 11.8535C4.95171 11.6583 4.95171 11.3417 5.14697 11.1465L6.50049 9.79297V6.86523L3.96533 8.32812L3.47021 10.1787C3.39865 10.4451 3.12439 10.6034 2.85791 10.5322C2.59128 10.4608 2.43314 10.1866 2.50439 9.91992L2.92334 8.35352L1.35791 7.93359C1.09118 7.86212 0.932919 7.58802 1.00439 7.32129C1.07593 7.05464 1.35001 6.89631 1.6167 6.96777L3.46436 7.46191L5.99951 5.99902L3.46436 4.53613L1.6167 5.03223C1.35014 5.10366 1.07608 4.94513 1.00439 4.67871C0.932919 4.41198 1.09118 4.1369 1.35791 4.06543L2.92334 3.64648L2.50439 2.08008C2.43293 1.81334 2.59118 1.53924 2.85791 1.46777C3.12453 1.39654 3.39878 1.55467 3.47021 1.82129L3.96533 3.66992L6.50049 5.13281V2.20703L5.14697 0.853516C4.95171 0.658253 4.95171 0.341747 5.14697 0.146484C5.34224 -0.0486746 5.65878 -0.0487434 5.854 0.146484L7.00049 1.29297L8.14697 0.146484Z"
+                  fill="black"
+                />
+              </svg>
             </button>
             <button
               className={`control-button control-button--anonymise ${isAnonymised ? 'control-button--anonymise-active' : ''}`}
@@ -694,12 +695,32 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
               title={isAnonymised ? 'Show Names' : 'Hide Names'}
             >
               {/* Simple snowflake / asterisk style placeholder icon */}
-              <svg width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fillRule="evenodd" clipRule="evenodd" d="M4.19571 0.9375H13.9316L13.9576 0.939919L13.9055 1.5C13.9576 0.939919 13.958 0.939955 13.9584 0.939992L13.9593 0.940074L13.9612 0.940263L13.966 0.940753L13.9794 0.942218C13.9899 0.943426 14.0036 0.945121 14.0203 0.947429C14.0536 0.952044 14.0989 0.959129 14.1545 0.969722C14.2655 0.990879 14.4186 1.02621 14.5998 1.08426C14.9611 1.20007 15.4415 1.40866 15.9224 1.78153C16.9079 2.54562 17.8125 3.93493 17.8125 6.375C17.8125 8.84977 16.7446 10.2418 15.6228 10.9916C15.0757 11.3573 14.5319 11.5602 14.1264 11.6723C13.9228 11.7285 13.7514 11.7626 13.6282 11.7828C13.5666 11.7929 13.5167 11.7996 13.4807 11.8039C13.4626 11.8061 13.448 11.8076 13.437 11.8087L13.4234 11.81L13.4186 11.8104L13.4168 11.8106L13.416 11.8106C13.4157 11.8107 13.4154 11.8107 13.3704 11.25L13.416 11.8106L13.3929 11.8125H13.3704C12.4693 11.8125 11.7717 11.6348 11.2171 11.3425C10.6627 11.0503 10.2868 10.6623 10.0046 10.2977C9.86569 10.1182 9.74696 9.94078 9.64616 9.78996C9.5407 9.6322 9.46023 9.51197 9.38106 9.41262C9.22707 9.21935 9.16773 9.21939 9.13503 9.21941H9.13398C9.09752 9.21941 9.03241 9.22191 8.87346 9.41718C8.79345 9.51548 8.71127 9.63581 8.60695 9.79107C8.60069 9.80039 8.59437 9.80981 8.58797 9.81934C8.49236 9.96175 8.38151 10.1269 8.25589 10.2929C7.98421 10.6519 7.62551 11.0405 7.10214 11.335C6.57573 11.6313 5.91831 11.8125 5.07599 11.8125H5.0488L5.02173 11.8099L5.07599 11.25C5.02173 11.8099 5.02205 11.8099 5.02173 11.8099L5.0204 11.8097L5.01868 11.8096L5.01405 11.8091L5.00016 11.8076C4.98888 11.8063 4.97357 11.8045 4.95451 11.8019C4.91641 11.7969 4.8632 11.7892 4.79703 11.7779C4.66485 11.7553 4.47999 11.718 4.25972 11.6585C3.82115 11.5401 3.23123 11.3305 2.63538 10.9643C1.42058 10.2176 0.212463 8.83259 0.187947 6.38062C0.163902 3.97575 1.11355 2.587 2.13375 1.81616C2.63171 1.43991 3.12954 1.22329 3.50294 1.10027C3.69026 1.03855 3.84839 0.999684 3.96267 0.975868C4.01989 0.963945 4.06636 0.955744 4.10027 0.950316C4.11724 0.947601 4.13108 0.945576 4.14159 0.944124L4.15484 0.942358L4.15953 0.941769L4.16139 0.941543L4.1622 0.941446C4.16257 0.941403 4.16292 0.941361 4.22872 1.5L4.1622 0.941446L4.19571 0.9375ZM4.26997 2.0625C4.25203 2.06549 4.22575 2.07021 4.19218 2.07721C4.11398 2.09351 3.99723 2.1219 3.85498 2.16877C3.56924 2.26291 3.18912 2.42877 2.81194 2.71376C2.08184 3.2654 1.29234 4.31414 1.31289 6.36938C1.33297 8.37752 2.28763 9.43001 3.22447 10.0058C3.70444 10.3008 4.18756 10.4737 4.55306 10.5724C4.73484 10.6215 4.88477 10.6515 4.98688 10.669C5.03785 10.6778 5.07667 10.6833 5.1013 10.6866C5.10355 10.6869 5.10569 10.6871 5.10771 10.6874C5.76441 10.683 6.21815 10.5416 6.55042 10.3546C6.89104 10.1629 7.13992 9.90327 7.35877 9.61404C7.46458 9.47422 7.55912 9.33345 7.65787 9.18641L7.67313 9.1637C7.77297 9.01508 7.8831 8.85179 8.00097 8.70698C8.23778 8.41606 8.59073 8.09441 9.13398 8.09441C9.6812 8.09441 10.0292 8.42071 10.2609 8.71155C10.3706 8.8492 10.4746 9.00486 10.569 9.14611L10.5815 9.1648C10.6838 9.31787 10.7824 9.46461 10.8943 9.6092C11.1139 9.89292 11.3735 10.1532 11.7416 10.3472C12.1049 10.5387 12.6087 10.6838 13.3424 10.6874C13.3439 10.6873 13.3456 10.6871 13.3473 10.6869C13.368 10.6844 13.4015 10.6799 13.4459 10.6727C13.5349 10.658 13.6667 10.6321 13.8268 10.5879C14.1487 10.4989 14.5748 10.3389 14.9976 10.0563C15.8156 9.50956 16.6875 8.46406 16.6875 6.375C16.6875 4.25124 15.9198 3.20305 15.2331 2.6706C14.8779 2.3952 14.5221 2.24075 14.2564 2.1556C14.124 2.11316 14.0158 2.08853 13.944 2.07485C13.9117 2.0687 13.887 2.0648 13.8709 2.0625H4.26997ZM13.8498 2.05973C13.8494 2.05969 13.8497 2.05972 13.8508 2.05985L13.8498 2.05973Z" fill={isAnonymised ? "white" : "black"}/>
-<path fillRule="evenodd" clipRule="evenodd" d="M5.625 5.0625C4.77651 5.0625 4.3125 5.59288 4.3125 6C4.3125 6.40712 4.77651 6.9375 5.625 6.9375C6.47349 6.9375 6.9375 6.40712 6.9375 6C6.9375 5.59288 6.47349 5.0625 5.625 5.0625ZM3.1875 6C3.1875 4.75027 4.40242 3.9375 5.625 3.9375C6.84758 3.9375 8.0625 4.75027 8.0625 6C8.0625 7.24973 6.84758 8.0625 5.625 8.0625C4.40242 8.0625 3.1875 7.24973 3.1875 6Z" fill={isAnonymised ? "white" : "black"}/>
-<path fillRule="evenodd" clipRule="evenodd" d="M12.375 5.0625C11.5265 5.0625 11.0625 5.59288 11.0625 6C11.0625 6.40712 11.5265 6.9375 12.375 6.9375C13.2235 6.9375 13.6875 6.40712 13.6875 6C13.6875 5.59288 13.2235 5.0625 12.375 5.0625ZM9.9375 6C9.9375 4.75027 11.1524 3.9375 12.375 3.9375C13.5976 3.9375 14.8125 4.75027 14.8125 6C14.8125 7.24973 13.5976 8.0625 12.375 8.0625C11.1524 8.0625 9.9375 7.24973 9.9375 6Z" fill={isAnonymised ? "white" : "black"}/>
-</svg>
-
+              <svg
+                width="18"
+                height="12"
+                viewBox="0 0 18 12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M4.19571 0.9375H13.9316L13.9576 0.939919L13.9055 1.5C13.9576 0.939919 13.958 0.939955 13.9584 0.939992L13.9593 0.940074L13.9612 0.940263L13.966 0.940753L13.9794 0.942218C13.9899 0.943426 14.0036 0.945121 14.0203 0.947429C14.0536 0.952044 14.0989 0.959129 14.1545 0.969722C14.2655 0.990879 14.4186 1.02621 14.5998 1.08426C14.9611 1.20007 15.4415 1.40866 15.9224 1.78153C16.9079 2.54562 17.8125 3.93493 17.8125 6.375C17.8125 8.84977 16.7446 10.2418 15.6228 10.9916C15.0757 11.3573 14.5319 11.5602 14.1264 11.6723C13.9228 11.7285 13.7514 11.7626 13.6282 11.7828C13.5666 11.7929 13.5167 11.7996 13.4807 11.8039C13.4626 11.8061 13.448 11.8076 13.437 11.8087L13.4234 11.81L13.4186 11.8104L13.4168 11.8106L13.416 11.8106C13.4157 11.8107 13.4154 11.8107 13.3704 11.25L13.416 11.8106L13.3929 11.8125H13.3704C12.4693 11.8125 11.7717 11.6348 11.2171 11.3425C10.6627 11.0503 10.2868 10.6623 10.0046 10.2977C9.86569 10.1182 9.74696 9.94078 9.64616 9.78996C9.5407 9.6322 9.46023 9.51197 9.38106 9.41262C9.22707 9.21935 9.16773 9.21939 9.13503 9.21941H9.13398C9.09752 9.21941 9.03241 9.22191 8.87346 9.41718C8.79345 9.51548 8.71127 9.63581 8.60695 9.79107C8.60069 9.80039 8.59437 9.80981 8.58797 9.81934C8.49236 9.96175 8.38151 10.1269 8.25589 10.2929C7.98421 10.6519 7.62551 11.0405 7.10214 11.335C6.57573 11.6313 5.91831 11.8125 5.07599 11.8125H5.0488L5.02173 11.8099L5.07599 11.25C5.02173 11.8099 5.02205 11.8099 5.02173 11.8099L5.0204 11.8097L5.01868 11.8096L5.01405 11.8091L5.00016 11.8076C4.98888 11.8063 4.97357 11.8045 4.95451 11.8019C4.91641 11.7969 4.8632 11.7892 4.79703 11.7779C4.66485 11.7553 4.47999 11.718 4.25972 11.6585C3.82115 11.5401 3.23123 11.3305 2.63538 10.9643C1.42058 10.2176 0.212463 8.83259 0.187947 6.38062C0.163902 3.97575 1.11355 2.587 2.13375 1.81616C2.63171 1.43991 3.12954 1.22329 3.50294 1.10027C3.69026 1.03855 3.84839 0.999684 3.96267 0.975868C4.01989 0.963945 4.06636 0.955744 4.10027 0.950316C4.11724 0.947601 4.13108 0.945576 4.14159 0.944124L4.15484 0.942358L4.15953 0.941769L4.16139 0.941543L4.1622 0.941446C4.16257 0.941403 4.16292 0.941361 4.22872 1.5L4.1622 0.941446L4.19571 0.9375ZM4.26997 2.0625C4.25203 2.06549 4.22575 2.07021 4.19218 2.07721C4.11398 2.09351 3.99723 2.1219 3.85498 2.16877C3.56924 2.26291 3.18912 2.42877 2.81194 2.71376C2.08184 3.2654 1.29234 4.31414 1.31289 6.36938C1.33297 8.37752 2.28763 9.43001 3.22447 10.0058C3.70444 10.3008 4.18756 10.4737 4.55306 10.5724C4.73484 10.6215 4.88477 10.6515 4.98688 10.669C5.03785 10.6778 5.07667 10.6833 5.1013 10.6866C5.10355 10.6869 5.10569 10.6871 5.10771 10.6874C5.76441 10.683 6.21815 10.5416 6.55042 10.3546C6.89104 10.1629 7.13992 9.90327 7.35877 9.61404C7.46458 9.47422 7.55912 9.33345 7.65787 9.18641L7.67313 9.1637C7.77297 9.01508 7.8831 8.85179 8.00097 8.70698C8.23778 8.41606 8.59073 8.09441 9.13398 8.09441C9.6812 8.09441 10.0292 8.42071 10.2609 8.71155C10.3706 8.8492 10.4746 9.00486 10.569 9.14611L10.5815 9.1648C10.6838 9.31787 10.7824 9.46461 10.8943 9.6092C11.1139 9.89292 11.3735 10.1532 11.7416 10.3472C12.1049 10.5387 12.6087 10.6838 13.3424 10.6874C13.3439 10.6873 13.3456 10.6871 13.3473 10.6869C13.368 10.6844 13.4015 10.6799 13.4459 10.6727C13.5349 10.658 13.6667 10.6321 13.8268 10.5879C14.1487 10.4989 14.5748 10.3389 14.9976 10.0563C15.8156 9.50956 16.6875 8.46406 16.6875 6.375C16.6875 4.25124 15.9198 3.20305 15.2331 2.6706C14.8779 2.3952 14.5221 2.24075 14.2564 2.1556C14.124 2.11316 14.0158 2.08853 13.944 2.07485C13.9117 2.0687 13.887 2.0648 13.8709 2.0625H4.26997ZM13.8498 2.05973C13.8494 2.05969 13.8497 2.05972 13.8508 2.05985L13.8498 2.05973Z"
+                  fill={isAnonymised ? 'white' : 'black'}
+                />
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M5.625 5.0625C4.77651 5.0625 4.3125 5.59288 4.3125 6C4.3125 6.40712 4.77651 6.9375 5.625 6.9375C6.47349 6.9375 6.9375 6.40712 6.9375 6C6.9375 5.59288 6.47349 5.0625 5.625 5.0625ZM3.1875 6C3.1875 4.75027 4.40242 3.9375 5.625 3.9375C6.84758 3.9375 8.0625 4.75027 8.0625 6C8.0625 7.24973 6.84758 8.0625 5.625 8.0625C4.40242 8.0625 3.1875 7.24973 3.1875 6Z"
+                  fill={isAnonymised ? 'white' : 'black'}
+                />
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M12.375 5.0625C11.5265 5.0625 11.0625 5.59288 11.0625 6C11.0625 6.40712 11.5265 6.9375 12.375 6.9375C13.2235 6.9375 13.6875 6.40712 13.6875 6C13.6875 5.59288 13.2235 5.0625 12.375 5.0625ZM9.9375 6C9.9375 4.75027 11.1524 3.9375 12.375 3.9375C13.5976 3.9375 14.8125 4.75027 14.8125 6C14.8125 7.24973 13.5976 8.0625 12.375 8.0625C11.1524 8.0625 9.9375 7.24973 9.9375 6Z"
+                  fill={isAnonymised ? 'white' : 'black'}
+                />
+              </svg>
             </button>
           </div>
         )}

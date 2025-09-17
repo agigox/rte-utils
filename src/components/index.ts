@@ -39,5 +39,6 @@ export {
   FreezeIcon,
   AnonymizeIcon,
   UserIcon,
-  Icons
+  SettingsIcon,
+  Icons,
 } from './Icons';
