@@ -14,6 +14,7 @@ export { Button } from './Button';
 export { Accordion } from './Accordion';
 export { Ecart } from './Ecart';
 export { Modal } from './Modal';
+export { Tabs } from './Tabs';
 export type { TimerProps, TimerRef } from './Timer';
 
 // Export all individual icons and the Icons object
