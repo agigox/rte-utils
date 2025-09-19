@@ -38,9 +38,15 @@ export const ProductCard: Story = {
     detailsContent: (
       <div>
         <h3>Product Details</h3>
-        <p><strong>Name:</strong> Premium Widget</p>
-        <p><strong>Price:</strong> $99.99</p>
-        <p><strong>Description:</strong> A high-quality widget designed for professional use.</p>
+        <p>
+          <strong>Name:</strong> Premium Widget
+        </p>
+        <p>
+          <strong>Price:</strong> $99.99
+        </p>
+        <p>
+          <strong>Description:</strong> A high-quality widget designed for professional use.
+        </p>
         <ul>
           <li>Durable construction</li>
           <li>Easy to use</li>
@@ -60,17 +66,19 @@ export const UserProfile: Story = {
   args: {
     titleContent: (
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-        <div style={{
-          width: '40px',
-          height: '40px',
-          borderRadius: '50%',
-          backgroundColor: '#3498db',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: 'white',
-          fontWeight: 'bold'
-        }}>
+        <div
+          style={{
+            width: '40px',
+            height: '40px',
+            borderRadius: '50%',
+            backgroundColor: '#3498db',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: 'white',
+            fontWeight: 'bold',
+          }}
+        >
           JD
         </div>
         <span>John Doe</span>
@@ -79,18 +87,20 @@ export const UserProfile: Story = {
     detailsContent: (
       <div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '16px' }}>
-          <div style={{
-            width: '60px',
-            height: '60px',
-            borderRadius: '50%',
-            backgroundColor: '#3498db',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'white',
-            fontWeight: 'bold',
-            fontSize: '20px'
-          }}>
+          <div
+            style={{
+              width: '60px',
+              height: '60px',
+              borderRadius: '50%',
+              backgroundColor: '#3498db',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'white',
+              fontWeight: 'bold',
+              fontSize: '20px',
+            }}
+          >
             JD
           </div>
           <div>
@@ -98,10 +108,19 @@ export const UserProfile: Story = {
             <p style={{ margin: 0, color: '#7f8c8d' }}>Senior Developer</p>
           </div>
         </div>
-        <p><strong>Email:</strong> john.doe@example.com</p>
-        <p><strong>Phone:</strong> +1 (555) 123-4567</p>
-        <p><strong>Location:</strong> New York, NY</p>
-        <p><strong>Bio:</strong> Experienced full-stack developer with expertise in React, Node.js, and cloud technologies.</p>
+        <p>
+          <strong>Email:</strong> john.doe@example.com
+        </p>
+        <p>
+          <strong>Phone:</strong> +1 (555) 123-4567
+        </p>
+        <p>
+          <strong>Location:</strong> New York, NY
+        </p>
+        <p>
+          <strong>Bio:</strong> Experienced full-stack developer with expertise in React, Node.js,
+          and cloud technologies.
+        </p>
       </div>
     ),
     collapsedWidth: 200,
@@ -115,12 +134,14 @@ export const NotificationCard: Story = {
   args: {
     titleContent: (
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-        <div style={{
-          width: '12px',
-          height: '12px',
-          borderRadius: '50%',
-          backgroundColor: '#e74c3c'
-        }}></div>
+        <div
+          style={{
+            width: '12px',
+            height: '12px',
+            borderRadius: '50%',
+            backgroundColor: '#e74c3c',
+          }}
+        ></div>
         <span>New Message</span>
       </div>
     ),
@@ -131,19 +152,19 @@ export const NotificationCard: Story = {
           Received 2 minutes ago
         </p>
         <p>
-          Hello! We've received your support request and one of our team members
-          will get back to you within 24 hours.
+          Hello! We've received your support request and one of our team members will get back to
+          you within 24 hours.
         </p>
-        <p>
-          Reference ID: #SUP-2024-001
-        </p>
-        <div style={{
-          marginTop: '16px',
-          padding: '8px 12px',
-          backgroundColor: '#ecf0f1',
-          borderRadius: '4px',
-          fontSize: '14px'
-        }}>
+        <p>Reference ID: #SUP-2024-001</p>
+        <div
+          style={{
+            marginTop: '16px',
+            padding: '8px 12px',
+            backgroundColor: '#ecf0f1',
+            borderRadius: '4px',
+            fontSize: '14px',
+          }}
+        >
           Priority: Medium
         </div>
       </div>
@@ -210,6 +231,11 @@ export const FixedPositioning: Story = {
     ),
     top: 20,
     left: 100,
+    collapsedWidth: 120,
+    collapsedHeight: 25,
+    expandedWidth: 400,
+    expandedHeight: 300,
+    animationDuration: 500,
   },
   parameters: {
     layout: 'fullscreen',
@@ -249,13 +275,37 @@ export const FloatingButton: Story = {
       <div>
         <h3>Quick Actions</h3>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          <button style={{ padding: '8px 12px', border: 'none', borderRadius: '4px', backgroundColor: '#3498db', color: 'white' }}>
+          <button
+            style={{
+              padding: '8px 12px',
+              border: 'none',
+              borderRadius: '4px',
+              backgroundColor: '#3498db',
+              color: 'white',
+            }}
+          >
             New Document
           </button>
-          <button style={{ padding: '8px 12px', border: 'none', borderRadius: '4px', backgroundColor: '#2ecc71', color: 'white' }}>
+          <button
+            style={{
+              padding: '8px 12px',
+              border: 'none',
+              borderRadius: '4px',
+              backgroundColor: '#2ecc71',
+              color: 'white',
+            }}
+          >
             Upload File
           </button>
-          <button style={{ padding: '8px 12px', border: 'none', borderRadius: '4px', backgroundColor: '#e74c3c', color: 'white' }}>
+          <button
+            style={{
+              padding: '8px 12px',
+              border: 'none',
+              borderRadius: '4px',
+              backgroundColor: '#e74c3c',
+              color: 'white',
+            }}
+          >
             Create Folder
           </button>
         </div>
