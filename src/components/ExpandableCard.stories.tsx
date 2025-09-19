@@ -226,11 +226,11 @@ export const FixedPositioning: Story = {
       <div>
         <h3>Fixed Position Card</h3>
         <p>This card is positioned at a fixed location on the screen.</p>
-        <p>Top: 20px, Left: 100px</p>
+        <p>Top: 20px, right: 100px</p>
       </div>
     ),
     top: 20,
-    left: 100,
+    right: 100,
     collapsedWidth: 120,
     collapsedHeight: 25,
     expandedWidth: 400,
@@ -257,7 +257,7 @@ export const TopRightCorner: Story = {
       </div>
     ),
     top: 20,
-    left: window.innerWidth - 250,
+    right: window.innerWidth - 250,
     collapsedWidth: 60,
     collapsedHeight: 60,
     expandedWidth: 300,
@@ -312,7 +312,7 @@ export const FloatingButton: Story = {
       </div>
     ),
     top: window.innerHeight - 120,
-    left: 50,
+    right: 50,
     collapsedWidth: 60,
     collapsedHeight: 60,
     expandedWidth: 200,

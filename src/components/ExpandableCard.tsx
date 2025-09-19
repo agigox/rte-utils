@@ -10,7 +10,7 @@ interface ExpandableCardProps {
   expandedHeight?: number;
   animationDuration?: number;
   top?: number;
-  left?: number;
+  right?: number;
 }
 
 export const ExpandableCard = ({
@@ -22,7 +22,7 @@ export const ExpandableCard = ({
   expandedHeight = 300,
   animationDuration = 300,
   top,
-  left,
+  right,
 }: ExpandableCardProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -36,10 +36,10 @@ export const ExpandableCard = ({
     transition: `width ${animationDuration}ms ease-in-out, height ${animationDuration}ms ease-in-out`,
     cursor: 'pointer',
     ...(top !== undefined &&
-      left !== undefined && {
+      right !== undefined && {
         position: 'fixed',
         top: top,
-        left: left,
+        right: right,
       }),
   };
 
