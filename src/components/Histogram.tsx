@@ -42,11 +42,21 @@ export const Histogram: React.FC<HistogramProps> = ({
   showGain = false,
   children,
 }) => {
-  const [animatedHeight, setAnimatedHeight] = useState(0);
-  const [animatedWidth, setAnimatedWidth] = useState(0);
+  const [animatedHeight, setAnimatedHeight] = useState(() => {
+    // Initialize with current value on first render
+    return (Math.min((relative.value / max.value) * 100, 100) / 100) * barHeight;
+  });
+  const [animatedWidth, setAnimatedWidth] = useState(() => {
+    // Initialize with current value on first render
+    return (
+      (Math.min((relative.value / max.value) * 100, 100) / 100) *
+      (orientation === 'horizontal' ? barHeight : barWidth)
+    );
+  });
   const [gainPoints, setGainPoints] = useState<number | null>(null);
   const [isPositiveChange, setIsPositiveChange] = useState<boolean>(true);
   const previousValueRef = useRef(relative.value);
+  const previousAnimatedValueRef = useRef(relative.value); // Track previous animated value
   const isFirstRender = useRef(true);
   const animationTimerRef = useRef<NodeJS.Timeout | null>(null);
   const accumulatedChangeRef = useRef<number>(0);
@@ -54,7 +64,9 @@ export const Histogram: React.FC<HistogramProps> = ({
 
   // Calculate target dimensions based on orientation
   const targetHeight = (Math.min((relative.value / max.value) * 100, 100) / 100) * barHeight;
-  const targetWidth = (Math.min((relative.value / max.value) * 100, 100) / 100) * (orientation === 'horizontal' ? barHeight : barWidth);
+  const targetWidth =
+    (Math.min((relative.value / max.value) * 100, 100) / 100) *
+    (orientation === 'horizontal' ? barHeight : barWidth);
 
   // Detect value change and show gain/loss with accumulation
   useEffect(() => {
@@ -68,7 +80,7 @@ export const Histogram: React.FC<HistogramProps> = ({
 
     if (showGain && relative.value !== previousValueRef.current) {
       const changeAmount = relative.value - previousValueRef.current;
-      
+
       // If there's an ongoing animation, cancel it and accumulate the changes
       if (animationTimerRef.current) {
         clearTimeout(animationTimerRef.current);
@@ -79,17 +91,17 @@ export const Histogram: React.FC<HistogramProps> = ({
         animationStartValueRef.current = previousValueRef.current;
         accumulatedChangeRef.current = changeAmount;
       }
-      
+
       // Update previous value
       previousValueRef.current = relative.value;
-      
+
       // Calculate total change from animation start to now
       const totalChange = relative.value - animationStartValueRef.current;
       const isIncrease = totalChange > 0;
-      
+
       setGainPoints(Math.abs(totalChange));
       setIsPositiveChange(isIncrease);
-      
+
       // Set new timer for hiding the animation
       animationTimerRef.current = setTimeout(() => {
         setGainPoints(null);
@@ -97,7 +109,7 @@ export const Histogram: React.FC<HistogramProps> = ({
         accumulatedChangeRef.current = 0;
         animationStartValueRef.current = relative.value;
       }, 2000);
-      
+
       return () => {
         if (animationTimerRef.current) {
           clearTimeout(animationTimerRef.current);
@@ -120,10 +132,18 @@ export const Histogram: React.FC<HistogramProps> = ({
     };
   }, []);
 
-  // Simple Chart.js-like animation: always animate from 0 to target
+  // Animate from previous value to target value (not from 0)
   useEffect(() => {
-    setAnimatedHeight(0);
-    setAnimatedWidth(0);
+    // Calculate starting dimensions based on previous animated value
+    const previousHeight =
+      (Math.min((previousAnimatedValueRef.current / max.value) * 100, 100) / 100) * barHeight;
+    const previousWidth =
+      (Math.min((previousAnimatedValueRef.current / max.value) * 100, 100) / 100) *
+      (orientation === 'horizontal' ? barHeight : barWidth);
+
+    // Set initial values to previous animated values
+    setAnimatedHeight(previousHeight);
+    setAnimatedWidth(previousWidth);
 
     const startTime = Date.now();
     const duration = 1000;
@@ -135,16 +155,23 @@ export const Histogram: React.FC<HistogramProps> = ({
       // Chart.js-like easing (easeOutQuart)
       const easeOutQuart = 1 - Math.pow(1 - progress, 4);
 
-      setAnimatedHeight(targetHeight * easeOutQuart);
-      setAnimatedWidth(targetWidth * easeOutQuart);
+      // Interpolate from previous values to target values
+      const currentHeight = previousHeight + (targetHeight - previousHeight) * easeOutQuart;
+      const currentWidth = previousWidth + (targetWidth - previousWidth) * easeOutQuart;
+
+      setAnimatedHeight(currentHeight);
+      setAnimatedWidth(currentWidth);
 
       if (progress < 1) {
         requestAnimationFrame(animate);
+      } else {
+        // Animation complete, update previous animated value reference
+        previousAnimatedValueRef.current = relative.value;
       }
     };
 
     requestAnimationFrame(animate);
-  }, [targetHeight, targetWidth]);
+  }, [targetHeight, targetWidth, max.value, barHeight, barWidth, orientation, relative.value]);
 
   const displayWidth = orientation === 'horizontal' ? barHeight : barWidth;
   const displayHeight = orientation === 'horizontal' ? barWidth : barHeight;
@@ -214,14 +241,14 @@ export const Histogram: React.FC<HistogramProps> = ({
                 <path d={createRoundedRectPath(0, 0, svgWidth, svgHeight, corners)} />
               </clipPath>
             </defs>
-            
+
             {/* Background bar (max value) */}
             <path
               d={createRoundedRectPath(0, 0, svgWidth, svgHeight, corners)}
               fill={max.color}
               fillOpacity={max.opacity || 1}
             />
-            
+
             {/* Foreground bar (relative value) with clipping to stay within rounded corners */}
             {orientation === 'vertical' ? (
               <path
@@ -247,12 +274,15 @@ export const Histogram: React.FC<HistogramProps> = ({
               />
             )}
           </svg>
-          
+
           {/* Gain/Loss display */}
           {showGain && gainPoints && (
             <div className="histogram-gain-area">
-              <div className={`histogram-gain-points ${isPositiveChange ? 'histogram-gain-points--positive' : 'histogram-gain-points--negative'}`}>
-                {isPositiveChange ? '+' : '-'}{gainPoints}
+              <div
+                className={`histogram-gain-points ${isPositiveChange ? 'histogram-gain-points--positive' : 'histogram-gain-points--negative'}`}
+              >
+                {isPositiveChange ? '+' : '-'}
+                {gainPoints}
               </div>
             </div>
           )}
