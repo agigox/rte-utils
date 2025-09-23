@@ -42,5 +42,6 @@ export {
   AnonymizeIcon,
   UserIcon,
   SettingsIcon,
+  RightArrowIcon,
   Icons,
 } from './Icons';

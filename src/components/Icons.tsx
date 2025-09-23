@@ -506,6 +506,25 @@ export const SettingsIcon: React.FC<IconProps> = ({ className, size = 22, color 
   </svg>
 );
 
+// Right Arrow icon
+export const RightArrowIcon: React.FC<IconProps> = ({ className, size = 24, color }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M8.45972 3.88256C8.18665 3.64106 7.76128 3.64823 7.49714 3.89884C7.233 4.14945 7.22544 4.55304 7.47999 4.81277L14.8752 11.8287L7.47999 18.5999C7.22545 18.859 7.233 19.2632 7.49714 19.5138C7.76128 19.7638 8.18665 19.771 8.45972 19.5295L16.7057 11.8288L8.45972 3.88256Z"
+      fill={color || '#000'}
+    />
+  </svg>
+);
+
 // Export all icons as a single object for easier imports
 export const Icons = {
   Send: SendIcon,
@@ -530,6 +549,7 @@ export const Icons = {
   Anonymize: AnonymizeIcon,
   User: UserIcon,
   Settings: SettingsIcon,
+  RightArrow: RightArrowIcon,
 };
 
 export default Icons;
