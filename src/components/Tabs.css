@@ -100,6 +100,29 @@
   white-space: nowrap;
 }
 
+/* Black Theme Overrides */
+.tabs-container--black .tab-label {
+  color: white;
+}
+
+.tabs-container--black .tab-item--active .tab-label {
+  color: #2CB7F0;
+}
+
+.tabs-container--black .tab-count {
+  background: white;
+  color: black;
+}
+
+.tabs-container--black .tab-count--active {
+  background: #2CB7F0;
+  color: black;
+}
+
+.tabs-container--black .tab-divider--active {
+  background: #2CB7F0;
+}
+
 /* Responsive adjustments */
 @media (max-width: 640px) {
   .tabs-container {

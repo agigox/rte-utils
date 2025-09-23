@@ -13,6 +13,7 @@ interface TabsProps {
   onTabChange?: (tabId: string) => void;
   className?: string;
   children?: React.ReactNode;
+  theme?: 'light' | 'black';
 }
 
 export const Tabs: React.FC<TabsProps> = ({
@@ -21,6 +22,7 @@ export const Tabs: React.FC<TabsProps> = ({
   onTabChange,
   className = '',
   children,
+  theme = 'light',
 }) => {
   const [internalActiveTab, setInternalActiveTab] = useState(tabs[0]?.id || '');
   const currentActiveTab = activeTabId || internalActiveTab;
@@ -34,7 +36,7 @@ export const Tabs: React.FC<TabsProps> = ({
   };
 
   return (
-    <div className={`tabs-container ${className}`}>
+    <div className={`tabs-container tabs-container--${theme} ${className}`}>
       <div className="tabs-header">
         {tabs.map((tab) => {
           const isActive = tab.id === currentActiveTab;

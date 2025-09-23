@@ -35,6 +35,11 @@ const meta: Meta<typeof Tabs> = {
       control: false,
       description: 'Content to display in the tabs body',
     },
+    theme: {
+      control: 'select',
+      options: ['light', 'black'],
+      description: 'Visual theme of the tabs component',
+    },
   },
 };
 
@@ -262,6 +267,30 @@ export const CustomStyling: Story = {
     docs: {
       description: {
         story: 'Tabs component with custom styling applied via className prop, demonstrating extensibility.',
+      },
+    },
+  },
+};
+
+export const BlackTheme: Story = {
+  args: {
+    tabs: defaultTabs,
+    activeTabId: 'achats',
+    theme: 'black',
+  },
+  render: (args) => (
+    <div style={{ backgroundColor: '#1a1a1a', padding: '24px', borderRadius: '8px' }}>
+      <Tabs {...args}>
+        <div className="tab-body-content" style={{ color: 'white' }}>
+          Black theme with #2CB7F0 active color, white non-active labels, and white count badges with black text
+        </div>
+      </Tabs>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tabs component with black theme where active elements use #2CB7F0 instead of #009cdf, non-active tab labels are white, and count badges are white with black text.',
       },
     },
   },
