@@ -25,9 +25,20 @@ export const ExpandableCard = ({
   right,
 }: ExpandableCardProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
 
   const handleClick = () => {
-    setIsExpanded(!isExpanded);
+    if (!isExpanded) {
+      // Expanding: immediately show details and expand
+      setShowDetails(true);
+      setIsExpanded(true);
+    } else {
+      // Collapsing: first collapse, then hide details after animation
+      setIsExpanded(false);
+      setTimeout(() => {
+        setShowDetails(false);
+      }, animationDuration);
+    }
   };
 
   const cardStyle: React.CSSProperties = {
@@ -51,7 +62,7 @@ export const ExpandableCard = ({
       data-name="ExpandableCard"
     >
       <div className="expandable-card-content">
-        {isExpanded ? (
+        {showDetails ? (
           <div className="expandable-card-details">{detailsContent}</div>
         ) : (
           <div className="expandable-card-title">{titleContent}</div>
