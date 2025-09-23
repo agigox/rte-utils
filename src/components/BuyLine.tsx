@@ -104,11 +104,12 @@ export const BuyLine: React.FC<BuyLineProps> = ({
         onSend?.();
 
         // Clear fields and states after successful send
+        setShowSuccessState(false);
         setInternalVolume('');
         setInternalPrice('');
         setVolumeHasError(false);
         setPriceHasError(false);
-        setShowSuccessState(false);
+
         setIsLoading(false);
       }, 1000);
     }
