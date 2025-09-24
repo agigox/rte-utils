@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ExpandableCard.css';
 
 interface ExpandableCardProps {
@@ -11,6 +11,8 @@ interface ExpandableCardProps {
   animationDuration?: number;
   top?: number;
   right?: number;
+  onToggle: (isExpanded: boolean) => void;
+  isExpanded: boolean;
 }
 
 export const ExpandableCard = ({
@@ -23,29 +25,26 @@ export const ExpandableCard = ({
   animationDuration = 300,
   top,
   right,
+  onToggle,
+  isExpanded,
 }: ExpandableCardProps) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [showDetails, setShowDetails] = useState(false);
+  const [showDetails, setShowDetails] = useState(isExpanded);
 
-  const handleClick = () => {
-    if (!isExpanded) {
-      // Expanding: immediately show details and expand
+  // Handle state changes
+  useEffect(() => {
+    if (isExpanded) {
       setShowDetails(true);
-      setIsExpanded(true);
     } else {
-      // Collapsing: first collapse, then hide details after animation
-      setIsExpanded(false);
       setTimeout(() => {
         setShowDetails(false);
       }, animationDuration);
     }
-  };
+  }, [isExpanded, animationDuration]);
 
   const cardStyle: React.CSSProperties = {
     width: isExpanded ? expandedWidth : collapsedWidth,
     height: isExpanded ? expandedHeight : collapsedHeight,
     transition: `width ${animationDuration}ms ease-in-out, height ${animationDuration}ms ease-in-out`,
-    cursor: 'pointer',
     ...(top !== undefined &&
       right !== undefined && {
         position: 'fixed',
@@ -58,7 +57,6 @@ export const ExpandableCard = ({
     <div
       className={`expandable-card ${isExpanded ? 'expanded' : 'collapsed'}`}
       style={cardStyle}
-      onClick={handleClick}
       data-name="ExpandableCard"
     >
       <div className="expandable-card-content">
