@@ -50,7 +50,7 @@ const meta: Meta<typeof InputNumber> = {
     },
     theme: {
       control: 'select',
-      options: ['light', 'dark', 'slate'],
+      options: ['light', 'dark', 'slate', 'black'],
       description: 'Theme variant for the input styling',
     },
   },
@@ -372,6 +372,29 @@ export const SlateTheme: Story = {
   },
 };
 
+export const BlackTheme: Story = {
+  args: {
+    label: 'Black Theme Input',
+    value: '200',
+    min: { value: 0, label: 'Min' },
+    max: { value: 1000, label: 'Max' },
+    theme: 'black',
+  },
+  parameters: {
+    backgrounds: {
+      default: 'black',
+      values: [
+        { name: 'black', value: '#000000' },
+      ],
+    },
+    docs: {
+      description: {
+        story: 'InputNumber with black theme styling. Background is #11161A, text is #FFFFFF, and border is #B7BEC2. Deep black theme for high contrast interfaces.',
+      },
+    },
+  },
+};
+
 export const ThemeComparison: Story = {
   args: {
     label: 'Theme Test',
@@ -393,12 +416,16 @@ export const ThemeComparison: Story = {
         <h3 style={{ margin: '0 0 16px 0', color: '#fff' }}>Slate Theme</h3>
         <InputNumber {...args} theme="slate" />
       </div>
+      <div style={{ backgroundColor: '#000000', padding: '16px', borderRadius: '8px' }}>
+        <h3 style={{ margin: '0 0 16px 0', color: '#fff' }}>Black Theme</h3>
+        <InputNumber {...args} theme="black" />
+      </div>
     </div>
   ),
   parameters: {
     docs: {
       description: {
-        story: 'Side-by-side comparison of all three theme variants: light, dark, and slate.',
+        story: 'Side-by-side comparison of all four theme variants: light, dark, slate, and black.',
       },
     },
   },

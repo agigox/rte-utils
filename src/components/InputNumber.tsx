@@ -13,7 +13,7 @@ interface InputNumberProps {
   max?: { value: number; label?: string };
   showSuccess?: boolean;
   inputWidth?: number;
-  theme?: 'light' | 'dark' | 'slate';
+  theme?: 'light' | 'dark' | 'slate' | 'black';
 }
 
 export const InputNumber: React.FC<InputNumberProps> = ({

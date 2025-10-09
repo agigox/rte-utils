@@ -297,3 +297,34 @@
 .input-container--slate .input-element:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0 30px #3b434a inset !important;
 }
+
+/* Black theme styles - with #11161A background */
+.input-container--black .input-element {
+  background-color: #11161a;
+  color: #ffffff;
+  border-color: #b7bec2;
+}
+
+.input-container--black .input-label {
+  background-color: #11161a;
+  color: #ffffff;
+}
+
+.input-container--black .input-element:focus {
+  border-color: #009cdf;
+  color: #ffffff;
+  box-shadow: 0 0 0 2px rgba(0, 156, 223, 0.1);
+}
+
+.input-container--black.input-container--focused .input-label {
+  color: #009cdf;
+}
+
+.input-container--black .input-element:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px #11161a inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+.input-container--black .input-element:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 30px #11161a inset !important;
+}
