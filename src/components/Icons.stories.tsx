@@ -19,111 +19,121 @@ export const AllIcons: Story = {
     <div className="icons-showcase">
       <h2>RTE Utils Icon Library</h2>
       <p>All available SVG icons consolidated from the component library</p>
-      
+
       <div className="icons-grid">
         <div className="icon-item">
           <Icons.Send />
           <span>Send</span>
         </div>
-        
+
         <div className="icon-item">
           <Icons.Edit />
           <span>Edit</span>
         </div>
-        
+
         <div className="icon-item">
           <Icons.Trash />
           <span>Trash</span>
         </div>
-        
+
         <div className="icon-item">
           <Icons.User />
           <span>User</span>
         </div>
-        
+
         <div className="icon-item">
           <Icons.Success />
           <span>Success</span>
         </div>
-        
+
         <div className="icon-item">
           <Icons.Failure />
           <span>Failure</span>
         </div>
-        
+
         <div className="icon-item">
           <Icons.Partial />
           <span>Partial</span>
         </div>
-        
+
         <div className="icon-item">
           <Icons.Spinner />
           <span>Spinner</span>
         </div>
-        
+
         <div className="icon-item">
           <Icons.Plus />
           <span>Plus</span>
         </div>
-        
+
         <div className="icon-item">
           <Icons.PlusCircle />
           <span>Plus Circle</span>
         </div>
-        
+
         <div className="icon-item">
           <Icons.MinusCircle />
           <span>Minus Circle</span>
         </div>
-        
+
         <div className="icon-item">
           <Icons.ArrowDown />
           <span>Arrow Down</span>
         </div>
-        
+
         <div className="icon-item">
           <Icons.Power />
           <span>Power</span>
         </div>
-        
+
         <div className="icon-item">
           <Icons.SwitchThumb />
           <span>Switch Thumb</span>
         </div>
-        
+
         <div className="icon-item">
           <Icons.Target />
           <span>Target</span>
         </div>
-        
+
         <div className="icon-item">
           <Icons.Previous />
           <span>Previous</span>
         </div>
-        
+
         <div className="icon-item">
           <Icons.Next />
           <span>Next</span>
         </div>
-        
+
         <div className="icon-item">
           <Icons.Pause />
           <span>Pause</span>
         </div>
-        
+
         <div className="icon-item">
           <Icons.Play />
           <span>Play</span>
         </div>
-        
+
         <div className="icon-item">
           <Icons.Freeze />
           <span>Freeze</span>
         </div>
-        
+
         <div className="icon-item">
           <Icons.Anonymize />
           <span>Anonymize</span>
+        </div>
+
+        <div className="icon-item">
+          <Icons.Refresh />
+          <span>Refresh</span>
+        </div>
+
+        <div className="icon-item">
+          <Icons.PlusCircleTransparent />
+          <span>Plus Circle Transparent</span>
         </div>
       </div>
     </div>
@@ -131,7 +141,8 @@ export const AllIcons: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Complete showcase of all available icons in the RTE Utils library. These icons are extracted from various components and consolidated for reuse across projects.',
+        story:
+          'Complete showcase of all available icons in the RTE Utils library. These icons are extracted from various components and consolidated for reuse across projects.',
       },
     },
   },
@@ -143,7 +154,7 @@ export const IconSizes: Story = {
     <div className="icons-showcase">
       <h2>Icon Sizes</h2>
       <p>Icons can be resized using the size prop</p>
-      
+
       <div className="size-examples">
         <div className="size-row">
           <h3>Small (16px)</h3>
@@ -155,7 +166,7 @@ export const IconSizes: Story = {
             <Icons.Plus size={16} />
           </div>
         </div>
-        
+
         <div className="size-row">
           <h3>Medium (24px)</h3>
           <div className="icons-row">
@@ -166,7 +177,7 @@ export const IconSizes: Story = {
             <Icons.Plus size={24} />
           </div>
         </div>
-        
+
         <div className="size-row">
           <h3>Large (32px)</h3>
           <div className="icons-row">
@@ -177,7 +188,7 @@ export const IconSizes: Story = {
             <Icons.Plus size={32} />
           </div>
         </div>
-        
+
         <div className="size-row">
           <h3>Extra Large (48px)</h3>
           <div className="icons-row">
@@ -206,7 +217,7 @@ export const IconColors: Story = {
     <div className="icons-showcase">
       <h2>Custom Colors</h2>
       <p>Icons can be colored using the color prop</p>
-      
+
       <div className="color-examples">
         <div className="color-row">
           <h3>Default Colors</h3>
@@ -218,7 +229,7 @@ export const IconColors: Story = {
             <Icons.Partial />
           </div>
         </div>
-        
+
         <div className="color-row">
           <h3>Custom Red (#ff0000)</h3>
           <div className="icons-row">
@@ -229,7 +240,7 @@ export const IconColors: Story = {
             <Icons.Target color="#ff0000" />
           </div>
         </div>
-        
+
         <div className="color-row">
           <h3>Custom Blue (#0066cc)</h3>
           <div className="icons-row">
@@ -240,7 +251,7 @@ export const IconColors: Story = {
             <Icons.Target color="#0066cc" />
           </div>
         </div>
-        
+
         <div className="color-row">
           <h3>Custom Green (#00aa00)</h3>
           <div className="icons-row">
@@ -269,7 +280,7 @@ export const DisabledIcons: Story = {
     <div className="icons-showcase">
       <h2>Disabled State</h2>
       <p>Some icons support disabled states</p>
-      
+
       <div className="disabled-examples">
         <div className="disabled-row">
           <h3>Normal State</h3>
@@ -280,7 +291,7 @@ export const DisabledIcons: Story = {
             <Icons.Power isOff={false} />
           </div>
         </div>
-        
+
         <div className="disabled-row">
           <h3>Disabled State</h3>
           <div className="icons-row">
@@ -296,7 +307,8 @@ export const DisabledIcons: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Demonstrates icons that support disabled states, typically shown with muted colors.',
+        story:
+          'Demonstrates icons that support disabled states, typically shown with muted colors.',
       },
     },
   },
@@ -308,7 +320,7 @@ export const StatefulIcons: Story = {
     <div className="icons-showcase">
       <h2>Stateful Icons</h2>
       <p>Icons with different states or configurations</p>
-      
+
       <div className="state-examples">
         <div className="state-row">
           <h3>Arrow (Different Themes)</h3>
@@ -323,7 +335,7 @@ export const StatefulIcons: Story = {
             </div>
           </div>
         </div>
-        
+
         <div className="state-row">
           <h3>Arrow (Open/Closed)</h3>
           <div className="icons-row">
@@ -333,7 +345,7 @@ export const StatefulIcons: Story = {
             <span>Open</span>
           </div>
         </div>
-        
+
         <div className="state-row">
           <h3>Anonymize (On/Off)</h3>
           <div className="icons-row">
@@ -353,7 +365,8 @@ export const StatefulIcons: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Icons that have different states or configurations, such as themes, open/closed states, or on/off toggles.',
+        story:
+          'Icons that have different states or configurations, such as themes, open/closed states, or on/off toggles.',
       },
     },
   },
@@ -393,7 +406,8 @@ export const StatusIconsExample: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Status icons (Success, Failure, Partial) used to indicate different states in BuyLine component.',
+        story:
+          'Status icons (Success, Failure, Partial) used to indicate different states in BuyLine component.',
       },
     },
   },
