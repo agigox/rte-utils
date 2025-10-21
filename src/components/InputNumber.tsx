@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './InputNumber.css';
+import { MaintenanceIcon } from './Icons';
 
 interface InputNumberProps {
   label: string;
@@ -10,7 +11,7 @@ interface InputNumberProps {
   className?: string;
   required?: boolean;
   min?: { value: number; label?: string };
-  max?: { value: number; label?: string };
+  max?: { value: number; label?: string; tooltipText?: string };
   showSuccess?: boolean;
   inputWidth?: number;
   theme?: 'light' | 'dark' | 'slate' | 'black';
@@ -34,6 +35,7 @@ export const InputNumber: React.FC<InputNumberProps> = ({
   const [isFocused, setIsFocused] = useState(false);
   const [isOutOfRange, setIsOutOfRange] = useState(false);
   const [calculatedWidth, setCalculatedWidth] = useState(54); // Smaller default minimum width
+  const [showMaxTooltip, setShowMaxTooltip] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const labelRef = useRef<HTMLLabelElement>(null);
 
@@ -175,9 +177,21 @@ export const InputNumber: React.FC<InputNumberProps> = ({
           </label>
         </div>
         {max.label && (
-          <div className="input-max">
-            <div className="input-max-label">{max.label}</div>
-            <div className="input-max-value">{max.value}</div>
+          <div className="input-max-container">
+            <div className={`input-max ${max.tooltipText ? 'input-max--with-tooltip' : ''}`}>
+              <div className="input-max-label">{max.label}</div>
+              <div className="input-max-value">{max.value}</div>
+            </div>
+            {max.tooltipText && (
+              <div
+                className="input-max-tooltip-wrapper"
+                onMouseEnter={() => setShowMaxTooltip(true)}
+                onMouseLeave={() => setShowMaxTooltip(false)}
+              >
+                <MaintenanceIcon size={16} />
+                {showMaxTooltip && <div className="input-max-tooltip">{max.tooltipText}</div>}
+              </div>
+            )}
           </div>
         )}
       </div>

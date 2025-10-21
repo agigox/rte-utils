@@ -4,11 +4,19 @@ import { Switch } from './Switch';
 import './ProductionUnit.css';
 import { Chip } from './Chip';
 import { ValueWithUnit } from '.';
+import { MaintenanceIcon } from './Icons';
 
 type ProductionUnitLimit = {
   value: number;
   label?: string;
+  tooltipText?: string;
 };
+
+type EnergyConfig = {
+  cost: number;
+  tooltipText?: string;
+};
+
 interface ProductionUnitProps {
   onChangeInput?: (value: number) => void;
   onChangeSwitch?: (checked: boolean) => void;
@@ -17,7 +25,8 @@ interface ProductionUnitProps {
   value?: number;
   checked?: boolean;
   unitName?: string;
-  energyCost?: number;
+  energy?: EnergyConfig;
+  energyCost?: number; // Deprecated, use energy instead
   checkedImage?: React.ReactNode;
   uncheckedImage?: React.ReactNode;
   readonly?: boolean;
@@ -34,7 +43,8 @@ export const ProductionUnit = ({
   value,
   checked,
   unitName = 'Production Unit',
-  energyCost = 0,
+  energy,
+  energyCost = 0, // Deprecated fallback
   checkedImage,
   uncheckedImage,
   readonly = false,
@@ -46,6 +56,10 @@ export const ProductionUnit = ({
   // Internal state management for uncontrolled mode
   const [internalChecked, setInternalChecked] = useState(defaultChecked);
   const [internalValue, setInternalValue] = useState(defaultValue);
+  const [showEnergyTooltip, setShowEnergyTooltip] = useState(false);
+
+  // Support both old energyCost and new energy prop for backward compatibility
+  const energyConfig: EnergyConfig = energy || { cost: energyCost };
 
   // Use controlled props if provided, otherwise use internal state
   const isChecked = checked !== undefined ? checked : internalChecked;
@@ -106,9 +120,23 @@ export const ProductionUnit = ({
           <div className="production-unit-chip">
             <div className="production-unit-chip-name">{unitName}</div>
 
-            <Chip width="fit-content" bgColor="#E1F5FD">
-              <ValueWithUnit cost={energyCost} textColor="#005896" />
-            </Chip>
+            <div className="production-unit-energy-container">
+              <Chip width="fit-content" bgColor="#E1F5FD">
+                <ValueWithUnit cost={energyConfig.cost} textColor="#005896" />
+              </Chip>
+              {energyConfig.tooltipText && (
+                <div
+                  className="production-unit-tooltip-wrapper"
+                  onMouseEnter={() => setShowEnergyTooltip(true)}
+                  onMouseLeave={() => setShowEnergyTooltip(false)}
+                >
+                  <MaintenanceIcon size={16} />
+                  {showEnergyTooltip && (
+                    <div className="production-unit-tooltip">{energyConfig.tooltipText}</div>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
           <div className="production-unit-switch-container">
             <InputNumber
@@ -117,7 +145,7 @@ export const ProductionUnit = ({
               value={currentValue !== undefined ? currentValue.toString() : undefined}
               disabled={!isChecked || readonly}
               min={{ value: min.value, label: min.label }}
-              max={{ value: max.value, label: max.label }}
+              max={{ value: max.value, label: max.label, tooltipText: max.tooltipText }}
             />{' '}
           </div>
         </div>

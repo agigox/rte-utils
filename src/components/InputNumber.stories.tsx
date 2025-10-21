@@ -71,6 +71,13 @@ export const WithValue: Story = {
     value: 'Sample text',
   },
 };
+export const WithMinusValue: Story = {
+  args: {
+    label: 'Input with Value',
+    min: { value: -19, label: 'Pmin' },
+    max: { value: 1000, label: 'Pmax' },
+  },
+};
 
 export const Number: Story = {
   args: {
@@ -320,13 +327,12 @@ export const DarkTheme: Story = {
   parameters: {
     backgrounds: {
       default: 'dark',
-      values: [
-        { name: 'dark', value: '#1a1a1a' },
-      ],
+      values: [{ name: 'dark', value: '#1a1a1a' }],
     },
     docs: {
       description: {
-        story: 'InputNumber with dark theme styling. Background is #292E33, text is #FFFFFF, and border is #B7BEC2.',
+        story:
+          'InputNumber with dark theme styling. Background is #292E33, text is #FFFFFF, and border is #B7BEC2.',
       },
     },
   },
@@ -360,13 +366,12 @@ export const SlateTheme: Story = {
   parameters: {
     backgrounds: {
       default: 'slate',
-      values: [
-        { name: 'slate', value: '#2a2a2a' },
-      ],
+      values: [{ name: 'slate', value: '#2a2a2a' }],
     },
     docs: {
       description: {
-        story: 'InputNumber with slate theme styling. Background is #3B434A, text is #FFFFFF, and border is #B7BEC2. Same as dark theme but with different background color.',
+        story:
+          'InputNumber with slate theme styling. Background is #3B434A, text is #FFFFFF, and border is #B7BEC2. Same as dark theme but with different background color.',
       },
     },
   },
@@ -383,13 +388,12 @@ export const BlackTheme: Story = {
   parameters: {
     backgrounds: {
       default: 'black',
-      values: [
-        { name: 'black', value: '#000000' },
-      ],
+      values: [{ name: 'black', value: '#000000' }],
     },
     docs: {
       description: {
-        story: 'InputNumber with black theme styling. Background is #11161A, text is #FFFFFF, and border is #B7BEC2. Deep black theme for high contrast interfaces.',
+        story:
+          'InputNumber with black theme styling. Background is #11161A, text is #FFFFFF, and border is #B7BEC2. Deep black theme for high contrast interfaces.',
       },
     },
   },

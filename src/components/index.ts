@@ -46,4 +46,5 @@ export {
   TrashIcon,
   UserIcon,
   PlusCircleTransparentIcon,
+  MaintenanceIcon,
 } from './Icons';

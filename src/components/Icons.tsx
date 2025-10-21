@@ -506,6 +506,41 @@ export const SettingsIcon: React.FC<IconProps> = ({ className, size = 22, color 
   </svg>
 );
 
+// Maintenance icon
+export const MaintenanceIcon: React.FC<IconProps> = ({ className, size = 34, color }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 34 34"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+  >
+    <path
+      d="M18.0516 4.63094L29.9698 25.2738C30.4371 26.0833 29.8529 27.0952 28.9182 27.0952H5.08184C4.14708 27.0952 3.56286 26.0833 4.03024 25.2738L15.9484 4.63094C16.4158 3.82142 17.5842 3.82142 18.0516 4.63094Z"
+      stroke={color || '#ff9800'}
+      strokeWidth="2"
+    />
+    <mask
+      id="mask0_131_505"
+      style={{ maskType: 'alpha' }}
+      maskUnits="userSpaceOnUse"
+      x="8"
+      y="9"
+      width="18"
+      height="18"
+    >
+      <path d="M26 9H8V27H26V9Z" fill="#D9D9D9" />
+    </mask>
+    <g mask="url(#mask0_131_505)">
+      <path
+        d="M17 24.75C16.5875 24.75 16.2344 24.6031 15.9406 24.3094C15.6469 24.0156 15.5 23.6625 15.5 23.25C15.5 22.8375 15.6469 22.4844 15.9406 22.1906C16.2344 21.8969 16.5875 21.75 17 21.75C17.4125 21.75 17.7656 21.8969 18.0594 22.1906C18.3531 22.4844 18.5 22.8375 18.5 23.25C18.5 23.6625 18.3531 24.0156 18.0594 24.3094C17.7656 24.6031 17.4125 24.75 17 24.75ZM15.5 20.25V11.25H18.5V20.25H15.5Z"
+        fill={color || '#ff9800'}
+      />
+    </g>
+  </svg>
+);
+
 // Right Arrow icon
 export const RightArrowIcon: React.FC<IconProps> = ({ className, size = 24, color }) => (
   <svg
@@ -526,7 +561,14 @@ export const RightArrowIcon: React.FC<IconProps> = ({ className, size = 24, colo
 );
 
 export const RefreshIcon: React.FC<IconProps> = ({ className, size = 24, color }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+  >
     <path
       d="M19.0898 3.81641H23.25C23.6642 3.81641 24 4.1829 24 4.63477C24 5.08659 23.6642 5.45312 23.25 5.45312H20.6143C23.0764 9.30651 23.1577 14.4941 20.6621 18.4707C17.8524 22.9476 12.5491 24.6607 7.95801 22.5742C7.57565 22.4004 7.39441 21.921 7.55371 21.5039C7.71302 21.0869 8.1519 20.8899 8.53418 21.0635C12.4697 22.8522 17.0163 21.3838 19.4248 17.5459C21.5241 14.2005 21.4968 9.85488 19.5 6.57227V9.54395C19.4999 9.99573 19.1642 10.3623 18.75 10.3623C18.3358 10.3623 18.0001 9.99573 18 9.54395V4.63477C18 4.1829 18.3358 3.81641 18.75 3.81641H18.9688C19.0091 3.81271 19.0495 3.81302 19.0898 3.81641ZM3.34668 5.5332C6.15485 1.06034 11.4527 -0.653195 16.042 1.42676C16.4244 1.6002 16.6052 2.07888 16.4463 2.49609C16.2874 2.91338 15.8483 3.11086 15.4658 2.9375C11.532 1.15492 6.99096 2.62395 4.58398 6.45801C2.48661 9.79897 2.51051 14.1386 4.5 17.4209V14.4531C4.5 14.0013 4.83579 13.6348 5.25 13.6348C5.66421 13.6348 6 14.0013 6 14.4531V19.3623C5.99982 19.814 5.6641 20.1797 5.25 20.1797H5.03711C4.99225 20.1842 4.94719 20.1839 4.90234 20.1797H0.75C0.335899 20.1797 0.000181718 19.814 0 19.3623C0 18.9104 0.335786 18.5439 0.75 18.5439H3.38867C0.931396 14.6902 0.852174 9.50677 3.34668 5.5332Z"
       fill={color || '#009CDF'}
@@ -535,7 +577,13 @@ export const RefreshIcon: React.FC<IconProps> = ({ className, size = 24, color }
 );
 
 export const PlusCircleTransparentIcon: React.FC<IconProps> = ({ className, size = 24, color }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path
       fillRule="evenodd"
       clipRule="evenodd"
@@ -581,6 +629,7 @@ export const Icons = {
   Anonymize: AnonymizeIcon,
   User: UserIcon,
   Settings: SettingsIcon,
+  Maintenance: MaintenanceIcon,
   RightArrow: RightArrowIcon,
   Refresh: RefreshIcon,
   PlusCircleTransparent: PlusCircleTransparentIcon,
