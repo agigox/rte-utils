@@ -29,8 +29,11 @@ export {
   MinusCircleIcon,
   NextIcon,
   PartialIcon,
-  PauseIcon, PenIcon, PlayIcon,
-  PlusCircleIcon, PlusCircleTransparentIcon, PlusIcon,
+  PauseIcon,
+  PenIcon,
+  PlayIcon,
+  PlusCircleIcon,
+  PlusIcon,
   PowerIcon,
   PreviousIcon,
   RefreshIcon,
@@ -46,4 +49,3 @@ export {
   PlusCircleTransparentIcon,
   MaintenanceIcon,
 } from './Icons';
-
