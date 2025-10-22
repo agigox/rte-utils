@@ -26,9 +26,13 @@ const meta: Meta<typeof ProductionUnit> = {
       control: 'text',
       description: 'Name of the production unit',
     },
+    energy: {
+      control: 'object',
+      description: 'Energy configuration with cost and optional tooltip',
+    },
     energyCost: {
       control: 'number',
-      description: 'Energy cost in MW',
+      description: 'Energy cost in MW (deprecated, use energy instead)',
     },
     defaultValue: {
       control: 'number',
@@ -306,6 +310,77 @@ export const WithConstraints: Story = {
       {...args}
       checkedImage={<SolarCheckedImage />}
       uncheckedImage={<SolarUncheckedImage />}
+    />
+  ),
+};
+
+export const WithTooltips: Story = {
+  args: {
+    unitName: 'Solar with Info',
+    energy: {
+      cost: 500,
+      tooltipText: 'This is the current energy cost per MW. Prices may vary based on demand.',
+    },
+    defaultValue: 400,
+    defaultChecked: true,
+    readonly: false,
+    min: { value: 200, label: '200 MW min' },
+    max: {
+      value: 600,
+      label: '600 MW max',
+      tooltipText: 'Maximum capacity is limited by infrastructure constraints.',
+    },
+  },
+  render: (args) => (
+    <ProductionUnit
+      {...args}
+      checkedImage={<SolarCheckedImage />}
+      uncheckedImage={<SolarUncheckedImage />}
+    />
+  ),
+};
+
+export const WithEnergyTooltipOnly: Story = {
+  args: {
+    unitName: 'Wind with Energy Info',
+    energy: {
+      cost: 300,
+      tooltipText: 'Energy cost varies with wind conditions and time of day.',
+    },
+    defaultValue: 250,
+    defaultChecked: true,
+    readonly: false,
+    min: { value: 100, label: '100 MW min' },
+    max: { value: 400, label: '400 MW max' },
+  },
+  render: (args) => (
+    <ProductionUnit
+      {...args}
+      checkedImage={<WindCheckedImage />}
+      uncheckedImage={<WindUncheckedImage />}
+    />
+  ),
+};
+
+export const WithMaxTooltipOnly: Story = {
+  args: {
+    unitName: 'Nuclear with Max Info',
+    energyCost: 1200,
+    defaultValue: 800,
+    defaultChecked: true,
+    readonly: false,
+    min: { value: 500, label: '500 MW min' },
+    max: {
+      value: 1000,
+      label: '1000 MW max',
+      tooltipText: 'Maximum output is restricted for safety reasons during maintenance period.',
+    },
+  },
+  render: (args) => (
+    <ProductionUnit
+      {...args}
+      checkedImage={<NuclearCheckedImage />}
+      uncheckedImage={<NuclearUncheckedImage />}
     />
   ),
 };

@@ -127,6 +127,11 @@ export const AllIcons: Story = {
         </div>
 
         <div className="icon-item">
+          <Icons.Maintenance />
+          <span>Maintenance</span>
+        </div>
+
+        <div className="icon-item">
           <Icons.Refresh />
           <span>Refresh</span>
         </div>

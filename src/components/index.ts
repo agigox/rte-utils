@@ -42,6 +42,8 @@ export {
   SwitchThumbIcon,
   TargetIcon,
   TrashIcon,
-  UserIcon
+  UserIcon,
+  PlusCircleTransparentIcon,
+  MaintenanceIcon,
 } from './Icons';
 
