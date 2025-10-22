@@ -140,6 +140,11 @@ export const AllIcons: Story = {
           <Icons.PlusCircleTransparent />
           <span>Plus Circle Transparent</span>
         </div>
+
+        <div className="icon-item">
+          <Icons.Pen />
+          <span>Pen</span>
+        </div>
       </div>
     </div>
   ),
