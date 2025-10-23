@@ -145,7 +145,42 @@ export const AllIcons: Story = {
           <Icons.Pen />
           <span>Pen</span>
         </div>
-        
+
+        <div className="icon-item">
+          <Icons.CheckboxEmpty />
+          <span>Checkbox Empty</span>
+        </div>
+
+        <div className="icon-item">
+          <Icons.CheckboxFilled />
+          <span>Checkbox Filled</span>
+        </div>
+
+        <div className="icon-item">
+          <Icons.Key />
+          <span>Key</span>
+        </div>
+
+        <div className="icon-item">
+          <Icons.Comment />
+          <span>Comment</span>
+        </div>
+
+        <div className="icon-item">
+          <Icons.UserWithCircle />
+          <span>User With Circle</span>
+        </div>
+
+        <div className="icon-item">
+          <Icons.SouthEastArrow />
+          <span>South East Arrow</span>
+        </div>
+
+        <div className="icon-item">
+          <Icons.RightArrowNew />
+          <span>Right Arrow (New)</span>
+        </div>
+
         <div className="icon-item">
           <Icons.Drag />
           <span>Drag</span>
@@ -423,6 +458,219 @@ export const StatusIconsExample: Story = {
       description: {
         story:
           'Status icons (Success, Failure, Partial) used to indicate different states in BuyLine component.',
+      },
+    },
+  },
+};
+
+// New Icons Story - Showcasing all newly added icons
+export const NewIconsShowcase: Story = {
+  render: () => (
+    <div className="icons-showcase">
+      <h2>Newly Added Icons</h2>
+      <p>Latest additions to the icon library</p>
+
+      <div className="icons-grid">
+        <div className="icon-item">
+          <Icons.CheckboxEmpty />
+          <span>Checkbox Empty</span>
+        </div>
+
+        <div className="icon-item">
+          <Icons.CheckboxFilled />
+          <span>Checkbox Filled</span>
+        </div>
+
+        <div className="icon-item">
+          <Icons.Key />
+          <span>Key</span>
+        </div>
+
+        <div className="icon-item">
+          <Icons.Comment />
+          <span>Comment</span>
+        </div>
+
+        <div className="icon-item">
+          <Icons.UserWithCircle />
+          <span>User With Circle</span>
+        </div>
+
+        <div className="icon-item">
+          <Icons.SouthEastArrow />
+          <span>South East Arrow</span>
+        </div>
+
+        <div className="icon-item">
+          <Icons.RightArrowNew />
+          <span>Right Arrow (New)</span>
+        </div>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Showcase of the newly added icons including checkbox states, key, comment, user with circle, directional arrows, and more.',
+      },
+    },
+  },
+};
+
+// Checkbox Icons Story
+export const CheckboxIconsExample: Story = {
+  render: () => (
+    <div className="icons-showcase">
+      <h2>Checkbox Icons</h2>
+      <p>Checkbox states for form elements</p>
+
+      <div style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
+        <div style={{ textAlign: 'center' }}>
+          <Icons.CheckboxEmpty size={24} />
+          <div style={{ marginTop: '8px', fontSize: '14px' }}>Empty</div>
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <Icons.CheckboxFilled size={24} />
+          <div style={{ marginTop: '8px', fontSize: '14px' }}>Filled</div>
+        </div>
+      </div>
+
+      <div style={{ marginTop: '24px' }}>
+        <h3>Different Sizes</h3>
+        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+          <Icons.CheckboxEmpty size={12} />
+          <Icons.CheckboxEmpty size={16} />
+          <Icons.CheckboxEmpty size={24} />
+          <Icons.CheckboxEmpty size={32} />
+          <span style={{ marginLeft: '16px' }}>→</span>
+          <Icons.CheckboxFilled size={12} />
+          <Icons.CheckboxFilled size={16} />
+          <Icons.CheckboxFilled size={24} />
+          <Icons.CheckboxFilled size={32} />
+        </div>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Checkbox icons in empty and filled states. Perfect for custom checkbox implementations.',
+      },
+    },
+  },
+};
+
+// Directional Arrows Story
+export const DirectionalArrowsExample: Story = {
+  render: () => (
+    <div className="icons-showcase">
+      <h2>Directional Arrows</h2>
+      <p>Various arrow icons for navigation and actions</p>
+
+      <div style={{ display: 'flex', gap: '32px', alignItems: 'center', flexWrap: 'wrap' }}>
+        <div style={{ textAlign: 'center' }}>
+          <Icons.RightArrowNew size={24} color="#009CDF" />
+          <div style={{ marginTop: '8px', fontSize: '14px' }}>Right Arrow</div>
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <Icons.SouthEastArrow size={24} color="#009CDF" />
+          <div style={{ marginTop: '8px', fontSize: '14px' }}>South East</div>
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <Icons.ArrowDown size={24} />
+          <div style={{ marginTop: '8px', fontSize: '14px' }}>Down</div>
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <Icons.Previous size={24} />
+          <div style={{ marginTop: '8px', fontSize: '14px' }}>Previous</div>
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <Icons.Next size={24} />
+          <div style={{ marginTop: '8px', fontSize: '14px' }}>Next</div>
+        </div>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Collection of directional arrow icons for various navigation and action purposes.',
+      },
+    },
+  },
+};
+
+// Communication Icons Story
+export const CommunicationIconsExample: Story = {
+  render: () => (
+    <div className="icons-showcase">
+      <h2>Communication Icons</h2>
+      <p>Icons for messaging and user interactions</p>
+
+      <div style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
+        <div style={{ textAlign: 'center' }}>
+          <Icons.Comment size={32} color="#009CDF" />
+          <div style={{ marginTop: '8px', fontSize: '14px' }}>Comment</div>
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <Icons.Send size={32} color="#009CDF" />
+          <div style={{ marginTop: '8px', fontSize: '14px' }}>Send</div>
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <Icons.User size={32} />
+          <div style={{ marginTop: '8px', fontSize: '14px' }}>User</div>
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <Icons.UserWithCircle size={32} />
+          <div style={{ marginTop: '8px', fontSize: '14px' }}>User Circle</div>
+        </div>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Icons related to communication, messaging, and user representation.',
+      },
+    },
+  },
+};
+
+// Security Icons Story
+export const SecurityIconsExample: Story = {
+  render: () => (
+    <div className="icons-showcase">
+      <h2>Security & Access Icons</h2>
+      <p>Icons for authentication and security features</p>
+
+      <div style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
+        <div style={{ textAlign: 'center' }}>
+          <Icons.Key size={32} color="#009CDF" />
+          <div style={{ marginTop: '8px', fontSize: '14px' }}>Key</div>
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <Icons.Anonymize size={32} />
+          <div style={{ marginTop: '8px', fontSize: '14px' }}>Anonymize</div>
+        </div>
+      </div>
+
+      <div style={{ marginTop: '24px' }}>
+        <h3>Key with Custom Colors</h3>
+        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+          <Icons.Key size={28} color="#ff0000" />
+          <Icons.Key size={28} color="#00aa00" />
+          <Icons.Key size={28} color="#0066cc" />
+          <Icons.Key size={28} color="#ff9800" />
+        </div>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Icons representing security, authentication, and access control features.',
       },
     },
   },
