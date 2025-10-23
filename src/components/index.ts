@@ -21,17 +21,14 @@ export { ValueWithUnit } from './ValueWithUnit';
 // Export all individual icons and the Icons object
 export {
   AnonymizeIcon,
-  ArrowDownIcon,
-  EditIcon,
+  ArrowDownIcon, DragIcon, EditIcon,
   FailureIcon,
   FreezeIcon,
-  Icons,
-  MinusCircleIcon,
+  Icons, MaintenanceIcon, MinusCircleIcon,
   NextIcon,
   PartialIcon,
   PauseIcon, PenIcon, PlayIcon,
-  PlusCircleIcon, PlusCircleTransparentIcon, PlusIcon,
-  PowerIcon,
+  PlusCircleIcon, PlusIcon, PowerIcon,
   PreviousIcon,
   RefreshIcon,
   RightArrowIcon,
@@ -42,8 +39,6 @@ export {
   SwitchThumbIcon,
   TargetIcon,
   TrashIcon,
-  UserIcon,
-  PlusCircleTransparentIcon,
-  MaintenanceIcon,
+  UserIcon
 } from './Icons';
 

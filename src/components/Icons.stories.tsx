@@ -145,6 +145,11 @@ export const AllIcons: Story = {
           <Icons.Pen />
           <span>Pen</span>
         </div>
+        
+        <div className="icon-item">
+          <Icons.Drag />
+          <span>Drag</span>
+        </div>
       </div>
     </div>
   ),
