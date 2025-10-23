@@ -611,6 +611,13 @@ export const PenIcon: React.FC<IconProps> = ({ className, size = 24, color }) =>
 </svg>
 );
 
+export const DragIcon: React.FC<IconProps> = ({ className, size = 10, color }) => (
+  <svg width={size} height={size} viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0.846191 7.90376L7.27925 1.4707" stroke={color || '#C7ABFA'} strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M3.75 8.8156L8.45011 4.16602" stroke={color || '#C7ABFA'} strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
 // Export all icons as a single object for easier imports
 export const Icons = {
   Send: SendIcon,
@@ -620,6 +627,7 @@ export const Icons = {
   Failure: FailureIcon,
   Partial: PartialIcon,
   Spinner: SpinnerIcon,
+  Drag: DragIcon,
   Plus: PlusIcon,
   PlusCircle: PlusCircleIcon,
   MinusCircle: MinusCircleIcon,
