@@ -5,6 +5,7 @@ import './ProductionUnit.css';
 import { Chip } from './Chip';
 import { ValueWithUnit } from '.';
 import { MaintenanceIcon } from './Icons';
+import { Tooltip } from './Tooltip';
 
 type ProductionUnitLimit = {
   value: number;
@@ -56,7 +57,6 @@ export const ProductionUnit = ({
   // Internal state management for uncontrolled mode
   const [internalChecked, setInternalChecked] = useState(defaultChecked);
   const [internalValue, setInternalValue] = useState(defaultValue);
-  const [showEnergyTooltip, setShowEnergyTooltip] = useState(false);
 
   // Support both old energyCost and new energy prop for backward compatibility
   const energyConfig: EnergyConfig = energy || { cost: energyCost };
@@ -125,16 +125,9 @@ export const ProductionUnit = ({
                 <ValueWithUnit cost={energyConfig.cost} textColor="#005896" />
               </Chip>
               {energyConfig.tooltipText && (
-                <div
-                  className="production-unit-tooltip-wrapper"
-                  onMouseEnter={() => setShowEnergyTooltip(true)}
-                  onMouseLeave={() => setShowEnergyTooltip(false)}
-                >
+                <Tooltip content={energyConfig.tooltipText}>
                   <MaintenanceIcon size={16} />
-                  {showEnergyTooltip && (
-                    <div className="production-unit-tooltip">{energyConfig.tooltipText}</div>
-                  )}
-                </div>
+                </Tooltip>
               )}
             </div>
           </div>
