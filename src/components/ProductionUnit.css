@@ -47,5 +47,20 @@
   gap: 4px;
 }
 .production-unit-switch-container {
-  width: 156px;
+  display: flex;
+  width: 192px;
+}
+.input-pa {
+  color: #999;
+  text-align: center;
+  width: 35px;
+  display: flex;
+  flex-direction: column;
+}
+.input-pa-label {
+  font-size: 12px;
+  line-height: 10px;
+}
+.input-pa-value {
+  font-size: 14px;
 }

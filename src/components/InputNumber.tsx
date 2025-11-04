@@ -11,7 +11,6 @@ interface InputNumberProps {
   className?: string;
   required?: boolean;
   min?: { value: number; label?: string };
-  pa?: { value: number; label?: string };
   max?: { value: number; label?: string; tooltipText?: string };
   showSuccess?: boolean;
   inputWidth?: number;
@@ -27,7 +26,6 @@ export const InputNumber: React.FC<InputNumberProps> = ({
   className = '',
   required = false,
   min = { value: 0 },
-  pa = { value: 0 },
   max = { value: 100 },
   showSuccess = false,
   inputWidth,
@@ -195,14 +193,6 @@ export const InputNumber: React.FC<InputNumberProps> = ({
               </div>
             )}
           </div>
-        )}
-      </div>
-      <div className="input-ma">
-        {pa.label && (
-          <>
-            <div className="input-ma-label">{pa.label}</div>
-            <div className="input-ma-value">{pa.value}</div>
-          </>
         )}
       </div>
     </div>

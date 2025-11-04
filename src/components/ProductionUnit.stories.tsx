@@ -304,6 +304,7 @@ export const WithConstraints: Story = {
     readonly: false,
     min: { value: 200, label: '200 MW min' },
     max: { value: 600, label: '600 MW max' },
+    pa: { value: 600, label: '600 MW max' },
   },
   render: (args) => (
     <ProductionUnit

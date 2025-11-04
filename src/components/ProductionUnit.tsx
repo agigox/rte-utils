@@ -140,9 +140,16 @@ export const ProductionUnit = ({
               value={currentValue !== undefined ? currentValue.toString() : undefined}
               disabled={!isChecked || readonly}
               min={{ value: min.value, label: min.label }}
-              {...(pa.label && { pa: { value: pa.value, label: pa.label } })}
               max={{ value: max.value, label: max.label, tooltipText: max.tooltipText }}
             />{' '}
+            <div className="input-pa">
+              {pa.label && (
+                <>
+                  <div className="input-pa-label">{pa.label}</div>
+                  <div className="input-pa-value">{pa.value}</div>
+                </>
+              )}
+            </div>
           </div>
         </div>
 

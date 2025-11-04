@@ -83,7 +83,6 @@ export const Number: Story = {
   args: {
     label: 'Power Output',
     min: { value: 0, label: 'Pmin' },
-    pa: { value: 10, label: 'PA' },
     max: { value: 1000, label: 'Pmax' },
     value: '500',
   },
