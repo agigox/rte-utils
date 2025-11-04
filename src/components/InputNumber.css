@@ -378,3 +378,124 @@
 .input-container--black .input-element:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0 30px #11161a inset !important;
 }
+
+/* Pending theme styles */
+.input-container--pending .input-element {
+  background-color: #ffffff;
+  color: #11161a;
+  border-color: #b7bec2;
+}
+
+.input-container--pending .input-label {
+  background-color: #ffffff;
+  color: #999fa1;
+}
+
+.input-container--pending .input-element:focus {
+  border-color: #009cdf;
+  color: #009cdf;
+}
+
+.input-container--pending.input-container--focused .input-label {
+  color: #009cdf;
+}
+
+.input-container--pending .input-element:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
+  -webkit-text-fill-color: #11161a !important;
+}
+
+.input-container--pending .input-element:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
+}
+
+/* Refused theme styles */
+.input-container--refused .input-element {
+  background-color: #fce8e7;
+  color: #11161a;
+  border-color: #b7bec2;
+}
+
+.input-container--refused .input-label {
+  background-color: #fce8e7;
+  color: #999fa1;
+}
+
+.input-container--refused .input-element:focus {
+  border-color: #009cdf;
+  color: #009cdf;
+}
+
+.input-container--refused.input-container--focused .input-label {
+  color: #009cdf;
+}
+
+.input-container--refused .input-element:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px #fce8e7 inset !important;
+  -webkit-text-fill-color: #11161a !important;
+}
+
+.input-container--refused .input-element:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 30px #fce8e7 inset !important;
+}
+
+/* Partial theme styles */
+.input-container--partial .input-element {
+  background-color: #fee9d0;
+  color: #11161a;
+  border-color: #b7bec2;
+}
+
+.input-container--partial .input-label {
+  background-color: #fee9d0;
+  color: #999fa1;
+}
+
+.input-container--partial .input-element:focus {
+  border-color: #009cdf;
+  color: #009cdf;
+}
+
+.input-container--partial.input-container--focused .input-label {
+  color: #009cdf;
+}
+
+.input-container--partial .input-element:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px #fee9d0 inset !important;
+  -webkit-text-fill-color: #11161a !important;
+}
+
+.input-container--partial .input-element:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 30px #fee9d0 inset !important;
+}
+
+/* Accepted theme styles */
+.input-container--accepted .input-element {
+  background-color: #d3ead9;
+  color: #11161a;
+  border-color: #b7bec2;
+  opacity: 0.8;
+}
+
+.input-container--accepted .input-label {
+  background-color: #d3ead9;
+  color: #999fa1;
+}
+
+.input-container--accepted .input-element:focus {
+  border-color: #009cdf;
+  color: #009cdf;
+}
+
+.input-container--accepted.input-container--focused .input-label {
+  color: #009cdf;
+}
+
+.input-container--accepted .input-element:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px #d3ead9 inset !important;
+  -webkit-text-fill-color: #11161a !important;
+}
+
+.input-container--accepted .input-element:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 30px #d3ead9 inset !important;
+}

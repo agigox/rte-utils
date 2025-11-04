@@ -14,7 +14,7 @@ interface InputNumberProps {
   max?: { value: number; label?: string; tooltipText?: string };
   showSuccess?: boolean;
   inputWidth?: number;
-  theme?: 'light' | 'dark' | 'slate' | 'black';
+  theme?: 'light' | 'dark' | 'slate' | 'black' | 'pending' | 'refused' | 'partial' | 'accepted';
 }
 
 export const InputNumber: React.FC<InputNumberProps> = ({
