@@ -196,11 +196,13 @@ export const InputNumber: React.FC<InputNumberProps> = ({
             )}
           </div>
         )}
+      </div>
+      <div className="input-ma">
         {pa.label && (
-          <div className="input-min">
-            <div className="input-min-label">{pa.label}</div>
-            <div className="input-min-value">{pa.value}</div>
-          </div>
+          <>
+            <div className="input-ma-label">{pa.label}</div>
+            <div className="input-ma-value">{pa.value}</div>
+          </>
         )}
       </div>
     </div>

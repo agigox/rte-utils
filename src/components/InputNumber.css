@@ -178,7 +178,8 @@
   gap: 8px;
 }
 .input-min,
-.input-max {
+.input-max,
+.input-ma {
   color: #999;
   text-align: center;
   width: 35px;
@@ -186,12 +187,14 @@
   flex-direction: column;
 }
 .input-min-label,
-.input-max-label {
+.input-max-label,
+.input-ma-label {
   font-size: 12px;
   line-height: 10px;
 }
 .input-min-value,
-.input-max-value {
+.input-max-value,
+.input-ma-value {
   font-size: 14px;
 }
 
