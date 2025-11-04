@@ -49,6 +49,8 @@
 .production-unit-switch-container {
   display: flex;
   width: 192px;
+  align-items: center;
+  gap: 8px;
 }
 .input-pa {
   color: #999;
