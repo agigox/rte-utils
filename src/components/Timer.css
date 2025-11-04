@@ -45,8 +45,11 @@
   line-height: 12px;
   text-transform: uppercase;
   flex-shrink: 0;
-  min-width: 64px;
+  width: 68px;
   text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .timer-time {
