@@ -32,6 +32,7 @@ interface ProductionUnitProps {
   uncheckedImage?: React.ReactNode;
   readonly?: boolean;
   min?: ProductionUnitLimit;
+  pa?: ProductionUnitLimit;
   max?: ProductionUnitLimit;
   unitLabel?: string;
   editable?: boolean;
@@ -50,6 +51,7 @@ export const ProductionUnit = ({
   uncheckedImage,
   readonly = false,
   min = { value: 10, label: 'Pmin' },
+  pa = { value: 10 },
   max = { value: 100, label: 'Pmax' },
   unitLabel = 'W',
   editable = true,
@@ -138,6 +140,7 @@ export const ProductionUnit = ({
               value={currentValue !== undefined ? currentValue.toString() : undefined}
               disabled={!isChecked || readonly}
               min={{ value: min.value, label: min.label }}
+              {...(pa.label && { pa: { value: pa.value, label: pa.label } })}
               max={{ value: max.value, label: max.label, tooltipText: max.tooltipText }}
             />{' '}
           </div>
