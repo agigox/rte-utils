@@ -16,6 +16,8 @@ export { Switch } from './Switch';
 export { Tabs } from './Tabs';
 export { Timer } from './Timer';
 export type { TimerProps, TimerRef } from './Timer';
+export { DemoTimer } from './DemoTimer';
+export type { DemoTimerProps } from './DemoTimer';
 export { Tooltip } from './Tooltip';
 export type { TooltipProps } from './Tooltip';
 export { ValueWithUnit } from './ValueWithUnit';
