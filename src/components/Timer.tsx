@@ -262,12 +262,6 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
 
           // Use setTimeout to allow the 00:00 display to render before phase completion
           if (willCompletePhase) {
-            // Clear the interval to prevent race condition
-            if (intervalRef.current) {
-              clearInterval(intervalRef.current);
-              intervalRef.current = null;
-            }
-
             setTimeout(() => {
               onPhaseComplete?.(getPhaseTitle(currentPhaseIndex), phaseDurationMs);
 
@@ -277,7 +271,6 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
                   ...externalState,
                   currentPhase: getPhaseTitle(currentPhaseIndex + 1),
                   currentTime: 0,
-                  isRunning: true, // Keep timer running for next phase
                 });
               } else {
                 onStateChange({
