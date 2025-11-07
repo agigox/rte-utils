@@ -54,7 +54,8 @@ export const DemoTimer: React.FC<DemoTimerProps> = ({
   const currentTimeSeconds = Math.floor(clampedTime / 1000);
   const currentPhaseDurationSeconds = Math.floor(phaseDuration / 1000);
   const progress = phaseDuration > 0 ? (clampedTime / phaseDuration) * 100 : 0;
-  const remainingTime = currentPhaseDurationSeconds > 0 ? currentPhaseDurationSeconds - currentTimeSeconds : 0;
+  const remainingTime =
+    currentPhaseDurationSeconds > 0 ? currentPhaseDurationSeconds - currentTimeSeconds : 0;
 
   const timerClasses = ['timer-header-control', className].filter(Boolean).join(' ');
 
@@ -82,7 +83,7 @@ export const DemoTimer: React.FC<DemoTimerProps> = ({
           data-step={i + 1}
           title={phases[i]?.title ? `Step ${i + 1}: ${phases[i]?.title}` : `Step ${i + 1}`}
         >
-          {isActive || isCompleted ? i + 1 : ''}
+          {i + 1}
         </div>
       );
     }
@@ -118,7 +119,10 @@ export const DemoTimer: React.FC<DemoTimerProps> = ({
               <span className="timer-time">{formatTime(Math.max(0, remainingTime))}</span>
             </div>
             <div className="timer-progress-bar">
-              <div className="timer-progress-fill" style={{ width: `${Math.min(100, progress)}%` }} />
+              <div
+                className="timer-progress-fill"
+                style={{ width: `${Math.min(100, progress)}%` }}
+              />
             </div>
             {renderStepIndicators()}
           </div>
