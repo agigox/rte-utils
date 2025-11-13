@@ -16,6 +16,8 @@ export { Switch } from './Switch';
 export { Tabs } from './Tabs';
 export { Timer } from './Timer';
 export type { TimerProps, TimerRef } from './Timer';
+export { DemoTimer } from './DemoTimer';
+export type { DemoTimerProps } from './DemoTimer';
 export { Tooltip } from './Tooltip';
 export type { TooltipProps } from './Tooltip';
 export { ValueWithUnit } from './ValueWithUnit';
@@ -23,23 +25,34 @@ export { ValueWithUnit } from './ValueWithUnit';
 // Export all individual icons and the Icons object
 export {
   AnonymizeIcon,
-  ArrowDownIcon, DragIcon, EditIcon,
+  ArrowDownIcon,
+  CheckboxEmptyIcon,
+  CheckboxFilledIcon,
+  CommentIcon,
+  EditIcon,
   FailureIcon,
   FreezeIcon,
-  Icons, MaintenanceIcon, MinusCircleIcon,
+  Icons,
+  DragIcon,
+  KeyIcon,
+  MaintenanceIcon,
+  MinusCircleIcon,
   NextIcon,
   PartialIcon,
   PauseIcon,
   PenIcon,
   PlayIcon,
   PlusCircleIcon,
+  PlusCircleTransparentIcon,
   PlusIcon,
   PowerIcon,
   PreviousIcon,
   RefreshIcon,
+  RightArrow,
   RightArrowIcon,
   SendIcon,
   SettingsIcon,
+  SouthEastArrowIcon,
   SpinnerIcon,
   SuccessIcon,
   SwitchThumbIcon,
@@ -50,4 +63,5 @@ export {
   DeclineIcon,
   NoBotIcon,
   SettingsCogIcon,
+  UserWithCircleIcon,
 } from './Icons';

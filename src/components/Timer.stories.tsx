@@ -149,6 +149,10 @@ export const SinglePhase: Story = {
 };
 
 export const MinimalTimer: Story = {
+  args: {
+    user: 'actor',
+  },
+
   render: () => {
     const [timerState, setTimerState] = useState({
       currentPhase: 'Phase 1',
@@ -161,8 +165,8 @@ export const MinimalTimer: Story = {
     return (
       <Timer
         phases={[
-          { duration: 60000, title: 'Phase 1' },
-          { duration: 90000, title: 'Phase 2' },
+          { duration: 6000, title: 'Phase 1' },
+          { duration: 9000, title: 'Phase 2' },
         ]}
         externalState={timerState}
         onStateChange={setTimerState}
