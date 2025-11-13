@@ -59,5 +59,9 @@ export {
   TargetIcon,
   TrashIcon,
   UserIcon,
+  BotIcon,
+  DeclineIcon,
+  NoBotIcon,
+  SettingsCogIcon,
   UserWithCircleIcon,
 } from './Icons';

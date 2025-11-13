@@ -185,6 +185,24 @@ export const AllIcons: Story = {
           <Icons.Drag />
           <span>Drag</span>
         </div>
+
+        
+        <div className="icon-item">
+          <Icons.Bot />
+          <span>Bot</span>
+        </div>
+        <div className="icon-item">
+          <Icons.Decline />
+          <span>Decline</span>
+        </div>
+        <div className="icon-item">
+          <Icons.NoBot />
+          <span>NoBot</span>
+        </div>
+        <div className="icon-item">
+          <Icons.SettingsCog />
+          <span>Settings Cog</span>
+        </div>
       </div>
     </div>
   ),
