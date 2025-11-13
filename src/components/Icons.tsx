@@ -620,8 +620,8 @@ export const DragIcon: React.FC<IconProps> = ({ className, size = 10, color }) =
 
 export const BotIcon: React.FC<IconProps> = ({ className, size = 24, color }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M18.75 5.25H5.25C4.00736 5.25 3 6.25736 3 7.5V18C3 19.2426 4.00736 20.25 5.25 20.25H18.75C19.9926 20.25 21 19.2426 21 18V7.5C21 6.25736 19.9926 5.25 18.75 5.25Z" stroke="#009CDF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M8.625 13.5H15.375C16.4105 13.5 17.25 14.3395 17.25 15.375V15.375C17.25 16.4105 16.4105 17.25 15.375 17.25H8.625C7.58946 17.25 6.75 16.4105 6.75 15.375V15.375C6.75 14.3395 7.58946 13.5 8.625 13.5Z" stroke="#009CDF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M18.75 5.25H5.25C4.00736 5.25 3 6.25736 3 7.5V18C3 19.2426 4.00736 20.25 5.25 20.25H18.75C19.9926 20.25 21 19.2426 21 18V7.5C21 6.25736 19.9926 5.25 18.75 5.25Z" stroke="#009CDF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M8.625 13.5H15.375C16.4105 13.5 17.25 14.3395 17.25 15.375V15.375C17.25 16.4105 16.4105 17.25 15.375 17.25H8.625C7.58946 17.25 6.75 16.4105 6.75 15.375V15.375C6.75 14.3395 7.58946 13.5 8.625 13.5Z" stroke={color || '#009CDF'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
 <path d="M13.875 13.5V17.25" stroke={color || '#009CDF'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
 <path d="M10.125 13.5V17.25" stroke={color || '#009CDF'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
 <path d="M12 5.25V1.5" stroke={color || '#009CDF'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
