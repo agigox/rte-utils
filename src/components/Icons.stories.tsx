@@ -203,6 +203,10 @@ export const AllIcons: Story = {
           <Icons.SettingsCog />
           <span>Settings Cog</span>
         </div>
+        <div className="icon-item">
+          <Icons.CopyFile />
+          <span>Copy File</span>
+        </div>
       </div>
     </div>
   ),
