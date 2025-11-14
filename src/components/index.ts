@@ -64,4 +64,5 @@ export {
   NoBotIcon,
   SettingsCogIcon,
   UserWithCircleIcon,
+  CopyFileIcon,
 } from './Icons';
