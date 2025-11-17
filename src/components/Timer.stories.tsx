@@ -122,6 +122,10 @@ export const GameTimer: Story = {
 };
 
 export const SinglePhase: Story = {
+  args: {
+    user: 'actor',
+  },
+
   render: () => {
     const [timerState, setTimerState] = useState({
       currentPhase: 'Single',
@@ -139,6 +143,7 @@ export const SinglePhase: Story = {
       />
     );
   },
+
   parameters: {
     docs: {
       description: {
