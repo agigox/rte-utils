@@ -13,6 +13,9 @@ export interface DemoTimerProps {
 
   // Optional className
   className?: string;
+
+  // Optional callback when a phase is clicked
+  onPhaseChange?: (phaseIndex: number) => void;
 }
 
 const formatTime = (seconds: number): string => {
@@ -40,6 +43,7 @@ export const DemoTimer: React.FC<DemoTimerProps> = ({
   targetPhase,
   targetTime,
   className = '',
+  onPhaseChange,
 }) => {
   // Validate targetPhase
   const currentPhaseIndex = Math.max(0, Math.min(targetPhase, phases.length - 1));
@@ -62,6 +66,12 @@ export const DemoTimer: React.FC<DemoTimerProps> = ({
     const steps = [] as React.ReactNode[];
     const maxSteps = phases.length;
 
+    const handleStepClick = (stepIndex: number) => {
+      if (onPhaseChange) {
+        onPhaseChange(stepIndex);
+      }
+    };
+
     for (let i = 0; i < maxSteps; i++) {
       const isActive = i === currentPhaseIndex;
       const isCompleted = i < currentPhaseIndex;
@@ -75,12 +85,18 @@ export const DemoTimer: React.FC<DemoTimerProps> = ({
         stepClass += ' step-indicator--upcoming';
       }
 
+      if (onPhaseChange) {
+        stepClass += ' step-indicator--clickable';
+      }
+
       steps.push(
         <div
           key={i}
           className={stepClass}
           data-step={i + 1}
           title={phases[i]?.title ? `Step ${i + 1}: ${phases[i]?.title}` : `Step ${i + 1}`}
+          onClick={() => handleStepClick(i)}
+          style={onPhaseChange ? { cursor: 'pointer' } : undefined}
         >
           {i + 1}
         </div>

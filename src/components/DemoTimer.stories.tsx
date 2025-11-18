@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { DemoTimer } from './DemoTimer';
+import { useState } from 'react';
 
 const meta: Meta<typeof DemoTimer> = {
   title: 'Components/DemoTimer',
@@ -9,7 +10,7 @@ const meta: Meta<typeof DemoTimer> = {
     docs: {
       description: {
         component:
-          'A demonstration Timer component that displays a Timer at a specific phase and time. The user is always an actor (no controls), and the timer is static for demonstration purposes.',
+          'A demonstration Timer component that displays a Timer at a specific phase and time. The user is always an actor (no controls), and the timer is static for demonstration purposes. Step indicators can be made clickable by providing an onPhaseChange callback.',
       },
     },
   },
@@ -30,6 +31,9 @@ const meta: Meta<typeof DemoTimer> = {
     className: {
       control: 'text',
       description: 'Optional CSS class name.',
+    },
+    onPhaseChange: {
+      description: 'Optional callback when a phase is clicked.',
     },
   },
 };
@@ -198,6 +202,48 @@ export const MinimalTimerExample: Story = {
         story:
           'Example matching the MinimalTimer story: phases with 6s and 9s durations, showing Phase 2 at 3 seconds.',
       },
+    },
+  },
+};
+
+export const InteractivePhaseNavigation = () => {
+  const [currentPhase, setCurrentPhase] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+
+  const phases = [
+    { duration: 6000, title: 'Phase 1' },
+    { duration: 9000, title: 'Phase 2' },
+    { duration: 12000, title: 'Phase 3' },
+  ];
+
+  const handlePhaseChange = (phaseIndex: number) => {
+    setCurrentPhase(phaseIndex);
+    setCurrentTime(0); // Reset time when changing phase
+  };
+
+  return (
+    <div>
+      <DemoTimer
+        phases={phases}
+        targetPhase={currentPhase}
+        targetTime={currentTime}
+        onPhaseChange={handlePhaseChange}
+      />
+      <div style={{ marginTop: '20px', textAlign: 'center' }}>
+        <p>Click on the step indicators to navigate between phases!</p>
+        <p style={{ fontSize: '12px', color: '#666' }}>
+          Current Phase: {currentPhase + 1} | Time: {currentTime}ms
+        </p>
+      </div>
+    </div>
+  );
+};
+
+InteractivePhaseNavigation.parameters = {
+  docs: {
+    description: {
+      story:
+        'Interactive demo showing clickable step indicators. Click on any phase number to navigate to that phase.',
     },
   },
 };
