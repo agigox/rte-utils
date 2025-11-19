@@ -42,11 +42,8 @@ export const InputNumber = React.forwardRef<HTMLInputElement, InputNumberProps>(
     const [isOutOfRange, setIsOutOfRange] = useState(false);
     const [calculatedWidth, setCalculatedWidth] = useState(54); // Smaller default minimum width
     const [showMaxTooltip, setShowMaxTooltip] = useState(false);
-    const internalInputRef = useRef<HTMLInputElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
     const labelRef = useRef<HTMLLabelElement>(null);
-
-    // Combine internal ref with forwarded ref
-    const inputRef = (ref as React.RefObject<HTMLInputElement>) || internalInputRef;
 
     // Expose focus method through ref
     React.useImperativeHandle(
