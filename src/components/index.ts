@@ -65,4 +65,5 @@ export {
   SettingsCogIcon,
   UserWithCircleIcon,
   CopyFileIcon,
+  LeftArrow,
 } from './Icons';

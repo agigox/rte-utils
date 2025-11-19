@@ -207,6 +207,10 @@ export const AllIcons: Story = {
           <Icons.CopyFile />
           <span>Copy File</span>
         </div>
+        <div className="icon-item">
+          <Icons.LeftArrow />
+          <span>Left Arrow</span>
+        </div>
       </div>
     </div>
   ),
@@ -225,7 +229,7 @@ export const IconSizes: Story = {
   render: () => (
     <div className="icons-showcase">
       <h2>Icon Sizes</h2>
-      <p>Icons can be resized using the size prop</p>
+      <p>Icons can be resized using the size prop or width and height props.</p>
 
       <div className="size-examples">
         <div className="size-row">
@@ -236,6 +240,7 @@ export const IconSizes: Story = {
             <Icons.User size={16} />
             <Icons.Success size={16} />
             <Icons.Plus size={16} />
+            <Icons.LeftArrow width={9} height={16} />
           </div>
         </div>
 
@@ -247,6 +252,7 @@ export const IconSizes: Story = {
             <Icons.User size={24} />
             <Icons.Success size={24} />
             <Icons.Plus size={24} />
+            <Icons.LeftArrow width={13.5} height={24} />
           </div>
         </div>
 
@@ -258,6 +264,7 @@ export const IconSizes: Story = {
             <Icons.User size={32} />
             <Icons.Success size={32} />
             <Icons.Plus size={32} />
+            <Icons.LeftArrow width={18} height={32} />
           </div>
         </div>
 
@@ -269,6 +276,7 @@ export const IconSizes: Story = {
             <Icons.User size={48} />
             <Icons.Success size={48} />
             <Icons.Plus size={48} />
+            <Icons.LeftArrow width={27} height={48} />
           </div>
         </div>
       </div>

@@ -3,6 +3,8 @@ import React from 'react';
 interface IconProps {
   className?: string;
   size?: number;
+  width?: number;
+  height?: number;
   color?: string;
   disabled?: boolean;
 }
@@ -823,6 +825,12 @@ export const CopyFileIcon: React.FC<IconProps> = ({ className, size = 32, color 
 </svg>
 );
 
+export const LeftArrow: React.FC<IconProps> = ({ className, width = 13.5, height = 24, color }) => (
+  <svg width={width} height={height} viewBox="0 0 14 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fillRule="evenodd" clipRule="evenodd" d="M11.8278 0.26476C12.2195 -0.0974867 12.8297 -0.0867383 13.2085 0.289171C13.5874 0.66509 13.5983 1.27048 13.2331 1.66007L2.62565 12.184L13.2331 22.3408C13.5982 22.7294 13.5874 23.3358 13.2085 23.7117C12.8297 24.0866 12.2195 24.0974 11.8278 23.7351L0 12.1841L11.8278 0.26476Z" fill="black"/>
+</svg>
+);
+
 // Export all icons as a single object for easier imports
 export const Icons = {
   Send: SendIcon,
@@ -865,6 +873,7 @@ export const Icons = {
   SouthEastArrow: SouthEastArrowIcon,
   RightArrowNew: RightArrow,
   CopyFile: CopyFileIcon,
+  LeftArrow: LeftArrow,
 };
 
 export default Icons;
