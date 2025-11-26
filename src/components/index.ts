@@ -15,6 +15,7 @@ export { ProgressBar } from './ProgressBar';
 export { Switch } from './Switch';
 export { Tabs } from './Tabs';
 export { Timer } from './Timer';
+export { ToggleBtns } from './ToggleBtns';
 export type { TimerProps, TimerRef } from './Timer';
 export { DemoTimer } from './DemoTimer';
 export type { DemoTimerProps } from './DemoTimer';
