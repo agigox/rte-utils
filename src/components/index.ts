@@ -54,6 +54,7 @@ export {
   SendIcon,
   SettingsIcon,
   SouthEastArrowIcon,
+  SouthOuestArrowIcon,
   SpinnerIcon,
   SuccessIcon,
   SwitchThumbIcon,

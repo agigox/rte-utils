@@ -186,7 +186,6 @@ export const AllIcons: Story = {
           <span>Drag</span>
         </div>
 
-        
         <div className="icon-item">
           <Icons.Bot />
           <span>Bot</span>
@@ -532,6 +531,11 @@ export const NewIconsShowcase: Story = {
         </div>
 
         <div className="icon-item">
+          <Icons.SouthOuestArrow />
+          <span>South Ouest Arrow</span>
+        </div>
+
+        <div className="icon-item">
           <Icons.RightArrowNew />
           <span>Right Arrow (New)</span>
         </div>
@@ -607,6 +611,10 @@ export const DirectionalArrowsExample: Story = {
         <div style={{ textAlign: 'center' }}>
           <Icons.SouthEastArrow size={24} color="#009CDF" />
           <div style={{ marginTop: '8px', fontSize: '14px' }}>South East</div>
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <Icons.SouthOuestArrow size={24} color="#009CDF" />
+          <div style={{ marginTop: '8px', fontSize: '14px' }}>South Ouest</div>
         </div>
         <div style={{ textAlign: 'center' }}>
           <Icons.ArrowDown size={24} />
