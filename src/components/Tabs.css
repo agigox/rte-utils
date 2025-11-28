@@ -53,6 +53,7 @@
 .tab-count {
   background: #11161a;
   color: white;
+  width: 24px;
   font-family: 'Open Sans', sans-serif;
   font-weight: 600;
   font-size: 12px;
@@ -106,7 +107,7 @@
 }
 
 .tabs-container--black .tab-item--active .tab-label {
-  color: #2CB7F0;
+  color: #2cb7f0;
 }
 
 .tabs-container--black .tab-count {
@@ -115,12 +116,12 @@
 }
 
 .tabs-container--black .tab-count--active {
-  background: #2CB7F0;
+  background: #2cb7f0;
   color: black;
 }
 
 .tabs-container--black .tab-divider--active {
-  background: #2CB7F0;
+  background: #2cb7f0;
 }
 
 /* Responsive adjustments */
