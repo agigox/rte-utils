@@ -815,6 +815,77 @@ export const DragIcon: React.FC<IconProps> = ({ className, size = 10, color }) =
   </svg>
 );
 
+// Default Alert icon
+export const DefaultAlertIcon: React.FC<IconProps> = ({ className, size = 24, color }) => (
+  <svg
+    className={className}
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    fill="none"
+    viewBox="0 0 24 24"
+  >
+    <path
+      stroke={color || '#fff'}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={1.5}
+      d="M10.546 2.437a1.957 1.957 0 0 0 2.908 0l.94-1.041a1.959 1.959 0 0 1 3.411 1.413l-.072 1.4a1.96 1.96 0 0 0 2.057 2.057l1.4-.071a1.959 1.959 0 0 1 1.41 3.41l-1.042.941a1.96 1.96 0 0 0 0 2.908l1.042.94a1.959 1.959 0 0 1-1.413 3.411l-1.4-.072a1.96 1.96 0 0 0-2.057 2.056l.072 1.4a1.96 1.96 0 0 1-3.408 1.411l-.94-1.041a1.96 1.96 0 0 0-2.908 0l-.94 1.041A1.959 1.959 0 0 1 6.2 21.191l.072-1.4a1.96 1.96 0 0 0-2.062-2.058l-1.4.072a1.959 1.959 0 0 1-1.41-3.411l1.042-.94a1.96 1.96 0 0 0 0-2.908L1.4 9.605A1.959 1.959 0 0 1 2.809 6.2l1.4.071A1.96 1.96 0 0 0 6.267 4.21L6.2 2.809A1.959 1.959 0 0 1 9.606 1.4z"
+      clipRule="evenodd"
+    />
+    <path
+      fill={color || '#fff'}
+      fillRule="evenodd"
+      d="M10.875 16.875a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0M12 5.25a.75.75 0 0 1 .75.75v7.5a.75.75 0 0 1-1.5 0V6a.75.75 0 0 1 .75-.75"
+      clipRule="evenodd"
+    />
+  </svg>
+);
+
+// Globe icon
+export const GlobeIcon: React.FC<IconProps> = ({ className, size = 24, color }) => (
+  <svg
+    className={className}
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    fill="none"
+    viewBox="0 0 24 24"
+  >
+    <path
+      fill={color || '#292E33'}
+      fillRule="evenodd"
+      d="M12 3.7a8.3 8.3 0 1 0 0 16.6 8.3 8.3 0 0 0 0-16.6M2.3 12c0-5.357 4.343-9.7 9.7-9.7s9.7 4.343 9.7 9.7-4.343 9.7-9.7 9.7-9.7-4.343-9.7-9.7"
+      clipRule="evenodd"
+    />
+    <path
+      fill={color || '#292E33'}
+      fillRule="evenodd"
+      d="M17.092 3.903a.7.7 0 0 1 .733.666l.11 2.278a1.45 1.45 0 0 1-.352 1.019l-2.077 2.4a1.45 1.45 0 0 1-.902.488l-2.951.4a1.45 1.45 0 0 1-1.046-.263L8.764 9.556a.05.05 0 0 0-.071.013l-1.86 2.916-.59-.377.59.377a.1.1 0 0 0-.008.026l-.02 3.387a1.45 1.45 0 0 1-.7 1.234l-1.095.66a.7.7 0 0 1-.723-1.198l1.095-.661a.05.05 0 0 0 .024-.043l.019-3.387a1.45 1.45 0 0 1 .228-.771l1.86-2.916a1.45 1.45 0 0 1 2.073-.394l1.843 1.335a.05.05 0 0 0 .036.009l2.95-.4a.05.05 0 0 0 .032-.016l2.077-2.4a.05.05 0 0 0 .012-.036l-.11-2.278a.7.7 0 0 1 .666-.733M17.457 13.884a.05.05 0 0 0-.028.003l-.269-.646.269.646-2.855 1.187a.05.05 0 0 0-.03.039l-.224 1.518a.05.05 0 0 0 .008.035.05.05 0 0 0 .029.02l2.012.529c.249.065.476.195.658.378l1.006 1.008a.7.7 0 0 1-.991.989l-1.006-1.008a.1.1 0 0 0-.023-.013l-2.012-.528a1.45 1.45 0 0 1-1.066-1.614l.224-1.518a1.45 1.45 0 0 1 .878-1.128l2.854-1.187a1.45 1.45 0 0 1 1.536.27l-.44.48.44-.48 2.333 2.134a.7.7 0 1 1-.945 1.033l-2.333-2.135a.05.05 0 0 0-.026-.012"
+      clipRule="evenodd"
+    />
+  </svg>
+);
+
+// Refresh Cross icon (Chat bubble)
+export const RefreshCrossIcon: React.FC<IconProps> = ({ className, size = 24, color }) => (
+  <div className={className} style={{ width: size, height: size, position: 'relative' }}>
+    <svg
+      style={{ width: size, height: size, position: 'relative', overflow: 'visible' }}
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M4.5 19.5H2.25C1.00736 19.5 0 18.4926 0 17.25V2.25C0 1.00736 1.00736 0 2.25 0H21.75C22.9926 0 24 1.00736 24 2.25V17.25C24 18.4926 22.9926 19.5 21.75 19.5H11.5L5.7 23.85C5.20557 24.2208 4.5 23.868 4.5 23.25V19.5Z"
+        fill={color || '#292E33'}
+      />
+    </svg>
+  </div>
+);
+
 export const BotIcon: React.FC<IconProps> = ({ className, size = 24, color }) => (
   <svg
     width={size}
@@ -1046,6 +1117,9 @@ export const Icons = {
   RightArrowNew: RightArrow,
   CopyFile: CopyFileIcon,
   LeftArrow: LeftArrow,
+  DefaultAlert: DefaultAlertIcon,
+  Globe: GlobeIcon,
+  RefreshCross: RefreshCrossIcon,
 };
 
 export default Icons;

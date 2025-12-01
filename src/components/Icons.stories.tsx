@@ -210,6 +210,21 @@ export const AllIcons: Story = {
           <Icons.LeftArrow />
           <span>Left Arrow</span>
         </div>
+
+        <div className="icon-item">
+          <Icons.DefaultAlert />
+          <span>Default Alert</span>
+        </div>
+
+        <div className="icon-item">
+          <Icons.Globe />
+          <span>Globe</span>
+        </div>
+
+        <div className="icon-item">
+          <Icons.RefreshCross />
+          <span>Refresh Cross</span>
+        </div>
       </div>
     </div>
   ),

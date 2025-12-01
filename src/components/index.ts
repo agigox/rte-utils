@@ -68,4 +68,7 @@ export {
   UserWithCircleIcon,
   CopyFileIcon,
   LeftArrow,
+  DefaultAlertIcon,
+  GlobeIcon,
+  RefreshCrossIcon,
 } from './Icons';
