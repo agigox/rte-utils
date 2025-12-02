@@ -122,7 +122,35 @@
 }
 
 /* Hover effects */
-.input-element:not(:disabled):hover {
+.input-container--light .input-element:not(:disabled):hover {
+  border-color: #009cdf;
+}
+
+.input-container--dark .input-element:not(:disabled):hover {
+  border-color: #82d4f6;
+}
+
+.input-container--slate .input-element:not(:disabled):hover {
+  border-color: #82d4f6;
+}
+
+.input-container--black .input-element:not(:disabled):hover {
+  border-color: #82d4f6;
+}
+
+.input-container--pending .input-element:not(:disabled):hover {
+  border-color: #009cdf;
+}
+
+.input-container--refused .input-element:not(:disabled):hover {
+  border-color: #009cdf;
+}
+
+.input-container--partial .input-element:not(:disabled):hover {
+  border-color: #009cdf;
+}
+
+.input-container--accepted .input-element:not(:disabled):hover {
   border-color: #009cdf;
 }
 
