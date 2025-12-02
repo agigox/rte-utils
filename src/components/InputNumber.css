@@ -69,7 +69,7 @@
 
 /* Focus state styles */
 .input-container--focused .input-element {
-  border-color: #009cdf !important;
+  border-color: #009cdf;
   border-width: 2px !important;
 }
 
