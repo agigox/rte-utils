@@ -299,13 +299,13 @@
 }
 
 .input-container--dark .input-element:focus {
-  border-color: #82D4F6;
+  border-color: #82d4f6;
   color: #ffffff;
   box-shadow: 0 0 0 2px rgba(0, 156, 223, 0.1);
 }
 
 .input-container--dark.input-container--focused .input-label {
-  color: #82D4F6;
+  color: #82d4f6;
 }
 
 .input-container--dark .input-element:-webkit-autofill {
@@ -330,13 +330,13 @@
 }
 
 .input-container--slate .input-element:focus {
-  border-color: #82D4F6;
+  border-color: #82d4f6;
   color: #ffffff;
   box-shadow: 0 0 0 2px rgba(0, 156, 223, 0.1);
 }
 
 .input-container--slate.input-container--focused .input-label {
-  color: #82D4F6;
+  color: #82d4f6;
 }
 
 .input-container--slate .input-element:-webkit-autofill {
@@ -361,13 +361,13 @@
 }
 
 .input-container--black .input-element:focus {
-  border-color: #009cdf;
+  border-color: #82d4f6;
   color: #ffffff;
   box-shadow: 0 0 0 2px rgba(0, 156, 223, 0.1);
 }
 
 .input-container--black.input-container--focused .input-label {
-  color: #009cdf;
+  color: #82d4f6;
 }
 
 .input-container--black .input-element:-webkit-autofill {
