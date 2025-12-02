@@ -36,3 +36,33 @@
   font-weight: 600;
   margin: 0;
 }
+
+/* Clickable state */
+.chip-container--clickable {
+  cursor: pointer;
+  transition:
+    opacity 0.2s ease,
+    transform 0.1s ease;
+}
+
+.chip-container--clickable:hover {
+  opacity: 0.8;
+}
+
+.chip-container--clickable:active {
+  transform: scale(0.98);
+}
+
+/* Disabled state */
+.chip-container--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.chip-container--disabled:hover {
+  opacity: 0.5;
+}
+
+.chip-container--disabled:active {
+  transform: none;
+}

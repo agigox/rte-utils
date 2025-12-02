@@ -33,6 +33,14 @@ const meta: Meta<typeof Chip> = {
       options: ['small', 'large'],
       description: 'Size of the chip - affects padding',
     },
+    onClick: {
+      action: 'clicked',
+      description: 'Optional click handler - makes the chip clickable',
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Disabled state - prevents clicking',
+    },
   },
 };
 
@@ -170,8 +178,77 @@ export const LargeChip: Story = {
 export const SizeComparison: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-      <Chip size="small" bgColor="#fecaca">Small</Chip>
-      <Chip size="large" bgColor="#dcfce7">Large (Default)</Chip>
+      <Chip size="small" bgColor="#fecaca">
+        Small
+      </Chip>
+      <Chip size="large" bgColor="#dcfce7">
+        Large (Default)
+      </Chip>
     </div>
   ),
+};
+
+export const Clickable: Story = {
+  args: {
+    bgColor: '#e0f2fe',
+    width: 'fit-content',
+    onClick: () => alert('Chip clicked!'),
+  },
+  render: (args) => <Chip {...args}>Click Me</Chip>,
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Chip becomes clickable when an onClick handler is provided. Shows hover effects and pointer cursor.',
+      },
+    },
+  },
+};
+
+export const ClickableDisabled: Story = {
+  args: {
+    bgColor: '#e0f2fe',
+    width: 'fit-content',
+    onClick: () => alert('This should not trigger'),
+    disabled: true,
+  },
+  render: (args) => <Chip {...args}>Disabled Chip</Chip>,
+  parameters: {
+    docs: {
+      description: {
+        story: 'When disabled is true, the chip cannot be clicked and shows reduced opacity.',
+      },
+    },
+  },
+};
+
+export const ClickableStates: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+        <Chip bgColor="#dcfce7">Not Clickable</Chip>
+        <span style={{ fontSize: '12px', color: '#666' }}>No onClick handler</span>
+      </div>
+      <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+        <Chip bgColor="#e0f2fe" onClick={() => console.log('Clicked!')}>
+          Clickable
+        </Chip>
+        <span style={{ fontSize: '12px', color: '#666' }}>Has onClick handler</span>
+      </div>
+      <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+        <Chip bgColor="#fef3c7" onClick={() => console.log('Should not fire')} disabled>
+          Disabled
+        </Chip>
+        <span style={{ fontSize: '12px', color: '#666' }}>Clickable but disabled</span>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Comparison of different clickable states. Try hovering and clicking each chip to see the different behaviors.',
+      },
+    },
+  },
 };
