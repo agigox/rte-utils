@@ -50,7 +50,7 @@ export const Button = ({
 
   const buttonStyle: React.CSSProperties = {
     ...getSizeStyles(size),
-    ...(bgColor && { backgroundColor: bgColor }),
+    ...(!disabled && bgColor && { backgroundColor: bgColor }),
     ...(textColor && { color: textColor }),
     ...(borderColor && {
       border: `1px solid ${borderColor}`,
