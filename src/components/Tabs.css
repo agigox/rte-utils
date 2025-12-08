@@ -10,6 +10,22 @@
 .tabs-header {
   display: flex;
   width: 100%;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+
+/* Tabs Header Items - wraps the tab items */
+.tabs-header-items {
+  display: flex;
+  flex: 1;
+}
+
+/* Tabs Header Extra - placeholder for custom content on the right */
+.tabs-header-extra {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding-left: 16px;
 }
 
 /* Tab Item */
@@ -89,6 +105,9 @@
   align-items: center;
   justify-content: flex-start;
   width: 100%;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 /* Tab Body Content */
