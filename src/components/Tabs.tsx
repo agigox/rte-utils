@@ -18,6 +18,8 @@ interface TabsProps {
   tabBarExtra?: React.ReactNode;
   /** Height of the tabs container - use '100%' to fill parent */
   height?: string | number;
+  /** Custom className for the tabs body (scrollable area) */
+  bodyClassName?: string;
 }
 
 export const Tabs: React.FC<TabsProps> = ({
@@ -29,6 +31,7 @@ export const Tabs: React.FC<TabsProps> = ({
   theme = 'light',
   tabBarExtra,
   height,
+  bodyClassName = '',
 }) => {
   const [internalActiveTab, setInternalActiveTab] = useState(tabs[0]?.id || '');
   const currentActiveTab = activeTabId || internalActiveTab;
@@ -71,7 +74,7 @@ export const Tabs: React.FC<TabsProps> = ({
         </div>
         {tabBarExtra && <div className="tabs-header-extra">{tabBarExtra}</div>}
       </div>
-      {children && <div className="tabs-body">{children}</div>}
+      {children && <div className={`tabs-body ${bodyClassName}`}>{children}</div>}
     </div>
   );
 };
