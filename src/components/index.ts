@@ -12,6 +12,8 @@ export { Modal } from './Modal';
 export { ProductionUnit } from './ProductionUnit';
 export { ProductionUnitContainer } from './ProductionUnitContainer';
 export { ProgressBar } from './ProgressBar';
+export { ScrollableContainer } from './ScrollableContainer';
+export type { ScrollableContainerProps } from './ScrollableContainer';
 export { Switch } from './Switch';
 export { Tabs } from './Tabs';
 export { Timer } from './Timer';
