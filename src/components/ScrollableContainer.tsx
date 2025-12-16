@@ -23,7 +23,7 @@ export interface ScrollableContainerProps {
   thumbHeight?: number;
   /** Additional className for the container */
   className?: string;
-  /** Height of the container - scroll appears when content exceeds this */
+  /** Maximum height of the container - scroll appears when content exceeds this. Container shrinks to fit content if smaller. */
   height?: number | string;
   /** Custom styles for the container */
   style?: CSSProperties;
@@ -162,7 +162,7 @@ export const ScrollableContainer = ({
     <div
       ref={containerRef}
       className={`scrollable-container ${hasOverflow ? 'scrollable-container--has-overflow' : ''} ${className}`}
-      style={{ height, ...style }}
+      style={{ maxHeight: height, ...style }}
       data-name="ScrollableContainer"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
