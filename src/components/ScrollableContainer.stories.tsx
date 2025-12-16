@@ -59,10 +59,6 @@ const ListItem = ({ text, index }: { text: string; index: number }) => (
 export const WithOverflow: Story = {
   args: {
     height: 200,
-    scrollbarWidth: 6,
-    trackColor: '#E8E8E8',
-    thumbColor: '#C4C4C4',
-    thumbHeight: 40,
   },
   render: (args) => (
     <div style={{ width: 300, border: '1px solid #ddd', borderRadius: 8 }}>
@@ -79,9 +75,6 @@ export const WithOverflow: Story = {
 export const NoOverflow: Story = {
   args: {
     height: 300,
-    scrollbarWidth: 6,
-    trackColor: '#E8E8E8',
-    thumbColor: '#C4C4C4',
   },
   render: (args) => (
     <div style={{ width: 300, border: '1px solid #ddd', borderRadius: 8 }}>
@@ -174,9 +167,6 @@ const TableRow = ({
 export const TableScenario: Story = {
   args: {
     height: 220,
-    scrollbarWidth: 6,
-    trackColor: '#F5F5F5',
-    thumbColor: '#D4A574',
   },
   render: (args) => (
     <div
@@ -277,9 +267,6 @@ const BilanRow = ({
 export const BilanScenario: Story = {
   args: {
     height: 280,
-    scrollbarWidth: 6,
-    trackColor: '#F5F5F5',
-    thumbColor: '#C4C4C4',
   },
   render: (args) => (
     <div

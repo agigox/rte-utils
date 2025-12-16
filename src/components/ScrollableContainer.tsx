@@ -31,12 +31,12 @@ export interface ScrollableContainerProps {
 
 export const ScrollableContainer = ({
   children,
-  scrollbarWidth = 6,
-  trackColor = '#E8E8E8',
-  thumbColor = '#C4C4C4',
+  scrollbarWidth = 8,
+  trackColor = 'transparent',
+  thumbColor = 'rgba(59, 67, 74, 0.4)',
   thumbBorderRadius = 10,
   trackBorderRadius = 10,
-  thumbHeight = 40,
+  thumbHeight = 64,
   className = '',
   height,
   style,
