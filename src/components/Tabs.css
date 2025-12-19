@@ -9,7 +9,7 @@
 /* Tabs Header */
 .tabs-header {
   display: flex;
-  width: 100%;
+  width: calc(100% - 16px);
   align-items: flex-end;
   flex-shrink: 0;
 }
