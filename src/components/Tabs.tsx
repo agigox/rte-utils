@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Tabs.css';
+import { ScrollableContainer } from './ScrollableContainer';
 
 interface TabItem {
   id: string;
@@ -74,7 +75,11 @@ export const Tabs: React.FC<TabsProps> = ({
         </div>
         {tabBarExtra && <div className="tabs-header-extra">{tabBarExtra}</div>}
       </div>
-      {children && <div className={`tabs-body ${bodyClassName}`}>{children}</div>}
+      {children && (
+        <ScrollableContainer className={`tabs-body ${bodyClassName}`}>
+          {children}
+        </ScrollableContainer>
+      )}
     </div>
   );
 };
