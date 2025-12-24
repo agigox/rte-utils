@@ -506,11 +506,13 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
               )}
             </div>
           </div>
-          <div className="navigation-phase">
-            {selectedPhase !== null
-              ? (getPhaseByIndex(selectedPhase)?.title || `Phase ${selectedPhase + 1}`).toUpperCase()
-              : (currentPhaseData?.title || 'TIMER').toUpperCase()}
-          </div>
+          {selectedPhase !== null && selectedPhase !== currentPhaseIndex && (
+            <div className="navigation-phase">
+              {(
+                getPhaseByIndex(selectedPhase)?.title || `Phase ${selectedPhase + 1}`
+              ).toUpperCase()}
+            </div>
+          )}
         </div>
       );
     };
