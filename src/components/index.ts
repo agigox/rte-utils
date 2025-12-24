@@ -73,4 +73,5 @@ export {
   DefaultAlertIcon,
   GlobeIcon,
   RefreshCrossIcon,
+  ExchangeIcon,
 } from './Icons';

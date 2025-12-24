@@ -6,6 +6,7 @@ interface IconProps {
   width?: number;
   height?: number;
   color?: string;
+  innerColor?: string;
   disabled?: boolean;
 }
 
@@ -82,7 +83,7 @@ export const TrashIcon: React.FC<IconProps> = ({ className, size = 20, color, di
 );
 
 // Success/Checkmark icon from BuyLine (16x16 version)
-export const SuccessIcon: React.FC<IconProps> = ({ className, size = 16, color }) => (
+export const SuccessIcon: React.FC<IconProps> = ({ className, size = 16, color, innerColor }) => (
   <svg
     width={size}
     height={size}
@@ -101,13 +102,13 @@ export const SuccessIcon: React.FC<IconProps> = ({ className, size = 16, color }
       fillRule="evenodd"
       clipRule="evenodd"
       d="M11.6803 5.68769C11.8527 5.87926 11.8372 6.17433 11.6456 6.34675L7.20112 10.3467C7.02365 10.5065 6.75423 10.5065 6.57676 10.3467L4.35456 8.34674C4.16299 8.17433 4.14746 7.87926 4.31988 7.68769C4.49229 7.49612 4.78736 7.48059 4.97893 7.65301L6.88894 9.37204L11.0212 5.653C11.2128 5.48059 11.5079 5.49612 11.6803 5.68769Z"
-      fill="white"
+      fill={innerColor || 'white'}
     />
   </svg>
 );
 
 // Failure/X icon from BuyLine (16x16 version)
-export const FailureIcon: React.FC<IconProps> = ({ className, size = 16, color }) => (
+export const FailureIcon: React.FC<IconProps> = ({ className, size = 16, color, innerColor }) => (
   <svg
     width={size}
     height={size}
@@ -126,19 +127,19 @@ export const FailureIcon: React.FC<IconProps> = ({ className, size = 16, color }
       fillRule="evenodd"
       clipRule="evenodd"
       d="M10.33 5.66989C10.5122 5.85213 10.5122 6.14761 10.33 6.32985L6.32997 10.3299C6.14773 10.5121 5.85225 10.5121 5.67001 10.3299C5.48776 10.1476 5.48776 9.85213 5.67001 9.66989L9.67001 5.66989C9.85225 5.48764 10.1477 5.48764 10.33 5.66989Z"
-      fill="white"
+      fill={innerColor || 'white'}
     />
     <path
       fillRule="evenodd"
       clipRule="evenodd"
       d="M5.67001 5.66989C5.85225 5.48764 6.14773 5.48764 6.32997 5.66989L10.33 9.66989C10.5122 9.85213 10.5122 10.1476 10.33 10.3299C10.1477 10.5121 9.85225 10.5121 9.67001 10.3299L5.67001 6.32985C5.48776 6.14761 5.48776 5.85213 5.67001 5.66989Z"
-      fill="white"
+      fill={innerColor || 'white'}
     />
   </svg>
 );
 
 // Partial/Warning icon from BuyLine (16x16 version)
-export const PartialIcon: React.FC<IconProps> = ({ className, size = 16, color }) => (
+export const PartialIcon: React.FC<IconProps> = ({ className, size = 16, color, innerColor }) => (
   <svg
     width={size}
     height={size}
@@ -157,7 +158,7 @@ export const PartialIcon: React.FC<IconProps> = ({ className, size = 16, color }
       fillRule="evenodd"
       clipRule="evenodd"
       d="M11.6803 5.68769C11.8527 5.87926 11.8372 6.17433 11.6456 6.34675L7.20112 10.3467C7.02365 10.5065 6.75423 10.5065 6.57676 10.3467L4.35456 8.34674C4.16299 8.17433 4.14746 7.87926 4.31988 7.68769C4.49229 7.49612 4.78736 7.48059 4.97893 7.65301L6.88894 9.37204L11.0212 5.653C11.2128 5.48059 11.5079 5.49612 11.6803 5.68769Z"
-      fill="white"
+      fill={innerColor || 'white'}
     />
   </svg>
 );
@@ -885,6 +886,43 @@ export const RefreshCrossIcon: React.FC<IconProps> = ({ className, size = 24, co
   </div>
 );
 
+// Exchange icon
+export const ExchangeIcon: React.FC<IconProps> = ({ className, size = 24, color }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M17.505 13.5048C17.7784 13.2315 18.2216 13.2315 18.495 13.5048L22.495 17.5048C22.7683 17.7782 22.7683 18.2214 22.495 18.4948L18.495 22.4948C18.2216 22.7681 17.7784 22.7681 17.505 22.4948C17.2317 22.2214 17.2317 21.7782 17.505 21.5048L21.0101 17.9998L17.505 14.4948C17.2317 14.2214 17.2317 13.7782 17.505 13.5048Z"
+      fill={color || '#2CB7F0'}
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M1.3 17.9998C1.3 17.6132 1.6134 17.2998 2 17.2998H22C22.3866 17.2998 22.7 17.6132 22.7 17.9998C22.7 18.3864 22.3866 18.6998 22 18.6998H2C1.6134 18.6998 1.3 18.3864 1.3 17.9998Z"
+      fill={color || '#2CB7F0'}
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M6.49498 1.50483C6.76834 1.7782 6.76834 2.22141 6.49498 2.49478L2.98995 5.9998L6.49498 9.50483C6.76834 9.7782 6.76834 10.2214 6.49498 10.4948C6.22161 10.7681 5.7784 10.7681 5.50503 10.4948L1.50503 6.49478C1.23166 6.22141 1.23166 5.7782 1.50503 5.50483L5.50503 1.50483C5.7784 1.23146 6.22161 1.23146 6.49498 1.50483Z"
+      fill={color || '#2CB7F0'}
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M1.3 5.9998C1.3 5.61321 1.6134 5.2998 2 5.2998H22C22.3866 5.2998 22.7 5.61321 22.7 5.9998C22.7 6.3864 22.3866 6.6998 22 6.6998H2C1.6134 6.6998 1.3 6.3864 1.3 5.9998Z"
+      fill={color || '#2CB7F0'}
+    />
+  </svg>
+);
+
 export const BotIcon: React.FC<IconProps> = ({ className, size = 24, color }) => (
   <svg
     width={size}
@@ -1119,6 +1157,7 @@ export const Icons = {
   DefaultAlert: DefaultAlertIcon,
   Globe: GlobeIcon,
   RefreshCross: RefreshCrossIcon,
+  Exchange: ExchangeIcon,
 };
 
 export default Icons;
