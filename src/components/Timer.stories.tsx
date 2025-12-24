@@ -564,7 +564,7 @@ export const AdminUser: Story = {
 export const ActorUser: Story = {
   render: () => {
     const [timerState, setTimerState] = useState({
-      currentPhase: 'Phase 1',
+      currentPhase: 'Discussion',
       currentTime: 0,
       isRunning: true, // auto-start
       isPaused: false,
@@ -576,7 +576,7 @@ export const ActorUser: Story = {
         phases={[
           { duration: 30000, title: 'Discussion' },
           { duration: 45000, title: 'Activity' },
-          { duration: 15, title: 'Reflection' },
+          { duration: 15000, title: 'Reflection' },
         ]}
         externalState={timerState}
         onStateChange={setTimerState}

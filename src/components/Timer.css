@@ -73,12 +73,21 @@
 
 .timer-progress-fill {
   height: 100%;
-  background: #005896;
+  background: #4da466;
 
   transition: width 0.3s ease;
   border-radius: 4px;
 }
-
+.steps-indicator-container {
+  display: flex;
+  flex-direction: column;
+}
+.navigation-phase {
+  font-weight: 600;
+  font-size: 10px;
+  line-height: 14px;
+  color: #11161a;
+}
 .step-indicators {
   display: flex;
   gap: 4px;
@@ -101,7 +110,7 @@
 }
 
 .step-indicator--active {
-  background-color: #005896;
+  background-color: #4da466;
 }
 
 .step-indicator--active.step-indicator--actor {
@@ -289,7 +298,5 @@
 }
 
 .step-indicator--selected {
-  box-shadow:
-    0 0 0 1px #ffffff,
-    0 0 0 2px #005896;
+  background-color: #005896;
 }
