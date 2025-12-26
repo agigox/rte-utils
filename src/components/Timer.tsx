@@ -506,13 +506,21 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
               )}
             </div>
           </div>
-          {selectedPhase !== null && selectedPhase !== currentPhaseIndex && (
-            <div className="navigation-phase">
-              {(
-                getPhaseByIndex(selectedPhase)?.title || `Phase ${selectedPhase + 1}`
-              ).toUpperCase()}
-            </div>
-          )}
+          <div
+            className="navigation-phase"
+            style={{
+              visibility:
+                selectedPhase !== null && selectedPhase !== currentPhaseIndex
+                  ? 'visible'
+                  : 'hidden',
+            }}
+          >
+            {selectedPhase !== null
+              ? (
+                  getPhaseByIndex(selectedPhase)?.title || `Phase ${selectedPhase + 1}`
+                ).toUpperCase()
+              : ''}
+          </div>
         </div>
       );
     };
