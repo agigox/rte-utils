@@ -1,10 +1,4 @@
-import React, {
-  useRef,
-  useState,
-  useEffect,
-  useCallback,
-  CSSProperties,
-} from 'react';
+import React, { useRef, useState, useEffect, useCallback, CSSProperties } from 'react';
 import './ScrollableContainer.css';
 
 export interface ScrollableContainerProps {
@@ -93,16 +87,13 @@ export const ScrollableContainer = ({
   }, [updateThumbPosition]);
 
   // Handle mouse down on thumb
-  const handleThumbMouseDown = useCallback(
-    (e: React.MouseEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
-      setIsDragging(true);
-      dragStartY.current = e.clientY;
-      dragStartScrollTop.current = contentRef.current?.scrollTop || 0;
-    },
-    []
-  );
+  const handleThumbMouseDown = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+    dragStartY.current = e.clientY;
+    dragStartScrollTop.current = contentRef.current?.scrollTop || 0;
+  }, []);
 
   // Handle mouse move for dragging
   useEffect(() => {
@@ -135,28 +126,28 @@ export const ScrollableContainer = ({
   }, [isDragging, thumbHeight]);
 
   // Handle click on track
-  const handleTrackClick = useCallback(
-    (e: React.MouseEvent) => {
-      if (!contentRef.current || !trackRef.current || e.target === thumbRef.current) return;
+  const handleTrackClick = useCallback((e: React.MouseEvent) => {
+    if (!contentRef.current || !trackRef.current || e.target === thumbRef.current) return;
 
-      const trackRect = trackRef.current.getBoundingClientRect();
-      const clickY = e.clientY - trackRect.top;
-      const trackHeight = trackRef.current.clientHeight;
-      const { scrollHeight, clientHeight } = contentRef.current;
-      const scrollableDistance = scrollHeight - clientHeight;
+    const trackRect = trackRef.current.getBoundingClientRect();
+    const clickY = e.clientY - trackRect.top;
+    const trackHeight = trackRef.current.clientHeight;
+    const { scrollHeight, clientHeight } = contentRef.current;
+    const scrollableDistance = scrollHeight - clientHeight;
 
-      const clickRatio = clickY / trackHeight;
-      contentRef.current.scrollTop = clickRatio * scrollableDistance;
-    },
-    []
-  );
+    const clickRatio = clickY / trackHeight;
+    contentRef.current.scrollTop = clickRatio * scrollableDistance;
+  }, []);
 
   // Handle wheel event on the container
-  const handleWheel = useCallback((e: React.WheelEvent) => {
-    if (!contentRef.current || !hasOverflow) return;
+  const handleWheel = useCallback(
+    (e: React.WheelEvent) => {
+      if (!contentRef.current || !hasOverflow) return;
 
-    contentRef.current.scrollTop += e.deltaY;
-  }, [hasOverflow]);
+      contentRef.current.scrollTop += e.deltaY;
+    },
+    [hasOverflow]
+  );
 
   return (
     <div
@@ -168,11 +159,7 @@ export const ScrollableContainer = ({
       onMouseLeave={() => setIsHovered(false)}
       onWheel={handleWheel}
     >
-      <div
-        ref={contentRef}
-        className="scrollable-container__content"
-        onScroll={handleScroll}
-      >
+      <div ref={contentRef} className="scrollable-container__content" onScroll={handleScroll}>
         {children}
       </div>
 
