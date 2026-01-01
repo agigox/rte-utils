@@ -172,30 +172,31 @@ export const ScrollableContainer = ({
         {children}
       </div>
 
-      <div
-        ref={trackRef}
-        className={`scrollable-container__track ${hasOverflow ? 'scrollable-container__track--active' : ''}`}
-        style={{
-          width: scrollbarWidth,
-          backgroundColor: trackColor,
-          borderRadius: trackBorderRadius,
-          visibility: hasOverflow ? 'visible' : 'hidden',
-        }}
-        onClick={hasOverflow ? handleTrackClick : undefined}
-      >
+      {hasOverflow && (
         <div
-          ref={thumbRef}
-          className={`scrollable-container__thumb ${isHovered || isDragging ? 'scrollable-container__thumb--visible' : ''}`}
+          ref={trackRef}
+          className="scrollable-container__track scrollable-container__track--active"
           style={{
-            height: thumbHeight,
             width: scrollbarWidth,
-            backgroundColor: thumbColor,
-            borderRadius: thumbBorderRadius,
-            transform: `translateY(${thumbTop}px)`,
+            backgroundColor: trackColor,
+            borderRadius: trackBorderRadius,
           }}
-          onMouseDown={hasOverflow ? handleThumbMouseDown : undefined}
-        />
-      </div>
+          onClick={handleTrackClick}
+        >
+          <div
+            ref={thumbRef}
+            className={`scrollable-container__thumb ${isHovered || isDragging ? 'scrollable-container__thumb--visible' : ''}`}
+            style={{
+              height: thumbHeight,
+              width: scrollbarWidth,
+              backgroundColor: thumbColor,
+              borderRadius: thumbBorderRadius,
+              transform: `translateY(${thumbTop}px)`,
+            }}
+            onMouseDown={handleThumbMouseDown}
+          />
+        </div>
+      )}
     </div>
   );
 };
