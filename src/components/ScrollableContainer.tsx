@@ -21,6 +21,8 @@ export interface ScrollableContainerProps {
   height?: number | string;
   /** Custom styles for the container */
   style?: CSSProperties;
+  /** Callback fired when overflow state changes (scrollbar appears/disappears) */
+  onOverflowChange?: (hasOverflow: boolean) => void;
 }
 
 export const ScrollableContainer = ({
@@ -34,6 +36,7 @@ export const ScrollableContainer = ({
   className = '',
   height,
   style,
+  onOverflowChange,
 }: ScrollableContainerProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -52,7 +55,13 @@ export const ScrollableContainer = ({
     const checkOverflow = () => {
       if (contentRef.current) {
         const { scrollHeight, clientHeight } = contentRef.current;
-        setHasOverflow(scrollHeight > clientHeight);
+        const newHasOverflow = scrollHeight > clientHeight;
+        setHasOverflow((prev) => {
+          if (prev !== newHasOverflow) {
+            onOverflowChange?.(newHasOverflow);
+          }
+          return newHasOverflow;
+        });
       }
     };
 
@@ -64,7 +73,7 @@ export const ScrollableContainer = ({
     }
 
     return () => resizeObserver.disconnect();
-  }, [children]);
+  }, [children, onOverflowChange]);
 
   // Update thumb position on scroll
   const updateThumbPosition = useCallback(() => {
