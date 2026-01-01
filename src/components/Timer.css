@@ -112,7 +112,7 @@
 }
 
 .step-indicator--active {
-  background-color: #4da466;
+  background-color: #4da466 !important;
 }
 
 .step-indicator--active.step-indicator--actor {
