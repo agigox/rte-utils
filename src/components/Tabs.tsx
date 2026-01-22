@@ -21,6 +21,8 @@ interface TabsProps {
   height?: string | number;
   /** Custom className for the tabs body (scrollable area) */
   bodyClassName?: string;
+  /** Custom inline styles for the tabs container */
+  style?: React.CSSProperties;
 }
 
 export const Tabs: React.FC<TabsProps> = ({
@@ -33,6 +35,7 @@ export const Tabs: React.FC<TabsProps> = ({
   tabBarExtra,
   height,
   bodyClassName = '',
+  style,
 }) => {
   const [internalActiveTab, setInternalActiveTab] = useState(tabs[0]?.id || '');
   const currentActiveTab = activeTabId || internalActiveTab;
@@ -45,10 +48,15 @@ export const Tabs: React.FC<TabsProps> = ({
     }
   };
 
+  const containerStyle: React.CSSProperties = {
+    ...style,
+    ...(height ? { height } : {}),
+  };
+
   return (
     <div
       className={`tabs-container tabs-container--${theme} ${className}`}
-      style={height ? { height } : undefined}
+      style={Object.keys(containerStyle).length > 0 ? containerStyle : undefined}
     >
       <div className="tabs-header">
         <div className="tabs-header-items">

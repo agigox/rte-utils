@@ -73,7 +73,7 @@
 
 .timer-progress-fill {
   height: 100%;
-  background: #4da466;
+  background: #005896;
 
   transition: width 0.3s ease;
   border-radius: 4px;
@@ -112,7 +112,7 @@
 }
 
 .step-indicator--active {
-  background-color: #4da466 !important;
+  background-color: #005896 !important;
 }
 
 .step-indicator--active.step-indicator--actor {
@@ -300,5 +300,15 @@
 }
 
 .step-indicator--selected {
-  background-color: #005896;
+  background-color: #4da466 !important;
+}
+
+/* When selected phase is also the active phase, keep it blue */
+.step-indicator--selected.step-indicator--active {
+  background-color: #005896 !important;
+}
+
+/* When a previous phase is selected, only change the progress bar color */
+.timer--viewing-previous .timer-progress-fill {
+  background: #4da466;
 }

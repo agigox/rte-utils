@@ -329,6 +329,9 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
       currentPhaseIndex === Math.max(0, phases.length - 1) &&
       currentTime >= currentPhaseDurationMs;
 
+    // Determine if we're viewing a previous phase
+    const isViewingPrevious = selectedPhase !== null && selectedPhase < currentPhaseIndex;
+
     const timerClasses = [
       'timer-header-control',
       className,
@@ -337,6 +340,7 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
       isFrozen ? 'timer--frozen' : '',
       // isAnonymised ? 'timer--anonymised' : '',
       isAtEnd ? 'timer--completed' : '',
+      isViewingPrevious ? 'timer--viewing-previous' : '',
     ]
       .filter(Boolean)
       .join(' ');
