@@ -1110,6 +1110,29 @@ export const LeftArrow: React.FC<IconProps> = ({ className, width = 13.5, height
   </svg>
 );
 
+export const ShortRightArrow: React.FC<IconProps> = ({ className, size = 16, color }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M8.8027 4.80331C8.98494 4.62106 9.28042 4.62106 9.46267 4.80331L12.1293 7.46998C12.3116 7.65222 12.3116 7.9477 12.1293 8.12994L9.46267 10.7966C9.28042 10.9789 8.98494 10.9789 8.8027 10.7966C8.62045 10.6144 8.62045 10.3189 8.8027 10.1366L11.1394 7.79996L8.8027 5.46328C8.62045 5.28103 8.62045 4.98555 8.8027 4.80331Z"
+      fill={color || 'black'}
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M3.33398 7.80004C3.33398 7.54231 3.54292 7.33337 3.80065 7.33337H11.8007C12.0584 7.33337 12.2673 7.54231 12.2673 7.80004C12.2673 8.05777 12.0584 8.26671 11.8007 8.26671H3.80065C3.54292 8.26671 3.33398 8.05777 3.33398 7.80004Z"
+      fill={color || 'black'}
+    />
+  </svg>
+);
+
 // Export all icons as a single object for easier imports
 export const Icons = {
   Send: SendIcon,
@@ -1158,6 +1181,7 @@ export const Icons = {
   Globe: GlobeIcon,
   RefreshCross: RefreshCrossIcon,
   Exchange: ExchangeIcon,
+  ShortRightArrow: ShortRightArrow,
 };
 
 export default Icons;

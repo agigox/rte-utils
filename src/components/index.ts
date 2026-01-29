@@ -3,6 +3,8 @@ export { Avatar } from './Avatar';
 export { Button } from './Button';
 export { BuyLine } from './BuyLine';
 export { Chip } from './Chip';
+export { DemoTimer } from './DemoTimer';
+export type { DemoTimerProps } from './DemoTimer';
 export { Ecart } from './Ecart';
 export { ExpandableCard } from './ExpandableCard';
 export { Gain } from './Gain';
@@ -17,10 +19,8 @@ export type { ScrollableContainerProps } from './ScrollableContainer';
 export { Switch } from './Switch';
 export { Tabs } from './Tabs';
 export { Timer } from './Timer';
-export { ToggleBtns } from './ToggleBtns';
 export type { TimerProps, TimerRef } from './Timer';
-export { DemoTimer } from './DemoTimer';
-export type { DemoTimerProps } from './DemoTimer';
+export { ToggleBtns } from './ToggleBtns';
 export { Tooltip } from './Tooltip';
 export type { TooltipProps } from './Tooltip';
 export { ValueWithUnit } from './ValueWithUnit';
@@ -29,18 +29,26 @@ export { ValueWithUnit } from './ValueWithUnit';
 export {
   AnonymizeIcon,
   ArrowDownIcon,
+  BotIcon,
   CheckboxEmptyIcon,
   CheckboxFilledIcon,
   CommentIcon,
+  CopyFileIcon,
+  DeclineIcon,
+  DefaultAlertIcon,
+  DragIcon,
   EditIcon,
+  ExchangeIcon,
   FailureIcon,
   FreezeIcon,
+  GlobeIcon,
   Icons,
-  DragIcon,
   KeyIcon,
+  LeftArrow,
   MaintenanceIcon,
   MinusCircleIcon,
   NextIcon,
+  NoBotIcon,
   PartialIcon,
   PauseIcon,
   PenIcon,
@@ -50,11 +58,14 @@ export {
   PlusIcon,
   PowerIcon,
   PreviousIcon,
+  RefreshCrossIcon,
   RefreshIcon,
   RightArrow,
   RightArrowIcon,
   SendIcon,
+  SettingsCogIcon,
   SettingsIcon,
+  ShortRightArrow,
   SouthEastArrowIcon,
   SouthOuestArrowIcon,
   SpinnerIcon,
@@ -63,15 +74,5 @@ export {
   TargetIcon,
   TrashIcon,
   UserIcon,
-  BotIcon,
-  DeclineIcon,
-  NoBotIcon,
-  SettingsCogIcon,
   UserWithCircleIcon,
-  CopyFileIcon,
-  LeftArrow,
-  DefaultAlertIcon,
-  GlobeIcon,
-  RefreshCrossIcon,
-  ExchangeIcon,
 } from './Icons';
