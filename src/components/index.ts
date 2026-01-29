@@ -75,4 +75,6 @@ export {
   TrashIcon,
   UserIcon,
   UserWithCircleIcon,
+  RadioEmptyIcon,
+  RadioFilledIcon,
 } from './Icons';

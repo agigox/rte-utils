@@ -521,6 +521,14 @@ export const NewIconsShowcase: Story = {
 
       <div className="icons-grid">
         <div className="icon-item">
+          <Icons.RadioEmpty />
+          <span>Radio Empty</span>
+        </div>
+        <div className="icon-item">
+          <Icons.RadioFilled />
+          <span>Radio Filled</span>
+        </div>
+        <div className="icon-item">
           <Icons.ShortRightArrow />
           <span>Short Right Arrow</span>
         </div>
@@ -547,21 +555,6 @@ export const NewIconsShowcase: Story = {
         <div className="icon-item">
           <Icons.UserWithCircle />
           <span>User With Circle</span>
-        </div>
-
-        <div className="icon-item">
-          <Icons.SouthEastArrow />
-          <span>South East Arrow</span>
-        </div>
-
-        <div className="icon-item">
-          <Icons.SouthOuestArrow />
-          <span>South Ouest Arrow</span>
-        </div>
-
-        <div className="icon-item">
-          <Icons.RightArrowNew />
-          <span>Right Arrow (New)</span>
         </div>
       </div>
     </div>
@@ -606,6 +599,33 @@ export const CheckboxIconsExample: Story = {
           <Icons.CheckboxFilled size={16} />
           <Icons.CheckboxFilled size={24} />
           <Icons.CheckboxFilled size={32} />
+        </div>
+      </div>
+      <h2 style={{ marginTop: '24px' }}>Radio Icons</h2>
+      <p>Radio states for form elements</p>
+
+      <div style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
+        <div style={{ textAlign: 'center' }}>
+          <Icons.RadioEmpty size={24} />
+          <div style={{ marginTop: '8px', fontSize: '14px' }}>Empty</div>
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <Icons.RadioFilled size={24} />
+          <div style={{ marginTop: '8px', fontSize: '14px' }}>Filled</div>
+        </div>
+      </div>
+      <div style={{ marginTop: '24px' }}>
+        <h3>Different Sizes</h3>
+        <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+          <Icons.RadioEmpty size={12} />
+          <Icons.RadioEmpty size={16} />
+          <Icons.RadioEmpty size={24} />
+          <Icons.RadioEmpty size={32} />
+          <span style={{ marginLeft: '16px' }}>→</span>
+          <Icons.RadioFilled size={12} />
+          <Icons.RadioFilled size={16} />
+          <Icons.RadioFilled size={24} />
+          <Icons.RadioFilled size={32} />
         </div>
       </div>
     </div>
