@@ -16,6 +16,8 @@ import {
 interface BuyLineProps {
   title?: string;
   volume?: string;
+  retainedVolume?: string;
+  priceOfRetainedVolume?: string;
   price?: string;
   defaultPrice?: number;
   showSecondInput?: boolean;
@@ -41,7 +43,9 @@ interface BuyLineProps {
 export const BuyLine: React.FC<BuyLineProps> = ({
   title = 'Achat 3',
   volume = '',
+  retainedVolume= '200',
   price = '',
+  priceOfRetainedVolume = '200',
   defaultPrice,
   showSecondInput = true,
   showTrashButton = false,
@@ -60,19 +64,26 @@ export const BuyLine: React.FC<BuyLineProps> = ({
   hasBorderBottom = true,
 }) => {
   const [internalVolume, setInternalVolume] = useState(volume);
+  const [internalRetainedVolume, setInternalRetainedVolume] = useState(retainedVolume);
+  const [internalPriceOfRetainedVolume, setInternalPriceOfRetainedVolume] = useState(priceOfRetainedVolume);
   const [internalPrice, setInternalPrice] = useState(price);
   const [showSuccessState, setShowSuccessState] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [volumeHasError, setVolumeHasError] = useState(false);
+  const [retainedVolumeHasError, setRetainedVolumeHasError] = useState(false);
   const [priceHasError, setPriceHasError] = useState(false);
 
   const handleVolumeChange = (newValue: string) => {
     setInternalVolume(newValue);
     onVolumeChange?.(newValue);
   };
-
+ 
   const handleVolumeError = (hasError: boolean) => {
     setVolumeHasError(hasError);
+  };
+
+  const handleRetainedVolumeError = (hasError: boolean) => {
+    setRetainedVolumeHasError(hasError);
   };
 
   useEffect(() => {
@@ -80,8 +91,16 @@ export const BuyLine: React.FC<BuyLineProps> = ({
   }, [volume]);
 
   useEffect(() => {
+    setInternalRetainedVolume(retainedVolume);
+  }, [retainedVolume]);
+  
+  useEffect(() => {
     setInternalPrice(price);
   }, [price]);
+  
+  useEffect(() => {
+    setInternalRetainedVolume(priceOfRetainedVolume);
+  }, [priceOfRetainedVolume]);
 
   const handlePriceChange = (newValue: string) => {
     setInternalPrice(newValue);
@@ -106,7 +125,9 @@ export const BuyLine: React.FC<BuyLineProps> = ({
         // Clear fields and states after successful send
         setShowSuccessState(false);
         setInternalVolume('');
+        setInternalRetainedVolume('');
         setInternalPrice('');
+        setInternalPriceOfRetainedVolume('');
         setVolumeHasError(false);
         setPriceHasError(false);
 
@@ -117,7 +138,9 @@ export const BuyLine: React.FC<BuyLineProps> = ({
 
   const handleClear = () => {
     setInternalVolume('');
+    setInternalRetainedVolume('');
     setInternalPrice('');
+    setInternalPriceOfRetainedVolume('');
     setVolumeHasError(false);
     setPriceHasError(false);
     setIsLoading(false);
@@ -253,6 +276,60 @@ export const BuyLine: React.FC<BuyLineProps> = ({
             </div>
           </div>
         </div>
+         {retainedVolume && (
+          <div className="buyline__recette ml-20">
+            
+            <div className="buyline__total">
+              <Chip
+                width="fit-content"
+                bgColor={
+                  theme === 'dark'
+                    ? '#005896'
+                    : theme === 'slate'
+                    ? '#005896'
+                    : '#E1F5FD'
+                }
+              >
+                <ValueWithUnit
+                  cost={parseFloat(internalRetainedVolume)}
+                  textColor={
+                    theme === 'dark' || theme === 'slate'
+                      ? '#B3E5F9'
+                      : '#005896'
+                  }
+                  type="megawatt"
+                />
+              </Chip>
+            </div>
+          </div>
+        )}
+         {priceOfRetainedVolume && (
+          <div className="buyline__recette ml-20">
+            
+            <div className="buyline__total">
+              <Chip
+                width="fit-content"
+                bgColor={
+                  theme === 'dark'
+                    ? '#005896'
+                    : theme === 'slate'
+                    ? '#005896'
+                    : '#E1F5FD'
+                }
+              >
+                <ValueWithUnit
+                  cost={parseFloat(internalPriceOfRetainedVolume)}
+                  textColor={
+                    theme === 'dark' || theme === 'slate'
+                      ? '#B3E5F9'
+                      : '#005896'
+                  }
+                  type="euro"
+                />
+              </Chip>
+            </div>
+          </div>
+        )}
         {showStatus ? (
           <div className="buyline__status">
             {showStatus === 'accepted' ? (
@@ -293,6 +370,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
             )}
           </div>
         )}
+        
       </div>
       {hasBorderBottom && <div className="buyline__border" />}
     </div>
