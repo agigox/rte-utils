@@ -19,6 +19,7 @@ interface BuyLineProps {
   retainedVolume?: string;
   priceOfRetainedVolume?: string;
   price?: string;
+  bidStatus?: string;
   defaultPrice?: number;
   showSecondInput?: boolean;
   showTrashButton?: boolean;
@@ -46,6 +47,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
   retainedVolume= '',
   price = '',
   priceOfRetainedVolume = '',
+  bidStatus='',
   defaultPrice,
   showSecondInput = true,
   showTrashButton = false,
@@ -240,7 +242,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
               </div>
             )}
           </div>
-          <div className="buyline__recette">
+         {(bidStatus==='accepted' || bidStatus==='pending') && <div className="buyline__recette">
             {labels?.find((label) => label.key === 'total') && (
               <div className="buyline__label--description">
                 {labels.find((label) => label.key === 'total')?.label}
@@ -274,7 +276,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
                 />
               </Chip>
             </div>
-          </div>
+          </div>}
         </div>
          {retainedVolume && (
           <div className="buyline__recette ml-20">
