@@ -43,9 +43,9 @@ interface BuyLineProps {
 export const BuyLine: React.FC<BuyLineProps> = ({
   title = 'Achat 3',
   volume = '',
-  retainedVolume= '200',
+  retainedVolume= '',
   price = '',
-  priceOfRetainedVolume = '200',
+  priceOfRetainedVolume = '',
   defaultPrice,
   showSecondInput = true,
   showTrashButton = false,
