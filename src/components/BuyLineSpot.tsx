@@ -36,7 +36,7 @@ interface BuyLineSpotProps {
   onSend?: () => void;
   onClear?: () => void;
   className?: string;
-  showStatus?: 'accepted' | 'refused' | 'partial';
+  showStatus?: 'accepted' | 'refused' | 'partial' | 'pending';
   theme?: 'light' | 'dark' | 'slate';
   hasBorderBottom?: boolean;
 }
