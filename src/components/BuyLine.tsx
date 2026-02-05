@@ -43,7 +43,7 @@ interface BuyLineProps {
 export const BuyLine: React.FC<BuyLineProps> = ({
   title = 'Achat 3',
   volume = '',
-  retainedVolume= '',
+  retainedVolume= undefined,
   price = '',
   bidStatus='',
   defaultPrice,
@@ -120,7 +120,6 @@ export const BuyLine: React.FC<BuyLineProps> = ({
         // Clear fields and states after successful send
         setShowSuccessState(false);
         setInternalVolume('');
-        setInternalRetainedVolume('');
         setInternalPrice('');
         setVolumeHasError(false);
         setPriceHasError(false);
@@ -132,7 +131,6 @@ export const BuyLine: React.FC<BuyLineProps> = ({
 
   const handleClear = () => {
     setInternalVolume('');
-    setInternalRetainedVolume('');
     setInternalPrice('');
     setVolumeHasError(false);
     setPriceHasError(false);
