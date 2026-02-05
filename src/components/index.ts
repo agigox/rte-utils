@@ -2,6 +2,7 @@ export { Accordion } from './Accordion';
 export { Avatar } from './Avatar';
 export { Button } from './Button';
 export { BuyLine } from './BuyLine';
+export { BuyLineSpot } from './BuyLineSpot';
 export { Chip } from './Chip';
 export { DemoTimer } from './DemoTimer';
 export type { DemoTimerProps } from './DemoTimer';
