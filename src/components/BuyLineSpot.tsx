@@ -309,7 +309,7 @@ export const BuyLineSpot: React.FC<BuyLineSpotProps> = ({
                 )}
               </button>
             )}
-            {(showTrashButton && bidStatus === 'pending') && (
+            {showTrashButton && (
               <button
                 className="buyline__trash"
                 onClick={handleClear}
