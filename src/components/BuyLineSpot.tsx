@@ -17,7 +17,6 @@ interface BuyLineSpotProps {
   title?: string;
   volume?: string;
   retainedVolume?: number | undefined;
-  phaseStatus?: string | undefined;
   price?: string;
   bidStatus?: string;
   defaultPrice?: number;
@@ -63,7 +62,6 @@ export const BuyLineSpot: React.FC<BuyLineSpotProps> = ({
   showStatus,
   theme = 'light',
   hasBorderBottom = true,
-  phaseStatus,
 }) => {
   const [internalVolume, setInternalVolume] = useState(volume);
   const [internalRetainedVolume, setInternalRetainedVolume] = useState(retainedVolume);
@@ -311,7 +309,7 @@ export const BuyLineSpot: React.FC<BuyLineSpotProps> = ({
                 )}
               </button>
             )}
-            {(showTrashButton && phaseStatus !== 'finished') && (
+            {(showTrashButton && bidStatus === 'pending') && (
               <button
                 className="buyline__trash"
                 onClick={handleClear}
