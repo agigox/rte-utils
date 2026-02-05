@@ -17,7 +17,6 @@ interface BuyLineProps {
   title?: string;
   volume?: string;
   retainedVolume?: number | undefined;
-  priceOfRetainedVolume?: number | undefined;
   price?: string;
   bidStatus?: string;
   defaultPrice?: number;
@@ -46,7 +45,6 @@ export const BuyLine: React.FC<BuyLineProps> = ({
   volume = '',
   retainedVolume= '',
   price = '',
-  priceOfRetainedVolume = '',
   bidStatus='',
   defaultPrice,
   showSecondInput = true,
@@ -67,7 +65,6 @@ export const BuyLine: React.FC<BuyLineProps> = ({
 }) => {
   const [internalVolume, setInternalVolume] = useState(volume);
   const [internalRetainedVolume, setInternalRetainedVolume] = useState(retainedVolume);
-  const [internalPriceOfRetainedVolume, setInternalPriceOfRetainedVolume] = useState(priceOfRetainedVolume);
   const [internalPrice, setInternalPrice] = useState(price);
   const [showSuccessState, setShowSuccessState] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -100,10 +97,6 @@ export const BuyLine: React.FC<BuyLineProps> = ({
     setInternalPrice(price);
   }, [price]);
   
-  useEffect(() => {
-    setInternalRetainedVolume(priceOfRetainedVolume);
-  }, [priceOfRetainedVolume]);
-
   const handlePriceChange = (newValue: string) => {
     setInternalPrice(newValue);
     onPriceChange?.(newValue);
@@ -129,7 +122,6 @@ export const BuyLine: React.FC<BuyLineProps> = ({
         setInternalVolume('');
         setInternalRetainedVolume('');
         setInternalPrice('');
-        setInternalPriceOfRetainedVolume('');
         setVolumeHasError(false);
         setPriceHasError(false);
 
@@ -142,7 +134,6 @@ export const BuyLine: React.FC<BuyLineProps> = ({
     setInternalVolume('');
     setInternalRetainedVolume('');
     setInternalPrice('');
-    setInternalPriceOfRetainedVolume('');
     setVolumeHasError(false);
     setPriceHasError(false);
     setIsLoading(false);
@@ -300,33 +291,6 @@ export const BuyLine: React.FC<BuyLineProps> = ({
                       : '#005896'
                   }
                   type="megawatt"
-                />
-              </Chip>
-            </div>
-          </div>
-        )}
-         {priceOfRetainedVolume && (
-          <div className="buyline__recette ml-20">
-            
-            <div className="buyline__total">
-              <Chip
-                width="fit-content"
-                bgColor={
-                  theme === 'dark'
-                    ? '#005896'
-                    : theme === 'slate'
-                    ? '#005896'
-                    : '#E1F5FD'
-                }
-              >
-                <ValueWithUnit
-                  cost={internalPriceOfRetainedVolume}
-                  textColor={
-                    theme === 'dark' || theme === 'slate'
-                      ? '#B3E5F9'
-                      : '#005896'
-                  }
-                  type="euro"
                 />
               </Chip>
             </div>
