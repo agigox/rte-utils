@@ -16,8 +16,8 @@ import {
 interface BuyLineProps {
   title?: string;
   volume?: string;
-  retainedVolume?: string;
-  priceOfRetainedVolume?: string;
+  retainedVolume?: number | undefined;
+  priceOfRetainedVolume?: | undefined;
   price?: string;
   bidStatus?: string;
   defaultPrice?: number;
@@ -293,7 +293,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
                 }
               >
                 <ValueWithUnit
-                  cost={parseFloat(internalRetainedVolume)}
+                  cost={internalRetainedVolume}
                   textColor={
                     theme === 'dark' || theme === 'slate'
                       ? '#B3E5F9'
@@ -320,7 +320,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
                 }
               >
                 <ValueWithUnit
-                  cost={parseFloat(internalPriceOfRetainedVolume)}
+                  cost={internalPriceOfRetainedVolume}
                   textColor={
                     theme === 'dark' || theme === 'slate'
                       ? '#B3E5F9'
