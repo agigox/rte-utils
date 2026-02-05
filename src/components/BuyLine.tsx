@@ -17,7 +17,7 @@ interface BuyLineProps {
   title?: string;
   volume?: string;
   retainedVolume?: number | undefined;
-  priceOfRetainedVolume?: | undefined;
+  priceOfRetainedVolume?: number | undefined;
   price?: string;
   bidStatus?: string;
   defaultPrice?: number;
