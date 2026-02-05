@@ -147,10 +147,10 @@ export const BuyLineSpot: React.FC<BuyLineSpotProps> = ({
       return 0;
     }
 
-    const volumeNum =retainedVolume || parseFloat(internalVolume);
+    const volumeNum =parseFloat(internalVolume);
     if (!isNaN(volumeNum)) {
       if (showSecondInput) {
-        const priceNum = spotPrice || parseFloat(internalPrice);
+        const priceNum = parseFloat(internalPrice);
         if (!isNaN(priceNum)) {
           return volumeNum * priceNum;
         }
@@ -220,7 +220,7 @@ export const BuyLineSpot: React.FC<BuyLineSpotProps> = ({
               </div>
             )}
           </div>
-         {(bidStatus==='accepted' || bidStatus==='pending') && <div className="buyline__recette">
+         {(bidStatus==='pending') && <div className="buyline__recette">
             {labels?.find((label) => label.key === 'total') && (
               <div className="buyline__label--description">
                 {labels.find((label) => label.key === 'total')?.label}
