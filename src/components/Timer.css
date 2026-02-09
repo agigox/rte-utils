@@ -300,7 +300,7 @@
 }
 
 .step-indicator--selected {
-  background-color: #4da466 !important;
+  background-color: #005896 !important;
 }
 
 /* When selected phase is also the active phase, keep it blue */
@@ -308,7 +308,13 @@
   background-color: #005896 !important;
 }
 
-/* When a previous phase is selected, only change the progress bar color */
+/* When a previous phase is selected (viewing past phase) */
 .timer--viewing-previous .timer-progress-fill {
   background: #4da466;
 }
+
+.timer--viewing-previous .step-indicator--active {
+  background-color: #4da466 !important;
+}
+
+/* The selected past phase stays dark blue via .step-indicator--selected */
