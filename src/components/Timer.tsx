@@ -530,12 +530,12 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
     };
 
     return (
-      <div className={timerClasses}>
+      <div className={timerClasses} style={{ marginBottom: '-15px'}}>
         <div className="timer-section">
           <div className="timer-content">
             <div className="timer-display-area">
               {user === 'admin' && (
-                <div className="timer-header">
+                <div className="timer-header" style={{ marginBottom: '15px' }}>
                   <span className="timer-title">
                     {(currentPhaseData?.title || 'TIMER').toUpperCase()}
                   </span>
