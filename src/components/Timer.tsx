@@ -529,9 +529,8 @@ export const Timer = React.forwardRef<TimerRef, TimerProps>(
       );
     };
 
-    console.log("timer render");    
     return (
-      <div className={timerClasses} style={{ marginBottom: '-15px'}}>
+      <div className={timerClasses}>
         <div className="timer-section">
           <div className="timer-content">
             <div className="timer-display-area">
