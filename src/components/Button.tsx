@@ -1,6 +1,6 @@
 import React from 'react';
 import './Button.css';
-import { PlusIcon, SettingsIcon, ArrowDownIcon, NextIcon } from './Icons';
+import { ArrowDownIcon, NextIcon, PlusIcon, SettingsIcon } from './Icons';
 
 interface ButtonProps {
   text: string;
@@ -12,7 +12,7 @@ interface ButtonProps {
   bgColor?: string;
   textColor?: string;
   borderColor?: string;
-  size?: 'small' | 'large';
+  size?: 'small' | 'medium' | 'large';
 }
 
 const getIcon = (iconName: string, color: string = 'white'): React.ReactNode => {
@@ -37,10 +37,12 @@ export const Button = ({
   borderColor,
   size = 'large',
 }: ButtonProps) => {
-  const getSizeStyles = (size: 'small' | 'large'): React.CSSProperties => {
+  const getSizeStyles = (size: 'small' | 'medium' | 'large'): React.CSSProperties => {
     switch (size) {
       case 'small':
         return { height: '32px', padding: '8px 12px' };
+      case 'medium':
+        return { height: '32px', padding: '8px 16px' };
       case 'large':
         return { height: '40px', padding: '12px 16px' };
       default:
