@@ -230,6 +230,30 @@ export const AllIcons: Story = {
           <Icons.RefreshCross />
           <span>Refresh Cross</span>
         </div>
+        <div className="icon-item">
+          <Icons.Thermometer />
+          <span>Thermometer</span>
+        </div>
+        <div className="icon-item">
+          <Icons.Wind />
+          <span>Wind</span>
+        </div>
+        <div className="icon-item">
+          <Icons.CloudSnow />
+          <span>Cloud Snow</span>
+        </div>
+        <div className="icon-item">
+          <Icons.Sun />
+          <span>Sun</span>
+        </div>
+        <div className="icon-item">
+          <Icons.CloudRain />
+          <span>Cloud Rain</span>
+        </div>
+        <div className="icon-item">
+          <Icons.CloudLightning />
+          <span>Cloud Lightning</span>
+        </div>
       </div>
     </div>
   ),
@@ -521,40 +545,36 @@ export const NewIconsShowcase: Story = {
 
       <div className="icons-grid">
         <div className="icon-item">
+          <Icons.Wind />
+          <span>Wind</span>
+        </div>
+        <div className="icon-item">
+          <Icons.CloudSnow />
+          <span>Cloud Snow</span>
+        </div>
+        <div className="icon-item">
+          <Icons.Sun />
+          <span>Sun</span>
+        </div>
+        <div className="icon-item">
+          <Icons.CloudRain />
+          <span>Cloud Rain</span>
+        </div>
+        <div className="icon-item">
+          <Icons.CloudLightning />
+          <span>Cloud Lightning</span>
+        </div>
+        <div className="icon-item">
+          <Icons.Thermometer />
+          <span>Thermometer</span>
+        </div>
+        <div className="icon-item">
           <Icons.RadioEmpty />
           <span>Radio Empty</span>
         </div>
         <div className="icon-item">
           <Icons.RadioFilled />
           <span>Radio Filled</span>
-        </div>
-        <div className="icon-item">
-          <Icons.ShortRightArrow />
-          <span>Short Right Arrow</span>
-        </div>
-        <div className="icon-item">
-          <Icons.CheckboxEmpty />
-          <span>Checkbox Empty</span>
-        </div>
-
-        <div className="icon-item">
-          <Icons.CheckboxFilled />
-          <span>Checkbox Filled</span>
-        </div>
-
-        <div className="icon-item">
-          <Icons.Key />
-          <span>Key</span>
-        </div>
-
-        <div className="icon-item">
-          <Icons.Comment />
-          <span>Comment</span>
-        </div>
-
-        <div className="icon-item">
-          <Icons.UserWithCircle />
-          <span>User With Circle</span>
         </div>
       </div>
     </div>
@@ -719,6 +739,45 @@ export const CommunicationIconsExample: Story = {
     docs: {
       description: {
         story: 'Icons related to communication, messaging, and user representation.',
+      },
+    },
+  },
+};
+
+export const MeteoIconsExample: Story = {
+  render: () => (
+    <div className="icons-showcase">
+      <h2>Meteo Icons</h2>
+      <p>Icons for weather and meteorological conditions</p>
+
+      <div style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
+        <div style={{ textAlign: 'center' }}>
+          <Icons.Wind size={32} />
+          <div style={{ marginTop: '8px', fontSize: '14px' }}>Wind</div>
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <Icons.CloudSnow size={32} />
+          <div style={{ marginTop: '8px', fontSize: '14px' }}>Cloud Snow</div>
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <Icons.Sun size={32} />
+          <div style={{ marginTop: '8px', fontSize: '14px' }}>Sun</div>
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <Icons.CloudRain size={32} />
+          <div style={{ marginTop: '8px', fontSize: '14px' }}>Cloud Rain</div>
+        </div>
+        <div style={{ textAlign: 'center' }}>
+          <Icons.CloudLightning size={32} />
+          <div style={{ marginTop: '8px', fontSize: '14px' }}>Cloud Lightning</div>
+        </div>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: 'Icons for weather and meteorological conditions.',
       },
     },
   },
