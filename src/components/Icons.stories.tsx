@@ -771,6 +771,10 @@ export const MeteoIconsExample: Story = {
           <Icons.CloudLightning size={32} />
           <div style={{ marginTop: '8px', fontSize: '14px' }}>Cloud Lightning</div>
         </div>
+        <div style={{ textAlign: 'center' }}>
+          <Icons.Thermometer size={32} />
+          <div style={{ marginTop: '8px', fontSize: '14px' }}>Thermometer</div>
+        </div>
       </div>
     </div>
   ),
