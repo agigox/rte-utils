@@ -12,19 +12,23 @@ export interface OptionItemProps {
    */
   content: string;
   /**
-   * The icon to display next to the tickbox
+   * The content class name
+   */
+  className?: string;
+  /**
+   * The icon to display in the OptionItem
    */
   icon?: React.ReactNode;
   /**
-   * The checked state of the tickbox
+   * The checked state of the OptionItem
    */
   checked?: boolean;
   /**
-   * The disabled state of the tickbox
+   * The disabled state of the OptionItem
    */
   disabled?: boolean;
   /**
-   * The on change handler of the tickbox
+   * The on change handler of the OptionItem
    */
   onChange: (checked: boolean) => void;
 }
@@ -32,6 +36,7 @@ export interface OptionItemProps {
 export const OptionItem = ({
   type,
   content,
+  className,
   icon,
   checked,
   disabled,
@@ -68,7 +73,7 @@ export const OptionItem = ({
         <RadioEmptyIcon size={24} />
       )}
       <div className="option-item-content">
-        <span>{content}</span>
+        <span className={className}>{content}</span>
       </div>
       {icon}
     </div>

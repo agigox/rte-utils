@@ -25,9 +25,14 @@ const meta: Meta<typeof OptionItem> = {
       control: 'text',
       description: 'The text content to display next to the tickbox',
     },
+    className: {
+      control: 'text',
+      description:
+        'CSS class name applied to the content text span (can be used with Tailwind or custom CSS classes)',
+    },
     icon: {
       control: false,
-      description: 'The icon to display next to the tickbox',
+      description: 'The icon to display in the OptionItem',
     },
     checked: {
       control: 'boolean',
@@ -140,6 +145,24 @@ export const RadioDisabledChecked: Story = {
     content: 'Choix verrouillé',
     checked: true,
     disabled: true,
+  },
+};
+
+// ─── With ContentStyle ─────────────────────────────────────────────────────
+
+export const WithClassName: Story = {
+  args: {
+    type: 'checkbox',
+    content: 'Texte avec classe CSS',
+    className: 'my-custom-class',
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'OptionItem with a custom CSS class applied to the content text via `className`. Can be used with Tailwind classes or any custom CSS class.',
+      },
+    },
   },
 };
 
