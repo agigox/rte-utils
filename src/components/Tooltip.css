@@ -1,7 +1,8 @@
 .tooltip-wrapper {
   position: relative;
-  display: flex;
+  display: inline-flex;
   align-items: center;
+  width: fit-content;
   cursor: pointer;
 }
 
@@ -23,7 +24,6 @@
   bottom: 100%;
   left: 50%;
   transform: translateX(-50%);
-  margin-bottom: 8px;
 }
 
 .tooltip-top::after {
@@ -41,7 +41,6 @@
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  margin-top: 8px;
 }
 
 .tooltip-bottom::after {
@@ -59,7 +58,6 @@
   right: 100%;
   top: 50%;
   transform: translateY(-50%);
-  margin-right: 8px;
 }
 
 .tooltip-left::after {
@@ -77,7 +75,6 @@
   left: 100%;
   top: 50%;
   transform: translateY(-50%);
-  margin-left: 8px;
 }
 
 .tooltip-right::after {

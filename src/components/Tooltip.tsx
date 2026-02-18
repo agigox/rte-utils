@@ -1,4 +1,4 @@
-import { useState, ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 import './Tooltip.css';
 
 export interface TooltipProps {
@@ -15,10 +15,28 @@ export interface TooltipProps {
    * @default 'top'
    */
   position?: 'top' | 'bottom' | 'left' | 'right';
+  /**
+   * Distance in pixels between the tooltip and the trigger element
+   * default 8
+   */
+  offset?: number;
 }
 
-export const Tooltip = ({ content, children, position = 'top' }: TooltipProps) => {
+export const Tooltip = ({ content, children, position = 'top', offset = 8 }: TooltipProps) => {
   const [isVisible, setIsVisible] = useState(false);
+
+  const getOffsetStyle = (): React.CSSProperties => {
+    switch (position) {
+      case 'top':
+        return { bottom: `calc(100% + ${offset}px)` };
+      case 'bottom':
+        return { top: `calc(100% + ${offset}px)` };
+      case 'left':
+        return { right: `calc(100% + ${offset}px)` };
+      case 'right':
+        return { left: `calc(100% + ${offset}px)` };
+    }
+  };
 
   return (
     <div
@@ -27,7 +45,11 @@ export const Tooltip = ({ content, children, position = 'top' }: TooltipProps) =
       onMouseLeave={() => setIsVisible(false)}
     >
       {children}
-      {isVisible && <div className={`tooltip tooltip-${position}`}>{content}</div>}
+      {isVisible && (
+        <div className={`tooltip tooltip-${position}`} style={getOffsetStyle()}>
+          {content}
+        </div>
+      )}
     </div>
   );
 };

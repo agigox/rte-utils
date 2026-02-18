@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Tooltip } from './Tooltip';
 import { MaintenanceIcon, SettingsIcon, UserIcon } from './Icons';
+import { Tooltip } from './Tooltip';
 
 const meta: Meta<typeof Tooltip> = {
   title: 'Components/Tooltip',
@@ -28,6 +28,10 @@ const meta: Meta<typeof Tooltip> = {
     children: {
       control: false,
       description: 'The trigger element that shows the tooltip on hover',
+    },
+    offset: {
+      control: { type: 'number', min: 0, max: 50, step: 1 },
+      description: 'Distance in pixels between the tooltip and the trigger element',
     },
   },
 };
@@ -293,5 +297,31 @@ export const WithCustomElement: Story = {
         Info Badge
       </div>
     </Tooltip>
+  ),
+};
+
+export const WithCustomOffset: Story = {
+  args: {
+    content: 'Tooltip with custom offset (20px)',
+    position: 'top',
+    offset: 20,
+  },
+  render: (args) => (
+    <div style={{ marginTop: '80px' }}>
+      <Tooltip {...args}>
+        <button
+          style={{
+            padding: '8px 16px',
+            backgroundColor: '#005896',
+            color: 'white',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer',
+          }}
+        >
+          Hover me (20px offset)
+        </button>
+      </Tooltip>
+    </div>
   ),
 };
