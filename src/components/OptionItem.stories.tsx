@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { SunIcon } from './Icons';
 import { OptionItem } from './OptionItem';
 
 const meta: Meta<typeof OptionItem> = {
@@ -148,7 +149,7 @@ export const WithIcon: Story = {
   args: {
     type: 'checkbox',
     content: 'Avec icône',
-    icon: <span style={{ fontSize: '1.25rem' }}>⚡</span>,
+    icon: <SunIcon size={24} />,
   },
   parameters: {
     docs: {
@@ -164,7 +165,7 @@ export const WithIconChecked: Story = {
     type: 'checkbox',
     content: 'Avec icône',
     checked: true,
-    icon: <span style={{ fontSize: '1.25rem' }}>⚡</span>,
+    icon: <SunIcon size={24} />,
   },
 };
 

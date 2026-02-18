@@ -12,6 +12,7 @@ export { Gain } from './Gain';
 export { Histogram } from './Histogram';
 export { InputNumber } from './InputNumber';
 export { Modal } from './Modal';
+export { OptionItem } from './OptionItem';
 export { ProductionUnit } from './ProductionUnit';
 export { ProductionUnitContainer } from './ProductionUnitContainer';
 export { ProgressBar } from './ProgressBar';
