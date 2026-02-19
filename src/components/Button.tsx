@@ -13,6 +13,7 @@ interface ButtonProps {
   textColor?: string;
   borderColor?: string;
   size?: 'small' | 'medium' | 'large';
+  style?: React.CSSProperties;
 }
 
 const getIcon = (iconName: string, color: string = 'white'): React.ReactNode => {
@@ -36,6 +37,7 @@ export const Button = ({
   textColor,
   borderColor,
   size = 'large',
+  style,
 }: ButtonProps) => {
   const getSizeStyles = (size: 'small' | 'medium' | 'large'): React.CSSProperties => {
     switch (size) {
@@ -58,6 +60,7 @@ export const Button = ({
       border: `1px solid ${borderColor}`,
       boxSizing: 'border-box',
     }),
+    ...style,
   };
 
   return (

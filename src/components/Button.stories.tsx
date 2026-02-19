@@ -160,3 +160,10 @@ export const BorderSmallSize: Story = {
     textColor: '#4ECDC4',
   },
 };
+
+export const CustomStyle: Story = {
+  args: {
+    text: 'custom style',
+    style: { padding: '4px 8px', height: '24px' },
+  },
+};
