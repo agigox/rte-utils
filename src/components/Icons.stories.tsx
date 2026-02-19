@@ -62,7 +62,7 @@ export const AllIcons: Story = {
         </div>
 
         <div className="icon-item">
-          <Icons.Plus />
+          <Icons.Plus color="black" />
           <span>Plus</span>
         </div>
 
@@ -217,7 +217,7 @@ export const AllIcons: Story = {
         </div>
 
         <div className="icon-item">
-          <Icons.DefaultAlert />
+          <Icons.DefaultAlert color="black" />
           <span>Default Alert</span>
         </div>
 
@@ -253,6 +253,14 @@ export const AllIcons: Story = {
         <div className="icon-item">
           <Icons.CloudLightning />
           <span>Cloud Lightning</span>
+        </div>
+        <div className="icon-item">
+          <Icons.DeclineRounded />
+          <span>Decline Rounded</span>
+        </div>
+        <div className="icon-item">
+          <Icons.Cross color="black" />
+          <span>Cross</span>
         </div>
       </div>
     </div>
@@ -545,6 +553,14 @@ export const NewIconsShowcase: Story = {
 
       <div className="icons-grid">
         <div className="icon-item">
+          <Icons.Cross color="black" />
+          <span>Cross</span>
+        </div>
+        <div className="icon-item">
+          <Icons.DeclineRounded />
+          <span>Decline Rounded</span>
+        </div>
+        <div className="icon-item">
           <Icons.Wind />
           <span>Wind</span>
         </div>
@@ -567,14 +583,6 @@ export const NewIconsShowcase: Story = {
         <div className="icon-item">
           <Icons.Thermometer />
           <span>Thermometer</span>
-        </div>
-        <div className="icon-item">
-          <Icons.RadioEmpty />
-          <span>Radio Empty</span>
-        </div>
-        <div className="icon-item">
-          <Icons.RadioFilled />
-          <span>Radio Filled</span>
         </div>
       </div>
     </div>

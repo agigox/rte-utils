@@ -1410,8 +1410,54 @@ export const WindIcon: React.FC<IconProps> = ({ className, size = 24, color }) =
   </svg>
 );
 
-// Export all icons as a single object for easier imports
-export const Icons = {
+export const CrossIcon: React.FC<IconProps> = ({ className, size = 16, color }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M15.8536 0.146447C15.6583 -0.0488155 15.3417 -0.0488155 15.1464 0.146447L8 7.29289L0.853553 0.146447L0.797475 0.0980345C0.601734 -0.0472018 0.323958 -0.0310644 0.146447 0.146447C-0.0488155 0.341709 -0.0488155 0.658291 0.146447 0.853553L7.29289 8L0.146447 15.1464L0.0980345 15.2025C-0.0472018 15.3983 -0.0310644 15.676 0.146447 15.8536C0.341709 16.0488 0.658291 16.0488 0.853553 15.8536L8 8.70711L15.1464 15.8536L15.2025 15.902C15.3983 16.0472 15.676 16.0311 15.8536 15.8536C16.0488 15.6583 16.0488 15.3417 15.8536 15.1464L8.70711 8L15.8536 0.853553L15.902 0.797475C16.0472 0.601734 16.0311 0.323958 15.8536 0.146447Z"
+      fill={color || '#FFFFFF'}
+    />
+  </svg>
+);
+
+export const DeclineRoundedIcon: React.FC<IconProps> = ({ className, size = 32, color }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 32 32"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M16.0004 2.26706C8.41568 2.26706 2.26706 8.41568 2.26706 16.0004C2.26706 23.5851 8.41568 29.7337 16.0004 29.7337C23.5851 29.7337 29.7337 23.5851 29.7337 16.0004C29.7337 8.41568 23.5851 2.26706 16.0004 2.26706ZM0.400391 16.0004C0.400391 7.38475 7.38475 0.400391 16.0004 0.400391C24.616 0.400391 31.6004 7.38475 31.6004 16.0004C31.6004 24.616 24.616 31.6004 16.0004 31.6004C7.38475 31.6004 0.400391 24.616 0.400391 16.0004Z"
+      fill={color || '#EE695C'}
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M20.6617 11.3398C21.0261 11.7043 21.0261 12.2952 20.6617 12.6597L12.6617 20.6597C12.2972 21.0242 11.7062 21.0242 11.3417 20.6597C10.9772 20.2952 10.9772 19.7043 11.3417 19.3398L19.3417 11.3398C19.7062 10.9753 20.2972 10.9753 20.6617 11.3398Z"
+      fill={color || '#EE695C'}
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M11.3417 11.3398C11.7062 10.9753 12.2972 10.9753 12.6617 11.3398L20.6617 19.3398C21.0261 19.7043 21.0261 20.2952 20.6617 20.6597C20.2972 21.0242 19.7062 21.0242 19.3417 20.6597L11.3417 12.6597C10.9772 12.2952 10.9772 11.7043 11.3417 11.3398Z"
+      fill={color || '#EE695C'}
+    />
+  </svg>
+);
+
+export // Export all icons as a single object for easier imports
+const Icons = {
   Send: SendIcon,
   Edit: EditIcon,
   Trash: TrashIcon,
@@ -1467,6 +1513,8 @@ export const Icons = {
   Sun: SunIcon,
   CloudRain: CloudRainIcon,
   CloudLightning: CloudLightningIcon,
+  DeclineRounded: DeclineRoundedIcon,
+  Cross: CrossIcon,
 };
 
 export default Icons;
