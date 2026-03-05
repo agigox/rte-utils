@@ -43,9 +43,9 @@ interface BuyLineSpotProps {
 export const BuyLineSpot: React.FC<BuyLineSpotProps> = ({
   title = 'Achat 3',
   volume = '',
-  retainedVolume= undefined,
+  retainedVolume = undefined,
   price = '',
-  bidStatus='',
+  bidStatus = '',
   defaultPrice,
   showSecondInput = true,
   showTrashButton = false,
@@ -76,7 +76,7 @@ export const BuyLineSpot: React.FC<BuyLineSpotProps> = ({
     setInternalVolume(newValue);
     onVolumeChange?.(newValue);
   };
- 
+
   const handleVolumeError = (hasError: boolean) => {
     setVolumeHasError(hasError);
   };
@@ -92,11 +92,11 @@ export const BuyLineSpot: React.FC<BuyLineSpotProps> = ({
   useEffect(() => {
     setInternalRetainedVolume(retainedVolume);
   }, [retainedVolume]);
-  
+
   useEffect(() => {
     setInternalPrice(price);
   }, [price]);
-  
+
   const handlePriceChange = (newValue: string) => {
     setInternalPrice(newValue);
     onPriceChange?.(newValue);
@@ -123,7 +123,6 @@ export const BuyLineSpot: React.FC<BuyLineSpotProps> = ({
         setInternalPrice('');
         setVolumeHasError(false);
         setPriceHasError(false);
-
         setIsLoading(false);
       }, 1000);
     }
@@ -145,7 +144,7 @@ export const BuyLineSpot: React.FC<BuyLineSpotProps> = ({
       return 0;
     }
 
-    const volumeNum =parseFloat(internalVolume);
+    const volumeNum = parseFloat(internalVolume);
     if (!isNaN(volumeNum)) {
       if (showSecondInput) {
         const priceNum = parseFloat(internalPrice);
@@ -163,20 +162,21 @@ export const BuyLineSpot: React.FC<BuyLineSpotProps> = ({
 
   return (
     <div
-      className={`buyline ${labels ? 'buyline--has-labels' : ''} ${theme === 'dark' ? 'buyline--dark' : ''} ${theme === 'slate' ? 'buyline--slate' : ''} ${className}`}
+      className={`buyline ${labels ? 'buyline--has-labels' : ''} ${
+        theme === 'dark' ? 'buyline--dark' : ''
+      } ${theme === 'slate' ? 'buyline--slate' : ''} ${className}`}
       style={
         theme === 'dark'
           ? { backgroundColor: '#292E33' }
           : theme === 'slate'
-            ? { backgroundColor: '#3B434A' }
-            : {}
+          ? { backgroundColor: '#3B434A' }
+          : {}
       }
     >
       <div className="buyline__container">
         <div className="buyline__content">
           <div className="buyline__inputs">
             {title && <div className="buyline__title">{title}</div>}
-
             <div className="buyline__input_container">
               {labels?.find((label) => label.key === 'volume') && (
                 <div className="buyline__label--description">
@@ -196,6 +196,7 @@ export const BuyLineSpot: React.FC<BuyLineSpotProps> = ({
                 theme={theme}
               />
             </div>
+
             {showSecondInput && (
               <div className="buyline__input_container">
                 {labels?.find((label) => label.key === 'price') && (
@@ -218,97 +219,110 @@ export const BuyLineSpot: React.FC<BuyLineSpotProps> = ({
               </div>
             )}
           </div>
-         {(bidStatus==='pending') && <div className="buyline__recette">
-            {labels?.find((label) => label.key === 'total') && (
-              <div className="buyline__label--description">
-                {labels.find((label) => label.key === 'total')?.label}
-              </div>
-            )}
-            <div className="buyline__total">
-              <Chip
-                width="fit-content"
-                bgColor={
-                  calculatePrice() === 0
-                    ? theme === 'dark'
-                      ? '#292E33'
-                      : theme === 'slate'
+
+          {(bidStatus === 'pending') && (
+            <div className="buyline__recette">
+              {labels?.find((label) => label.key === 'total') && (
+                <div className="buyline__label--description">
+                  {labels.find((label) => label.key === 'total')?.label}
+                </div>
+              )}
+              <div className="buyline__total">
+                <Chip
+                  width="fit-content"
+                  bgColor={
+                    calculatePrice() === 0
+                      ? theme === 'dark'
+                        ? '#292E33'
+                        : theme === 'slate'
                         ? '#3B434A'
                         : '#F2F4F4'
-                    : theme === 'dark' || theme === 'slate'
+                      : theme === 'dark' || theme === 'slate'
                       ? '#005896'
                       : '#E1F5FD'
-                }
-              >
-                <ValueWithUnit
-                  cost={calculatePrice()}
-                  textColor={
-                    calculatePrice() === 0
-                      ? '#999FA1'
-                      : theme === 'dark' || theme === 'slate'
+                  }
+                >
+                  <ValueWithUnit
+                    cost={calculatePrice()}
+                    textColor={
+                      calculatePrice() === 0
+                        ? '#999FA1'
+                        : theme === 'dark' || theme === 'slate'
                         ? '#B3E5F9'
                         : '#005896'
-                  }
-                  type="euro"
-                />
-              </Chip>
+                    }
+                    type="euro"
+                  />
+                </Chip>
+              </div>
             </div>
-          </div>}
+          )}
+
+          {retainedVolume && (
+            <div className="buyline__recette ml-20">
+              <div className="buyline__total">
+                <Chip
+                  width="fit-content"
+                  bgColor={
+                    theme === 'dark'
+                      ? '#005896'
+                      : theme === 'slate'
+                      ? '#005896'
+                      : '#E1F5FD'
+                  }
+                >
+                  <ValueWithUnit
+                    cost={internalRetainedVolume}
+                    textColor={
+                      theme === 'dark' || theme === 'slate'
+                        ? '#B3E5F9'
+                        : '#005896'
+                    }
+                    type="megawatt"
+                  />
+                </Chip>
+              </div>
+            </div>
+          )}
         </div>
-         {retainedVolume && (
-          <div className="buyline__recette ml-20">
-            
-            <div className="buyline__total">
-              <Chip
-                width="fit-content"
-                bgColor={
-                  theme === 'dark'
-                    ? '#005896'
-                    : theme === 'slate'
-                    ? '#005896'
-                    : '#E1F5FD'
-                }
-              >
-                <ValueWithUnit
-                  cost={internalRetainedVolume}
-                  textColor={
-                    theme === 'dark' || theme === 'slate'
-                      ? '#B3E5F9'
-                      : '#005896'
-                  }
-                  type="megawatt"
-                />
-              </Chip>
-            </div>
-          </div>
-        )}
-        {showStatus ? (
+
+        {/* Status Icon - Always visible when showStatus is provided */}
+        {showStatus && (
           <div className="buyline__status">
             {showStatus === 'accepted' ? (
               <SuccessIcon className="buyline__status-icon" />
             ) : showStatus === 'partial' ? (
               <PartialIcon className="buyline__status-icon" />
+            ) : showStatus === 'refused' ? (
+              <FailureIcon className="buyline__status-icon" />
+            ) : showStatus === 'pending' ? (
+              <SpinnerIcon className="buyline__status-icon" />
             ) : (
               <FailureIcon className="buyline__status-icon" />
             )}
           </div>
-        ) : (
+        )}
+
+        {/* Action Buttons - Only visible when not disabled */}
+        {!disabled && (
           <div className="buyline__actions">
-            {!disabled && (
-              <button
-                className={`buyline__send ${isSendDisabled || isLoading ? 'buyline__send--disabled' : ''}`}
-                onClick={handleSend}
-                disabled={isSendDisabled || isLoading}
-                aria-label={isLoading ? 'Sending...' : iconType === 'edit' ? 'Edit' : 'Send'}
-              >
-                {isLoading ? (
-                  <SpinnerIcon className="buyline__icon" />
-                ) : iconType === 'edit' ? (
-                  <EditIcon className="buyline__icon" disabled={isSendDisabled} />
-                ) : (
-                  <SendIcon className="buyline__icon" disabled={isSendDisabled} />
-                )}
-              </button>
-            )}
+            <button
+              className={`buyline__send ${
+                isSendDisabled || isLoading ? 'buyline__send--disabled' : ''
+              }`}
+              onClick={handleSend}
+              disabled={isSendDisabled || isLoading}
+              aria-label={isLoading ? 'Sending...' : iconType === 'edit' ? 'Edit' : 'Send'}
+            >
+              {isLoading ? (
+                <SpinnerIcon className="buyline__icon" />
+              ) : iconType === 'edit' ? (
+                <EditIcon className="buyline__icon" disabled={isSendDisabled} />
+              ) : (
+                <SendIcon className="buyline__icon" disabled={isSendDisabled} />
+              )}
+            </button>
+
             {showTrashButton && (
               <button
                 className="buyline__trash"
@@ -321,8 +335,8 @@ export const BuyLineSpot: React.FC<BuyLineSpotProps> = ({
             )}
           </div>
         )}
-        
       </div>
+
       {hasBorderBottom && <div className="buyline__border" />}
     </div>
   );
