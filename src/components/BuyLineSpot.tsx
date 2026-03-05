@@ -160,6 +160,9 @@ export const BuyLineSpot: React.FC<BuyLineSpotProps> = ({
 
   const isSendDisabled = internalVolume.trim() === '' || volumeHasError || priceHasError;
 
+  // Ne pas afficher le statut "pending" si on est en train de créer l'offre (isLoading)
+  const shouldShowStatus = showStatus && !(showStatus === 'pending' && isLoading);
+
   return (
     <div
       className={`buyline ${labels ? 'buyline--has-labels' : ''} ${
@@ -286,8 +289,8 @@ export const BuyLineSpot: React.FC<BuyLineSpotProps> = ({
           )}
         </div>
 
-        {/* Status Icon - Always visible when showStatus is provided */}
-        {showStatus && (
+        {/* Status Icon - Visible seulement si on doit afficher le statut et pas en train de charger */}
+        {shouldShowStatus && (
           <div className="buyline__status">
             {showStatus === 'accepted' ? (
               <SuccessIcon className="buyline__status-icon" />
@@ -295,11 +298,9 @@ export const BuyLineSpot: React.FC<BuyLineSpotProps> = ({
               <PartialIcon className="buyline__status-icon" />
             ) : showStatus === 'refused' ? (
               <FailureIcon className="buyline__status-icon" />
-            ) : showStatus === 'pending' ? (
+            ) : showStatus === 'pending' && !isLoading ? (
               <SpinnerIcon className="buyline__status-icon" />
-            ) : (
-              <FailureIcon className="buyline__status-icon" />
-            )}
+            ) : null}
           </div>
         )}
 
