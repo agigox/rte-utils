@@ -290,7 +290,7 @@ export const BuyLineSpot: React.FC<BuyLineSpotProps> = ({
         </div>
 
         {/* Status Icon - Visible seulement si on doit afficher le statut et pas en train de charger */}
-        {shouldShowStatus && (
+        {/* {shouldShowStatus && (
           <div className="buyline__status">
             {showStatus === 'accepted' ? (
               <SuccessIcon className="buyline__status-icon" />
@@ -302,8 +302,14 @@ export const BuyLineSpot: React.FC<BuyLineSpotProps> = ({
               <SpinnerIcon className="buyline__status-icon" />
             ) : null}
           </div>
+        )} */}
+        {shouldShowStatus && showStatus !== 'pending' && (
+          <div className="buyline__status">
+            {showStatus === 'accepted' && <SuccessIcon className="buyline__status-icon" />}
+            {showStatus === 'partial' && <PartialIcon className="buyline__status-icon" />}
+            {showStatus === 'refused' && <FailureIcon className="buyline__status-icon" />}
+          </div>
         )}
-
         {/* Action Buttons - Only visible when not disabled */}
         {!disabled && (
           <div className="buyline__actions">
