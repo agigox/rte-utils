@@ -25,6 +25,8 @@ interface BuyLineProps {
   disabled?: boolean;
   volumeMax?: { value: number };
   priceMax?: { value: number };
+   volumeMin?: { value: number };
+  priceMin?: { value: number };
   iconType?: 'send' | 'edit';
   labels?: Array<{
     key: 'volume' | 'price' | 'total';
@@ -52,6 +54,8 @@ export const BuyLine: React.FC<BuyLineProps> = ({
   disabled = false,
   volumeMax,
   priceMax,
+  volumeMin = { value: 0 },
+  priceMin = { value: 0 },
   iconType = 'send',
   labels,
   onVolumeChange,
@@ -202,7 +206,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
                 onChange={handleVolumeChange}
                 onErrorChange={handleVolumeError}
                 disabled={disabled}
-                min={{ value: 0 }}
+                min={volumeMin}
                 max={volumeMax || { value: 9999 }}
                 showSuccess={showSuccessState}
                 inputWidth={70}
@@ -222,7 +226,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
                   onChange={handlePriceChange}
                   onErrorChange={handlePriceError}
                   disabled={disabled}
-                  min={{ value: 0 }}
+                  min={priceMin}
                   max={priceMax || { value: 9999 }}
                   showSuccess={showSuccessState}
                   inputWidth={85}
