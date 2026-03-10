@@ -1,6 +1,6 @@
 {
   "name": "rte-utils",
-  "version": "1.2.318",
+  "version": "1.2.319",
   "description": "React components library in TypeScript for agigox projects",
   "type": "module",
   "main": "dist/index.js",
