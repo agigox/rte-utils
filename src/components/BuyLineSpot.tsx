@@ -22,6 +22,7 @@ interface BuyLineSpotProps {
   defaultPrice?: number;
   showSecondInput?: boolean;
   showTrashButton?: boolean;
+  showSendButton?: boolean;
   disabled?: boolean;
   volumeMax?: { value: number };
   priceMax?: { value: number };
@@ -49,6 +50,7 @@ export const BuyLineSpot: React.FC<BuyLineSpotProps> = ({
   defaultPrice,
   showSecondInput = true,
   showTrashButton = false,
+  showSendButton = true,
   disabled = false,
   volumeMax,
   priceMax,
@@ -326,7 +328,7 @@ export const BuyLineSpot: React.FC<BuyLineSpotProps> = ({
               ) : iconType === 'edit' ? (
                 <EditIcon className="buyline__icon" disabled={isSendDisabled} />
               ) : (
-                <SendIcon className="buyline__icon" disabled={isSendDisabled} />
+                showSendButton && <SendIcon className="buyline__icon" disabled={isSendDisabled} />
               )}
             </button>
 
