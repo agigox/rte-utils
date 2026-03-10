@@ -25,7 +25,7 @@ interface BuyLineProps {
   disabled?: boolean;
   volumeMax?: { value: number };
   priceMax?: { value: number };
-   volumeMin?: { value: number };
+  volumeMin?: { value: number };
   priceMin?: { value: number };
   iconType?: 'send' | 'edit';
   labels?: Array<{
@@ -45,9 +45,9 @@ interface BuyLineProps {
 export const BuyLine: React.FC<BuyLineProps> = ({
   title = 'Achat 3',
   volume = '',
-  retainedVolume= undefined,
+  retainedVolume = undefined,
   price = '',
-  bidStatus='',
+  bidStatus = '',
   defaultPrice,
   showSecondInput = true,
   showTrashButton = false,
@@ -76,13 +76,48 @@ export const BuyLine: React.FC<BuyLineProps> = ({
   const [retainedVolumeHasError, setRetainedVolumeHasError] = useState(false);
   const [priceHasError, setPriceHasError] = useState(false);
 
+  // MODIFICATION: La valeur devient automatiquement le min si elle est inférieure
   const handleVolumeChange = (newValue: string) => {
+    const numValue = parseFloat(newValue);
+    
+    // Si c'est un nombre et qu'il est inférieur au min, on force la valeur au min
+    if (newValue !== '' && !isNaN(numValue) && volumeMin && numValue < volumeMin.value) {
+      const minValue = volumeMin.value.toString();
+      setInternalVolume(minValue);
+      onVolumeChange?.(minValue);
+      setVolumeHasError(false); // Pas d'erreur puisque c'est maintenant valide
+      return;
+    }
+
     setInternalVolume(newValue);
     onVolumeChange?.(newValue);
   };
- 
+
+  // MODIFICATION: La valeur devient automatiquement le min si elle est inférieure
+  const handlePriceChange = (newValue: string) => {
+    const numValue = parseFloat(newValue);
+    
+    // Si c'est un nombre et qu'il est inférieur au min, on force la valeur au min
+    if (newValue !== '' && !isNaN(numValue) && priceMin && numValue < priceMin.value) {
+      const minValue = priceMin.value.toString();
+      setInternalPrice(minValue);
+      onPriceChange?.(minValue);
+      setPriceHasError(false); // Pas d'erreur puisque c'est maintenant valide
+      return;
+    }
+
+    setInternalPrice(newValue);
+    onPriceChange?.(newValue);
+  };
+
   const handleVolumeError = (hasError: boolean) => {
-    setVolumeHasError(hasError);
+    // Vérifier aussi la contrainte de min dans l'erreur
+    const numValue = parseFloat(internalVolume);
+    if (!isNaN(numValue) && volumeMin && numValue < volumeMin.value) {
+      setVolumeHasError(true);
+    } else {
+      setVolumeHasError(hasError);
+    }
   };
 
   const handleRetainedVolumeError = (hasError: boolean) => {
@@ -96,18 +131,18 @@ export const BuyLine: React.FC<BuyLineProps> = ({
   useEffect(() => {
     setInternalRetainedVolume(retainedVolume);
   }, [retainedVolume]);
-  
+
   useEffect(() => {
     setInternalPrice(price);
   }, [price]);
-  
-  const handlePriceChange = (newValue: string) => {
-    setInternalPrice(newValue);
-    onPriceChange?.(newValue);
-  };
 
   const handlePriceError = (hasError: boolean) => {
-    setPriceHasError(hasError);
+    const numValue = parseFloat(internalPrice);
+    if (!isNaN(numValue) && priceMin && numValue < priceMin.value) {
+      setPriceHasError(true);
+    } else {
+      setPriceHasError(hasError);
+    }
   };
 
   const handleSend = () => {
@@ -235,7 +270,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
               </div>
             )}
           </div>
-         {(bidStatus==='accepted' || bidStatus==='pending') && <div className="buyline__recette">
+          {(bidStatus === 'accepted' || bidStatus === 'pending') && <div className="buyline__recette">
             {labels?.find((label) => label.key === 'total') && (
               <div className="buyline__label--description">
                 {labels.find((label) => label.key === 'total')?.label}
@@ -271,9 +306,9 @@ export const BuyLine: React.FC<BuyLineProps> = ({
             </div>
           </div>}
         </div>
-         {retainedVolume && (
+        {retainedVolume && (
           <div className="buyline__recette ml-20">
-            
+
             <div className="buyline__total">
               <Chip
                 width="fit-content"
@@ -281,8 +316,8 @@ export const BuyLine: React.FC<BuyLineProps> = ({
                   theme === 'dark'
                     ? '#005896'
                     : theme === 'slate'
-                    ? '#005896'
-                    : '#E1F5FD'
+                      ? '#005896'
+                      : '#E1F5FD'
                 }
               >
                 <ValueWithUnit
@@ -338,7 +373,7 @@ export const BuyLine: React.FC<BuyLineProps> = ({
             )}
           </div>
         )}
-        
+
       </div>
       {hasBorderBottom && <div className="buyline__border" />}
     </div>
