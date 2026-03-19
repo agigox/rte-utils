@@ -79,8 +79,5 @@
   "homepage": "https://github.com/agigox/rte-utils#readme",
   "optionalDependencies": {
     "fsevents": "^2.3.3"
-  },
-  "dependencies": {
-    "rte-utils": "^1.2.251"
   }
 }
