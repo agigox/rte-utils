@@ -65,7 +65,7 @@ export const OptionItem = ({
         isChecked ? (
           <CheckboxFilledIcon size={24} />
         ) : (
-          <CheckboxEmptyIcon size={24} />
+          <CheckboxEmptyIcon size={24} color="black" />
         )
       ) : isChecked ? (
         <RadioFilledIcon size={24} />
