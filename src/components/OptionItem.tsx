@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CheckboxEmptyIcon, CheckboxFilledIcon, RadioEmptyIcon, RadioFilledIcon } from './Icons';
+import { CheckboxEmptyOutlinedIcon, CheckboxFilledOutlinedIcon, RadioEmptyIcon, RadioFilledIcon } from './Icons';
 import './OptionItem.css';
 
 export interface OptionItemProps {
@@ -63,9 +63,9 @@ export const OptionItem = ({
     >
       {type === 'checkbox' ? (
         isChecked ? (
-          <CheckboxFilledIcon size={24} />
+          <CheckboxFilledOutlinedIcon size={24} />
         ) : (
-          <CheckboxEmptyIcon size={24} color="black" />
+          <CheckboxEmptyOutlinedIcon size={24} />
         )
       ) : isChecked ? (
         <RadioFilledIcon size={24} />

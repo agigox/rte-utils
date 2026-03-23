@@ -33,8 +33,7 @@ export {
   ArrowDownIcon,
   BotIcon,
   CheckboxEmptyIcon,
-  CheckboxFilledIcon,
-  CloudLightningIcon,
+  CheckboxFilledIcon, CheckboxEmptyOutlinedIcon as CheckboxOutlinedIcon, CloudLightningIcon,
   CloudRainIcon,
   CloudSnowIcon,
   CommentIcon,
@@ -87,4 +86,6 @@ export {
   UserIcon,
   UserWithCircleIcon,
   WindIcon,
+  CheckboxFilledOutlinedIcon,
 } from './Icons';
+

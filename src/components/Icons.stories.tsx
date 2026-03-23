@@ -262,6 +262,14 @@ export const AllIcons: Story = {
           <Icons.Cross color="black" />
           <span>Cross</span>
         </div>
+        <div className="icon-item">
+          <Icons.CheckboxOutlined color='black'/>
+          <span>Checkbox Outlined</span>
+        </div>
+        <div className="icon-item">
+          <Icons.CheckboxFilledOutlined />
+          <span>Checkbox Filled Outlined</span>
+        </div>
       </div>
     </div>
   ),
@@ -550,7 +558,18 @@ export const NewIconsShowcase: Story = {
     <div className="icons-showcase">
       <h2>Newly Added Icons</h2>
       <p>Latest additions to the icon library</p>
-
+      <div className='icons-grid'>
+        <div className="icon-item">
+          <Icons.CheckboxFilledOutlined />
+          <span>Checkbox Filled Outlined</span>
+        </div>
+      </div>
+      <div className='icons-grid'>
+        <div className="icon-item">
+          <Icons.CheckboxOutlined />
+          <span>Checkbox Outlined</span>
+        </div>
+      </div>
       <div className="icons-grid">
         <div className="icon-item">
           <Icons.Cross color="black" />
@@ -575,14 +594,6 @@ export const NewIconsShowcase: Story = {
         <div className="icon-item">
           <Icons.CloudRain />
           <span>Cloud Rain</span>
-        </div>
-        <div className="icon-item">
-          <Icons.CloudLightning />
-          <span>Cloud Lightning</span>
-        </div>
-        <div className="icon-item">
-          <Icons.Thermometer />
-          <span>Thermometer</span>
         </div>
       </div>
     </div>
